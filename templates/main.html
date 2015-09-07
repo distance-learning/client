@@ -1,0 +1,91 @@
+<div class="col-md-12">
+	<div class="container col-md-8">
+		<ul class="nav nav-tabs" role="tablist" id="tabContent">
+		  <li role="presentation" class="active">
+		  	<a href="#university_news" aria-controls="university_news" role="tab" data-toggle="tab">Новости университета</a>
+		  </li>
+		  <li role="presentation">
+		  	<a href="#faculty_news" aria-controls="faculty_news" role="tab" data-toggle="tab">Новости факультета</a>
+		  </li>
+		</ul>	
+
+
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane fade in active" id="university_news" > 
+				<div class="panel panel-default" ng-repeat="article in university_news">
+					<div class="panel-heading">
+						<h3 class="panel-title">{{ article.title }}</h3>
+					</div>
+
+					<div class="panel-body">
+						{{ article.body }}
+					</div>
+
+					<div class="panel-footer">
+						Дата создания: {{ article.created_at }}
+					</div>
+				</div>
+			</div>
+
+			<div role="tabpanel" class="tab-pane fade" id="faculty_news"> 
+				<div class="panel panel-default" ng-repeat="article in faculty_news">
+					<div class="panel-heading">
+						<h3 class="panel-title">{{ article.title }}</h3>
+					</div>
+
+					<div class="panel-body">
+						{{ article.body }}
+					</div>
+
+					<div class="panel-footer">
+						Дата создания: {{ article.created_at }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-4">
+		<div class="col-md-12" ng-controller="AuthCtrl">
+			<h3>Форма входа</h3>
+
+			<form class="form">
+				<div class="row form-group">
+					<label for="email">Емейл:</label>
+				
+					<input type="email" id="email" class="form-control" ng-model="user.email" />
+				</div>
+
+				<div class="row form-group">
+					<label for="password">Пароль:</label>
+				
+					<input type="password" id="password" class="form-control" ng-model="user.password" />
+				</div>
+
+				<div class="row form-group pull-right">
+					<input type="submit" value="Ввойти" class="btn btn-success" ng-click="submit()" />
+				</div>
+			</form>
+		</div>
+
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Имя Фамилия</h3>
+				</div>
+
+				<div class="panel-body">
+					<img src="#" />
+
+					<p>
+						Факультет: Название факультета
+						<br />
+						Курс: Номер курса
+						<br />
+						Группа: Название группы
+					</p>
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>

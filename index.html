@@ -1,0 +1,54 @@
+<!Doctype html>
+<html ng-app="universityService">
+	<head>
+		<meta charset="utf-8" />
+	
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script src="//code.angularjs.org/1.2.20/angular.js"></script>
+	    <script src="//code.angularjs.org/1.2.20/angular-route.js"></script>
+		<script src="js/models.js"></script>
+		<script src="js/controllers.js"></script>
+		<script src="js/app.js"></script>
+
+		<script>
+			$(document).ready(function () {
+			    $('.container').on('click.tab.data-api', 'a[data-toggle="tab"]', function (e) {
+			        e.preventDefault();
+
+			        var tab = $($(this).attr('href'));
+			        var activate = !tab.hasClass('active');
+			        $('div.tab-content>div.tab-pane.active').removeClass('active');
+			        $('ul.nav.nav-tabs>li.active').removeClass('active');
+			        if (activate) {
+			            $(this).tab('show')
+			        }
+			    });
+			})
+		</script>
+	</head>
+
+	<body role="document">
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-collapse collapse" id="navbar">
+					<ul class="nav navbar-nav">
+						<li>
+							<a href="/">Главная</a>
+						</li>
+
+						<li>
+							<a href="/#/faculties">Факультеты</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<div class="container theme-showcase" role="main" style="margin-top: 100px">
+			<div ng-view></div>
+		</div>
+	</body>
+</html>
