@@ -25,4 +25,9 @@
 	angularApp.controller('FacultyCtrl', ['$scope', '$routeParams', 'findFacultyById', function ($scope, $routeParams, findFacultyById) {
 		$scope.faculty = findFacultyById($routeParams.facultyId);
 	}]);
+
+
+	angularApp.controller('GroupCtrl', ['$scope', '$routeParams', 'findGroupById', function ($scope, $routeParams, findGroupById) {
+		$scope.group = findGroupById($routeParams.groupId);
+	}]);
 })()

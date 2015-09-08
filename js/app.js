@@ -4,8 +4,8 @@
     
     angularApp.config(config);
 
-    config.$inject = ['$routeProvider'];
-    function config($routeProvider) {
+    config.$inject = ['$routeProvider', '$locationProvider'];
+    function config($routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {
                 controller: 'NewsCtrl',
@@ -18,6 +18,14 @@
             .when('/faculties/:facultyId', {
                 controller: 'FacultyCtrl',
                 templateUrl: 'templates/faculties/show.html'
+            })
+            .when('/faculties/:facultyId/groups/:groupId', {
+                controller: 'GroupCtrl',
+                templateUrl: 'templates/faculties/groups/show.html'
+            })
+            .when('/admin/', {
+                controller: 'FacultiesCtrl',
+                templateUrl: 'templates/faculties/index.html'
             })
             .otherwise({
                 templateUrl: 'templates/errors/404.html'
