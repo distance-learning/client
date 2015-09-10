@@ -1,7 +1,12 @@
-<div>
-	Название факультета: {{ faculty.name }}
+<clientMenu></clientMenu>
 
-	<div class="col-md-12" ng-repeat="group in faculty.groups">
-		<a href="/#/faculties/{{faculty.id}}/groups/{{group.id}}">{{ group.name }}</a>
+		
+<div class="container theme-showcase" role="main" style="margin-top: 100px">
+	<div>
+		Название факультета: {{ faculty.name }}
+
+		<div class="col-md-12" ng-repeat="group in faculty.groups">
+			<a href="/#/faculties/{{faculty.id}}/groups/{{group.id}}">{{ group.name }}</a>
+		</div>
 	</div>
 </div>

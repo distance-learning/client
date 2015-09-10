@@ -10,45 +10,28 @@
 		<script src="bower_components/angular/angular.min.js"></script>
 	    <script src="bower_components/angular-route/angular-route.min.js"></script>
 		<script src="js/models.js"></script>
+		<script src="js/directives.js"></script>
 		<script src="js/controllers.js"></script>
 		<script src="js/app.js"></script>
 
 		<script>
-			// $(document).ready(function () {
-			//     $('.container').on('click.tab.data-api', 'a[data-toggle="tab"]', function (e) {
-			//         e.preventDefault();
+			$(document).ready(function () {
+			    $('.container').on('click.tab.data-api', 'a[data-toggle="tab"]', function (e) {
+			        e.preventDefault();
 
-			//         var tab = $($(this).attr('href'));
-			//         var activate = !tab.hasClass('active');
-			//         $('div.tab-content>div.tab-pane.active').removeClass('active');
-			//         $('ul.nav.nav-tabs>li.active').removeClass('active');
-			//         if (activate) {
-			//             $(this).tab('show')
-			//         }
-			//     });
-			// })
+			        var tab = $($(this).attr('href'));
+			        var activate = !tab.hasClass('active');
+			        $('div.tab-content>div.tab-pane.active').removeClass('active');
+			        $('ul.nav.nav-tabs>li.active').removeClass('active');
+			        if (activate) {
+			            $(this).tab('show')
+			        }
+			    });
+			})
 		</script>
 	</head>
 
-	<body role="document">
-		<nav class="navbar navbar-inverse navbar-fixed-top">
-			<div class="container">
-				<div class="navbar-collapse collapse" id="navbar">
-					<ul class="nav navbar-nav">
-						<li>
-							<a href="/">Главная</a>
-						</li>
+	<body role="document" ng-view>
 
-						<li>
-							<a href="/#/faculties">Факультеты</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-
-		<div class="container theme-showcase" role="main" style="margin-top: 100px">
-			<div ng-view></div>
-		</div>
 	</body>
 </html>

@@ -1,5 +1,5 @@
 (function(){
-	var angularApp = angular.module('university.controllers', ['university.models']);
+	var angularApp = angular.module('university.controllers', ['university.models', 'university.directives']);
 
 	angularApp.controller('NewsCtrl', function ($scope) {
 		$scope.university_news = [
