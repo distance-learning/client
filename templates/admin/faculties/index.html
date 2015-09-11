@@ -2,6 +2,15 @@
 
 		
 <div class="container theme-showcase" role="main" style="margin-top: 100px">
+
+	<div flash-alert="success" active-class="in" class="alert fade">
+		<span class="alert-message">{{flash.message}}</span>
+	</div>
+
+	<div class="col-md-12">
+		<a href="/#/admin/faculties/new" class="btn btn-primary pull-right">Создать факультет</a>
+	</div>
+
 	<div class="col-md-12">
 		<table class="table">
 			<tr>
@@ -16,7 +25,7 @@
 
 			<tr ng-repeat="faculty in faculties">
 				<td>
-					<a href="/#/faculties/{{ faculty.id }}">{{ faculty.name}}</a>
+					<a href="/#/admin/faculties/{{ faculty.id }}">{{ faculty.name}}</a>
 				</td>
 
 				<td>
