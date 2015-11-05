@@ -1,9 +1,18 @@
 {
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
-  "name": "Distance learning",
+  "name": "distanceLearning",
   "description": "Systeam of distance learning",
-  "repository": "https://constantinez@bitbucket.org/valiknet/distancelearningfront-end.git",
+  "repository": "https://constantinez@bitbucket.org/distancelearning/distancelearningfront-end.git",
   "license": "MIT",
-  "devDependencies": {}
+  "devDependencies": {
+    "browser-sync": "^2.9.11",
+    "del": "^2.0.2",
+    "gulp": "^3.9.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-rename": "^1.2.2"
+  },
+  "dependencies": {
+    "angular": "^1.4.7"
+  }
 }
