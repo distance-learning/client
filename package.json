@@ -5,6 +5,9 @@
   "description": "Systeam of distance learning",
   "repository": "https://constantinez@bitbucket.org/distancelearning/distancelearningfront-end.git",
   "license": "MIT",
+  "scripts": {
+    "start": "gulp serve"
+  },
   "devDependencies": {
     "browser-sync": "^2.9.11",
     "del": "^2.0.2",

@@ -9,7 +9,7 @@ gulp.task('scripts', function () {
   gulp.src(['app/**/*.js', '!app/**/*.min.js'])
       .pipe(plumber())
       .pipe(rename({suffix: '.min'}))
-      .pipe(gulp.dest('./app/'))
+      .pipe(gulp.dest('./build/'))
       .pipe(reload({stream: true}));
 });
 
@@ -32,7 +32,7 @@ gulp.task('browserSync', function () {
 
 gulp.task('watch', function () {
   gulp.watch('app/**/*.html', ['html', 'build:copyApp']);
-  gulp.watch('app/**/*.js', ['scripts', 'build:copyJS']);
+  gulp.watch('app/**/*.js', ['scripts']);
 });
 
 gulp.task('build:cleanFolder', function (callback) {
@@ -46,16 +46,11 @@ gulp.task('build:copyApp', function () {
       .pipe(gulp.dest('./build/'));
 });
 
-gulp.task('build:copyJS', function () {
-  return gulp.src('app/**/*.min.js')
-      .pipe(gulp.dest('./build/'));
-});
-
 gulp.task('build:remove', function (callback) {
   del([
     'build/less/'
   ], callback);
 });
 
-gulp.task('build', ['build:cleanFolder', 'build:copyApp', 'build:copyJS', 'build:remove']);
+gulp.task('build', ['build:cleanFolder', 'build:copyApp', 'build:remove']);
 gulp.task('serve', ['scripts', 'html', 'build', 'browserSync', 'watch']);
