@@ -1,7 +1,10 @@
-'use strict';
+(function () {
+  'use strict';
 
-angular.module('distanceLearning.controller', []);
+  angular
+      .module('distanceLearning', [
+        'distanceLearning.home',
+        'distanceLearning.menuClient'
+      ]);
 
-angular.module('distanceLearning',[
-  'distanceLearning.controller'
-]);
+})();

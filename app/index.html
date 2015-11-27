@@ -4,14 +4,23 @@
   <title>Calculation capacity</title>
 </head>
 <body>
-  <div ng-controller="HomeController">
-    {{ title }}
-  </div>
+
+  <home></home>
 
   <script src="/node_modules/angular/angular.min.js"></script>
   <script src="app.min.js"></script>
 
+  <!--module-->
+  <script src="app.min.js"></script>
+  <script src="home/home.module.min.js"></script>
+
+  <!--directive-->
+  <script src="home/home.directive.min.js"></script>
+
+  <!--service / util-->
+  <script src="home/home.service.min.js"></script>
+
   <!--controllers-->
-  <script src="Home/home.controller.min.js"></script>
+  <script src="home/home.controller.min.js"></script>
 </body>
 </html>
