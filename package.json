@@ -16,6 +16,8 @@
     "gulp-rename": "^1.2.2"
   },
   "dependencies": {
-    "angular": "^1.4.7"
+    "angular": "^1.4.7",
+    "bootstrap": "^3.3.6",
+    "jquery": "^2.1.4"
   }
 }
