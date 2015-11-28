@@ -33,6 +33,7 @@ gulp.task('browserSync', function () {
 gulp.task('watch', function () {
   gulp.watch('app/**/*.html', ['html', 'build:copyApp']);
   gulp.watch('app/**/*.js', ['scripts']);
+  gulp.watch('app/**/*.css', ['build:copyCss']);
 });
 
 gulp.task('build:cleanFolder', function (callback) {
@@ -44,6 +45,12 @@ gulp.task('build:cleanFolder', function (callback) {
 gulp.task('build:copyApp', function () {
   return gulp.src(['app/**/*.*', '!app/**/*.js'])
       .pipe(gulp.dest('./build/'));
+});
+
+gulp.task('build:copyCss', function () {
+  return gulp.src('app/**/*.css')
+      .pipe(gulp.dest('./build/'))
+      .pipe(reload({stream: true}));
 });
 
 gulp.task('build:remove', function (callback) {
