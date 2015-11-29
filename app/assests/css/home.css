@@ -1,0 +1,20 @@
+.home-page p,
+.home-page li,
+.home-page li span{
+  font-size: 14px;
+  font-family: "Arial";
+  color: rgb(157, 155, 154);
+}
+.home-page .header-info {
+  background-image: url("/assests/images/header-info-background.jpg");
+}
+.home-page .header-info div:last-child {
+  font-size: 14px;
+  font-family: "Arial";
+  text-align: left;
+  color: rgb(157, 155, 154);
+  max-width: 710px;
+}
+.home-page li{
+  color: #e97e59;
+}
