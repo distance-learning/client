@@ -3,6 +3,7 @@
 
   angular
       .module('distanceLearning.home', [
-          'distanceLearning.menuClient'
+          'distanceLearning.menuClient',
+          'distanceLearning.news'
       ]);
 })();

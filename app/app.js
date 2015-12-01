@@ -5,7 +5,8 @@
       .module('distanceLearning', [
         'ngMaterial',
         'distanceLearning.home',
-        'distanceLearning.menuClient'
+        'distanceLearning.menuClient',
+        'distanceLearning.news'
       ]);
 
 })();

@@ -1,0 +1,19 @@
+.news {
+  font-size: 14px;
+  font-family: "Arial";
+  color: rgb(84, 85, 85);
+}
+
+.news md-tabs {
+  max-width: 900px;
+  max-height: 1200px;
+}
+
+.news md-ink-bar {
+  background-color: rgba(233, 126, 89, 0.99);
+}
+
+.news md-tabs .md-tab.md-active,
+.news md-tabs .md-tab:hover {
+  color: #e97e59;
+}
