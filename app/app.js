@@ -6,7 +6,8 @@
         'ngMaterial',
         'distanceLearning.home',
         'distanceLearning.menuClient',
-        'distanceLearning.news'
+        'distanceLearning.news',
+        'distanceLearning.faculty'
       ]);
 
 })();

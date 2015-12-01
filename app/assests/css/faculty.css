@@ -1,0 +1,57 @@
+.faculty {
+  font-size: 14px;
+  font-family: "Arial";
+  color: rgb(84, 85, 85);
+}
+
+.faculty .faculty-general-title {
+  font-size: 24px;
+  font-family: "Times New Roman";
+  color: rgb(59, 60, 61);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.faculty .faculty-container {
+  max-width: 1200px;
+  overflow: auto;
+}
+
+.faculty .faculty-image {
+  background-color: rgb(233, 126, 89);
+  width: 220px;
+  height: 220px;
+  min-height: 220px;
+  min-width: 220px
+}
+
+.faculty .faculty-description {
+  font-size: 12px;
+  font-family: "Arial";
+  color: rgb(59, 60, 61);
+  text-align: left;
+  width: 297px;
+}
+
+.faculty .faculty-description .faculty-description-name {
+  font-size: 18px;
+  font-family: "Times New Roman";
+  color: rgb(59, 60, 61);
+  text-transform: uppercase;
+  border-bottom: 1px solid #e97e59;
+}
+
+.faculty .faculty-description .faculty-description-content {
+  max-width: 450px;
+  margin-top: 10px;
+}
+
+.faculty .faculty-objects li {
+  margin: 3px;
+}
+
+.faculty .faculty-objects li span {
+  font-size: 14px;
+  font-family: "Arial";
+  color: rgb(84, 85, 85);
+}
