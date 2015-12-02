@@ -1,0 +1,24 @@
+<div class="teacher"
+     layout="column" layout-align="center center"
+     ng-cloak>
+  <div class="teacher-general-title">
+    Нашi вчителi
+  </div>
+  <div class="teacher-container"
+       layout="row" layout-sm="column" layout-align="center center"
+       layout-wrap>
+    <div class="teacher-content"
+         ng-repeat="item in teacher.teachers"
+         layout-wrap>
+      <div class="teacher-image">
+        <img ng-src="{{item.image}}" alt="">
+      </div>
+      <div class="teacher-name">
+        <span>{{ item.name }}</span>
+      </div>
+      <div class="teacher-description">
+        {{ item.description }}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+.teacher {
+  background-color: rgb(167, 166, 166);
+  width: auto;
+}
+
+.teacher .teacher-general-title {
+  font-size: 24px;
+  font-family: "Times New Roman";
+  color: rgb(59, 60, 61);
+  text-transform: uppercase;
+  text-align: center;
+  margin: 15px;
+}
+
+.teacher .teacher-container {
+  max-width: 1200px;
+}
+
+.teacher .teacher-content {
+  max-width: 300px;
+  max-height: 300px;
+  margin: 35px;
+}
+
+.teacher .teacher-content .teacher-image {
+  text-align: center;
+  margin: 10px;
+}
+
+.teacher .teacher-content .teacher-name {
+  font-size: 18px;
+  font-family: "Times New Roman";
+  color: rgb(59, 60, 61);
+  text-transform: uppercase;
+  border-bottom: 1px solid #e97e59;
+  text-align: center;
+}
+
+.teacher .teacher-content .teacher-description {
+  text-align: center;
+  margin: 5px;
+  padding: 5px;
+}
