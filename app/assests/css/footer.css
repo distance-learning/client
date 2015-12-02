@@ -39,8 +39,14 @@
   text-align: left;
 }
 
+.footer .footer-container .footer-contact .contact-body img,
+.footer .footer-container .footer-contact .contact-body span{
+  vertical-align: middle;
+}
+
 .footer .footer-container .footer-contact .contact-body div {
-  height: 35px;
+  height: 25px;
+  padding-top: 10px;
   border-top: 1px solid #41403f;
 }
 
