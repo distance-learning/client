@@ -5,9 +5,12 @@
       .module('distanceLearning.teacher')
       .factory('TeacherUtils', TeacherUtils);
 
-  TeacherUtils.$inject = [];
+  TeacherUtils.$inject = [
+    '$q', '$http',
+    'server_host'
+  ];
 
-  function TeacherUtils() {
+  function TeacherUtils($q, $http, server_host) {
     var teachers = [
       {
         name: 'Варламова Ирина',
@@ -45,7 +48,14 @@
     };
 
     function getTeachers() {
-      return teachers;
+      var defer = $q.defer();
+
+      $http.get(server_host + 'api/teachers/random')
+          .then(function (data, status, headers, config) {
+            defer.resolve(data);
+          });
+
+      return defer.promise;
     }
 
     return service;
