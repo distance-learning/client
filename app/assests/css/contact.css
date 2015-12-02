@@ -1,0 +1,26 @@
+.contact .contact-general-title {
+  font-size: 24px;
+  font-family: "Times New Roman";
+  color: rgb(59, 60, 61);
+  text-transform: uppercase;
+  text-align: center;
+  margin: 15px;
+}
+
+.contact .contact-container {
+  max-width: 1200px;
+}
+
+.contact .contact-container .contact-info {
+  background-color: rgb(233, 126, 89);
+  width: 302px;
+  height: 200px;
+  font-size: 12px;
+  font-family: "Arial";
+  color: rgb(1, 1, 1);
+  margin: 20px;
+}
+
+.contact .contact-container .contact-info img {
+  margin: 35px;
+}

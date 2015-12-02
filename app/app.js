@@ -8,7 +8,8 @@
         'distanceLearning.menuClient',
         'distanceLearning.news',
         'distanceLearning.faculty',
-        'distanceLearning.teacher'
+        'distanceLearning.teacher',
+        'distanceLearning.contact'
       ]);
 
 })();
