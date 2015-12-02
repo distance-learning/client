@@ -9,7 +9,8 @@
         'distanceLearning.news',
         'distanceLearning.faculty',
         'distanceLearning.teacher',
-        'distanceLearning.contact'
+        'distanceLearning.contact',
+        'distanceLearning.footer'
       ]);
 
 })();
