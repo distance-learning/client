@@ -9,6 +9,9 @@
 
   function FacultyController(FacultyUtils) {
     var vm = this;
-    vm.facultiesInfo = FacultyUtils.getRandomPreviewFaculties();
+    FacultyUtils.getRandomPreviewFaculties()
+        .then(function (data) {
+          vm.facultiesInfo = data.data;
+        });
   }
 })();

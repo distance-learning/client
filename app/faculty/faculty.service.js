@@ -5,54 +5,25 @@
       .module('distanceLearning.faculty')
       .factory('FacultyUtils', FacultyUtils);
 
-  FacultyUtils.$inject = [];
+  FacultyUtils.$inject = [
+    '$http', '$q',
+    'server_host'
+  ];
 
-  function FacultyUtils() {
-    var base = [
-      {
-        name: 'Математичний факультет  ',
-        description: 'Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмысленного текста рыбы на русском языке, а начинающему оратору отточить навык публичных выступлений в домашних условиях.При создании генератора мы использовали небезызвестный универсальный код речей. ',
-        image: '',
-        objects: [
-          {name: 'Основи економіки'},
-          {name: 'Основи економіки та підприємства'},
-          {name: 'Основи економіки'},
-          {name: 'Основи економіки'},
-          {name: 'Основи економіки'}
-        ]
-      },
-      {
-        name: 'Навчально-науковий інститут економіки і права ',
-        description: 'Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сген',
-        image: '',
-        objects: [
-          {name: 'Основи економіки'},
-          {name: 'Основи економіки'},
-          {name: 'Основи економіки'},
-          {name: 'Основи економіки'},
-          {name: 'Основи економіки'}
-        ]
-      },
-      {
-        name: 'Навчально-науковий інститут іноземних мов',
-        description: 'Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сген',
-        image: '',
-        objects: [
-          {name: 'Основи економіки'},
-          {name: 'Судовая медицина и психиатрия'},
-          {name: 'Комп‘ютерний еколого-економічний моніторинг.'},
-          {name: 'Інформаційні управляючі системи та технології.'},
-          {name: 'Англійська мова та література.'}
-        ]
-      }
-    ];
-
+  function FacultyUtils($http, $q, server_host) {
     var service = {
       getRandomPreviewFaculties: getRandomPreviewFaculties
     };
 
-    function getRandomPreviewFaculties () {
-      return base;
+    function getRandomPreviewFaculties() {
+      var defer = $q.defer();
+
+      $http.get(server_host + 'api/faculties/random')
+          .then(function (data, status, headers, config) {
+            defer.resolve(data);
+          });
+
+      return defer.promise;
     }
 
     return service;

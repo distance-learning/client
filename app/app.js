@@ -11,6 +11,7 @@
         'distanceLearning.teacher',
         'distanceLearning.contact',
         'distanceLearning.footer'
-      ]);
+      ])
+      .constant('server_host', 'http://distance-learning.herokuapp.com/');
 
 })();
