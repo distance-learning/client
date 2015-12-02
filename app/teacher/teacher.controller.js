@@ -10,6 +10,5 @@
   function TeacherController(TeacherUtils) {
     var vm = this;
     vm.teachers = TeacherUtils.getTeachers();
-    console.log(vm.teachers);
   }
 })();
