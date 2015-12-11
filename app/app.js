@@ -4,6 +4,7 @@
   angular
       .module('distanceLearning', [
         'ngMaterial',
+        'ngRoute',
         'distanceLearning.home',
         'distanceLearning.menuClient',
         'distanceLearning.news',
