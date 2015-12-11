@@ -8,13 +8,17 @@
          layout="row" layout-sm="column"
          layout-margin layout-padding
          layout-wrap>
-      <div class="faculty-image">
-        <!--<img ng-src="faculty.image" alt="">-->
-      </div>
-      <div class="faculty-description">
-        <div class="faculty-description-name">
-          {{ faculty.name }}
+      <a ng-href="/#/faculty/{{ faculty.slug }}">
+        <div class="faculty-image">
+          <!--<img ng-src="faculty.image" alt="">-->
         </div>
+      </a>
+      <div class="faculty-description">
+        <a ng-href="/#/faculty/{{ faculty.slug }}">
+          <div class="faculty-description-name">
+            {{ faculty.name }}
+          </div>
+        </a>
         <div class="faculty-description-content">
           {{ faculty.description }}
         </div>
