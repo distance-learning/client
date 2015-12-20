@@ -9,7 +9,6 @@
         'distanceLearning.menuClient',
         'distanceLearning.news',
         'distanceLearning.faculty',
-        'distanceLearning.faculty-info',
         'distanceLearning.teacher',
         'distanceLearning.contact',
         'distanceLearning.footer'

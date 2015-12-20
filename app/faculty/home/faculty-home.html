@@ -4,7 +4,7 @@
     наші факультети
   </div>
   <div class="faculty-container">
-    <div ng-repeat="faculty in faculty.facultiesInfo"
+    <div ng-repeat="faculty in facultyHome.facultiesInfo"
          layout="row" layout-sm="column"
          layout-margin layout-padding
          layout-wrap>
@@ -25,7 +25,7 @@
       </div>
       <div class="faculty-objects">
         <ui>
-          <li ng-repeat="object in faculty.subjects">
+          <li ng-repeat="object in facultyHome.subjects">
             <span>{{ object.name }}</span>
           </li>
         </ui>

@@ -2,5 +2,8 @@
   'use strict';
 
   angular
-      .module('distanceLearning.faculty', []);
+      .module('distanceLearning.faculty', [
+          'distanceLearning.faculty-home',
+          'distanceLearning.faculty-info'
+      ]);
 })();
