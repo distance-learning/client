@@ -3,14 +3,14 @@
 
   angular
       .module('distanceLearning.facultyHome')
-      .factory('FacultyUtils', FacultyUtils);
+      .factory('FacultyHomeUtils', FacultyHomeUtils);
 
-  FacultyUtils.$inject = [
+  FacultyHomeUtils.$inject = [
     '$http', '$q',
     'server_host'
   ];
 
-  function FacultyUtils($http, $q, server_host) {
+  function FacultyHomeUtils($http, $q, server_host) {
     var service = {
       getRandomPreviewFaculties: getRandomPreviewFaculties
     };

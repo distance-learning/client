@@ -1,15 +1,37 @@
-<div class="faculty-info"
+<div class="faculty-list"
      layout="column" layout-wrap
      ng-cloak>
-  <menu-client></menu-client>
-  <div layout="row" layout-sm="column" layout-align="space-around center" layout-margin layout-padding layout-wrap>
-   <!-- <faculty-list></faculty-list>
-    <specialisation-list></specialisation-list>-->
-    <div>
-      //object-list
+  <div layout="row" layout-sm="column" layout-align="space-around start"
+       layout-margin layout-padding layout-wrap>
+    <div class="faculty-list-container">
+      <div class="faculty-list-title">Факультети</div>
+      <div ng-repeat="faculty in facultyList.faculties.faculties"
+           layout="row" layout-align="start center">
+        <a ng-href="/#/faculty/{{ faculty.slug }}"
+           class="faculty-list-item">
+          <span>{{ faculty.name }}</span>
+        </a>
+      </div>
     </div>
-  </div>
-  <div>
-    //faculty info
+    <div class="faculty-list-container">
+      <div class="faculty-list-title">Напрямки</div>
+      <div ng-repeat="directions in facultyList.faculties.directions"
+           layout="row" layout-align="start center">
+        <div class="faculty-list-item">
+          <div class="faculty-list-directions"
+               ng-click="facultyList.showDirectionsInfo(directions)">
+            {{ directions.name }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="faculty-list-container">
+      <div class="faculty-list-title">Предмети</div>
+      <ui>
+        <li ng-repeat="directions in facultyList.faculties.subjects">
+          <span>{{ directions.name }}</span>
+        </li>
+      </ui>
+    </div>
   </div>
 </div>

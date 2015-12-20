@@ -3,16 +3,16 @@
 
   angular
       .module('distanceLearning.facultyList')
-      .directive('facultyInfo', facultyInfo);
+      .directive('facultyList', facultyList);
 
-  facultyInfo.$inject = [];
+  facultyList.$inject = [];
 
-  function facultyInfo() {
+  function facultyList() {
     return {
       replace: true,
-      controller: 'FacultyListController',
-      controllerAs: 'facultyInfo',
-      templateUrl: 'faculty-info/faculty-info.html'
+      controller: 'FacultyController',
+      controllerAs: 'facultyList',
+      templateUrl: 'faculty/list/facultyList.html'
     };
   }
 })();

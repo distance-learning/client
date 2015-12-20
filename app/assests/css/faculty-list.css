@@ -1,0 +1,52 @@
+.faculty-list-container {
+  width: 360px;
+}
+
+.faculty-list-container li {
+  margin: 5px;
+  color: #e97e59;
+}
+
+.faculty-list-container li span {
+  font-size: 14px;
+  font-family: "Arial";
+  color: rgb(84, 85, 85);
+}
+
+.faculty-list-title {
+  font-size: 16px;
+  font-family: "Times New Roman";
+  color: rgb(84, 85, 85);
+  border-bottom: 1px solid #e97e59;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.faculty-list-item {
+  height: 45px;
+  font-family: "Arial";
+  color: rgb(84, 85, 85);
+  text-align: center;
+}
+
+.faculty-list-container a,
+.faculty-list-container a:visited {
+  color: rgb(84, 85, 85);
+}
+
+.faculty-list-container a:active,
+.faculty-list-container a:hover {
+  text-decoration: none;
+  color: #e97e59;
+}
+
+
+.faculty-list-item .faculty-list-directions {
+  outline: none;
+  cursor: pointer;
+}
+
+.faculty-list-item .faculty-list-directions:hover {
+  color: #e97e59;
+}

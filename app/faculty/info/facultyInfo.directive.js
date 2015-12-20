@@ -10,9 +10,9 @@
   function facultyInfo() {
     return {
       replace: true,
-      controller: 'FacultyInfoController',
+      controller: 'FacultyController',
       controllerAs: 'facultyInfo',
-      templateUrl: 'faculty-info/faculty-info.html'
+      templateUrl: 'faculty/info/facultyInfo.html'
     };
   }
 })();

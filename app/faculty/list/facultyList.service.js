@@ -3,23 +3,23 @@
 
   angular
       .module('distanceLearning.facultyList')
-      .factory('FacultyInfoUtils', FacultyInfoUtils);
+      .factory('FacultyListUtils', FacultyListUtils);
 
-  FacultyInfoUtils.$inject = [
+  FacultyListUtils.$inject = [
     '$q', '$http',
       'server_host'
   ];
 
-  function FacultyInfoUtils($q, $http,
+  function FacultyListUtils($q, $http,
                             server_host) {
     var service = {
-      getFacultyInfo: getFacultyInfo
+      getFaculties: getFaculties
     };
 
-    function getFacultyInfo(facultySlug) {
+    function getFaculties() {
       var defer = $q.defer();
 
-      $http.get(server_host + 'api/faculties/random')
+      $http.get(server_host + 'api/faculties')
           .then(function (ok) {
             defer.resolve(ok);
           }, function (err) {
