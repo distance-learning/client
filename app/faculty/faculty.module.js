@@ -3,7 +3,8 @@
 
   angular
       .module('distanceLearning.faculty', [
-          'distanceLearning.faculty-home',
-          'distanceLearning.faculty-info'
+          'distanceLearning.facultyHome',
+          'distanceLearning.facultyInfo',
+          'distanceLearning.facultyList'
       ]);
 })();

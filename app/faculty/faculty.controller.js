@@ -9,6 +9,7 @@
 
   function FacultyController(FacultyUtils) {
     var vm = this;
+
     FacultyUtils.getRandomPreviewFaculties()
         .then(function (data) {
           vm.facultiesInfo = data.data;

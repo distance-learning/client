@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-      .module('distanceLearning.faculty-home')
+      .module('distanceLearning.facultyHome')
       .factory('FacultyUtils', FacultyUtils);
 
   FacultyUtils.$inject = [

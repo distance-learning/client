@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-      .module('distanceLearning.faculty-home')
+      .module('distanceLearning.facultyHome')
       .directive('facultyHome', facultyHome);
 
   facultyHome.$inject = [];
@@ -12,7 +12,7 @@
       replace: true,
       controller: 'FacultyController',
       controllerAs: 'facultyHome',
-      templateUrl: 'faculty/home/faculty-home'
+      templateUrl: 'faculty/home/facultyHome.html'
     };
   }
 })();
