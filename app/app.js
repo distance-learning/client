@@ -5,6 +5,7 @@
       .module('distanceLearning', [
         'ngMaterial',
         'ngRoute',
+        'distanceLearning.auth',
         'distanceLearning.home',
         'distanceLearning.menuClient',
         'distanceLearning.news',
