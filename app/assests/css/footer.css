@@ -15,11 +15,15 @@
   color: rgba(233, 126, 89, 0.99);
 }
 
+.footer .footer-container {
+  margin-top: 50px;
+}
+
 .footer .footer-container .footer-contact,
 .footer .footer-container .social-networks-container {
   width: 250px;
   height: 160px;
-  margin: 50px 35px 0 35px;
+  margin: 0 35px 15px 35px;
 }
 
 .footer .footer-container .footer-contact .contact-header,
@@ -52,6 +56,10 @@
 
 .footer .footer-container .social-networks-container .social-networks-body img {
   margin: 15px;
+}
+
+.login {
+  margin: 0 35px 15px 35px;
 }
 
 .dl-footer-input {

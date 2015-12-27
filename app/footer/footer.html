@@ -30,22 +30,15 @@
         Соціальні мережі
       </div>
       <div class="social-networks-body" layout="row">
-        <div>
-          <img ng-src="/assests/images/footer-twiter.png" alt="">
-        </div>
-        <div>
-          <img ng-src="/assests/images/footer-gplus.png" alt="">
-        </div>
-        <div>
-          <img ng-src="/assests/images/footer-vk.png" alt="">
-        </div>
-        <div>
-          <img ng-src="/assests/images/footer-skype.png" alt="">
-        </div>
+        <img ng-src="/assests/images/footer-twiter.png" alt="">
+        <img ng-src="/assests/images/footer-gplus.png" alt="">
+        <img ng-src="/assests/images/footer-vk.png" alt="">
+        <img ng-src="/assests/images/footer-skype.png" alt="">
       </div>
     </div>
     <!-- Auth -->
     <div class="login"
+         layout="column" layout-align="center center"
         ng-if="!footer.userCheck()">
       <form name="LoginForm"
           layout="column">
