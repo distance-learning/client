@@ -53,3 +53,31 @@
 .footer .footer-container .social-networks-container .social-networks-body img {
   margin: 15px;
 }
+
+.dl-footer-input {
+  border-width: 1px;
+  border-color: rgb(6, 6, 6);
+  border-style: solid;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  width: 233px;
+  height: 35px;
+  padding: 15px;
+  margin: 5px;
+  font-size: 12px;
+  font-family: "Arial";
+  color: rgb(157, 158, 158);
+}
+
+.md-raised.dl-footer-button {
+  border-width: 1px;
+  border-radius: 0;
+  border-style: solid;
+  background-color: rgb(233, 126, 89);
+  width: 90px;
+  height: 26px;
+}
+
+.md-button.md-raised[disabled] {
+  background-color: rgb(233, 126, 89);
+}

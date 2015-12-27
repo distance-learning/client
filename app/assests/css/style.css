@@ -16,3 +16,7 @@ a:hover {
   text-decoration: none;
   color: #e97e59;
 }
+
+.md-button.md-raised:not([disabled]):hover {
+  background-color: rgb(174, 64, 26);
+}
