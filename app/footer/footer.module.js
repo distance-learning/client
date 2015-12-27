@@ -3,6 +3,7 @@
 
   angular
       .module('distanceLearning.footer', [
-          'distanceLearning.menuClient'
+          'distanceLearning.menuClient',
+          'distanceLearning.auth'
       ]);
 })();

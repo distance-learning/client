@@ -5,10 +5,39 @@
       .module('distanceLearning.auth')
       .factory('LoginUtils', LoginUtils);
 
-  LoginUtils.$inject = [];
+  LoginUtils.$inject = [
+    '$http', '$q', 'server_host',
+    'SessionUtils'];
 
-  function LoginUtils() {
-    var service = {};
+  function LoginUtils($http, $q, server_host,
+                      SessionUtils) {
+    var service = {
+      login: login,
+      isLogged: isLogged
+    };
+
+    function login(user) {
+      var defer = $q.defer();
+
+      $http.post(server_host + 'api/users/authenticate', { email: user.email, password: user.password })
+          .success(function (ok) {
+            var userId = ok._id;
+
+            if (userId) {
+              SessionUtils.setUser('user', userId);
+              defer.resolve(ok);
+            }
+          })
+          .error(function (err) {
+            defer.reject(err);
+          });
+
+      return defer.promise;
+    }
+
+    function isLogged() {
+      return !!SessionUtils.getUser('user');
+    }
 
     return service;
   }

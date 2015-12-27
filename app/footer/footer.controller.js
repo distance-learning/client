@@ -5,12 +5,25 @@
       .module('distanceLearning.footer')
       .controller('FooterController', FooterController);
 
-  FooterController.$inject = ['$log'];
+  FooterController.$inject = [
+    '$log',
+    'LoginUtils'
+  ];
 
-  function FooterController($log) {
+  function FooterController($log,
+                            LoginUtils) {
     var vm = this;
     vm.login = function (user) {
-      $log.log(user);
+      LoginUtils.login(user)
+          .then(function (ok) {
+            $log.log(ok);
+          }, function (err) {
+            $log.log(err);
+          });
+    };
+
+    vm.userCheck = function () {
+      LoginUtils.isLogged();
     }
   }
 })();

@@ -45,7 +45,8 @@
       </div>
     </div>
     <!-- Auth -->
-    <div class="login">
+    <div class="login"
+        ng-if="!footer.userCheck()">
       <form name="LoginForm"
           layout="column">
           <input type="email" class="dl-footer-input"
