@@ -4,6 +4,7 @@
   angular
       .module('distanceLearning.home', [
           'distanceLearning.menuClient',
-          'distanceLearning.news'
+          'distanceLearning.news',
+          'distanceLearning.auth'
       ]);
 })();

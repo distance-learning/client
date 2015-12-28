@@ -1,7 +1,19 @@
 <div class="home-page"
      layout="column"
      ng-cloak>
-  <menu-client></menu-client>
+  <div class="home-header-login-panel"
+      layout="row" layout-align="end center"
+       ng-if="!home.userCheck()">
+    <div layout>
+      <span><img src="assests/images/key.png" alt=""></span>
+      Вхід
+    </div>
+    <div layout>
+      <span><img src="assests/images/locked.png" alt=""></span>
+      Реєстрація
+    </div>
+  </div>
+  <menu-client class="home-header-menu-header"></menu-client>
   <div class="header-info"
        layout="row" layout-align="center center"
        layout-margin layout-padding

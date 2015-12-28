@@ -5,9 +5,9 @@
       .module('distanceLearning.home')
       .controller('HomeController', HomeController);
 
-  HomeController.$inject = [];
+  HomeController.$inject = ['LoginUtils'];
 
-  function HomeController () {
+  function HomeController (LoginUtils) {
     var vm = this;
     vm.specialtyAreas = [
       { name: 'Програмне забезпечення автоматизованих систем.' },
@@ -18,5 +18,9 @@
       { name: 'Практична психологія.' },
       { name: 'Соціальна педагогіка.' }
     ];
+
+    vm.userCheck = function () {
+      LoginUtils.isLogged();
+    }
   }
 })();
