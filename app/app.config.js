@@ -9,6 +9,12 @@
 
   function config($routeProvider) {
     $routeProvider
+        .when('/login', {
+          template: '<login></login>'
+        })
+        .when('/register', {
+          template: 'register'
+        })
         .when('/home', {
           template: '<home></home>'
         })

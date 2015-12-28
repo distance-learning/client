@@ -4,13 +4,17 @@
   <div class="home-header-login-panel"
       layout="row" layout-align="end center"
        ng-if="!home.userCheck()">
-    <div layout>
-      <span><img src="assests/images/key.png" alt=""></span>
-      Вхід
+    <div>
+      <a ng-href="/#/login" layout>
+        <span><img src="assests/images/key.png" alt=""></span>
+        Вхід
+      </a>
     </div>
-    <div layout>
-      <span><img src="assests/images/locked.png" alt=""></span>
-      Реєстрація
+    <div>
+      <a ng-href="/#/register" layout>
+        <span><img src="assests/images/locked.png" alt=""></span>
+        Реєстрація
+      </a>
     </div>
   </div>
   <menu-client class="home-header-menu-header"></menu-client>
