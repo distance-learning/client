@@ -1,3 +1,31 @@
-<div>
-  login
+<div class="login">
+  <menu-client></menu-client>
+  <div layout layout-align="center center"
+       layout-margin layout-padding
+       layout-wrap>
+    <form name="LoginForm"
+          class="LoginForm"
+          layout="column" layout-align="center none">
+      <div layout="column">
+        <label>Електрона скринька</label>
+        <input type="email" class="login-input"
+               required
+               ng-model="login.user.email"/>
+      </div>
+      <div layout="column">
+        <label>Пароль</label>
+        <input type="password" class="login-input"
+               required
+               ng-model="login.user.password"/>
+      </div>
+      <div layout="column" layout-align="center center">
+        <md-button class="md-raised dl-footer-button" type="submit"
+                   ng-click="login.login(login.user)"
+                   ng-disabled="LoginForm.$invalid">
+          Вхід
+        </md-button>
+      </div>
+    </form>
+  </div>
+  <footer></footer>
 </div>
