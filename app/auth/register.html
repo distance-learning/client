@@ -1,3 +1,65 @@
-<div>
-  register
+<div class="register">
+  <menu-client></menu-client>
+  <div layout="column" layout-align="center center"
+       layout-margin layout-padding
+       layout-wrap>
+    <h3 layout layout-align="start center">
+      Реєстрація
+    </h3>
+    <form name="RegisterForm"
+          layout="column" layout-align="center none">
+      <div layout="row" layout-xs="column" layout-align="center none"
+           layout-wrap>
+        <div class="RegisterForm"
+             layout="column" layout-align="center none">
+          <div layout="column">
+            <label>Ім'я<span>*</span></label>
+            <input type="text" class="dl-input"
+                   required
+                   ng-model="register.user.name"/>
+          </div>
+          <div layout="column">
+            <label>Прізвище<span>*</span></label>
+            <input type="text" class="dl-input"
+                   required
+                   ng-model="register.user.surname"/>
+          </div>
+          <div layout="column">
+            <label>Номер телефону</label>
+            <input type="text" class="dl-input"
+                   ng-model="register.user.phone"/>
+          </div>
+        </div>
+        <div class="RegisterForm"
+             layout="column" layout-align="center none">
+          <div layout="column">
+            <label>E-mail<span>*</span></label>
+            <input type="email" class="dl-input"
+                   required
+                   ng-model="register.user.email"/>
+          </div>
+          <div layout="column">
+            <label>Пароль<span>*</span></label>
+            <input type="password" class="dl-input"
+                   required
+                   ng-model="register.user.password"/>
+          </div>
+          <div layout="column">
+            <label>Повторити пароль<span>*</span></label>
+            <input type="password" class="dl-input"
+                   required
+                   ng-model="register.user.password2"/>
+          </div>
+        </div>
+      </div>
+      <div layout="column" layout-align="center center">
+        <md-button class="md-raised dl-register-button" type="submit"
+                   ng-click="register.register(register.user)"
+                   ng-disabled="RegisterForm.$invalid">
+          Зареєструватися
+        </md-button>
+      </div>
+    </form>
+  </div>
+  <footer></footer>
 </div>
