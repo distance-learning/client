@@ -13,7 +13,7 @@
           template: '<login></login>'
         })
         .when('/register', {
-          template: 'register'
+          template: '<register></register>'
         })
         .when('/home', {
           template: '<home></home>'
