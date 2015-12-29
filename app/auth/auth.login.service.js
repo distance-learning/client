@@ -13,7 +13,8 @@
                       SessionUtils) {
     var service = {
       login: login,
-      isLogged: isLogged
+      isLogged: isLogged,
+      register: register
     };
 
     function login(user) {
@@ -37,6 +38,26 @@
 
     function isLogged() {
       return !!SessionUtils.getUser('user');
+    }
+
+    function register(value) {
+      var deferred = $q.defer();
+
+      $http.post(server_host + 'api/auth/register', {
+        name: value.name,
+        surname: value.surname,
+        password: value.password,
+        phone: value.phone,
+        email: value.email
+      })
+          .success(function (ok) {
+            deferred.resolve(ok);
+          })
+          .error(function (err) {
+            deferred.reject(err);
+          });
+
+      return deferred.promise;
     }
 
     return service;
