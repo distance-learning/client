@@ -73,8 +73,17 @@
 
     vm.showDirectionsInfo = function (directions) {
       vm.faculties.subjects = getCurrecntSubjects(vm.faculties.directions, directions);
-      console.log(1);
-    }
+    };
+
+    vm.range = function (page) {
+      if (!page) { return new Array(1); }
+
+      return new Array(Math.floor(page/5));
+    };
+
+    vm.jumpToPage = function (page) {
+      $log.log(page);
+    };
 
   }
 })();

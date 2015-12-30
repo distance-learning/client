@@ -12,6 +12,13 @@
           <span>{{ faculty.name }}</span>
         </a>
       </div>
+      <div class="pagination"
+           layout layout-align="center center">
+        <div class="pagination-page"
+             ng-repeat="page in facultyList.range(facultyList.faculties.total) track by $index"
+             ng-click="facultyList.jumpToPage($index + 1)">
+        </div>
+      </div>
     </div>
     <div class="faculty-list-container">
       <div class="faculty-list-title">Напрямки</div>
