@@ -43,10 +43,11 @@
     function register(value) {
       var deferred = $q.defer();
 
-      $http.post(server_host + 'api/auth/register', {
+      $http.post(server_host + 'api/auth/registration', {
         name: value.name,
         surname: value.surname,
         password: value.password,
+        password_confirmation: value.password_confirmation,
         phone: value.phone,
         email: value.email
       })
