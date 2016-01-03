@@ -20,7 +20,7 @@
     function login(user) {
       var defer = $q.defer();
 
-      $http.post(server_host + 'api/users/authenticate', { email: user.email, password: user.password })
+      $http.post(server_host + 'api/auth/login', { email: user.email, password: user.password })
           .success(function (ok) {
             var userId = ok._id;
 
