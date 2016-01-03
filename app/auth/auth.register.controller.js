@@ -25,7 +25,7 @@
     };
 
     function isValidUser(user) {
-      return user.password === user.password2;
+      return user.password === user.password_confirmation;
     }
   }
 })();
