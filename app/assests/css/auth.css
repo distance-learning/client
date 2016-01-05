@@ -6,6 +6,7 @@
   margin: 0;
 }
 
+.login h3,
 .register h3 {
   font-size: 24px;
   font-family: "Arial";
