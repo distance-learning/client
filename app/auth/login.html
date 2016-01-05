@@ -22,11 +22,16 @@
                ng-model="login.user.password"/>
       </div>
       <div layout="column" layout-align="center center">
-        <md-button class="md-raised dl-footer-button" type="submit"
-                   ng-click="login.login(login.user)"
-                   ng-disabled="LoginForm.$invalid">
-          Вхід
-        </md-button>
+        <div layout layout-align="start center">
+          <md-button class="md-raised dl-footer-button" type="submit"
+                     ng-click="login.login(login.user)"
+                     ng-disabled="LoginForm.$invalid">
+            Вхід
+          </md-button>
+        </div>
+        <div layout layout-align="start center">
+          <a ng-href="/#/register">Реєстрація</a>
+        </div>
       </div>
     </form>
   </div>
