@@ -16,10 +16,10 @@
       getFaculties: getFaculties
     };
 
-    function getFaculties() {
+    function getFaculties(params) {
       var defer = $q.defer();
 
-      $http.get(server_host + 'api/faculties')
+      $http.get(server_host + 'api/faculties', { params: { page: params.page } })
           .then(function (ok) {
             defer.resolve(ok);
           }, function (err) {
