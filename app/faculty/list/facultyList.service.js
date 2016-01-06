@@ -7,7 +7,7 @@
 
   FacultyListUtils.$inject = [
     '$q', '$http',
-      'server_host'
+    'server_host'
   ];
 
   function FacultyListUtils($q, $http,
