@@ -29,8 +29,11 @@
               defer.resolve(ok);
             }
           })
-          .error(function (err) {
-            defer.reject(err);
+          .error(function (err, status ) {
+            defer.reject({
+              data: err,
+              status: status
+            });
           });
 
       return defer.promise;
