@@ -2,7 +2,7 @@
      layout="column"
      ng-cloak>
   <div class="home-header-login-panel"
-      layout="row" layout-align="end center"
+       layout="row" layout-align="end center"
        ng-if="!home.userCheck()">
     <div>
       <a ng-href="/#/login" layout>
@@ -15,6 +15,13 @@
         <span><img src="assests/images/locked.png" alt=""></span>
         Реєстрація
       </a>
+    </div>
+  </div>
+  <div class="home-header-login-panel"
+       layout layout-align="end center"
+       ng-if="home.userCheck()">
+    <div>
+      {{ home.user.email }}
     </div>
   </div>
   <menu-client class="home-header-menu-header"></menu-client>

@@ -6,17 +6,17 @@
       .controller('LoginController', LoginController);
 
   LoginController.$inject = [
-      '$log', '$mdToast',
+      '$mdToast', '$location',
       'LoginUtils'
   ];
 
-  function LoginController($log, $mdToast,
+  function LoginController($mdToast, $location,
                            LoginUtils) {
     var vm = this;
     vm.login = function (user) {
       LoginUtils.login(user)
-          .then(function (ok) {
-            $log.log(ok);
+          .then(function () {
+            $location.path('/profile');
           }, function (err) {
             var notification = (err.status == 401 ) ? 'Невірно вказано логін|пароль' : 'непонятно';
             $mdToast.show(

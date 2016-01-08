@@ -21,6 +21,9 @@
         .when('/faculty/:slug', {
           template: '<faculty-info></faculty-info>'
         })
+        .when('/profile', {
+          template: '<profile></profile>'
+        })
         .otherwise({
           redirectTo: '/home'
         });
