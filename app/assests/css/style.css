@@ -16,3 +16,13 @@ a:hover {
   text-decoration: none;
   color: #e97e59;
 }
+
+.md-button.md-raised:not([disabled]):hover {
+  background-color: rgb(174, 64, 26);
+}
+
+.dl-input {
+  border: 1px solid rgb(233, 126, 89);
+  height: 36px;
+  padding: 5px;
+}

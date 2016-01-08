@@ -41,7 +41,6 @@
   color: #e97e59;
 }
 
-
 .faculty-list-item .faculty-list-directions {
   outline: none;
   cursor: pointer;
@@ -49,4 +48,12 @@
 
 .faculty-list-item .faculty-list-directions:hover {
   color: #e97e59;
+}
+
+.pagination .pagination-page {
+  outline: none;
+  background-color: rgb(233, 126, 89);
+  width: 16px;
+  height: 16px;
+  margin: 2px;
 }

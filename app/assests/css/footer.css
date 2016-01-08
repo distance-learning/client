@@ -15,11 +15,15 @@
   color: rgba(233, 126, 89, 0.99);
 }
 
+.footer .footer-container {
+  margin-top: 50px;
+}
+
 .footer .footer-container .footer-contact,
 .footer .footer-container .social-networks-container {
   width: 250px;
   height: 160px;
-  margin: 50px 35px 0 35px;
+  margin: 0 35px 15px 35px;
 }
 
 .footer .footer-container .footer-contact .contact-header,
@@ -52,4 +56,36 @@
 
 .footer .footer-container .social-networks-container .social-networks-body img {
   margin: 15px;
+}
+
+.login {
+  margin: 0 35px 15px 35px;
+}
+
+.dl-footer-input {
+  border-width: 1px;
+  border-color: rgb(6, 6, 6);
+  border-style: solid;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  width: 233px;
+  height: 35px;
+  padding: 15px;
+  margin: 5px;
+  font-size: 12px;
+  font-family: "Arial";
+  color: rgb(157, 158, 158);
+}
+
+.md-raised.dl-footer-button {
+  border-width: 1px;
+  border-radius: 0;
+  border-style: solid;
+  background-color: rgb(233, 126, 89);
+  width: 90px;
+  height: 26px;
+}
+
+.md-button.md-raised[disabled] {
+  background-color: rgb(233, 126, 89);
 }

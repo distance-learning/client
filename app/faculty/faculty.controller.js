@@ -6,33 +6,45 @@
       .controller('FacultyController', FacultyController);
 
   FacultyController.$inject = [
-    '$routeParams', '$log',
+    '$routeParams', '$log', '$location',
     'FacultyHomeUtils', 'FacultyListUtils'];
 
-  function FacultyController($routeParams, $log,
+  function FacultyController($routeParams, $log, $location,
                              FacultyHomeUtils, FacultyListUtils) {
     var vm = this;
 
-    if ($routeParams.slug) {
-      FacultyListUtils.getFaculties()
-          .then(function (ok) {
-            vm.faculties = {
-                currentFaculty: $routeParams.slug,
+    function getFaculties(path) {
+      if ($routeParams.slug) {
+        if (!path) { path = $location.search(); }
+
+        FacultyListUtils.getFaculties(path)
+            .then(function (ok) {
+              vm.faculties = {
                 faculties: ok.data.data,
                 total: ok.data.total
-             };
-            vm.faculties.directions = getCurrecntDirections(vm.faculties.faculties);
-            vm.faculties.directions.currentDirections = vm.faculties.directions[0];
-            vm.faculties.subjects = getCurrecntSubjects(vm.faculties.directions, vm.faculties.directions.currentDirections);
-            vm.faculties.teachers = getTeachers(vm.faculties.faculties);
-          }, function (error) {
-            $log.log('[ERROR] FacultyController.FacultyListUtils.getFaculties()', error);
-          })
-    } else {
-      FacultyHomeUtils.getRandomPreviewFaculties()
-          .then(function (data) {
-            vm.facultiesInfo = data.data;
-          });
+              };
+              vm.faculties.currentFaculty = getFacultybySlug($routeParams.slug);
+              vm.faculties.directions = getCurrecntDirections(vm.faculties.faculties);
+              vm.faculties.directions.currentDirections = vm.faculties.directions[0];
+              vm.faculties.subjects = getCurrecntSubjects(vm.faculties.directions, vm.faculties.directions.currentDirections);
+              vm.faculties.teachers = getTeachers(vm.faculties.faculties);
+            }, function (error) {
+              $log.log('[ERROR] FacultyController.FacultyListUtils.getFaculties()', error);
+            })
+      } else {
+        FacultyHomeUtils.getRandomPreviewFaculties()
+            .then(function (data) {
+              vm.facultiesInfo = data.data;
+            });
+      }
+    }
+
+    getFaculties();
+
+    function getFacultybySlug(slug) {
+      if (slug) { return slug; }
+
+      return vm.faculties.faculties[0];
     }
 
     function getCurrecntDirections (faculties) {
@@ -73,8 +85,17 @@
 
     vm.showDirectionsInfo = function (directions) {
       vm.faculties.subjects = getCurrecntSubjects(vm.faculties.directions, directions);
-      console.log(1);
-    }
+    };
+
+    vm.range = function (page) {
+      if (!page) { return new Array(1); }
+
+      return new Array(Math.floor(page/5));
+    };
+
+    vm.jumpToPage = function (page) {
+      getFaculties({ page: page });
+    };
 
   }
 })();

@@ -5,6 +5,10 @@
   font-family: "Arial";
   color: rgb(157, 155, 154);
 }
+.home-header-menu-header {
+  border-top: 1px solid rgb(218, 212, 212);
+}
+
 .home-page .header-info {
   background-image: url("/assests/images/header-info-background.jpg");
 }
@@ -17,4 +21,30 @@
 }
 .home-page li{
   color: #e97e59;
+}
+
+.home-header-login-panel {
+  margin-right: 50px;
+}
+
+.home-header-login-panel > div {
+  font-size: 12px;
+  font-family: "Times New Roman";
+  color: rgb(233, 126, 89);
+  text-transform: uppercase;
+  text-align: left;
+  width: 90px;
+  height: 55px;
+  padding: 20px;
+  border: 1px solid rgb(218, 212, 212);
+  border-bottom: none;
+}
+
+.home-header-login-panel span {
+  margin-right: 5px;
+}
+
+.home-header-login-panel>div:last-child {
+  width: 130px;
+  border-left: none;
 }

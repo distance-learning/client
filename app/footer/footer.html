@@ -30,19 +30,32 @@
         Соціальні мережі
       </div>
       <div class="social-networks-body" layout="row">
-        <div>
-          <img ng-src="/assests/images/footer-twiter.png" alt="">
-        </div>
-        <div>
-          <img ng-src="/assests/images/footer-gplus.png" alt="">
-        </div>
-        <div>
-          <img ng-src="/assests/images/footer-vk.png" alt="">
-        </div>
-        <div>
-          <img ng-src="/assests/images/footer-skype.png" alt="">
-        </div>
+        <img ng-src="/assests/images/footer-twiter.png" alt="">
+        <img ng-src="/assests/images/footer-gplus.png" alt="">
+        <img ng-src="/assests/images/footer-vk.png" alt="">
+        <img ng-src="/assests/images/footer-skype.png" alt="">
       </div>
+    </div>
+    <!-- Auth -->
+    <div class="login"
+         layout="column" layout-align="center center"
+         ng-if="!footer.userCheck()">
+      <form name="LoginForm"
+          layout="column">
+          <input type="email" class="dl-footer-input"
+                 placeholder="Логін" required
+                 ng-model="footer.user.email"/>
+          <input type="password" class="dl-footer-input"
+                 placeholder="Пароль" required
+                 ng-model="footer.user.password"/>
+        <div layout="column" layout-align="center center">
+          <md-button class="md-raised dl-footer-button" type="submit"
+                     ng-click="footer.login(footer.user)"
+                     ng-disabled="LoginForm.$invalid">
+           Вхід
+          </md-button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
