@@ -1,0 +1,26 @@
+.profile-student {
+  font-size: 12px;
+  font-family: "Arial";
+  color: rgb(84, 85, 85);
+  border-bottom: 1px solid rgb(157, 155, 154);
+}
+
+.profile-student .profile-student-container img {
+  border-radius: 100px;
+  border: 10px solid rgb(233, 126, 89);
+  width: 175px;
+  height: 175px;
+}
+
+.profile-student .profile-student-container .profile-student-username {
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.profile-student .profile-student-container .profile-student-info {
+  border-left: 4px solid rgb(233, 126, 89);
+}
+
+.profile-student .profile-student-container .profile-student-info span {
+  margin: 5px;
+}

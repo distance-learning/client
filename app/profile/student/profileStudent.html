@@ -1,3 +1,27 @@
-<div>
-  profileStudent
+<div class="profile-student"
+     layout="column" layout-wrap
+     layout-margin layout-padding
+     ng-cloak>
+  <menu-client></menu-client>
+  <div class="profile-student-container"
+      layout layout-xs="column" layout-align="space-around center"
+       layout-wrap
+       layout-margin layout-padding>
+    <div>
+      <img ng-src="{{ profileStudent.user.avatar }}" alt=""/>
+    </div>
+    <div layout layout-align="space-around center"
+         layout-margin layout-padding>
+      <div class="profile-student-username"
+           layout-margin layout-padding>
+        {{ profileStudent.user.name }} {{ profileStudent.user.surname }}
+      </div>
+      <div class="profile-student-info"
+          layout="column">
+        <span>{{ profileStudent.user.phone }}</span>
+        <span>{{ profileStudent.user.birthday }}</span>
+        <span>{{ profileStudent.user.email }}</span>
+      </div>
+    </div>
+  </div>
 </div>
