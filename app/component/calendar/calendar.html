@@ -1,3 +1,8 @@
 <div>
-  calendar
+  <div ng-repeat="week in calendar.daysOfMonth">
+    <span ng-repeat="day in week">
+      <span ng-click="calendar.selectDate(day)">{{ day.value }}</span>
+    </span>
+    <br/>
+  </div>
 </div>
