@@ -6,7 +6,7 @@ var reload = browserSync.reload;
 var del = require('del');
 
 gulp.task('scripts', function () {
-  gulp.src(['app/**/*.js', '!app/**/*.min.js'])
+  return gulp.src(['app/**/*.js', '!app/**/*.min.js'])
       .pipe(plumber())
       .pipe(rename({suffix: '.min'}))
       .pipe(gulp.dest('./build/'))
@@ -14,7 +14,7 @@ gulp.task('scripts', function () {
 });
 
 gulp.task('html', function () {
-  gulp.src('./app/**/*.html')
+  return gulp.src('./app/**/*.html')
       .pipe(reload({stream: true}));
 });
 
@@ -60,4 +60,4 @@ gulp.task('build:remove', function (callback) {
 });
 
 gulp.task('build', ['build:cleanFolder', 'build:copyApp', 'build:remove']);
-gulp.task('serve', ['scripts', 'html', 'build', 'browserSync', 'watch']);
+gulp.task('serve', ['build', 'scripts', 'html', 'browserSync', 'watch']);
