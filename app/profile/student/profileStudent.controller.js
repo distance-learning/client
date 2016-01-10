@@ -19,5 +19,7 @@
       role: 'student',
       email: 'student@localhost.com'
     };
+
+    vm.currentSelectedDate = {};
   }
 })();

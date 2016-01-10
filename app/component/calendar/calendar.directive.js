@@ -10,6 +10,10 @@
   function calendar() {
     return {
       replace: true,
+      scope: true,
+      bindToController: {
+        option: '='
+      },
       controller: 'CalendarController',
       controllerAs: 'calendar',
       templateUrl: 'component/calendar/calendar.html'

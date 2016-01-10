@@ -32,6 +32,7 @@
           value: 'test'
         };
         vm.result = CalendarUtils.addEvent(event, vm.result);
+        vm.option = day;
       }
     };
 
