@@ -34,3 +34,20 @@
 .calendar td.event {
   color: rgb(233, 126, 89);
 }
+
+.event-container {
+  margin: 15px;
+  border-bottom: 1px solid rgb(233, 126, 89);
+  border-right: 1px solid rgb(233, 126, 89);
+}
+
+.event-container li {
+  color: #e97e59;
+  padding: 10px;
+}
+
+.event-container .eventItem span {
+  font-size: 15px;
+  font-family: "Arial";
+  color: rgb(84, 85, 85);
+}

@@ -26,5 +26,14 @@
         </td>
       </tr>
     </table>
+    <div class="event-container"
+        ng-if="calendar.selectedDay.length != 0">
+      <ui>
+        <li class="eventItem"
+            ng-repeat="event in calendar.selectedDay track by $index">
+          <span>{{ event }}</span>
+        </li>
+      </ui>
+    </div>
   </div>
 </div>

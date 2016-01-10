@@ -19,10 +19,12 @@
       vm.date = CalendarUtils.setToday();
       vm.daysName = CalendarUtils.getDaysName();
       vm.result = CalendarUtils.displayCalendar(vm.date.month.value, vm.date.year);
+      vm.selectedDay = [];
     }
 
     vm.selectDate = function (day) {
       if (day.value) {
+        vm.selectedDay = day.event;
         vm.result = CalendarUtils.selectDay(day, vm.result);
 
         var event = {
