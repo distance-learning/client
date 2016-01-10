@@ -10,7 +10,7 @@
   text-align: center;
 }
 
-.calendar span {
+.calendar td {
   outline: none;
   font-size: 15px;
   font-family: "Arial";
@@ -29,4 +29,8 @@
   outline: none;
   border: 2px solid #ffffff;
   border-radius: 50%;
+}
+
+.calendar td.event {
+  color: rgb(233, 126, 89);
 }

@@ -16,7 +16,8 @@
       setNextMonth: setNextMonth,
       displayCalendar: displayCalendar,
       getDaysName: getDaysName,
-      selectDay: selectDay
+      selectDay: selectDay,
+      addEvent: addEvent
     };
 
     function setToday() {
@@ -107,30 +108,33 @@
           result[counterWeeks] = [];
         }
 
-        result[counterWeeks].push({value: '   ', select: false });
+        result[counterWeeks].push({ value: '', select: false, event: [] });
       }
 
+      var date = new Date(year, month);
+      var day = date.getDate();
       for (var i = startingPos; i < days; i++) {
-        var value = {};
+        var value = {
+          value: day,
+          select: false,
+          event: []
+        };
         if (i % 7 == 0) {
           counterWeeks++;
           result[counterWeeks] = [];
         }
-        if (i - startingPos + 1 < 10) {
-          value.value = '0' + (i - startingPos + 1) + ' ';
-        } else {
-          value.value = '' + (i - startingPos + 1) + ' ';
-        }
-        value.select = false;
+
         result[counterWeeks].push(value);
+        day++;
       }
+
       for (var i = days; i < 42; i++) {
         if (i % 7 == 0) {
           counterWeeks++;
           result[counterWeeks] = [];
         }
 
-        result[counterWeeks].push({ value: '   ', select: false });
+        result[counterWeeks].push({ value: '', select: false, event: [] });
       }
 
       return result;
@@ -148,6 +152,18 @@
           }
           if (days[i][j].value === day.value) {
             days[i][j].select = true;
+          }
+        }
+      }
+
+      return days;
+    }
+
+    function addEvent(event, days) {
+      for (var i in days) {
+        for (var j in days[i]) {
+          if (days[i][j].value == event.day) {
+            days[i][j].event.push(event.value);
           }
         }
       }

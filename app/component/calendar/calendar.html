@@ -19,10 +19,10 @@
       </tr>
       <tr ng-repeat="week in calendar.result">
         <td ng-repeat="day in week"
-            ng-class="{ selectDay: day.select === true, noSelectDay: day.select != true }">
-          <span ng-click="calendar.selectDate(day)">
-            {{ day.value }}
-          </span>
+            ng-class="{ 'selectDay': day.select === true, 'noSelectDay': day.select != true,
+                        'event': day.event.length != 0 }"
+            ng-click="calendar.selectDate(day)">
+          {{ day.value }}
         </td>
       </tr>
     </table>

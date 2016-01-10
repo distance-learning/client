@@ -22,7 +22,15 @@
     }
 
     vm.selectDate = function (day) {
-      vm.result = CalendarUtils.selectDay(day, vm.result);
+      if (day.value) {
+        vm.result = CalendarUtils.selectDay(day, vm.result);
+
+        var event = {
+          day: new Date().getDate(),
+          value: 'test'
+        };
+        vm.result = CalendarUtils.addEvent(event, vm.result);
+      }
     };
 
     vm.setNextMonth = function () {
