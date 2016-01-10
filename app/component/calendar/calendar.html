@@ -1,8 +1,30 @@
-<div>
-  <div ng-repeat="week in calendar.daysOfMonth">
-    <span ng-repeat="day in week">
-      <span ng-click="calendar.selectDate(day)">{{ day.value }}</span>
-    </span>
-    <br/>
+<div class="calendar">
+  <div layout="column">
+    <div layout layout-align="space-between center">
+      <md-button class="md-icon-button" aria-label=""
+                 ng-click="calendar.setPreviousMonth()">
+        <md-icon md-svg-icon="{{ calendar.leftURLImage }}" aria-label=""></md-icon>
+      </md-button>
+      {{ calendar.date.month.lable }} [ {{ calendar.date.year }} ]
+      <md-button class="md-icon-button" aria-label=""
+                 ng-click="calendar.setNextMonth()">
+        <md-icon md-svg-icon="{{ calendar.rightURLImage }}" aria-label=""></md-icon>
+      </md-button>
+    </div>
+    <table>
+      <tr>
+        <th ng-repeat="item in calendar.daysName">
+          <span>{{item }}</span>
+        </th>
+      </tr>
+      <tr ng-repeat="week in calendar.result">
+        <td ng-repeat="day in week"
+            ng-class="{ selectDay: day.select === true, noSelectDay: day.select != true }">
+          <span ng-click="calendar.selectDate(day)">
+            {{ day.value }}
+          </span>
+        </td>
+      </tr>
+    </table>
   </div>
 </div>

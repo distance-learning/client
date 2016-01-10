@@ -1,0 +1,32 @@
+.calendar table {
+  border-spacing: 15px;
+}
+
+.calendar th span {
+  font-size: 12px;
+  font-family: "Arial";
+  color: rgb(233, 126, 89);
+  font-variant: small-caps;
+  text-align: center;
+}
+
+.calendar span {
+  outline: none;
+  font-size: 15px;
+  font-family: "Arial";
+  color: rgb(84, 85, 85);
+  font-variant: small-caps;
+  text-align: center;
+}
+
+.selectDay {
+  outline: none;
+  border: 2px solid rgb(233, 126, 89);
+  border-radius: 50%;
+}
+
+.noSelectDay {
+  outline: none;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+}
