@@ -27,3 +27,51 @@
 .profile-student .profile-student-container .profile-student-info span {
   margin: 5px;
 }
+
+.profile-student #subject-container {
+  margin: 10px;
+  padding: 10px;
+  height: 220px;
+  width: 250px;
+  border-top: 1px solid rgb(233, 126, 89);
+  border-right: 1px solid rgb(233, 126, 89);
+  border-bottom: 1px solid rgb(233, 126, 89);
+}
+
+.profile-student #subject-container #header {
+  font-size: 14px;
+  font-family: "Arial";
+  color: rgb(41, 41, 40);
+  text-align: left;
+  margin: 10px;
+}
+
+.profile-student #subject-container #header div:last-child {
+  background-color: rgb(233, 126, 89);
+  width: 37px;
+  height: 5px;
+}
+
+.profile-student .subject-item {
+  box-sizing: border-box;
+  min-height: 30px;
+  padding: 6px;
+  margin-left: 15px;
+  font-size: 12px;
+  font-family: "Arial";
+  color: rgb(41, 41, 40);
+}
+
+.profile-student .subject-item.clear {
+  margin-left: 40px;
+}
+
+.profile-student .subject-item span{
+  text-align: center;
+  color: rgb(233, 126, 89);
+  margin-right: 15px;
+}
+
+.subject-content {
+
+}

@@ -5,21 +5,28 @@
       .module('distanceLearning.profile')
       .controller('ProfileStudentController', ProfileStudentController);
 
-  ProfileStudentController.$inject = [];
+  ProfileStudentController.$inject = [
+      '$log',
+      'ProfileStudentUtils'
+  ];
 
-  function ProfileStudentController() {
+  function ProfileStudentController($log,
+                                    ProfileStudentUtils) {
     var vm = this;
-    vm.user = {
-      name: 'Constantine',
-      surname: 'Zarzhytskyy',
-      avatar: 'assests/images/user_tmp.png',
-      birthday: '01/01/2016',
-      phone: '+380994203529',
-      slug: 'Constantine_Zarzhytskyy',
-      role: 'student',
-      email: 'student@localhost.com'
-    };
-
     vm.currentSelectedDate = {};
+
+    ProfileStudentUtils.getUser()
+        .then(function (ok) {
+          vm.user = ok;
+        }, function (err) {
+          $log.log('[ERROR] ProfileStudentController.ProfileStudentUtils.getUser() ', err);
+        });
+
+    ProfileStudentUtils.getSubjects()
+        .then(function (ok) {
+          vm.subjects = ok;
+        }, function (err) {
+          $log.log('[ERROR] ProfileStudentController.ProfileStudentUtils.getUser() ', err);
+        });
   }
 })();

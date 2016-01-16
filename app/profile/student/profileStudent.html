@@ -17,7 +17,7 @@
         {{ profileStudent.user.name }} {{ profileStudent.user.surname }}
       </div>
       <div class="profile-student-info"
-          layout="column">
+           layout="column">
         <span>{{ profileStudent.user.phone }}</span>
         <span>{{ profileStudent.user.birthday }}</span>
         <span>{{ profileStudent.user.email }}</span>
@@ -25,8 +25,26 @@
     </div>
   </div>
   <div layout layout-align="space-around center">
-    <calendar option = "profileStudent.currentSelectedDate"></calendar>
-    <div>
+    <div layout="column">
+      <md-virtual-repeat-container id="subject-container">
+        <div id="header">
+          <div>
+            Предмети:
+          </div>
+          <div></div>
+        </div>
+        <div class="subject-item" ng-class="{ clear: subject.action.length == 0 }"
+             flex
+             md-virtual-repeat="subject in profileStudent.subjects">
+          <span ng-if="subject.action.length != 0">
+            {{ subject.action.length }}
+          </span>
+          {{ subject.name }}
+        </div>
+      </md-virtual-repeat-container>
+      <calendar option="profileStudent.currentSelectedDate"></calendar>
+    </div>
+    <div class="subject-content">
       {{ profileStudent.currentSelectedDate }}
     </div>
   </div>
