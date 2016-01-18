@@ -39,7 +39,7 @@
       }
     }
 
-    getFaculties();
+    getFaculties({ page: 1 });
 
     function getFacultybySlug(slug) {
       if (slug) { return slug; }
@@ -89,8 +89,11 @@
 
     vm.range = function (page) {
       if (!page) { return new Array(1); }
+      var countPage = Math.floor(page / 5);
 
-      return new Array(Math.floor(page/5));
+      if ((page % 5) != 0) { countPage++; }
+
+      return new Array(countPage);
     };
 
     vm.jumpToPage = function (page) {
