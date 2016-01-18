@@ -31,7 +31,7 @@
 .profile-student #subject-container {
   margin: 10px;
   padding: 10px;
-  height: 220px;
+  height: 223px;
   width: 250px;
   border-top: 1px solid rgb(233, 126, 89);
   border-right: 1px solid rgb(233, 126, 89);
@@ -128,4 +128,8 @@
   text-transform: uppercase;
   line-height: 0.28;
   text-align: center;
+}
+
+.subject {
+  margin-top: 8px;
 }
