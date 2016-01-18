@@ -1,6 +1,5 @@
 <div class="profile-student"
      layout="column" layout-wrap
-     layout-margin layout-padding
      ng-cloak>
   <menu-client></menu-client>
   <div class="profile-student-container"
@@ -24,7 +23,9 @@
       </div>
     </div>
   </div>
-  <div layout layout-align="space-around center">
+  <div layout layout-align="center start"
+       layout-xs="column" layout-align-xs="center center"
+       layout-sm="column" layout-align-sm="center center">
     <div layout="column">
       <md-virtual-repeat-container id="subject-container">
         <div id="header">
@@ -44,8 +45,54 @@
       </md-virtual-repeat-container>
       <calendar option="profileStudent.currentSelectedDate"></calendar>
     </div>
-    <div class="subject-content">
-      {{ profileStudent.currentSelectedDate }}
+    <div layout>
+      <div class="subject-conteiner">
+        <div layout layout-align="space-around center"
+             layout-wrap
+             hide show-xs>
+          <div class="task-item"
+               ng-repeat="task in profileStudent.currentSelectedDate.event track by $index">
+            <md-button class="md-icon-button" aria-label="">
+              <img ng-src="{{ profileStudent.taskIconURL }}" alt="" aria-label=""/>
+            </md-button>
+          </div>
+        </div>
+        <div class="subject-header-info">
+          <div>
+            <span>Предмет</span>: {{ profileStudent.task.subject }}
+          </div>
+          <div>
+            <span>Викладач</span>: {{ profileStudent.task.teacher }}
+          </div>
+        </div>
+        <div class="subject-content"
+             layout="column" layout-align="space-around center">
+          <div layout-margin layout-padding>
+            {{ profileStudent.task.describe }}
+          </div>
+          <div class="task-action-button"
+               layout layout-align="space-around center"
+               layout-xs="column" layout-align-xs="space-around center"
+               layout-sm="column" layout-align-sm="space-around center"
+               layout-margin layout-padding>
+            <md-button class="md-raised task-button" aria-label="">
+              Переглянути завдання
+            </md-button>
+            <md-button class="md-raised task-button" aria-label="">
+              Відправити завдання
+            </md-button>
+          </div>
+        </div>
+      </div>
+      <div class="task-list"
+           hide-xs>
+        <div class="task-item"
+             ng-repeat="task in profileStudent.currentSelectedDate.event track by $index">
+          <md-button class="md-icon-button" aria-label="">
+            <img ng-src="{{ profileStudent.taskIconURL }}" alt="" aria-label=""/>
+          </md-button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

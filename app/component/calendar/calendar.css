@@ -1,3 +1,7 @@
+.calendar-header {
+  min-width: 275px;
+}
+
 .calendar table {
   border-spacing: 15px;
 }
@@ -39,6 +43,8 @@
   margin: 15px;
   border-bottom: 1px solid rgb(233, 126, 89);
   border-right: 1px solid rgb(233, 126, 89);
+  max-height: 150px;
+  overflow: auto;
 }
 
 .event-container li {

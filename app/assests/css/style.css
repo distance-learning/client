@@ -26,3 +26,17 @@ a:hover {
   height: 36px;
   padding: 5px;
 }
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(233, 126, 89);
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+}
+

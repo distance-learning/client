@@ -66,12 +66,66 @@
   margin-left: 40px;
 }
 
-.profile-student .subject-item span{
+.profile-student .subject-item span {
   text-align: center;
   color: rgb(233, 126, 89);
   margin-right: 15px;
 }
 
-.subject-content {
+.subject-conteiner {
+  border: 1px solid rgb(157, 155, 154);
+  width: 550px;
+  height: auto;
+}
 
+.task-list {
+  max-height: 320px;
+  overflow: auto;
+  min-width: 93px;
+}
+
+.task-item .md-icon-button {
+  height: 64px;
+  width: 64px;
+}
+
+.subject-header-info {
+  font-size: 12px;
+  font-family: "Arial";
+  color: rgb(84, 85, 85);
+  text-align: left;
+}
+
+.subject-header-info div {
+  margin: 15px;
+}
+
+.subject-header-info span {
+  border-bottom: 1px solid rgb(233, 126, 89);
+}
+
+.task-action-button {
+  width: inherit;
+}
+
+.subject-content {
+  font-size: 12px;
+  font-family: "Arial";
+  color: rgb(84, 85, 85);
+  line-height: 1.5;
+  text-align: justify;
+}
+
+.md-raised.task-button {
+  border: 1px solid rgb(233, 126, 89);
+  background-color: rgb(233, 126, 89);
+  border-radius: 0;
+  width: 208px;
+  height: 46px;
+  font-size: 12px;
+  font-family: "Arial";
+  color: rgb(249, 251, 251);
+  text-transform: uppercase;
+  line-height: 0.28;
+  text-align: center;
 }
