@@ -48,6 +48,17 @@
   vertical-align: middle;
 }
 
+.footer .footer-container .footer-contact .contact-body div:first-child img{
+  margin: 0 5px 0 5px;
+}
+
+.footer .footer-container .footer-contact .contact-body img {
+  margin: 0 9px 0 5px;
+}
+.footer .footer-container .footer-contact .contact-body div:last-child img{
+  margin: 0 10px 0 5px;
+}
+
 .footer .footer-container .footer-contact .contact-body div {
   height: 25px;
   padding-top: 10px;
