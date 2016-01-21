@@ -33,6 +33,7 @@
 .faculty-list-container a,
 .faculty-list-container a:visited {
   color: rgb(84, 85, 85);
+  text-align: left;
 }
 
 .faculty-list-container a:active,
