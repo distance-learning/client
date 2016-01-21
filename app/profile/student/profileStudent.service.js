@@ -6,31 +6,15 @@
       .factory('ProfileStudentUtils', ProfileStudentUtils);
 
   ProfileStudentUtils.$inject = [
-      '$q', '$http'
+    '$q', '$http',
+    'ProfileUtils',
   ];
 
-  function ProfileStudentUtils($q, $http) {
+  function ProfileStudentUtils($q, $http,
+                               ProfileUtils) {
     var service = {
-      getUser: getUser,
       getSubjects: getSubjects
     };
-
-    function getUser() {
-      var defer = $q.defer();
-      var user = {
-        name: 'Constantine',
-        surname: 'Zarzhytskyy',
-        avatar: 'assests/images/user_tmp.png',
-        birthday: '01/01/2016',
-        phone: '+380994203529',
-        slug: 'Constantine_Zarzhytskyy',
-        role: 'student',
-        email: 'student@localhost.com'
-      };
-
-      defer.resolve(user);
-      return defer.promise;
-    }
 
     function getSubjects() {
       var defer = $q.defer();

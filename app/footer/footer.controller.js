@@ -6,24 +6,24 @@
       .controller('FooterController', FooterController);
 
   FooterController.$inject = [
-    '$log',
+    '$log', '$location',
     'LoginUtils'
   ];
 
-  function FooterController($log,
+  function FooterController($log, $location,
                             LoginUtils) {
     var vm = this;
     vm.login = function (user) {
       LoginUtils.login(user)
-          .then(function (ok) {
-            $log.log(ok);
+          .then(function () {
+            $location.path('/profile');
           }, function (err) {
-            $log.log(err);
+            $log.log('[ERROR] FooterController.login().LoginUtils.login()', err);
           });
     };
 
     vm.userCheck = function () {
-      LoginUtils.isLogged();
+      return LoginUtils.isLogged();
     }
   }
 })();

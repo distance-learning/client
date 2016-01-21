@@ -6,62 +6,67 @@
       .factory('LoginUtils', LoginUtils);
 
   LoginUtils.$inject = [
-    '$http', '$q', 'server_host',
-    'SessionUtils'];
+    '$q', '$auth'
+  ];
 
-  function LoginUtils($http, $q, server_host,
-                      SessionUtils) {
+  function LoginUtils($q, $auth) {
+    var userInfo = {};
     var service = {
       login: login,
+      logout: logout,
       isLogged: isLogged,
-      register: register
+      signUp: signUp,
+      getUserInfo: getUserInfo
     };
 
     function login(user) {
       var defer = $q.defer();
 
-      $http.post(server_host + 'api/auth/login', { email: user.email, password: user.password })
-          .success(function (ok) {
-            var userId = ok._id;
-
-            if (userId) {
-              SessionUtils.setUser('user', userId);
-              defer.resolve(ok);
-            }
-          })
-          .error(function (err, status ) {
-            defer.reject({
-              data: err,
-              status: status
-            });
+      $auth.login(user)
+          .then(function (ok) {
+            userInfo = ok.data.user;
+            defer.resolve(ok);
+          }, function (err) {
+            defer.reject(err);
           });
 
       return defer.promise;
     }
 
-    function isLogged() {
-      return !!SessionUtils.getUser('user');
+    function logout() {
+      // TODO: go to server & logout
+      $auth.logout();
     }
 
-    function register(value) {
-      var deferred = $q.defer();
+    function isLogged() {
+      return $auth.isAuthenticated();
+    }
 
-      $http.post(server_host + 'api/auth/registration', {
+    function signUp(value) {
+      var deferred = $q.defer();
+      var user = {
         name: value.name,
         surname: value.surname,
         password: value.password,
         password_confirmation: value.password_confirmation,
         phone: value.phone,
         email: value.email
-      })
-          .success(function (ok) {
+      };
+
+      $auth.signup(user)
+          .then(function (ok) {
+            userInfo = ok.data.user;
             deferred.resolve(ok);
           })
-          .error(function (err) {
+          .catch(function (err) {
             deferred.reject(err);
           });
 
       return deferred.promise;
+    }
+
+    function getUserInfo() {
+      return userInfo;
     }
 
     return service;

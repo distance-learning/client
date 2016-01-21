@@ -59,7 +59,25 @@
   margin-right: 5px;
 }
 
-.home-header-login-panel > div:last-child {
+.home-header-login-panel .register-link {
   width: 130px;
   border-left: none;
+}
+
+.home-header-login-panel .user-info{
+  border: none;
+  width: 350px;
+  padding: 15px 0 15px 5px;
+  height: inherit;
+  outline: none;
+}
+
+.home-header-login-panel .user-info img {
+  vertical-align: middle;
+  outline: none;
+}
+
+.home-header-login-panel .user-info span {
+  cursor: pointer;
+  outline: none;
 }

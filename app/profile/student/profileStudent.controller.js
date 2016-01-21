@@ -7,11 +7,11 @@
 
   ProfileStudentController.$inject = [
       '$log',
-      'ProfileStudentUtils'
+      'ProfileStudentUtils', 'ProfileUtils'
   ];
 
   function ProfileStudentController($log,
-                                    ProfileStudentUtils) {
+                                    ProfileStudentUtils, ProfileUtils) {
     var vm = this;
     vm.currentSelectedDate = {};
     vm.task = {
@@ -21,7 +21,7 @@
     };
     vm.taskIconURL = './assests/images/task.png';
 
-    ProfileStudentUtils.getUser()
+    ProfileUtils.getUserInfo()
         .then(function (ok) {
           vm.user = ok;
         }, function (err) {

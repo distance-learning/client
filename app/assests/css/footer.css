@@ -86,6 +86,7 @@
   font-size: 12px;
   font-family: "Arial";
   color: rgb(157, 158, 158);
+  outline: none;
 }
 
 .md-raised.dl-footer-button {

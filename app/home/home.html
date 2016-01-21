@@ -10,7 +10,7 @@
         Вхід
       </a>
     </div>
-    <div>
+    <div class="register-link">
       <a ng-href="/#/register" layout>
         <span><img src="assests/images/locked.png" alt=""></span>
         Реєстрація
@@ -20,8 +20,19 @@
   <div class="home-header-login-panel"
        layout layout-align="end center"
        ng-if="home.userCheck()">
-    <div>
-      {{ home.user.email }}
+    <div class="user-info"
+         layout layout-align="space-around center">
+      <div>
+        <img src="./assests/images/ic_account_circle_black_24dp_1x.png" alt=""
+             ng-click="home.gotoProfile()"/>
+        <span ng-click="home.gotoProfile()">
+          {{ home.user.email }}
+        </span>
+      </div>
+      <md-button class="md-icon-button" aria-label="" ng-click="home.logout()">
+        <md-icon md-svg-icon="{{ home.logoutIconURL }}"></md-icon>
+        <md-tooltip>Вийти</md-tooltip>
+      </md-button>
     </div>
   </div>
   <menu-client class="home-header-menu-header"></menu-client>
