@@ -137,3 +137,26 @@
 .task-container {
   margin-bottom: 25px;
 }
+
+.menu-admin .menu-admin-container {
+  max-width: 1200px;
+}
+
+.menu-admin .menu-admin-container .menu-admin-users{
+  border: 2px solid rgb(233, 126, 89);
+  width: 302px;
+  height: 200px;
+  font-size: 15px;
+  font-family: "Arial";
+  color: rgb(1, 1, 1);
+  margin: 20px;
+}
+
+.menu-admin .menu-admin-container .menu-admin-users img {
+  margin: 35px;
+  width: 100px;
+}
+
+.menu-admin .menu-admin-container .menu-admin-users:hover{
+  background-color: rgb(233, 126, 89);
+}

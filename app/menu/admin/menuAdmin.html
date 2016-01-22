@@ -1,25 +1,16 @@
-<div class="menu-client"
-     layout="row" layout-sm="column" layout-align="end center">
-  <div class="menu-client-normal"
-       layout="row" layout-align="end center"
-       layout-margin layout-padding
-       hide hide-sm show-gt-sm show-md show-gt-md show-lg show-gt-lg>
-    <div><a ng-href="#">Користувачі</a></div>
-  </div>
-  <div layout="row" layout-align="end center"
-       show-sm hide-gt-sm hide-md hide-gt-md hide-lg hide-gt-lg>
-    <div>
-      <md-button class="menu-client-sm-button" aria-label=""
-                 ng-click="menuAdmin.toggle()">
-        <md-icon md-svg-src="{{ menuAdmin.menuIconURL }}" aria-label=""></md-icon>
-      </md-button>
+<div class="menu-admin"
+     layout="column" layout-align="space-around center">
+  <div class="menu-admin-container"
+       layout="row" layout-sm="column" layout-align="center center"
+       layout-wrap>
+    <div class="menu-admin-users"
+         layout="column" layout-align="center center">
+      <div>
+        <img ng-src="{{ menuAdmin.usersIconURL }}" alt="">
+      </div>
+      <div>
+        Користувачі
+      </div>
     </div>
   </div>
-  <md-sidenav md-component-id="menu-client" class="md-sidenav-left menu-client-list-container"
-              layout="column" layout-align="stretch center">
-    <div style="color: #000">
-      ICON
-    </div>
-    <div><a ng-href="#">Користувачі</a></div>
-  </md-sidenav>
 </div>
