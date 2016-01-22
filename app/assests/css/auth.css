@@ -6,6 +6,11 @@
   margin: 0;
 }
 
+.login .login-container,
+.register .register-container {
+  min-height: calc(100% - 402px);
+}
+
 .login h3,
 .register h3 {
   font-size: 24px;
