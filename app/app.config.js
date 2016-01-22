@@ -29,6 +29,12 @@
             loginRequired: loginRequired
           }
         })
+        .when('/admin/users', {
+          template: '<users></users>',
+          resolve: {
+            loginRequired: loginRequired
+          }
+        })
         .otherwise({
           redirectTo: '/home'
         });
@@ -44,6 +50,7 @@
 
   function loginRequired($q, $location, $auth) {
     var deferred = $q.defer();
+
     if ($auth.isAuthenticated()) {
       deferred.resolve();
     } else {

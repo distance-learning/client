@@ -26,7 +26,7 @@
         birthday: '01/01/2016',
         phone: '+380994203529',
         slug: 'Constantine_Zarzhytskyy',
-        role: 'student',
+        role: 'admin',
         email: 'student@localhost.com'
       };
 
