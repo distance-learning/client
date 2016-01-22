@@ -8,7 +8,7 @@
         'satellizer',
         'distanceLearning.auth',
         'distanceLearning.home',
-        'distanceLearning.menuClient',
+        'distanceLearning.menu',
         'distanceLearning.news',
         'distanceLearning.faculty',
         'distanceLearning.teacher',

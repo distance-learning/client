@@ -5,13 +5,14 @@
       .module('distanceLearning.profile')
       .controller('ProfileController', ProfileController);
 
-  ProfileController.$inject = [];
+  ProfileController.$inject = [
+      '$log',
+      'LoginUtils'
+  ];
 
-  function ProfileController() {
+  function ProfileController($log,
+                             LoginUtils) {
     var vm = this;
-
-    vm.user = {
-      role: 'student'
-    };
+    vm.user = LoginUtils.getUserInfo();
   }
 })();

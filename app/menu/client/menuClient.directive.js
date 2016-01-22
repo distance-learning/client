@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-      .module('distanceLearning.menuClient')
+      .module('distanceLearning.menu')
       .directive('menuClient', menuClient);
 
   menuClient.$inject = [];

@@ -1,16 +1,17 @@
 <div>
-  <div ng-switch on="profile.user.role">
-    <div ng-switch-when="admin">
-      You're admin.
-    </div>
-    <div ng-switch-when="teacher">
-      You're teacher
-      .</div>
-    <div ng-switch-when="student">
-      <profile-student></profile-student>
-    </div>
-    <div ng-switch-default>
-      Whoops!!! +(
-    </div>
-  </div>
+  <profile-admin></profile-admin>
+  <!--<div ng-switch on="profile.user.role">-->
+    <!--<div ng-switch-when="administrator">-->
+      <!--<profile-admin></profile-admin>-->
+    <!--</div>-->
+    <!--<div ng-switch-when="teacher">-->
+      <!--You're teacher-->
+      <!--.</div>-->
+    <!--<div ng-switch-when="student">-->
+      <!--<profile-student></profile-student>-->
+    <!--</div>-->
+    <!--<div ng-switch-default>-->
+      <!--Whoops!!! +(-->
+    <!--</div>-->
+  <!--</div>-->
 </div>

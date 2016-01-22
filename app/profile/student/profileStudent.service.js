@@ -7,7 +7,7 @@
 
   ProfileStudentUtils.$inject = [
     '$q', '$http',
-    'ProfileUtils',
+    'ProfileUtils'
   ];
 
   function ProfileStudentUtils($q, $http,

@@ -3,7 +3,7 @@
 
   angular
       .module('distanceLearning.home', [
-          'distanceLearning.menuClient',
+          'distanceLearning.menu',
           'distanceLearning.news',
           'distanceLearning.auth'
       ]);

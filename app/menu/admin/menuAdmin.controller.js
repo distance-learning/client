@@ -3,11 +3,13 @@
 
   angular
       .module('distanceLearning.menu')
-      .controller('MenuClientController', MenuClientController);
+      .controller('MenuAdminController', MenuAdminController);
 
-  MenuClientController.$inject = ['$mdSidenav'];
+  MenuAdminController.$inject = [
+    '$mdSidenav'
+  ];
 
-  function MenuClientController ($mdSidenav) {
+  function MenuAdminController ($mdSidenav) {
     var vm = this;
     vm.menuIconURL = 'assests/images/ic_apps_black_18px.svg';
 
