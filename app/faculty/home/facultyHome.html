@@ -8,13 +8,13 @@
          layout="row" layout-sm="column"
          layout-margin layout-padding
          layout-wrap>
-      <a ng-href="/#/faculty/{{ faculty.slug }}">
+      <a href="" ng-click="facultyHome.showFaculty(faculty.slug)">
         <div class="faculty-image">
           <!--<img ng-src="faculty.image" alt="">-->
         </div>
       </a>
       <div class="faculty-description">
-        <a ng-href="/#/faculty/{{ faculty.slug }}">
+        <a href="" ng-click="facultyHome.showFaculty(faculty.slug)">
           <div class="faculty-description-name">
             {{ faculty.name }}
           </div>

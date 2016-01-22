@@ -7,7 +7,7 @@
       <div class="faculty-list-title">Факультети</div>
       <div ng-repeat="faculty in facultyList.faculties.faculties"
            layout="row" layout-align="start center">
-        <a ng-href="/#/faculty/{{ faculty.slug }}"
+        <a href="" ng-click="facultyList.showFacultyInfo(faculty.slug)"
            class="faculty-list-item">
           <span>{{ faculty.name }}</span>
         </a>

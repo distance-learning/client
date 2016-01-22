@@ -20,7 +20,7 @@
         .when('/home', {
           template: '<home></home>'
         })
-        .when('/faculty/:slug', {
+        .when('/faculties', {
           template: '<faculty-info></faculty-info>'
         })
         .when('/profile', {
