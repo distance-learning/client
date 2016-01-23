@@ -12,7 +12,23 @@
 
   function UsersUtils($q, $http, server_host) {
     var service = {
+      getUsers: getUsers
     };
+
+    function getUsers(value) {
+      var defer = $q.defer();
+
+      $http.get(server_host + 'api/admin/users', { page: value.page })
+          .then(function (ok) {
+            console.log('ok', ok);
+            defer.resolve(ok);
+          }, function (err) {
+            console.log('err', err);
+            defer.reject(err);
+          });
+
+      return defer.promise;
+    }
 
     return service;
   }
