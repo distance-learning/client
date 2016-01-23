@@ -41,6 +41,7 @@
   }
 
   function configAuth($authProvider) {
+    $authProvider.httpInterceptor = function() { return true; };
     $authProvider.baseUrl = 'http://distance-learning.herokuapp.com/';
     $authProvider.loginUrl = '/api/auth/login';
     $authProvider.signupUrl = '/api/auth/registration';

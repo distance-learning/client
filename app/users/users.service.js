@@ -18,7 +18,7 @@
     function getUsers(value) {
       var defer = $q.defer();
 
-      $http.get(server_host + 'api/admin/users', { page: value.page })
+      $http.get(server_host + 'api/admin/users', { params: { page: value.page } })
           .then(function (ok) {
             console.log('ok', ok);
             defer.resolve(ok);
