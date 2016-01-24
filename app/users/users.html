@@ -1,5 +1,78 @@
-<div class="users"
-     layout="column" layout-align="center center"
-     ng-cloak>
-  users
+<div>
+  <md-progress-linear md-mode="indeterminate"
+                      ng-if="users.loading"></md-progress-linear>
+  <div class="users"
+       layout="column" layout-align="center center"
+       layout-margin layout-padding
+       ng-cloak>
+    <md-whiteframe class="md-whiteframe-1dp"
+                   ng-if="!users.loading"
+                   layout layout-align="center center"
+                   layout-margin layout-padding>
+      <div class="user-container">
+        <div>
+          <h2>Список користувачів</h2>
+        </div>
+        <div class="user-item"
+             ng-repeat="user in users.users track by $index">
+          <div layout layout-align="space-between center">
+            <div>{{ user.surname }} {{ user.name }}</div>
+            <md-menu>
+              <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="">
+                <md-icon md-svg-icon="{{ users.managerUserIconURL }}" aria-label=""></md-icon>
+              </md-button>
+              <md-menu-content>
+                <md-menu-item>
+                  <md-button ng-click="users.editUser(user)">
+                    <md-icon md-svg-src="{{ users.editUserIconURL }}" aria-label=""></md-icon>
+                    Редагувати
+                  </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                  <md-button ng-click="users.removeUser(user)">
+                    <md-icon md-svg-src="{{ users.removeUserIconURL }}" aria-label=""></md-icon>
+                    Видалити
+                  </md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
+          </div>
+        </div>
+        <div class="pagination"
+             layout layout-align="center center"
+             layout-magin layout-padding>
+          <div class="pagination-page"
+               ng-repeat="page in users.range(users.total) track by $index"
+               ng-click="users.jumpToPage($index + 1)">
+          </div>
+        </div>
+      </div>
+    </md-whiteframe>
+  </div>
+  <md-fab-speed-dial md-open="users.isOpen"
+                     md-direction="up" class="md-fling float-button lock-size"
+                     ng-if="!users.loading">
+    <md-fab-trigger>
+      <md-button class="md-fab md-warn" aria-label="">
+        <md-icon md-svg-src="{{ users.menuUserIconURL }}" aria-label=""></md-icon>
+        <md-tooltip md-direction="left">
+          Операція
+        </md-tooltip>
+      </md-button>
+    </md-fab-trigger>
+    <md-fab-actions>
+      <md-button class="md-fab md-raised md-mini" aria-label="Add User">
+        <md-icon md-svg-src="{{ users.createUserIconURL }}" aria-label=""></md-icon>
+        <md-tooltip md-direction="left">
+          Створити користувача
+        </md-tooltip>
+      </md-button>
+      <md-button class="md-fab md-raised md-mini" aria-label="Filter User">
+        <md-icon md-svg-src="{{ users.filterUserIconURL }}" aria-label=""></md-icon>
+        <md-tooltip md-direction="left">
+          Фільтр
+        </md-tooltip>
+      </md-button>
+    </md-fab-actions>
+  </md-fab-speed-dial>
 </div>

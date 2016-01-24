@@ -1,0 +1,36 @@
+.user-container {
+  width: 500px;
+  height: auto;
+}
+
+.user-container h2 {
+  color: rgb(233, 126, 89);
+  cursor: default;
+}
+
+.user-container .user-item {
+  border-bottom: 1px solid rgb(233, 126, 89);
+  box-sizing: border-box;
+  height: 40px;
+  color: black;
+}
+
+.user-item div:first-child {
+  cursor: default;
+}
+
+md-menu-item > .md-button span {
+  color: black;
+}
+
+.md-fling.float-button.lock-size {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.user .md-whiteframe-1dp {
+  margin: 25px 0 25px 0;
+}
