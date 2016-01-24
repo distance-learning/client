@@ -6,12 +6,12 @@
       .controller('UsersController', UsersController);
 
   UsersController.$inject = [
-    '$mdSidenav', '$log', '$mdDialog',
-    'UsersUtils'
+    '$mdSidenav', '$log', '$mdDialog', '$location',
+    'UsersUtils', 'LoginUtils'
   ];
 
-  function UsersController($mdSidenav, $log, $mdDialog,
-                           UsersUtils) {
+  function UsersController($mdSidenav, $log, $mdDialog, $location,
+                           UsersUtils, LoginUtils) {
     var vm = this;
     var countUsersInPage = 15;
     var sideNavName = 'editUserContainer';
@@ -24,9 +24,7 @@
     vm.filterUserIconURL = './assests/images/ic_filter_list_black_24px.svg';
     vm.loading = true;
     vm.editebleUser = {};
-    vm.params = {
-      page: 1
-    };
+    vm.params = { page: 1 };
     vm.role = [
       { name: 'Адміністратор', role: 'administrator' },
       { name: 'Викладач', role: 'teacher' },
@@ -41,6 +39,9 @@
             vm.users = ok.data;
             vm.total = ok.total;
             vm.loading = false;
+          }, function (err) {
+            $log.log('[ERROR] getUser()', err);
+            goLogin(err);
           });
     }
 
@@ -78,26 +79,30 @@
     };
 
     vm.editUserSave = function () {
+      if (vm.editebleUser.selectedUserRole) {
+        vm.editebleUser.role = vm.editebleUser.selectedUserRole.role;
+      }
+
       if (vm.editebleUser.create) {
         UsersUtils.createUser(vm.editebleUser)
             .then(function (ok) {
               getUser(vm.params);
+              $mdSidenav(sideNavName).close();
             }, function (err) {
               $log.log('[ERROR] UsersController.editUserSave().UsersUtils.changeUser()', err);
+              goLogin(err);
             });
 
       } else {
-        vm.editebleUser.role = vm.editebleUser.selectedUserRole.role;
-
         UsersUtils.changeUser(vm.editebleUser)
             .then(function (ok) {
               getUser(vm.params);
+              $mdSidenav(sideNavName).close();
             }, function (err) {
               $log.log('[ERROR] UsersController.editUserSave().UsersUtils.changeUser()', err);
+              goLogin(err);
             });
       }
-
-      $mdSidenav(sideNavName).close();
     };
 
     vm.editUserCancel = function () {
@@ -120,6 +125,7 @@
               getUser(vm.params);
             }, function (err) {
               $log.log('[ERROR] UsersController.removeUser().UsersUtils.deleteUser()', err);
+              goLogin(err);
             });
       });
     };
@@ -130,5 +136,10 @@
 
       $mdSidenav(sideNavName).toggle();
     };
+
+    function goLogin(err) {
+      LoginUtils.logout();
+      $location.path('/login');
+    }
   }
 })();

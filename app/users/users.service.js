@@ -50,15 +50,11 @@
         description: '',
         password: user.password
       };
-      console.log(value);
 
-      $http.put(server_host + 'api/admin/users/' + user.slug, { params: value })
+      $http.put(server_host + 'api/admin/users/' + user.slug, value)
           .success(function (ok, status, headers, config) {
             var refreshToken = headers('authorization');
             refreshToken = refreshToken.replace('Bearer ', '');
-            console.log(refreshToken);
-
-            debugger;
 
             $auth.setToken(refreshToken);
             defer.resolve(ok);
@@ -71,7 +67,7 @@
       return defer.promise;
     }
 
-    function createUser (user) {
+    function createUser(user) {
       var defer = $q.defer();
       var value = {
         name: user.name,
@@ -84,13 +80,10 @@
         password: user.password
       };
 
-      $http.post(server_host + 'api/admin/users', { params: value })
+      $http.post(server_host + 'api/admin/users', value)
           .success(function (ok, status, headers, config) {
             var refreshToken = headers('authorization');
             refreshToken = refreshToken.replace('Bearer ', '');
-            console.log(refreshToken);
-
-            debugger;
 
             $auth.setToken(refreshToken);
             defer.resolve(ok);
@@ -110,9 +103,6 @@
           .success(function (ok, status, headers, config) {
             var refreshToken = headers('authorization');
             refreshToken = refreshToken.replace('Bearer ', '');
-            console.log(refreshToken);
-
-            debugger;
 
             $auth.setToken(refreshToken);
             defer.resolve(ok);
