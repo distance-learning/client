@@ -6,11 +6,12 @@
       .factory('UsersUtils', UsersUtils);
 
   UsersUtils.$inject = [
-    '$q', '$http',
+    '$q', '$http', '$auth',
     'server_host'
   ];
 
-  function UsersUtils($q, $http, server_host) {
+  function UsersUtils($q, $http, $auth,
+                      server_host) {
     var service = {
       getUsers: getUsers
     };
@@ -19,10 +20,14 @@
       var defer = $q.defer();
 
       $http.get(server_host + 'api/admin/users', { params: { page: value.page } })
-          .then(function (ok) {
-            console.log('ok', ok);
+          .success(function(ok, status, headers, config){
+            var refreshToken = headers('authorization');
+            refreshToken = refreshToken.replace('Bearer ', '');
+
+            $auth.setToken(refreshToken);
             defer.resolve(ok);
-          }, function (err) {
+          })
+          .error(function(err, status, headers, config){
             console.log('err', err);
             defer.reject(err);
           });

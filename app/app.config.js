@@ -47,8 +47,8 @@
     $authProvider.signupUrl = '/api/auth/registration';
     $authProvider.tokenName = 'token';
     $authProvider.storageType = 'sessionStorage';
-    $authProvider.authToken = '';
-    $authProvider.authHeader = 'token';
+    $authProvider.authToken = 'Bearer';
+    $authProvider.authHeader = 'Authorization';
   }
 
   function loginRequired($q, $location, $auth) {
