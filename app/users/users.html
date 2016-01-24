@@ -3,50 +3,114 @@
                       ng-if="users.loading"></md-progress-linear>
   <div class="users"
        layout="column" layout-align="center center"
-       layout-margin layout-padding
-       ng-cloak>
+       ng-cloak layout-wrap>
     <md-whiteframe class="md-whiteframe-1dp"
                    ng-if="!users.loading"
                    layout layout-align="center center"
                    layout-margin layout-padding>
-      <div class="user-container">
-        <div>
-          <h2>Список користувачів</h2>
+      <md-content>
+        <div class="user-container"
+             layout="column"
+             layout-wrap>
+          <div>
+            <h2>Список користувачів</h2>
+          </div>
+          <div class="user-item"
+               ng-repeat="user in users.users track by $index">
+            <div layout layout-align="space-between center">
+              <div>{{ user.surname }} {{ user.name }}</div>
+              <md-menu>
+                <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="">
+                  <md-icon md-svg-icon="{{ users.managerUserIconURL }}" aria-label=""></md-icon>
+                </md-button>
+                <md-menu-content>
+                  <md-menu-item>
+                    <md-button ng-click="users.editUser(user)">
+                      <md-icon md-svg-src="{{ users.editUserIconURL }}" aria-label=""></md-icon>
+                      Редагувати
+                    </md-button>
+                  </md-menu-item>
+                  <md-menu-item>
+                    <md-button ng-click="users.removeUser($event, user)">
+                      <md-icon md-svg-src="{{ users.removeUserIconURL }}" aria-label=""></md-icon>
+                      Видалити
+                    </md-button>
+                  </md-menu-item>
+                </md-menu-content>
+              </md-menu>
+            </div>
+          </div>
+          <div class="pagination"
+               layout layout-align="center center"
+               layout-magin layout-padding>
+            <div class="pagination-page"
+                 ng-repeat="page in users.range(users.total) track by $index"
+                 ng-click="users.jumpToPage($index + 1)">
+            </div>
+          </div>
         </div>
-        <div class="user-item"
-             ng-repeat="user in users.users track by $index">
-          <div layout layout-align="space-between center">
-            <div>{{ user.surname }} {{ user.name }}</div>
-            <md-menu>
-              <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="">
-                <md-icon md-svg-icon="{{ users.managerUserIconURL }}" aria-label=""></md-icon>
+      </md-content>
+      <md-sidenav md-component-id="editUserContainer"
+                  class="md-sidenav-right"
+                  layout="column" layout-align="center center"
+                  layout-fill layout-padding>
+        <form name="UserForm" class="UserForm"
+              layout="column">
+          <md-whiteframe class="md-whiteframe-1dp"
+                         layout="column" layout-align="center center">
+            <div layout="column" layout-align="space-around center"
+                 layout-magin layout-padding>
+              <md-input-container>
+                <label>Прізвище</label>
+                <input ng-model="users.editebleUser.surname">
+              </md-input-container>
+              <md-input-container>
+                <label>Ім'я</label>
+                <input ng-model="users.editebleUser.name">
+              </md-input-container>
+              <md-input-container>
+                <label>Електрона скринька</label>
+                <input type="email" ng-model="users.editebleUser.email">
+              </md-input-container>
+              <md-input-container>
+                <label>Пароль</label>
+                <input type="password" ng-model="users.editebleUser.password">
+              </md-input-container>
+              <md-content layout layout-xs="column" layout-align="space-between center"
+                          layout-padding>
+                <div>
+                  <label>Дата народження</label>
+                  <md-datepicker ng-model="users.editebleUser.birthday"></md-datepicker>
+                </div>
+                <div class="edit-user-role"
+                    layout="column" layout-align="center center">
+                  <md-input-container>
+                    <label>Роль</label>
+                    <md-select ng-model="users.editebleUser.selectedUserRole">
+                      <md-option ng-value="role" ng-repeat="role in users.role">{{ role.name }}</md-option>
+                    </md-select>
+                  </md-input-container>
+                  <div class="edit-user-currect-role">
+                    {{ users.editebleUser.role }}
+                  </div>
+                </div>
+              </md-content>
+            </div>
+            <div layout layout-align="end center"
+                 layout-magin layout-padding>
+              <md-button class="md-raised" type="submit"
+                         ng-click="users.editUserSave()"
+                         ng-disabled="RegisterForm.$invalid">
+                Зберегти
               </md-button>
-              <md-menu-content>
-                <md-menu-item>
-                  <md-button ng-click="users.editUser(user)">
-                    <md-icon md-svg-src="{{ users.editUserIconURL }}" aria-label=""></md-icon>
-                    Редагувати
-                  </md-button>
-                </md-menu-item>
-                <md-menu-item>
-                  <md-button ng-click="users.removeUser(user)">
-                    <md-icon md-svg-src="{{ users.removeUserIconURL }}" aria-label=""></md-icon>
-                    Видалити
-                  </md-button>
-                </md-menu-item>
-              </md-menu-content>
-            </md-menu>
-          </div>
-        </div>
-        <div class="pagination"
-             layout layout-align="center center"
-             layout-magin layout-padding>
-          <div class="pagination-page"
-               ng-repeat="page in users.range(users.total) track by $index"
-               ng-click="users.jumpToPage($index + 1)">
-          </div>
-        </div>
-      </div>
+              <md-button class="md-raised"
+                         ng-click="users.editUserCancel()">
+                Скасувати
+              </md-button>
+            </div>
+          </md-whiteframe>
+        </form>
+      </md-sidenav>
     </md-whiteframe>
   </div>
   <md-fab-speed-dial md-open="users.isOpen"
@@ -61,7 +125,8 @@
       </md-button>
     </md-fab-trigger>
     <md-fab-actions>
-      <md-button class="md-fab md-raised md-mini" aria-label="Add User">
+      <md-button class="md-fab md-raised md-mini" aria-label="Add User"
+          ng-click="users.createUser()">
         <md-icon md-svg-src="{{ users.createUserIconURL }}" aria-label=""></md-icon>
         <md-tooltip md-direction="left">
           Створити користувача

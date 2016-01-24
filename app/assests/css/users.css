@@ -1,5 +1,9 @@
+.users .md-whiteframe-1dp md-content {
+  width: 550px;
+}
+
 .user-container {
-  width: 500px;
+  width: 100%;
   height: auto;
 }
 
@@ -33,4 +37,38 @@ md-menu-item > .md-button span {
 
 .user .md-whiteframe-1dp {
   margin: 25px 0 25px 0;
+}
+
+.UserForm {
+  width: auto;
+}
+
+.UserForm div > md-input-container {
+  width: 100%;
+  padding: 8px;
+}
+
+.edit-user-role {
+  width: 200px;
+}
+
+.edit-user-currect-role {
+  color: #8a8a8a;
+}
+
+.userDialog {
+  width: 350px;
+}
+
+.userDialog .md-dialog-content.userDialog-content,
+.userDialog .userDialog-button {
+  color: black;
+}
+
+.userDialog .md-toolbar-tools.userDialog-header {
+  background-color: rgb(233, 126, 89);
+}
+
+.userDialog .userDialog-button.userDialog-cancel {
+  color: red;
 }

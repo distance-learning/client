@@ -1,0 +1,24 @@
+<md-dialog aria-label="removeUser" class="userDialog" ng-cloak>
+  <md-toolbar>
+    <div class="md-toolbar-tools userDialog-header">
+      <h2>Підтвердження видалення</h2>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div class="md-dialog-content userDialog-content"
+         layout>
+      {{ userDialog.user.surname }} {{ userDialog.user.name }}
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions layout="row" layout-aligment="end center">
+    <span flex></span>
+    <md-button class="userDialog-button"
+               ng-click="userDialog.removeUser()">
+      Видалити
+    </md-button>
+    <md-button class="userDialog-button userDialog-cancel"
+               ng-click="userDialog.cancel()">
+      Відмінити
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>
