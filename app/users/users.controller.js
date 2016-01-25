@@ -6,11 +6,11 @@
       .controller('UsersController', UsersController);
 
   UsersController.$inject = [
-    '$log', '$mdDialog', '$location',
+    '$log', '$mdDialog', '$location', '$route',
     'UsersUtils', 'LoginUtils'
   ];
 
-  function UsersController($log, $mdDialog, $location,
+  function UsersController($log, $mdDialog, $location, $route,
                            UsersUtils, LoginUtils) {
     var vm = this;
     var countUsersInPage = 15;
@@ -42,9 +42,14 @@
 
             vm.loading = false;
           }, function (err) {
-            debugger;
-            $log.log('[ERROR] getUser()', err);
-            goLogin(err);
+            var user = LoginUtils.reLogin();
+            LoginUtils.login(user)
+                .then(function (ok) {
+                  $location.path('/admin/users');
+                  $route.reload();
+                }, function (err) {
+                  $log.log('[ERROR] LoginUtils.reLogin()()', err);
+                });
           });
     }
 
@@ -77,15 +82,17 @@
               getUsers(vm.params);
             }, function (err) {
               $log.log('[ERROR] UsersController.removeUser().UsersUtils.deleteUser()', err);
-              goLogin(err);
+              var user = LoginUtils.reLogin();
+              LoginUtils.login(user)
+                  .then(function (ok) {
+                    $location.path('/admin/users');
+                    $route.reload();
+                  }, function (err) {
+                    $log.log('[ERROR] LoginUtils.reLogin()()', err);
+                  });
             });
       });
     };
-
-    function goLogin(err) {
-      LoginUtils.logout();
-      $location.path('/login');
-    }
 
     vm.jumpToPage = function (page) {
       vm.params.page = page;

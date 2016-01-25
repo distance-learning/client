@@ -15,6 +15,7 @@
     var userInfo = null;
     var service = {
       login: login,
+      reLogin: reLogin,
       logout: logout,
       isLogged: isLogged,
       signUp: signUp,
@@ -29,6 +30,7 @@
           .then(function (ok) {
             userInfo = ok.data.user;
             setUserRole('role', userInfo.role);
+            setUserCred(user.email, user.password);
 
             defer.resolve(ok);
           }, function (err) {
@@ -38,10 +40,14 @@
       return defer.promise;
     }
 
+    function reLogin() {
+      return getUserCred();
+    }
+
     function logout() {
       // TODO: go to server & logout
       userInfo = null;
-      removeUserRole();
+      removeUser();
 
       $auth.logout();
     }
@@ -65,6 +71,7 @@
           .then(function (ok) {
             userInfo = ok.data.user;
             setUserRole('role', userInfo.role);
+            setUserCred(user.email, user.password);
 
             deferred.resolve(ok);
           })
@@ -115,8 +122,24 @@
       return sessionStorage.getItem('role');
     }
 
-    function removeUserRole() {
-      return sessionStorage.removeItem('role');
+    function getUserCred() {
+      var user = {
+        email: sessionStorage.getItem('email'),
+        password: sessionStorage.getItem('password')
+      };
+
+      return user;
+    }
+
+    function setUserCred(email, password) {
+      sessionStorage.setItem('email', email);
+      sessionStorage.setItem('password', password);
+    }
+
+    function removeUser() {
+      sessionStorage.removeItem('email');
+      sessionStorage.removeItem('password');
+      sessionStorage.removeItem('role');
     }
 
     return service;

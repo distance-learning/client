@@ -6,11 +6,11 @@
       .controller('UserInfoController', UserInfoController);
 
   UserInfoController.$inject = [
-    '$log', '$location', '$routeParams',
+    '$log', '$location', '$routeParams', '$route',
     'UsersUtils', 'LoginUtils'
   ];
 
-  function UserInfoController($log, $location, $routeParams,
+  function UserInfoController($log, $location, $routeParams, $route,
                               UsersUtils, LoginUtils) {
     var vm = this;
     vm.userSlug = $routeParams.slug;
@@ -44,7 +44,16 @@
 
             vm.loading = false;
           }, function (err) {
-            $log.log('[ERROR] UserInfoController.getUserInfo().UsersUtils.getUserBySlug()', err);
+            var user = LoginUtils.reLogin();
+            LoginUtils.login(user)
+                .then(function (ok) {
+                  var path = '/admin/users/' + slug;
+                  $location.path(path);
+
+                  $route.reload();
+                }, function (err) {
+                  $log.log('[ERROR] LoginUtils.reLogin()()', err);
+                });
           });
     }
 
@@ -78,7 +87,16 @@
             $location.path('/admin/users');
           }, function (err) {
             $log.log('[ERROR] UsersController.editUserSave().UsersUtils.changeUser()', err);
-            goLogin(err);
+            var user = LoginUtils.reLogin();
+            LoginUtils.login(user)
+                .then(function (ok) {
+                  var path = '/admin/users';
+                  $location.path(path);
+
+                  $route.reload();
+                }, function (err) {
+                  $log.log('[ERROR] LoginUtils.reLogin()()', err);
+                });
           });
     }
 
@@ -90,14 +108,24 @@
             $location.path('/admin/users');
           }, function (err) {
             $log.log('[ERROR] UsersController.editUserSave().UsersUtils.changeUser()', err);
-            goLogin(err);
+            var user = LoginUtils.reLogin();
+            LoginUtils.login(user)
+                .then(function (ok) {
+                  var path = '/admin/users';
+                  $location.path(path);
+
+                  $route.reload();
+                }, function (err) {
+                  $log.log('[ERROR] LoginUtils.reLogin()()', err);
+                });
           });
     }
 
     function goLogin(err) {
-      LoginUtils.logout();
+      var path = '/admin/users/';
+      $location.path(path);
 
-      $location.path('/login');
+      $route.reload();
     }
 
     vm.saveUser = function () {
