@@ -13,6 +13,7 @@
   function UsersController($mdSidenav, $log, $mdDialog, $location,
                            UsersUtils, LoginUtils) {
     var vm = this;
+    vm.loading = true;
     var countUsersInPage = 15;
     var sideNavName = 'editUserContainer';
     vm.isOpen = true;
@@ -31,10 +32,16 @@
       { name: 'Студент', role: 'student' }
     ];
 
-    getUser(vm.params);
+    LoginUtils.userProfile()
+        .then(function (ok) {
+          if (ok.role != 'admin') {
+            return $location.path('/home');
+          }
+
+          getUser(vm.params);
+        });
+
     function getUser(params) {
-      debugger;
-      vm.loading = true;
       UsersUtils.getUsers(params.page)
           .then(function (ok) {
             vm.users = ok.data;

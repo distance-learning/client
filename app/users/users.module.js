@@ -2,5 +2,7 @@
   'use strict';
 
   angular
-      .module('distanceLearning.users', []);
+      .module('distanceLearning.users', [
+        'distanceLearning.profile'
+      ]);
 })();

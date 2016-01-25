@@ -6,16 +6,19 @@
       .factory('LoginUtils', LoginUtils);
 
   LoginUtils.$inject = [
-    '$q', '$auth'
+    '$q', '$http',
+    '$auth', 'server_host'
   ];
 
-  function LoginUtils($q, $auth) {
+  function LoginUtils($q, $http,
+                      $auth, server_host) {
+    var userInfo = null;
     var service = {
       login: login,
       logout: logout,
       isLogged: isLogged,
       signUp: signUp,
-      userLogin: userLogin
+      userProfile: userProfile
     };
 
     function login(user) {
@@ -23,6 +26,7 @@
 
       $auth.login(user)
           .then(function (ok) {
+            userInfo = ok.data.user;
             defer.resolve(ok);
           }, function (err) {
             defer.reject(err);
@@ -33,6 +37,7 @@
 
     function logout() {
       // TODO: go to server & logout
+      userInfo = null;
       $auth.logout();
     }
 
@@ -53,6 +58,7 @@
 
       $auth.signup(user)
           .then(function (ok) {
+            userInfo = ok.data.user;
             deferred.resolve(ok);
           })
           .catch(function (err) {
@@ -62,8 +68,35 @@
       return deferred.promise;
     }
 
-    function userLogin() {
-      return $auth.isAuthenticated();
+    function userProfile() {
+      var defer = $q.defer();
+
+      if ($auth.isAuthenticated()) {
+        if (!userInfo) {
+
+          $http.get(server_host + 'api/auth/user')
+              .success(function (ok, status, headers, config) {
+                var refreshToken = headers('authorization');
+                refreshToken = refreshToken.replace('Bearer ', '');
+                $auth.setToken(refreshToken);
+
+                userInfo = ok;
+
+                defer.resolve(ok);
+              })
+              .error(function (err, status, headers, config) {
+                defer.reject(err);
+              });
+
+        } else {
+          defer.resolve(userInfo);
+        }
+
+        return defer.promise;
+      }
+
+      defer.reject();
+      return defer.promise;
     }
 
     return service;

@@ -29,6 +29,18 @@
             loginRequired: loginRequired
           }
         })
+        .when('/profile/admin', {
+          template: '<profile-admin></profile-admin>',
+          resolve: {
+            loginRequired: loginRequired
+          }
+        })
+        .when('/profile/student', {
+          template: '<profile-student></profile-student>',
+          resolve: {
+            loginRequired: loginRequired
+          }
+        })
         .when('/admin/users', {
           template: '<users></users>',
           resolve: {

@@ -1,6 +1,10 @@
 <div class="profile-admin"
      layout="column" layout-wrap
      ng-cloak>
-  <menu-admin></menu-admin>
-  <footer></footer>
+  <md-progress-linear md-mode="indeterminate"
+                      ng-if="profileAdmin.loading"></md-progress-linear>
+  <div ng-if="!profileAdmin.loading">
+    <menu-admin></menu-admin>
+    <footer></footer>
+  </div>
 </div>
