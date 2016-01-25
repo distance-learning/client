@@ -47,6 +47,12 @@
             loginRequired: loginRequired
           }
         })
+        .when('/admin/users/info/:slug', {
+          template: '<user-page-info></user-page-info>',
+          resolve: {
+            loginRequired: loginRequired
+          }
+        })
         .otherwise({
           redirectTo: '/home'
         });

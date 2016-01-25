@@ -6,16 +6,14 @@
       .controller('UsersController', UsersController);
 
   UsersController.$inject = [
-    '$mdSidenav', '$log', '$mdDialog', '$location',
+    '$log', '$mdDialog', '$location',
     'UsersUtils', 'LoginUtils'
   ];
 
-  function UsersController($mdSidenav, $log, $mdDialog, $location,
+  function UsersController($log, $mdDialog, $location,
                            UsersUtils, LoginUtils) {
     var vm = this;
-    vm.loading = true;
     var countUsersInPage = 15;
-    var sideNavName = 'editUserContainer';
     vm.isOpen = true;
     vm.managerUserIconURL = './assests/images/ic_more_vert_black_24px.svg';
     vm.menuUserIconURL = './assests/images/ic_menu_black_24px.svg';
@@ -24,28 +22,24 @@
     vm.removeUserIconURL = './assests/images/ic_delete_black_24px.svg';
     vm.filterUserIconURL = './assests/images/ic_filter_list_black_24px.svg';
     vm.loading = true;
-    vm.editebleUser = {};
     vm.params = { page: 1 };
-    vm.role = [
-      { name: 'Адміністратор', role: 'administrator' },
-      { name: 'Викладач', role: 'teacher' },
-      { name: 'Студент', role: 'student' }
-    ];
 
-    LoginUtils.userProfile()
-        .then(function (ok) {
-          if (ok.role != 'admin') {
-            return $location.path('/home');
-          }
+    init();
+    function init() {
+      if (LoginUtils.getUserRole() != 'admin') {
+        return $location.path('/home');
+      }
 
-          getUser(vm.params);
-        });
+      getUsers(vm.params);
+    }
 
-    function getUser(params) {
+    function getUsers(params) {
+      vm.loading = true;
       UsersUtils.getUsers(params.page)
           .then(function (ok) {
             vm.users = ok.data;
             vm.total = ok.total;
+
             vm.loading = false;
           }, function (err) {
             debugger;
@@ -54,68 +48,16 @@
           });
     }
 
-    vm.range = function (page) {
-      if (!page) { return new Array(1); }
+    vm.createUser = function () {
+      var path = '/admin/users/info/create';
 
-      var countPage = Math.floor(page / countUsersInPage);
-      if ((page % countUsersInPage) != 0) {
-        countPage++;
-      }
-
-      return new Array(countPage);
-    };
-
-    vm.jumpToPage = function (page) {
-      vm.params.page = page;
-      getUser(vm.params);
+      $location.path(path);
     };
 
     vm.editUser = function (user) {
-      vm.editebleUser = user;
-      if (vm.editebleUser.birthday) {
-        vm.editebleUser.birthday = new Date(vm.editebleUser.birthday);
-      } else {
-        delete vm.editebleUser.birthday;
-      }
+      var path = '/admin/users/info/' + user.slug;
 
-      for(var i in vm.role) {
-        if (vm.role[i].role == vm.editebleUser.role) {
-          vm.editebleUser.role = vm.role[i].name;
-        }
-      }
-
-      $mdSidenav(sideNavName).toggle();
-    };
-
-    vm.editUserSave = function () {
-      if (vm.editebleUser.selectedUserRole) {
-        vm.editebleUser.role = vm.editebleUser.selectedUserRole.role;
-      }
-
-      if (vm.editebleUser.create) {
-        UsersUtils.createUser(vm.editebleUser)
-            .then(function (ok) {
-              getUser(vm.params);
-              $mdSidenav(sideNavName).close();
-            }, function (err) {
-              $log.log('[ERROR] UsersController.editUserSave().UsersUtils.changeUser()', err);
-              goLogin(err);
-            });
-
-      } else {
-        UsersUtils.changeUser(vm.editebleUser)
-            .then(function (ok) {
-              getUser(vm.params);
-              $mdSidenav(sideNavName).close();
-            }, function (err) {
-              $log.log('[ERROR] UsersController.editUserSave().UsersUtils.changeUser()', err);
-              goLogin(err);
-            });
-      }
-    };
-
-    vm.editUserCancel = function () {
-      $mdSidenav(sideNavName).close();
+      $location.path(path);
     };
 
     vm.removeUser = function (ev, user) {
@@ -130,8 +72,9 @@
         }
       }).then(function (req) {
         UsersUtils.deleteUser(user)
-            .then(function (ok) {
-              getUser(vm.params);
+            .then(function () {
+
+              getUsers(vm.params);
             }, function (err) {
               $log.log('[ERROR] UsersController.removeUser().UsersUtils.deleteUser()', err);
               goLogin(err);
@@ -139,16 +82,25 @@
       });
     };
 
-    vm.createUser = function () {
-      vm.editebleUser = {};
-      vm.editebleUser.create = true;
-
-      $mdSidenav(sideNavName).toggle();
-    };
-
     function goLogin(err) {
       LoginUtils.logout();
       $location.path('/login');
     }
+
+    vm.jumpToPage = function (page) {
+      vm.params.page = page;
+      getUsers(vm.params);
+    };
+
+    vm.range = function (page) {
+      if (!page) { return new Array(1); }
+
+      var countPage = Math.floor(page / countUsersInPage);
+      if ((page % countUsersInPage) != 0) {
+        countPage++;
+      }
+
+      return new Array(countPage);
+    };
   }
 })();

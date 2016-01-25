@@ -23,6 +23,7 @@
 
           var path = '';
           if (vm.user.role == 'admin') { path = '/profile/admin'; }
+          if (vm.user.role == 'teacher') { path = '/profile/teacher'; }
           if (vm.user.role == 'student') { path = '/profile/student'; }
 
           $location.path(path);

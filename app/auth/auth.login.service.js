@@ -18,7 +18,8 @@
       logout: logout,
       isLogged: isLogged,
       signUp: signUp,
-      userProfile: userProfile
+      userProfile: userProfile,
+      getUserRole: getUserRole
     };
 
     function login(user) {
@@ -27,6 +28,8 @@
       $auth.login(user)
           .then(function (ok) {
             userInfo = ok.data.user;
+            setUserRole('role', userInfo.role);
+
             defer.resolve(ok);
           }, function (err) {
             defer.reject(err);
@@ -38,6 +41,8 @@
     function logout() {
       // TODO: go to server & logout
       userInfo = null;
+      removeUserRole();
+
       $auth.logout();
     }
 
@@ -59,6 +64,8 @@
       $auth.signup(user)
           .then(function (ok) {
             userInfo = ok.data.user;
+            setUserRole('role', userInfo.role);
+
             deferred.resolve(ok);
           })
           .catch(function (err) {
@@ -81,6 +88,7 @@
                 $auth.setToken(refreshToken);
 
                 userInfo = ok;
+                setUserRole('role', userInfo.role);
 
                 defer.resolve(ok);
               })
@@ -97,6 +105,18 @@
 
       defer.reject();
       return defer.promise;
+    }
+
+    function setUserRole(key, value) {
+      return sessionStorage.setItem(key, value);
+    }
+
+    function getUserRole() {
+      return sessionStorage.getItem('role');
+    }
+
+    function removeUserRole() {
+      return sessionStorage.removeItem('role');
     }
 
     return service;

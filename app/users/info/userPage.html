@@ -1,0 +1,65 @@
+<div class="user-info">
+  <md-progress-linear md-mode="indeterminate"
+                      ng-if="userPageInfo.loading"></md-progress-linear>
+  <div class="user-info-container"
+       ng-if="!userPageInfo.loading"
+       layout="column" layout-align="center center"
+       layout-fill layout-padding>
+    <form name="UserForm" class="UserForm"
+          layout="column">
+      <md-whiteframe class="md-whiteframe-1dp"
+                     layout="column" layout-align="center center">
+        <div layout="column" layout-align="space-around center"
+             layout-magin layout-padding>
+          <md-input-container>
+            <label>Прізвище</label>
+            <input ng-model="userPageInfo.user.surname">
+          </md-input-container>
+          <md-input-container>
+            <label>Ім'я</label>
+            <input ng-model="userPageInfo.user.name">
+          </md-input-container>
+          <md-input-container>
+            <label>Електрона скринька</label>
+            <input type="email" ng-model="userPageInfo.user.email">
+          </md-input-container>
+          <md-input-container>
+            <label>Пароль</label>
+            <input type="password" ng-model="userPageInfo.user.password">
+          </md-input-container>
+          <md-content layout layout-xs="column" layout-align="space-between center"
+                      layout-padding>
+            <div>
+              <label>Дата народження</label>
+              <md-datepicker ng-model="userPageInfo.user.birthday"></md-datepicker>
+            </div>
+            <div class="edit-user-role"
+                 layout="column" layout-align="center center">
+              <md-input-container>
+                <label>Роль</label>
+                <md-select ng-model="userPageInfo.user.selectedUserRole" aria-label="">
+                  <md-option ng-value="role" ng-repeat="role in userPageInfo.role">{{ role.name }}</md-option>
+                </md-select>
+              </md-input-container>
+              <div class="edit-user-currect-role">
+                {{ userPageInfo.user.role }}
+              </div>
+            </div>
+          </md-content>
+        </div>
+        <div layout layout-align="end center"
+             layout-magin layout-padding>
+          <md-button class="md-raised" type="submit"
+                     ng-click="userPageInfo.saveUser()"
+                     ng-disabled="UserForm.$invalid">
+            Зберегти
+          </md-button>
+          <md-button class="md-raised"
+                     ng-click="userPageInfo.calcelUser()">
+            Скасувати
+          </md-button>
+        </div>
+      </md-whiteframe>
+    </form>
+  </div>
+</div>

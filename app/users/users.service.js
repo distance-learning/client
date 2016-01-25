@@ -16,29 +16,22 @@
       getUsers: getUsers,
       changeUser: changeUser,
       createUser: createUser,
-      deleteUser: deleteUser
+      deleteUser: deleteUser,
+      getUserBySlug: getUserBySlug
     };
 
     function getUsers(value) {
       var defer = $q.defer();
 
-      $http.get(server_host + 'api/admin/users', {params: {page: value.page}})
+      $http.get(server_host + 'api/admin/users', { params: { page: value.page } })
           .success(function (ok, status, headers, config) {
-            console.log('getUsersrefreshToken', $auth.getToken());
-
             var refreshToken = headers('authorization');
             refreshToken = refreshToken.replace('Bearer ', '');
-            console.log('getUsersrefreshToken', refreshToken);
-
             $auth.setToken(refreshToken);
-            console.log('getUsersrefreshToken', $auth.getToken());
 
-            //debugger;
             defer.resolve(ok);
           })
           .error(function (err, status, headers, config) {
-            //debugger;
-            console.log('err', err);
             defer.reject(err);
           });
 
@@ -62,8 +55,8 @@
           .success(function (ok, status, headers, config) {
             var refreshToken = headers('authorization');
             refreshToken = refreshToken.replace('Bearer ', '');
-
             $auth.setToken(refreshToken);
+
             defer.resolve(ok);
           })
           .error(function (err, status, headers, config) {
@@ -91,12 +84,11 @@
           .success(function (ok, status, headers, config) {
             var refreshToken = headers('authorization');
             refreshToken = refreshToken.replace('Bearer ', '');
-
             $auth.setToken(refreshToken);
+
             defer.resolve(ok);
           })
           .error(function (err, status, headers, config) {
-            console.log('err', err);
             defer.reject(err);
           });
 
@@ -110,12 +102,29 @@
           .success(function (ok, status, headers, config) {
             var refreshToken = headers('authorization');
             refreshToken = refreshToken.replace('Bearer ', '');
-
             $auth.setToken(refreshToken);
+
             defer.resolve(ok);
           })
           .error(function (err, status, headers, config) {
-            console.log('err', err);
+            defer.reject(err);
+          });
+
+      return defer.promise;
+    }
+
+    function getUserBySlug(slug) {
+      var defer = $q.defer();
+
+      $http.get(server_host + 'api/admin/users/' + slug)
+          .success(function (ok, status, headers, config) {
+            var refreshToken = headers('authorization');
+            refreshToken = refreshToken.replace('Bearer ', '');
+            $auth.setToken(refreshToken);
+
+            defer.resolve(ok);
+          })
+          .error(function (err, status, headers, config) {
             defer.reject(err);
           });
 

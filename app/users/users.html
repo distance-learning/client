@@ -50,67 +50,6 @@
           </div>
         </div>
       </md-content>
-      <md-sidenav md-component-id="editUserContainer"
-                  class="md-sidenav-right"
-                  layout="column" layout-align="center center"
-                  layout-fill layout-padding>
-        <form name="UserForm" class="UserForm"
-              layout="column">
-          <md-whiteframe class="md-whiteframe-1dp"
-                         layout="column" layout-align="center center">
-            <div layout="column" layout-align="space-around center"
-                 layout-magin layout-padding>
-              <md-input-container>
-                <label>Прізвище</label>
-                <input ng-model="users.editebleUser.surname">
-              </md-input-container>
-              <md-input-container>
-                <label>Ім'я</label>
-                <input ng-model="users.editebleUser.name">
-              </md-input-container>
-              <md-input-container>
-                <label>Електрона скринька</label>
-                <input type="email" ng-model="users.editebleUser.email">
-              </md-input-container>
-              <md-input-container>
-                <label>Пароль</label>
-                <input type="password" ng-model="users.editebleUser.password">
-              </md-input-container>
-              <md-content layout layout-xs="column" layout-align="space-between center"
-                          layout-padding>
-                <div>
-                  <label>Дата народження</label>
-                  <md-datepicker ng-model="users.editebleUser.birthday"></md-datepicker>
-                </div>
-                <div class="edit-user-role"
-                    layout="column" layout-align="center center">
-                  <md-input-container>
-                    <label>Роль</label>
-                    <md-select ng-model="users.editebleUser.selectedUserRole">
-                      <md-option ng-value="role" ng-repeat="role in users.role">{{ role.name }}</md-option>
-                    </md-select>
-                  </md-input-container>
-                  <div class="edit-user-currect-role">
-                    {{ users.editebleUser.role }}
-                  </div>
-                </div>
-              </md-content>
-            </div>
-            <div layout layout-align="end center"
-                 layout-magin layout-padding>
-              <md-button class="md-raised" type="submit"
-                         ng-click="users.editUserSave()"
-                         ng-disabled="RegisterForm.$invalid">
-                Зберегти
-              </md-button>
-              <md-button class="md-raised"
-                         ng-click="users.editUserCancel()">
-                Скасувати
-              </md-button>
-            </div>
-          </md-whiteframe>
-        </form>
-      </md-sidenav>
     </md-whiteframe>
   </div>
   <md-fab-speed-dial md-open="users.isOpen"
@@ -126,7 +65,7 @@
     </md-fab-trigger>
     <md-fab-actions>
       <md-button class="md-fab md-raised md-mini" aria-label="Add User"
-          ng-click="users.createUser()">
+                 ng-click="users.createUser()">
         <md-icon md-svg-src="{{ users.createUserIconURL }}" aria-label=""></md-icon>
         <md-tooltip md-direction="left">
           Створити користувача
