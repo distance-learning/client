@@ -5,6 +5,7 @@
       .module('distanceLearning.home', [
           'distanceLearning.menu',
           'distanceLearning.news',
-          'distanceLearning.auth'
+          'distanceLearning.auth',
+          'distanceLearning.profile'
       ]);
 })();

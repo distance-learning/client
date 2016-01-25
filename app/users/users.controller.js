@@ -33,6 +33,7 @@
 
     getUser(vm.params);
     function getUser(params) {
+      debugger;
       vm.loading = true;
       UsersUtils.getUsers(params.page)
           .then(function (ok) {
@@ -40,6 +41,7 @@
             vm.total = ok.total;
             vm.loading = false;
           }, function (err) {
+            debugger;
             $log.log('[ERROR] getUser()', err);
             goLogin(err);
           });

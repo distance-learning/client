@@ -10,13 +10,12 @@
   ];
 
   function LoginUtils($q, $auth) {
-    var userInfo = {};
     var service = {
       login: login,
       logout: logout,
       isLogged: isLogged,
       signUp: signUp,
-      getUserInfo: getUserInfo
+      userLogin: userLogin
     };
 
     function login(user) {
@@ -24,7 +23,6 @@
 
       $auth.login(user)
           .then(function (ok) {
-            userInfo = ok.data.user;
             defer.resolve(ok);
           }, function (err) {
             defer.reject(err);
@@ -55,7 +53,6 @@
 
       $auth.signup(user)
           .then(function (ok) {
-            userInfo = ok.data.user;
             deferred.resolve(ok);
           })
           .catch(function (err) {
@@ -65,8 +62,8 @@
       return deferred.promise;
     }
 
-    function getUserInfo() {
-      return userInfo;
+    function userLogin() {
+      return $auth.isAuthenticated();
     }
 
     return service;

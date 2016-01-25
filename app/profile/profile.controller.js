@@ -7,12 +7,21 @@
 
   ProfileController.$inject = [
       '$log',
-      'LoginUtils'
+      'ProfileUtils'
   ];
 
   function ProfileController($log,
-                             LoginUtils) {
+                             ProfileUtils) {
     var vm = this;
-    vm.user = LoginUtils.getUserInfo();
+    vm.loading = true;
+
+    ProfileUtils.getUserInfo()
+        .then(function (ok) {
+          console.log(ok);
+          vm.user = ok;
+          vm.loading = false;
+        }, function (err) {
+          $log.log('[ERROR] ProfileController.ProfileUtils.getUserInfo()', err);
+        });
   }
 })();

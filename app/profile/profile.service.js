@@ -6,48 +6,39 @@
       .factory('ProfileUtils', ProfileUtils);
 
   ProfileUtils.$inject = [
-    '$q', '$http',
+    '$q', '$http', '$auth',
     'server_host'
   ];
 
-  function ProfileUtils($q, $http,
+  function ProfileUtils($q, $http, $auth,
                         server_host) {
     var service = {
       getUserInfo: getUserInfo
     };
 
     function getUserInfo() {
-
       var defer = $q.defer();
-      var user = {
-        name: 'Constantine',
-        surname: 'Zarzhytskyy',
-        avatar: 'assests/images/user_tmp.png',
-        birthday: '01/01/2016',
-        phone: '+380994203529',
-        slug: 'Constantine_Zarzhytskyy',
-        role: 'admin',
-        email: 'student@localhost.com'
-      };
 
-      defer.resolve(user);
+      $http.get(server_host + 'api/auth/user')
+          .success(function (ok, status, headers, config) {
+            console.log('getUserInforefreshToken', $auth.getToken());
+
+            var refreshToken = headers('authorization');
+            refreshToken = refreshToken.replace('Bearer ', '');
+            console.log('getUserInforefreshToken', refreshToken);
+
+            $auth.setToken(refreshToken);
+            console.log('getUserInforefreshToken', $auth.getToken());
+
+            //debugger;
+            defer.resolve(ok);
+          })
+          .error(function (err, status, headers, config) {
+            //debugger;
+            defer.reject(err);
+          });
+
       return defer.promise;
-
-      //$http.get(server_host + 'api/auth/login')
-      //    .success(function (ok) {
-      //      var userId = ok._id;
-      //
-      //      if (userId) {
-      //        SessionUtils.setUser('user', userId);
-      //        defer.resolve(ok);
-      //      }
-      //    })
-      //    .error(function (err, status) {
-      //      defer.reject({
-      //        data: err,
-      //        status: status
-      //      });
-      //    });
     }
 
     return service;

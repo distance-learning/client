@@ -7,11 +7,11 @@
 
   ProfileStudentController.$inject = [
       '$log',
-      'ProfileStudentUtils', 'ProfileUtils'
+      'ProfileStudentUtils'
   ];
 
   function ProfileStudentController($log,
-                                    ProfileStudentUtils, ProfileUtils) {
+                                    ProfileStudentUtils) {
     var vm = this;
     vm.currentSelectedDate = {};
     vm.task = {
@@ -20,13 +20,6 @@
       teacher: 'Іванов Іван Іванович'
     };
     vm.taskIconURL = './assests/images/task.png';
-
-    ProfileUtils.getUserInfo()
-        .then(function (ok) {
-          vm.user = ok;
-        }, function (err) {
-          $log.log('[ERROR] ProfileStudentController.ProfileStudentUtils.getUser() ', err);
-        });
 
     ProfileStudentUtils.getSubjects()
         .then(function (ok) {

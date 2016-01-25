@@ -24,13 +24,20 @@
 
       $http.get(server_host + 'api/admin/users', {params: {page: value.page}})
           .success(function (ok, status, headers, config) {
+            console.log('getUsersrefreshToken', $auth.getToken());
+
             var refreshToken = headers('authorization');
             refreshToken = refreshToken.replace('Bearer ', '');
+            console.log('getUsersrefreshToken', refreshToken);
 
             $auth.setToken(refreshToken);
+            console.log('getUsersrefreshToken', $auth.getToken());
+
+            //debugger;
             defer.resolve(ok);
           })
           .error(function (err, status, headers, config) {
+            //debugger;
             console.log('err', err);
             defer.reject(err);
           });
