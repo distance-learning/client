@@ -13,8 +13,8 @@
   function UserInfoController($log, $location, $routeParams, $route,
                               UsersUtils, LoginUtils) {
     var vm = this;
-    vm.userSlug = $routeParams.slug;
     var slugForCreate = 'create';
+    vm.userSlug = $routeParams.slug;
     vm.user = {};
     vm.loading = true;
     vm.role = [

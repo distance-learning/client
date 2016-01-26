@@ -6,12 +6,12 @@
       .factory('LoginUtils', LoginUtils);
 
   LoginUtils.$inject = [
-    '$q', '$http',
-    '$auth', 'server_host'
+    '$q',
+    '$auth'
   ];
 
-  function LoginUtils($q, $http,
-                      $auth, server_host) {
+  function LoginUtils($q,
+                      $auth) {
     var service = {
       login: login,
       logout: logout,

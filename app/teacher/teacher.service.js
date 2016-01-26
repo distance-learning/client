@@ -10,7 +10,8 @@
     'server_host'
   ];
 
-  function TeacherUtils($q, $http, server_host) {
+  function TeacherUtils($q, $http,
+                        server_host) {
     var teachers = [
       {
         name: 'Варламова Ирина',
