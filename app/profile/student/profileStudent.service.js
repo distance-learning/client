@@ -6,12 +6,10 @@
       .factory('ProfileStudentUtils', ProfileStudentUtils);
 
   ProfileStudentUtils.$inject = [
-    '$q', '$http',
-    'ProfileUtils'
+    '$q', '$http'
   ];
 
-  function ProfileStudentUtils($q, $http,
-                               ProfileUtils) {
+  function ProfileStudentUtils($q, $http) {
     var service = {
       getSubjects: getSubjects
     };

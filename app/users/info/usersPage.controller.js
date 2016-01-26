@@ -14,6 +14,7 @@
                               UsersUtils, LoginUtils) {
     var vm = this;
     vm.userSlug = $routeParams.slug;
+    var slugForCreate = 'create';
     vm.user = {};
     vm.loading = true;
     vm.role = [
@@ -25,15 +26,15 @@
     init();
     function init() {
       vm.loading = true;
-      if (LoginUtils.getUserRole() != 'admin') {
-        return $location.path('/home');
-      }
-
-      if ($routeParams.slug != 'create') {
-        getUserInfo($routeParams.slug);
+      if (LoginUtils.isLogged()) {
+        if ($routeParams.slug != slugForCreate) {
+          getUserInfo($routeParams.slug);
+        } else {
+          vm.user = {};
+          vm.loading = false;
+        }
       } else {
-        vm.user = {};
-        vm.loading = false;
+        $location.path('/home');
       }
     }
 
@@ -84,7 +85,7 @@
     function createUser(user) {
       UsersUtils.createUser(user)
           .then(function () {
-            $location.path('/admin/users');
+            $location.path('/profile');
           }, function (err) {
             $log.log('[ERROR] UsersController.editUserSave().UsersUtils.changeUser()', err);
             var user = LoginUtils.reLogin();
@@ -105,7 +106,7 @@
           .then(function () {
             vm.loading = false;
 
-            $location.path('/admin/users');
+            $location.path('/profile');
           }, function (err) {
             $log.log('[ERROR] UsersController.editUserSave().UsersUtils.changeUser()', err);
             var user = LoginUtils.reLogin();
@@ -131,7 +132,7 @@
     vm.saveUser = function () {
       vm.loading = true;
 
-      if ($routeParams.slug === 'create') {
+      if ($routeParams.slug == slugForCreate) {
         createUser(prepareUserToSave(vm.user));
       } else {
         editUser(prepareUserToSave(vm.user));
@@ -139,7 +140,7 @@
     };
 
     vm.calcelUser = function () {
-      $location.path('/admin/users');
+      $location.path('/profile/admin');
     };
   }
 })();

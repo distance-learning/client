@@ -16,9 +16,10 @@
     vm.login = function (user) {
       LoginUtils.login(user)
           .then(function () {
-            $location.path('/profile');
+            $location.path('/home');
           }, function (err) {
             var notification = (err.status == 401 ) ? 'Невірно вказано логін|пароль' : 'непонятно';
+
             $mdToast.show(
                 $mdToast.simple()
                     .textContent(notification)

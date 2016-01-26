@@ -23,35 +23,17 @@
         .when('/faculties', {
           template: '<faculty-info></faculty-info>'
         })
-        .when('/profile', {
-          template: '<profile></profile>',
-          resolve: {
-            loginRequired: loginRequired
-          }
-        })
         .when('/profile/admin', {
-          template: '<profile-admin></profile-admin>',
-          resolve: {
-            loginRequired: loginRequired
-          }
+          template: '<profile-admin></profile-admin>'
         })
         .when('/profile/student', {
-          template: '<profile-student></profile-student>',
-          resolve: {
-            loginRequired: loginRequired
-          }
+          template: '<profile-student></profile-student>'
         })
         .when('/admin/users', {
-          template: '<users></users>',
-          resolve: {
-            loginRequired: loginRequired
-          }
+          template: '<users></users>'
         })
         .when('/admin/users/info/:slug', {
-          template: '<user-page-info></user-page-info>',
-          resolve: {
-            loginRequired: loginRequired
-          }
+          template: '<user-page-info></user-page-info>'
         })
         .otherwise({
           redirectTo: '/home'
@@ -68,16 +50,4 @@
     $authProvider.authToken = 'Bearer';
     $authProvider.authHeader = 'Authorization';
   }
-
-  function loginRequired($q, $location, $auth) {
-    var deferred = $q.defer();
-
-    if ($auth.isAuthenticated()) {
-      deferred.resolve();
-    } else {
-      $location.path('/login');
-    }
-    return deferred.promise;
-  }
-
 })();

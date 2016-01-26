@@ -6,21 +6,30 @@
       .controller('ProfileAdminController', ProfileAdminController);
 
   ProfileAdminController.$inject = [
-    '$log',
-    'LoginUtils'
+      'LoginUtils', 'ProfileUtils'
   ];
 
-  function ProfileAdminController($log,
-                                  LoginUtils) {
+  function ProfileAdminController(LoginUtils, ProfileUtils) {
     var vm = this;
     vm.loading = true;
 
-    LoginUtils.userProfile()
-        .then(function (ok) {
-          vm.user = ok;
-          vm.loading = false;
-        }, function (err) {
-          $log.log('[ERROR] ProfileStudentController.LoginUtils.userProfile()', err);
-        });
+    init();
+    function init() {
+      vm.user = {};
+      vm.loading = true;
+      if (LoginUtils.isLogged()) {
+        ProfileUtils.getUserInfo()
+            .then(function (ok) {
+
+              if (ok.role != 'admin') { return $location.path('/home'); }
+
+              vm.loading = false;
+            }, function (err) {
+              $log.log('[ERROR] ProfileStudentController.LoginUtils.userProfile()', err);
+            });
+      } else {
+        $location.path('/home');
+      }
+    }
   }
 })();

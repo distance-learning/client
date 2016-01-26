@@ -6,12 +6,12 @@
       .controller('UsersController', UsersController);
 
   UsersController.$inject = [
-    '$log', '$mdDialog', '$location', '$route',
-    'UsersUtils', 'LoginUtils'
+    '$log', '$mdDialog', '$location',
+    'UsersUtils', 'LoginUtils', 'ProfileUtils'
   ];
 
-  function UsersController($log, $mdDialog, $location, $route,
-                           UsersUtils, LoginUtils) {
+  function UsersController($log, $mdDialog, $location,
+                           UsersUtils, LoginUtils, ProfileUtils) {
     var vm = this;
     var countUsersInPage = 15;
     vm.isOpen = true;
@@ -26,11 +26,25 @@
 
     init();
     function init() {
-      if (LoginUtils.getUserRole() != 'admin') {
+      vm.loading = true;
+      if (LoginUtils.isLogged()) {
+        ProfileUtils.getUserInfo()
+            .then(function (ok) {
+              console.log('okokok', ok);
+
+              if (ok.role != 'admin') { return $location.path('/home'); }
+
+              getUsers(vm.params);
+
+              vm.loading = false;
+            }, function (err) {
+              $log.log('UsersController.init()', err);
+
+              return $location.path('/home');
+            });
+      } else {
         return $location.path('/home');
       }
-
-      getUsers(vm.params);
     }
 
     function getUsers(params) {
@@ -42,15 +56,16 @@
 
             vm.loading = false;
           }, function (err) {
-            var user = LoginUtils.reLogin();
-            LoginUtils.login(user)
-                .then(function (ok) {
-                  $location.path('/admin/users');
-                  $route.reload();
-                }, function (err) {
-                  $log.log('[ERROR] LoginUtils.reLogin()()', err);
-                });
+            debugger;
+            $log.log('[ERROR] getUser()', err);
+            goLogin(err);
           });
+    }
+
+    function goLogin(err) {
+      LoginUtils.logout();
+
+      $location.path('/login');
     }
 
     vm.createUser = function () {
@@ -82,14 +97,7 @@
               getUsers(vm.params);
             }, function (err) {
               $log.log('[ERROR] UsersController.removeUser().UsersUtils.deleteUser()', err);
-              var user = LoginUtils.reLogin();
-              LoginUtils.login(user)
-                  .then(function (ok) {
-                    $location.path('/admin/users');
-                    $route.reload();
-                  }, function (err) {
-                    $log.log('[ERROR] LoginUtils.reLogin()()', err);
-                  });
+              goLogin(err);
             });
       });
     };

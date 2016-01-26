@@ -6,19 +6,15 @@
       .controller('MenuAdminController', MenuAdminController);
 
   MenuAdminController.$inject = [
-    '$mdSidenav', '$location'
+    '$location'
   ];
 
-  function MenuAdminController ($mdSidenav, $location) {
+  function MenuAdminController ($location) {
     var vm = this;
     vm.menuIconURL = 'assests/images/ic_apps_black_18px.svg';
     vm.usersIconURL = 'assests/images/ic_people_black_48px.svg';
 
-    vm.toggle = function () {
-      $mdSidenav('menu-client').toggle();
-    };
-
-    vm.gotoUsers = function () {
+    vm.goToUsers = function () {
       $location.path('/admin/users');
     };
   }

@@ -23,11 +23,16 @@
           .success(function (ok, status, headers, config) {
             var refreshToken = headers('authorization');
             refreshToken = refreshToken.replace('Bearer ', '');
+
+            console.log('refreshToken=',refreshToken);
+            console.log('ProfileUtils.getUserInfo()', $auth.getToken());
             $auth.setToken(refreshToken);
+            console.log('ProfileUtils.getUserInfo()', $auth.getToken());
 
             defer.resolve(ok);
           })
           .error(function (err, status, headers, config) {
+            debugger;
             defer.reject(err);
           });
 

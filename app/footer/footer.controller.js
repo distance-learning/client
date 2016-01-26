@@ -6,19 +6,29 @@
       .controller('FooterController', FooterController);
 
   FooterController.$inject = [
-    '$log', '$location',
+    '$location', '$route',
     'LoginUtils'
   ];
 
-  function FooterController($log, $location,
+  function FooterController($location, $route,
                             LoginUtils) {
     var vm = this;
+    vm.user = {};
+
     vm.login = function (user) {
       LoginUtils.login(user)
           .then(function () {
-            $location.path('/profile');
+            if ($location.path() != '/home') { return $location.path('/home'); }
+
+            $route.reload();
           }, function (err) {
-            $log.log('[ERROR] FooterController.login().LoginUtils.login()', err);
+            var notification = (err.status == 401 ) ? 'Невірно вказано логін|пароль' : 'непонятно';
+
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent(notification)
+                    .hideDelay(3000)
+            );
           });
     };
 
