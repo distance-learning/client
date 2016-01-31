@@ -17,6 +17,9 @@
         .when('/register', {
           template: '<register></register>'
         })
+        .when('/reset-password', {
+          template: '<reset-pass></reset-pass>'
+        })
         .when('/home', {
           template: '<home></home>'
         })

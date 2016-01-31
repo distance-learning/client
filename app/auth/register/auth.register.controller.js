@@ -7,16 +7,16 @@
 
   RegisterController.$inject = [
     '$log', '$location',
-    'LoginUtils'
+    'RegisterUtils'
   ];
 
   function RegisterController($log, $location,
-                              LoginUtils) {
+                              RegisterUtils) {
     var vm = this;
     vm.register = function (user) {
       if (!isValidUser(user)) { return $log.log('[VALIDATION] User date isn`t valid'); }
 
-      LoginUtils.signUp(user)
+      RegisterUtils.signUp(user)
           .then(function () {
             $location.path('/profile');
           }, function (err) {

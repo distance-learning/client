@@ -3,44 +3,18 @@
 
   angular
       .module('distanceLearning.auth')
-      .factory('LoginUtils', LoginUtils);
+      .factory('RegisterUtils', RegisterUtils);
 
-  LoginUtils.$inject = [
+  RegisterUtils.$inject = [
     '$q',
     '$auth'
   ];
 
-  function LoginUtils($q,
+  function RegisterUtils($q,
                       $auth) {
     var service = {
-      login: login,
-      logout: logout,
-      isLogged: isLogged,
       signUp: signUp
     };
-
-    function login(user) {
-      var defer = $q.defer();
-
-      $auth.login(user)
-          .then(function (ok) {
-            defer.resolve(ok);
-          }, function (err) {
-            defer.reject(err);
-          });
-
-      return defer.promise;
-    }
-
-    function logout() {
-      // TODO: go to server & logout
-
-      $auth.logout();
-    }
-
-    function isLogged() {
-      return $auth.isAuthenticated();
-    }
 
     function signUp(value) {
       var deferred = $q.defer();

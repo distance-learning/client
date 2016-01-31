@@ -1,0 +1,48 @@
+<div class="reset-pass">
+  <menu-client></menu-client>
+  <div class="reset-pass-container"
+       layout="column" layout-align="center center"
+       layout-margin layout-padding
+       layout-wrap>
+    <h3 layout layout-align="start center">
+      Відновлення паролю
+    </h3>
+    <form name="ResetPassForm"
+          class="ResetPassForm"
+          layout="column" layout-align="center none">
+      <div layout="column">
+        <label>Електрона скринька</label>
+        <input type="email" class="dl-input"
+               required
+               ng-model="resetPass.user.email"/>
+      </div>
+      <div layout="column">
+        <label>Пароль</label>
+        <input type="password" class="dl-input"
+               required
+               ng-model="resetPass.user.password"/>
+      </div>
+      <div layout="column">
+        <label>Повторити пароль</label>
+        <input type="password" class="dl-input"
+               required
+               ng-model="resetPass.user.password_confirmation"/>
+      </div>
+      <div layout="column" layout-align="center center">
+        <div layout layout-align="start center">
+          <md-button class="md-raised dl-register-button" type="submit"
+                     ng-click="resetPass.resetPass(resetPass.user)"
+                     ng-disabled="ResetPassForm.$invalid">
+            Змінити пароль
+          </md-button>
+        </div>
+        <div layout layout-align="space-around center"
+             layout-padding>
+            <a ng-href="/#/login" layout-padding>Вхід</a>
+            <a ng-href="/#/register" layout-padding>Реєстрація</a>
+        </div>
+      </div>
+    </form>
+  </div>
+  <footer></footer>
+</div>

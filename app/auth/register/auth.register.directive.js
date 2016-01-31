@@ -12,7 +12,7 @@
       replace: true,
       controller: 'RegisterController',
       controllerAs: 'register',
-      templateUrl: 'auth/register.html'
+      templateUrl: './auth/register/register.html'
     };
   }
 })();

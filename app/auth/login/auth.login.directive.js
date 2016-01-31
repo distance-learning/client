@@ -12,7 +12,7 @@
       replace: true,
       controller: 'LoginController',
       controllerAs: 'login',
-      templateUrl: 'auth/login.html'
+      templateUrl: './auth/login/login.html'
     };
   }
 })();
