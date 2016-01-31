@@ -32,6 +32,9 @@
         .when('/profile/student', {
           template: '<profile-student></profile-student>'
         })
+        .when('/profile/student/reset-password', {
+          template: '<profile-reset-password></profile-reset-password>'
+        })
         .when('/admin/users', {
           template: '<users></users>'
         })

@@ -13,7 +13,8 @@
   function ProfileUtils($q, $http, $auth,
                         server_host) {
     var service = {
-      getUserInfo: getUserInfo
+      getUserInfo: getUserInfo,
+      userResetPassword: userResetPassword
     };
 
     function getUserInfo() {
@@ -33,6 +34,28 @@
           })
           .error(function (err, status, headers, config) {
             debugger;
+            defer.reject(err);
+          });
+
+      return defer.promise;
+    }
+
+    function userResetPassword(user) {
+      var defer = $q.defer();
+
+      $http.post(server_host + 'api/user/reset-password', user)
+          .success(function (ok, status, headers, config) {
+            var refreshToken = headers('authorization');
+            refreshToken = refreshToken.replace('Bearer ', '');
+
+            console.log('refreshToken=',refreshToken);
+            console.log('ProfileUtils.getUserInfo()', $auth.getToken());
+            $auth.setToken(refreshToken);
+            console.log('ProfileUtils.getUserInfo()', $auth.getToken());
+
+            defer.resolve(ok);
+          })
+          .error(function (err, status, headers, config) {
             defer.reject(err);
           });
 

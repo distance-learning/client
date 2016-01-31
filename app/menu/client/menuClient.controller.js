@@ -5,14 +5,28 @@
       .module('distanceLearning.menu')
       .controller('MenuClientController', MenuClientController);
 
-  MenuClientController.$inject = ['$mdSidenav'];
+  MenuClientController.$inject = [
+    '$mdSidenav', '$location',
+    'LoginUtils'
+  ];
 
-  function MenuClientController ($mdSidenav) {
+  function MenuClientController($mdSidenav, $location,
+                                LoginUtils) {
     var vm = this;
     vm.menuIconURL = 'assests/images/ic_apps_black_18px.svg';
+    vm.settingsIconURL = 'assests/images/ic_settings_black_24px.svg';
+    vm.passwordIconURL = 'assests/images/ic_security_black_24px.svg';
 
     vm.toggle = function () {
       $mdSidenav('menu-client').toggle();
-    }
+    };
+
+    vm.resetPassword = function () {
+      return $location.path('/profile/student/reset-password');
+    };
+
+    vm.isLogged = function () {
+      return LoginUtils.isLogged();
+    };
   }
 })();
