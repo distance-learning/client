@@ -6,12 +6,12 @@
       .factory('LoginUtils', LoginUtils);
 
   LoginUtils.$inject = [
-    '$q',
-    '$auth'
+    '$q', '$http',
+    '$auth', 'server_host'
   ];
 
-  function LoginUtils($q,
-                      $auth) {
+  function LoginUtils($q, $http,
+                      $auth, server_host) {
     var service = {
       login: login,
       logout: logout,
@@ -32,9 +32,10 @@
     }
 
     function logout() {
-      // TODO: go to server & logout
-
-      $auth.logout();
+      $http.get(server_host + 'api/auth/logout')
+          .then(function () {
+            $auth.logout();
+          });
     }
 
     function isLogged() {
