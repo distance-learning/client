@@ -14,7 +14,8 @@
                         server_host) {
     var service = {
       getUserInfo: getUserInfo,
-      userResetPassword: userResetPassword
+      userResetPassword: userResetPassword,
+      sendConfirmation: sendConfirmation
     };
 
     function getUserInfo() {
@@ -43,7 +44,7 @@
     function userResetPassword(user) {
       var defer = $q.defer();
 
-      $http.post(server_host + 'api/user/reset-password', user)
+      $http.put(server_host + 'api/user/reset-password', user)
           .success(function (ok, status, headers, config) {
             var refreshToken = headers('authorization');
             refreshToken = refreshToken.replace('Bearer ', '');
@@ -53,6 +54,20 @@
             $auth.setToken(refreshToken);
             console.log('ProfileUtils.getUserInfo()', $auth.getToken());
 
+            defer.resolve(ok);
+          })
+          .error(function (err, status, headers, config) {
+            defer.reject(err);
+          });
+
+      return defer.promise;
+    }
+
+    function sendConfirmation(token) {
+      var defer = $q.defer();
+
+      $http.post(server_host + 'api/auth/reset-password/' + token)
+          .success(function (ok, status, headers, config) {
             defer.resolve(ok);
           })
           .error(function (err, status, headers, config) {

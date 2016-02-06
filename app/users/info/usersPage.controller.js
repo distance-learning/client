@@ -139,7 +139,7 @@
       }
     };
 
-    vm.calcelUser = function () {
+    vm.cancelUser = function () {
       $location.path('/profile/admin');
     };
   }

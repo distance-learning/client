@@ -6,11 +6,11 @@
       .controller('ProfileResetPassController', ProfileResetPassController);
 
   ProfileResetPassController.$inject = [
-    '$log', '$location', '$mdToast',
+    '$log', '$location', '$mdToast', '$routeParams',
     'ProfileUtils', 'LoginUtils'
   ];
 
-  function ProfileResetPassController($log, $location, $mdToast,
+  function ProfileResetPassController($log, $location, $mdToast, $routeParams,
                                       ProfileUtils, LoginUtils) {
     var vm = this;
     vm.loading = true;
@@ -20,6 +20,7 @@
     function init() {
       vm.loading = true;
 
+      if ($routeParams.token) { return sendConfirmation($routeParams.token); }
       if (!LoginUtils.isLogged()) { return $location.path('/home'); }
 
       ProfileUtils.getUserInfo()
@@ -56,6 +57,24 @@
               .textContent(message)
               .hideDelay(3000)
       );
+    }
+
+    function sendConfirmation(token) {
+      ProfileUtils.sendConfirmation(token)
+          .then(function (ok) {
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent('Password was change')
+                    .hideDelay(3000)
+            );
+            $location.path('/home');
+          }, function (err) {
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent(err)
+                    .hideDelay(3000)
+            );
+          });
     }
 
     vm.cancel = function () {
