@@ -15,7 +15,8 @@
     var service = {
       getUserInfo: getUserInfo,
       userResetPassword: userResetPassword,
-      sendConfirmation: sendConfirmation
+      sendConfirmation: sendConfirmation,
+      changeInfo: changeInfo
     };
 
     function getUserInfo() {
@@ -67,6 +68,20 @@
       var defer = $q.defer();
 
       $http.post(server_host + 'api/auth/reset-password/' + token)
+          .success(function (ok, status, headers, config) {
+            defer.resolve(ok);
+          })
+          .error(function (err, status, headers, config) {
+            defer.reject(err);
+          });
+
+      return defer.promise;
+    }
+
+    function changeInfo(user) {
+      var defer = $q.defer();
+
+      $http.put(server_host + 'api/user/update', user)
           .success(function (ok, status, headers, config) {
             defer.resolve(ok);
           })

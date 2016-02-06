@@ -1,0 +1,21 @@
+.ChangeInfoForm{
+  max-width: 500px;
+}
+
+.ChangeInfoForm  md-input-container {
+  width: inherit;
+}
+
+.layout-fill {
+   min-height: inherit;
+   height: inherit;
+}
+
+.change-info{
+  font-size: 14px;
+  font-family: "Arial";
+  color: rgb(84, 85, 85);
+  line-height: 1.5;
+  text-align: center;
+  margin: 3px;
+}

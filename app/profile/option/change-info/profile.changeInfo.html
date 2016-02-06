@@ -1,0 +1,52 @@
+<div class="change-info">
+  <md-progress-linear md-mode="indeterminate"
+                      ng-if="UserChangeInfo.loading"></md-progress-linear>
+  <div ng-if="!UserChangeInfo.loading">
+    <menu-client></menu-client>
+    <div layout="column" layout-align="center center"
+         layout-margin layout-padding>
+      <h1 layout layout-align="start center">
+        Інформація про користувача
+      </h1>
+
+      <form name="ChangeInfoForm"
+            class="ChangeInfoForm"
+            layout="column" layout-align="space-around center"
+            layout-magin layout-padding
+            layout-fill>
+        <md-input-container>
+          <label>Прізвище</label>
+          <input ng-model="UserChangeInfo.user.surname">
+        </md-input-container>
+        <md-input-container>
+          <label>Ім'я</label>
+          <input ng-model="UserChangeInfo.user.name">
+        </md-input-container>
+        <md-input-container>
+          <label>Електрона скринька</label>
+          <input type="email" ng-model="UserChangeInfo.user.email">
+        </md-input-container>
+        <md-input-container>
+          <label>Номер телефону</label>
+          <input type="text" ng-model="UserChangeInfo.user.phone">
+        </md-input-container>
+        <div>
+          <label>Дата народження</label>
+          <md-datepicker ng-model="UserChangeInfo.user.birthday"></md-datepicker>
+        </div>
+        <div layout layout-align="space-around center">
+          <md-button class="md-raised dl-reset-pass-button" type="submit"
+                     ng-click="UserChangeInfo.changeInformation(UserChangeInfo.user)"
+                     ng-disabled="UserChangeInfo.$invalid">
+            Зберегти
+          </md-button>
+          <md-button class="md-raised dl-reset-pass-button" type="submit"
+                     ng-click="UserChangeInfo.cancel()">
+            Скасувати
+          </md-button>
+        </div>
+      </form>
+    </div>
+    <footer></footer>
+  </div>
+</div>

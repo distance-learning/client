@@ -12,7 +12,7 @@
       replace: true,
       controller: 'ProfileResetPassController',
       controllerAs: 'UserResetPass',
-      templateUrl: './profile/option/reset-pass/profile.resetPass.html'
+      templateUrl: './profile/option/reset-password/profile.resetPass.html'
     };
   }
 })();

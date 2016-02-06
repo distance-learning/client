@@ -77,6 +77,12 @@
     function prepareUserToSave(user) {
       if (user.selectedUserRole) {
         user.role = user.selectedUserRole.role;
+      } else {
+        for (var i in vm.role) {
+          if (vm.role[i].name == user.role) {
+            user.role = vm.role[i].role;
+          }
+        }
       }
 
       return user;
@@ -85,14 +91,13 @@
     function createUser(user) {
       UsersUtils.createUser(user)
           .then(function () {
-            $location.path('/profile');
+            $location.path('/admin/users');
           }, function (err) {
             $log.log('[ERROR] UsersController.editUserSave().UsersUtils.changeUser()', err);
             var user = LoginUtils.reLogin();
             LoginUtils.login(user)
                 .then(function (ok) {
-                  var path = '/admin/users';
-                  $location.path(path);
+                  $location.path('/admin/users');
 
                   $route.reload();
                 }, function (err) {
@@ -106,14 +111,13 @@
           .then(function () {
             vm.loading = false;
 
-            $location.path('/profile');
+            $location.path('/admin/users');
           }, function (err) {
             $log.log('[ERROR] UsersController.editUserSave().UsersUtils.changeUser()', err);
             var user = LoginUtils.reLogin();
             LoginUtils.login(user)
                 .then(function (ok) {
-                  var path = '/admin/users';
-                  $location.path(path);
+                  $location.path('/admin/users');
 
                   $route.reload();
                 }, function (err) {
@@ -123,8 +127,7 @@
     }
 
     function goLogin(err) {
-      var path = '/admin/users/';
-      $location.path(path);
+      $location.path('/admin/users');
 
       $route.reload();
     }
@@ -140,7 +143,7 @@
     };
 
     vm.cancelUser = function () {
-      $location.path('/profile/admin');
+      $location.path('/admin/users');
     };
   }
 })();

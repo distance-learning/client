@@ -21,6 +21,12 @@
               Змінити пароль
             </md-button>
           </md-menu-item>
+          <md-menu-item>
+            <md-button ng-click="menuClient.changeUSerInfo()" aria-label="">
+              <md-icon md-svg-src="{{ menuClient.changeInfoIconURL }}" aria-label=""></md-icon>
+              Змінити інформацію про себе
+            </md-button>
+          </md-menu-item>
         </md-menu-content>
       </md-menu>
     </div>
@@ -54,6 +60,12 @@
             <md-button ng-click="menuClient.resetPassword()" aria-label="">
               <md-icon md-svg-src="{{ menuClient.passwordIconURL }}" aria-label=""></md-icon>
               Змінити пароль
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ng-click="menuClient.changeUSerInfo()" aria-label="">
+              <md-icon md-svg-src="{{ menuClient.changeInfoIconURL }}" aria-label=""></md-icon>
+              Змінити інформацію про себе
             </md-button>
           </md-menu-item>
         </md-menu-content>

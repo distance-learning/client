@@ -26,14 +26,17 @@
         .when('/faculties', {
           template: '<faculty-info></faculty-info>'
         })
+        .when('/profile/reset-password', {
+          template: '<profile-reset-password></profile-reset-password>'
+        })
+        .when('/profile/change-info', {
+          template: '<profile-change-info></profile-change-info>'
+        })
         .when('/profile/admin', {
           template: '<profile-admin></profile-admin>'
         })
         .when('/profile/student', {
           template: '<profile-student></profile-student>'
-        })
-        .when('/profile/student/reset-password', {
-          template: '<profile-reset-password></profile-reset-password>'
         })
         .when('/reset-password/:token', {
           template: '<profile-reset-password></profile-reset-password>'
