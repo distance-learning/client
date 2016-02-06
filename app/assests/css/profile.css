@@ -37,9 +37,8 @@
   padding: 10px;
   height: 223px;
   width: 250px;
-  border-top: 1px solid rgb(233, 126, 89);
-  border-right: 1px solid rgb(233, 126, 89);
-  border-bottom: 1px solid rgb(233, 126, 89);
+  border: 1px solid rgb(233, 126, 89);
+  border-radius: 0 20px 0 20px;
 }
 
 .profile-student #subject-container #header {
@@ -80,6 +79,7 @@
   border: 1px solid rgb(157, 155, 154);
   width: 550px;
   height: auto;
+  border-radius: 0 20px 0 20px;
 }
 
 .task-list {

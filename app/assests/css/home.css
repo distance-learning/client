@@ -29,7 +29,7 @@
 .home-page .header-info div:last-child {
   font-size: 14px;
   font-family: "Arial";
-  text-align: left;
+  text-align: justify;
   color: rgb(157, 155, 154);
   max-width: 710px;
 }
