@@ -44,6 +44,9 @@
         .when('/admin/users', {
           template: '<users></users>'
         })
+        .when('/admin/faculties', {
+          template: '<faculty-list></faculty-list>'
+        })
         .when('/admin/users/info/:slug', {
           template: '<user-page-info></user-page-info>'
         })

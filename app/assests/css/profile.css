@@ -143,11 +143,11 @@
 }
 
 .menu-admin .menu-admin-container {
-  max-width: 1200px;
-  min-height: calc(100% - 306px);
+  min-height: calc(100% - 330px);
 }
 
-.menu-admin .menu-admin-container .menu-admin-users{
+.menu-admin .menu-admin-container .menu-admin-users,
+.menu-admin .menu-admin-container .menu-admin-faculties{
   border: 2px solid rgb(233, 126, 89);
   width: 302px;
   height: 200px;
@@ -157,11 +157,13 @@
   margin: 20px;
 }
 
-.menu-admin .menu-admin-container .menu-admin-users img {
+.menu-admin .menu-admin-container .menu-admin-users img,
+.menu-admin .menu-admin-container .menu-admin-faculties img{
   margin: 35px;
   width: 100px;
 }
 
-.menu-admin .menu-admin-container .menu-admin-users:hover{
+.menu-admin .menu-admin-container .menu-admin-users:hover,
+.menu-admin .menu-admin-container .menu-admin-faculties:hover{
   background-color: rgb(233, 126, 89);
 }

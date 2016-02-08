@@ -1,16 +1,22 @@
 <div class="menu-admin"
      layout="column" layout-align="space-around center">
   <div class="menu-admin-container"
-       layout="row" layout-sm="column" layout-align="center center"
+       layout layout-sm="column" layout-align="center center"
        layout-wrap>
     <div class="menu-admin-users"
          layout="column" layout-align="center center"
          ng-click="menuAdmin.goToUsers()">
-      <div>
-        <img ng-src="{{ menuAdmin.usersIconURL }}" alt="">
-      </div>
+      <img ng-src="{{ menuAdmin.usersIconURL }}" alt="">
       <div>
         Користувачі
+      </div>
+    </div>
+    <div class="menu-admin-faculties"
+         layout="column" layout-align="center center"
+         ng-click="menuAdmin.goToFaculties()">
+      <img ng-src="{{ menuAdmin.facultiesIconURL }}" alt="">
+      <div>
+        Факультети
       </div>
     </div>
   </div>
