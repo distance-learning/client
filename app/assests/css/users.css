@@ -27,14 +27,6 @@ md-menu-item > .md-button span {
   color: black;
 }
 
-.md-fling.float-button.lock-size {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .user .md-whiteframe-1dp {
   margin: 25px 0 25px 0;
 }

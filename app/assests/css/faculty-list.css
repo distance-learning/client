@@ -58,3 +58,46 @@
   height: 16px;
   margin: 2px;
 }
+
+
+.admin-faculty .md-whiteframe-1dp md-content {
+  width: 550px;
+}
+
+.admin-faculty-container {
+  width: 100%;
+  height: auto;
+}
+
+.admin-faculty-container h2 {
+  color: rgb(233, 126, 89);
+  cursor: default;
+}
+
+.admin-faculty-container .admin-faculty-item {
+  border-bottom: 1px solid rgb(233, 126, 89);
+  box-sizing: border-box;
+  height: 40px;
+  color: black;
+}
+
+.admin-faculty-item div:first-child {
+  cursor: default;
+}
+
+.facultyListAdminDialog {
+  width: 350px;
+}
+
+.facultyListAdminDialog .md-dialog-content.facultyListAdminDialog-content,
+.facultyListAdminDialog .facultyListAdmin-button {
+  color: black;
+}
+
+.facultyListAdminDialog .md-toolbar-tools.facultyListDialog-header {
+  background-color: rgb(233, 126, 89);
+}
+
+.facultyListAdminDialog .facultyListAdmin-button.userDialog-cancel {
+  color: red;
+}

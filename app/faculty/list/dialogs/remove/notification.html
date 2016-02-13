@@ -1,0 +1,24 @@
+<md-dialog aria-label="removeFaculty" class="facultyListAdminDialog" ng-cloak>
+  <md-toolbar>
+    <div class="md-toolbar-tools facultyListDialog-header">
+      <h2>Підтвердження видалення</h2>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div class="md-dialog-content facultyListAdminDialog-content"
+         layout>
+      {{ facultyListDialog.faculty.name }}
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions layout="row" layout-aligment="end center">
+    <span flex></span>
+    <md-button class="facultyListAdmin-button"
+               ng-click="facultyListDialog.removeFaculty()">
+      Видалити
+    </md-button>
+    <md-button class="facultyListAdmin-button facultyListAdmin-cancel"
+               ng-click="facultyListDialog.cancel()">
+      Відмінити
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

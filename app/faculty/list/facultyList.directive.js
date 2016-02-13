@@ -10,9 +10,9 @@
   function facultyList() {
     return {
       replace: true,
-      controller: 'FacultyController',
+      controller: 'FacultyListController',
       controllerAs: 'facultyList',
-      templateUrl: 'faculty/list/facultyList.html'
+      templateUrl: './faculty/list/facultyList.html'
     };
   }
 })();
