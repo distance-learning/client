@@ -6,11 +6,11 @@
       .factory('ProfileUtils', ProfileUtils);
 
   ProfileUtils.$inject = [
-    '$q', '$http', '$auth',
+    '$q', '$http',
     'server_host'
   ];
 
-  function ProfileUtils($q, $http, $auth,
+  function ProfileUtils($q, $http,
                         server_host) {
     var service = {
       getUserInfo: getUserInfo,
@@ -24,14 +24,6 @@
 
       $http.get(server_host + 'api/auth/user')
           .success(function (ok, status, headers, config) {
-            var refreshToken = headers('authorization');
-            refreshToken = refreshToken.replace('Bearer ', '');
-
-            console.log('refreshToken=',refreshToken);
-            console.log('ProfileUtils.getUserInfo()', $auth.getToken());
-            $auth.setToken(refreshToken);
-            console.log('ProfileUtils.getUserInfo()', $auth.getToken());
-
             defer.resolve(ok);
           })
           .error(function (err, status, headers, config) {
@@ -47,14 +39,6 @@
 
       $http.put(server_host + 'api/user/reset-password', user)
           .success(function (ok, status, headers, config) {
-            var refreshToken = headers('authorization');
-            refreshToken = refreshToken.replace('Bearer ', '');
-
-            console.log('refreshToken=',refreshToken);
-            console.log('ProfileUtils.getUserInfo()', $auth.getToken());
-            $auth.setToken(refreshToken);
-            console.log('ProfileUtils.getUserInfo()', $auth.getToken());
-
             defer.resolve(ok);
           })
           .error(function (err, status, headers, config) {

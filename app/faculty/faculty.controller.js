@@ -54,8 +54,6 @@
       vm.faculties.directions = getCurrentDirections(vm.faculties.faculties);
       vm.faculties.subjects = getCurrentSubjects(vm.faculties.directions, FacultyUtils.getLocalFaculty());
       vm.teachers = getTeachers(vm.faculties.faculties);
-
-      console.log(vm);
     }
 
     function checkFacilties(slug) {
@@ -147,8 +145,6 @@
       vm.params.page = page;
       getFaculties();
       prepareFaculties();
-
-      console.log(vm.faculties);
     };
 
     vm.showFacultyInfo = function (facultySlug) {

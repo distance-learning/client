@@ -30,8 +30,6 @@
       if (LoginUtils.isLogged()) {
         ProfileUtils.getUserInfo()
             .then(function (ok) {
-              console.log('okokok', ok);
-
               if (ok.role != 'admin') { return $location.path('/home'); }
 
               getUsers(vm.params);

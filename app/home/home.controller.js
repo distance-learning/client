@@ -6,11 +6,11 @@
       .controller('HomeController', HomeController);
 
   HomeController.$inject = [
-    '$location',
+    '$location', '$log',
     'LoginUtils', 'ProfileUtils'
   ];
 
-  function HomeController($location,
+  function HomeController($location, $log,
                           LoginUtils, ProfileUtils) {
     var vm = this;
     vm.logoutIconURL = './assests/images/ic_weekend_black_24px.svg';
@@ -29,16 +29,11 @@
     function init() {
       vm.user = {};
       if (LoginUtils.isLogged()) {
-        console.log('logged = true');
         ProfileUtils.getUserInfo()
             .then(function (ok) {
-              console.log(ok);
               vm.user = ok;
-
-              console.log('HomeCtrl get user', vm.user);
             }, function (err) {
-              console.log(err);
-              console.log('HomeCtrl haven`t user', vm.user);
+              $log.log('[ERROR] HomeController.init().ProfileUtils.getUserInfo()', err);
             });
       }
     }

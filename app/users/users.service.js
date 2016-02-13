@@ -6,11 +6,11 @@
       .factory('UsersUtils', UsersUtils);
 
   UsersUtils.$inject = [
-    '$q', '$http', '$auth',
+    '$q', '$http',
     'server_host'
   ];
 
-  function UsersUtils($q, $http, $auth,
+  function UsersUtils($q, $http,
                       server_host) {
     var service = {
       getUsers: getUsers,
@@ -25,14 +25,6 @@
 
       $http.get(server_host + 'api/admin/users', { params: { page: value.page } })
           .success(function (ok, status, headers, config) {
-            var refreshToken = headers('authorization');
-            refreshToken = refreshToken.replace('Bearer ', '');
-
-            console.log('refreshToken=',refreshToken);
-            console.log('ProfileUtils.getUserInfo()', $auth.getToken());
-            $auth.setToken(refreshToken);
-            console.log('ProfileUtils.getUserInfo()', $auth.getToken());
-
             defer.resolve(ok);
           })
           .error(function (err, status, headers, config) {
@@ -57,14 +49,9 @@
 
       $http.put(server_host + 'api/admin/users/' + user.slug, value)
           .success(function (ok, status, headers, config) {
-            var refreshToken = headers('authorization');
-            refreshToken = refreshToken.replace('Bearer ', '');
-            $auth.setToken(refreshToken);
-
             defer.resolve(ok);
           })
           .error(function (err, status, headers, config) {
-            console.log('err', err);
             defer.reject(err);
           });
 
@@ -86,10 +73,6 @@
 
       $http.post(server_host + 'api/admin/users', value)
           .success(function (ok, status, headers, config) {
-            var refreshToken = headers('authorization');
-            refreshToken = refreshToken.replace('Bearer ', '');
-            $auth.setToken(refreshToken);
-
             defer.resolve(ok);
           })
           .error(function (err, status, headers, config) {
@@ -104,10 +87,6 @@
 
       $http.delete(server_host + 'api/admin/users/' + user.slug)
           .success(function (ok, status, headers, config) {
-            var refreshToken = headers('authorization');
-            refreshToken = refreshToken.replace('Bearer ', '');
-            $auth.setToken(refreshToken);
-
             defer.resolve(ok);
           })
           .error(function (err, status, headers, config) {
@@ -122,10 +101,6 @@
 
       $http.get(server_host + 'api/admin/users/' + slug)
           .success(function (ok, status, headers, config) {
-            var refreshToken = headers('authorization');
-            refreshToken = refreshToken.replace('Bearer ', '');
-            $auth.setToken(refreshToken);
-
             defer.resolve(ok);
           })
           .error(function (err, status, headers, config) {
