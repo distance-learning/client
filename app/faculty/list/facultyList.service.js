@@ -16,7 +16,9 @@
       getFaculties: getFaculties,
       getAdminFaculties: getAdminFaculties,
       createAdminFaculty: createAdminFaculty,
-      removeAdminFaculty: removeAdminFaculty
+      removeAdminFaculty: removeAdminFaculty,
+      getFacultyBySlug: getFacultyBySlug,
+      updateAdminFaculty: updateAdminFaculty
     };
 
     function getFaculties(params) {
@@ -65,6 +67,32 @@
       var defer = $q.defer();
 
       $http.delete(server_host + 'api/admin/faculties/' + faculty.slug)
+          .then(function (ok) {
+            defer.resolve(ok);
+          }, function (err) {
+            defer.reject(err);
+          });
+
+      return defer.promise;
+    }
+
+    function getFacultyBySlug(facultySlug) {
+      var defer = $q.defer();
+
+      $http.get(server_host + 'api/admin/faculties/' + facultySlug)
+          .then(function (ok) {
+            defer.resolve(ok);
+          }, function (err) {
+            defer.reject(err);
+          });
+
+      return defer.promise;
+    }
+
+    function updateAdminFaculty(faculty) {
+      var defer = $q.defer();
+
+      $http.put(server_host + 'api/admin/faculties/' + faculty.slug, faculty)
           .then(function (ok) {
             defer.resolve(ok);
           }, function (err) {

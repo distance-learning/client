@@ -103,5 +103,10 @@
             });
       });
     };
+
+    vm.editFaculty = function (faculty) {
+      var path = '/admin/faculties/info/' + faculty.slug;
+      $location.path(path);
+    };
   }
 })();

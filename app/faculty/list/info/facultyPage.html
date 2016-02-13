@@ -1,0 +1,41 @@
+<div class="faculty-admin-info">
+  <md-progress-linear md-mode="indeterminate"
+                      ng-if="facultyPageInfo.loading"></md-progress-linear>
+  <div class="faculty-admin-info-container"
+       ng-if="!facultyPageInfo.loading"
+       layout="column" layout-align="center center"
+       layout-fill layout-padding>
+    <form name="FacultyAdminForm" class="FacultyAdminForm"
+          layout="column">
+      <md-whiteframe class="md-whiteframe-1dp"
+                     layout="column" layout-align="center center"
+                     layout-margin layout-padding>
+        <h2>Реагування факультету <span>{{ facultyPageInfo.faculty.name }}</span></h2>
+        <div layout="column" layout-align="space-around center"
+             layout-magin layout-padding
+             layout-fill>
+          <md-input-container>
+            <label>Назва</label>
+            <input ng-model="facultyPageInfo.faculty.name">
+          </md-input-container>
+          <md-input-container>
+            <label>Опис</label>
+            <input ng-model="facultyPageInfo.faculty.description">
+          </md-input-container>
+        </div>
+        <div layout layout-align="end center"
+             layout-magin layout-padding>
+          <md-button class="md-raised" type="submit"
+                     ng-click="facultyPageInfo.saveFaculty()"
+                     ng-disabled="FacultyAdminForm.$invalid">
+            Зберегти
+          </md-button>
+          <md-button class="md-raised"
+                     ng-click="facultyPageInfo.cancelUpdateFaculty()">
+            Скасувати
+          </md-button>
+        </div>
+      </md-whiteframe>
+    </form>
+  </div>
+</div>

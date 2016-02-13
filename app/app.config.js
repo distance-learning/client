@@ -44,11 +44,14 @@
         .when('/admin/users', {
           template: '<users></users>'
         })
+        .when('/admin/users/info/:slug', {
+          template: '<user-page-info></user-page-info>'
+        })
         .when('/admin/faculties', {
           template: '<faculty-list></faculty-list>'
         })
-        .when('/admin/users/info/:slug', {
-          template: '<user-page-info></user-page-info>'
+        .when('/admin/faculties/info/:slug', {
+          template: '<faculty-page-info></faculty-page-info>'
         })
         .otherwise({
           redirectTo: '/home'

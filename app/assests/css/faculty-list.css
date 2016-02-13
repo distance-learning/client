@@ -101,3 +101,20 @@
 .facultyListAdminDialog .facultyListAdmin-button.facultyListAdmin-cancel {
   color: red;
 }
+
+.FacultyAdminForm h2 {
+  color: #000;
+}
+
+.FacultyAdminForm h2 > span {
+  color: rgb(233, 126, 89);
+}
+
+.faculty-admin-info .FacultyAdminForm {
+  width: auto;
+}
+
+.faculty-admin-info .FacultyAdminForm div > md-input-container {
+  width: 100%;
+  padding: 8px;
+}
