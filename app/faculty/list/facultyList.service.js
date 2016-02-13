@@ -15,6 +15,7 @@
     var service = {
       getFaculties: getFaculties,
       getAdminFaculties: getAdminFaculties,
+      createAdminFaculty: createAdminFaculty,
       removeAdminFaculty: removeAdminFaculty
     };
 
@@ -38,6 +39,19 @@
       var defer = $q.defer();
 
       $http.get(server_host + 'api/admin/faculties', { params: params })
+          .then(function (ok) {
+            defer.resolve(ok);
+          }, function (err) {
+            defer.reject(err);
+          });
+
+      return defer.promise;
+    }
+
+    function createAdminFaculty(faculty) {
+      var defer = $q.defer();
+
+      $http.post(server_host + 'api/admin/faculties', faculty)
           .then(function (ok) {
             defer.resolve(ok);
           }, function (err) {

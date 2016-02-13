@@ -1,0 +1,36 @@
+<md-dialog aria-label="removeFaculty" class="facultyListAdminDialog" ng-cloak>
+  <md-toolbar>
+    <div class="md-toolbar-tools facultyListDialog-header">
+      <h2>Створення факультету</h2>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div class="md-dialog-content facultyListAdminDialog-content"
+         layout>
+      <form name="facultyListAdminDialogForm">
+        <md-input-container layout-fill>
+          <label>Назва</label>
+          <input type="text" required
+                 ng-model="facultyListDialog.newFaculty.name"/>
+        </md-input-container>
+        <md-input-container layout-fill>
+          <label>Опис</label>
+          <input type="text" required
+                 ng-model="facultyListDialog.newFaculty.description"/>
+        </md-input-container>
+      </form>
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions layout="row" layout-aligment="end center">
+    <span flex></span>
+    <md-button class="facultyListAdmin-button"
+               type="submit"
+               ng-click="facultyListDialog.createFaculty(facultyListDialog.newFaculty)">
+      Створити
+    </md-button>
+    <md-button class="facultyListAdmin-button facultyListAdmin-cancel"
+               ng-click="facultyListDialog.cancel()">
+      Відмінити
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

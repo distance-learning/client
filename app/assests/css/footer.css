@@ -74,9 +74,7 @@
 }
 
 .dl-footer-input {
-  border-width: 1px;
-  border-color: rgb(6, 6, 6);
-  border-style: solid;
+  border: 1px solid rgb(6, 6, 6);
   border-radius: 10px;
   background-color: rgb(255, 255, 255);
   width: 233px;
@@ -89,10 +87,8 @@
 }
 
 .md-raised.dl-footer-button {
-  border-width: 1px;
+  border: 1px solid rgb(233, 126, 89);
   border-radius: 0;
-  border-style: solid;
-  background-color: rgb(233, 126, 89);
   width: 90px;
   height: 26px;
 }

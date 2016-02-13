@@ -98,6 +98,6 @@
   background-color: rgb(233, 126, 89);
 }
 
-.facultyListAdminDialog .facultyListAdmin-button.userDialog-cancel {
+.facultyListAdminDialog .facultyListAdmin-button.facultyListAdmin-cancel {
   color: red;
 }

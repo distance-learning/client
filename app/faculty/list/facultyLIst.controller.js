@@ -64,11 +64,31 @@
       return new Array(countPage);
     };
 
+    vm.createFaculty = function (ev) {
+      $mdDialog.show({
+        controller: 'FacultyListDialogController',
+        controllerAs: 'facultyListDialog',
+        templateUrl: './faculty/list/dialogs/create/template.html',
+        targetEvent: ev,
+        clickOutsideToClose: true,
+        locals: {
+          faculty: {}
+        }
+      }).then(function (faculty) {
+        FacultyListUtils.createAdminFaculty(faculty)
+            .then(function () {
+              getFaculties(vm.params);
+            }, function (err) {
+              $log.log('[ERROR] FacultyListController.removeFaculty().FacultyListUtils.removeAdminFaculty()', err);
+            });
+      });
+    };
+
     vm.removeFaculty = function (ev, faculty) {
       $mdDialog.show({
         controller: 'FacultyListDialogController',
         controllerAs: 'facultyListDialog',
-        templateUrl: 'dialogs/remove/notification.html',
+        templateUrl: './faculty/list/dialogs/remove/notification.html',
         targetEvent: ev,
         clickOutsideToClose: true,
         locals: {

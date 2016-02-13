@@ -26,5 +26,9 @@
     vm.removeFaculty = function () {
       $mdDialog.hide();
     };
+
+    vm.createFaculty = function (faculty) {
+      $mdDialog.hide(faculty);
+    };
   }
 })();
