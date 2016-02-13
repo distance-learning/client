@@ -36,17 +36,13 @@
   text-align: left;
 }
 
-.faculty-list-container a:active,
-.faculty-list-container a:hover {
-  text-decoration: none;
-  color: #e97e59;
-}
-
+.faculty-list-item .faculty-list-faculty,
 .faculty-list-item .faculty-list-directions {
   outline: none;
   cursor: pointer;
 }
 
+.faculty-list-item .faculty-list-faculty:hover,
 .faculty-list-item .faculty-list-directions:hover {
   color: #e97e59;
 }

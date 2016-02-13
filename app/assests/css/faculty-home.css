@@ -41,6 +41,10 @@
   border-bottom: 1px solid #e97e59;
 }
 
+.faculty .faculty-description .faculty-description-name:hover {
+  color: #e97e59;
+}
+
 .faculty .faculty-description .faculty-description-content {
   max-width: 450px;
   margin-top: 10px;

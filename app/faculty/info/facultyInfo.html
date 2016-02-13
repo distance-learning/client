@@ -13,10 +13,12 @@
             <div class="faculty-list-title">Факультети</div>
             <div ng-repeat="faculty in facultyInfo.faculties.faculties"
                  layout="row" layout-align="start center">
-              <a href="" ng-click="facultyInfo.showFacultyInfo(faculty.slug)"
-                 class="faculty-list-item">
-                <span>{{ faculty.name }}</span>
-              </a>
+              <div class="faculty-list-item">
+                <div class="faculty-list-faculty"
+                     ng-click="facultyInfo.showFacultyInfo(faculty.slug)">
+                  {{ faculty.name }}
+                </div>
+              </div>
             </div>
             <div class="pagination"
                  layout layout-align="center center">
