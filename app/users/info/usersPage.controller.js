@@ -6,11 +6,11 @@
       .controller('UserInfoController', UserInfoController);
 
   UserInfoController.$inject = [
-    '$log', '$location', '$routeParams', '$route',
+    '$log', '$location', '$routeParams',
     'UsersUtils', 'LoginUtils'
   ];
 
-  function UserInfoController($log, $location, $routeParams, $route,
+  function UserInfoController($log, $location, $routeParams,
                               UsersUtils, LoginUtils) {
     var vm = this;
     var slugForCreate = 'create';
@@ -26,35 +26,23 @@
     init();
     function init() {
       vm.loading = true;
-      if (LoginUtils.isLogged()) {
-        if ($routeParams.slug != slugForCreate) {
-          getUserInfo($routeParams.slug);
-        } else {
-          vm.user = {};
-          vm.loading = false;
-        }
-      } else {
-        $location.path('/home');
-      }
+      if (!LoginUtils.isLogged()) { return $location.path('/home'); }
+      if ($routeParams.slug != slugForCreate) { return getUserInfo($routeParams.slug); }
+
+      vm.user = {};
+      vm.loading = false;
     }
 
     function getUserInfo(slug) {
+      vm.loading = true;
+      
       UsersUtils.getUserBySlug(slug)
           .then(function (ok) {
             vm.user = prepareUserToShow(ok);
 
             vm.loading = false;
           }, function (err) {
-            var user = LoginUtils.reLogin();
-            LoginUtils.login(user)
-                .then(function (ok) {
-                  var path = '/admin/users/' + slug;
-                  $location.path(path);
-
-                  $route.reload();
-                }, function (err) {
-                  $log.log('[ERROR] LoginUtils.reLogin()()', err);
-                });
+            $log.log('[ERROR] LoginUtils.reLogin()()', err);
           });
     }
 
@@ -94,15 +82,6 @@
             $location.path('/admin/users');
           }, function (err) {
             $log.log('[ERROR] UsersController.editUserSave().UsersUtils.changeUser()', err);
-            var user = LoginUtils.reLogin();
-            LoginUtils.login(user)
-                .then(function (ok) {
-                  $location.path('/admin/users');
-
-                  $route.reload();
-                }, function (err) {
-                  $log.log('[ERROR] LoginUtils.reLogin()()', err);
-                });
           });
     }
 
@@ -114,22 +93,7 @@
             $location.path('/admin/users');
           }, function (err) {
             $log.log('[ERROR] UsersController.editUserSave().UsersUtils.changeUser()', err);
-            var user = LoginUtils.reLogin();
-            LoginUtils.login(user)
-                .then(function (ok) {
-                  $location.path('/admin/users');
-
-                  $route.reload();
-                }, function (err) {
-                  $log.log('[ERROR] LoginUtils.reLogin()()', err);
-                });
           });
-    }
-
-    function goLogin(err) {
-      $location.path('/admin/users');
-
-      $route.reload();
     }
 
     vm.saveUser = function () {
