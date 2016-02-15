@@ -2,16 +2,19 @@
   width: 200px;
 }
 
+.profile-teacher,
 .profile-student {
   font-size: 12px;
   font-family: "Arial";
   color: rgb(84, 85, 85);
 }
 
+.profile-teacher .profile-teacher-container,
 .profile-student .profile-student-container {
   border-bottom: 1px solid rgb(157, 155, 154);
 }
 
+.profile-teacher .profile-teacher-container img,
 .profile-student .profile-student-container img {
   border-radius: 100px;
   border: 10px solid rgb(233, 126, 89);
@@ -19,19 +22,24 @@
   height: 175px;
 }
 
+.profile-teacher .profile-teacher-container .profile-teacher-username > div:first-child,
 .profile-student .profile-student-container .profile-student-username {
+  color: #e97e59;
   font-size: 14px;
   text-transform: uppercase;
 }
 
+.profile-teacher .profile-teacher-container .profile-teacher-info,
 .profile-student .profile-student-container .profile-student-info {
   border-left: 4px solid rgb(233, 126, 89);
 }
 
+.profile-teacher .profile-teacher-container .profile-teacher-info span,
 .profile-student .profile-student-container .profile-student-info span {
   margin: 5px;
 }
 
+.profile-teacher #group-container,
 .profile-student #subject-container {
   margin: 10px;
   padding: 10px;
@@ -41,6 +49,7 @@
   border-radius: 0 20px 0 20px;
 }
 
+.profile-teacher #group-container #header,
 .profile-student #subject-container #header {
   font-size: 14px;
   font-family: "Arial";
@@ -49,12 +58,14 @@
   margin: 10px;
 }
 
+.profile-teacher #group-container #header div:last-child,
 .profile-student #subject-container #header div:last-child {
   background-color: rgb(233, 126, 89);
   width: 37px;
   height: 5px;
 }
 
+.profile-teacher .group-item,
 .profile-student .subject-item {
   box-sizing: border-box;
   min-height: 30px;
@@ -63,8 +74,16 @@
   font-size: 12px;
   font-family: "Arial";
   color: rgb(41, 41, 40);
+  cursor: pointer;
+  border-bottom: 1px solid rgba(233, 126, 89, 0.5);
 }
 
+.profile-teacher .group-item:hover,
+.profile-student .subject-item:hover {
+  color: rgb(233, 126, 89);
+}
+
+.profile-teacher .group-item,
 .profile-student .subject-item.clear {
   margin-left: 40px;
 }
@@ -75,7 +94,8 @@
   margin-right: 15px;
 }
 
-.subject-conteiner {
+.group-container,
+.subject-container {
   border: 1px solid rgb(157, 155, 154);
   width: 550px;
   height: auto;
@@ -93,6 +113,7 @@
   width: 64px;
 }
 
+.group-header-info,
 .subject-header-info {
   font-size: 12px;
   font-family: "Arial";
@@ -100,10 +121,12 @@
   text-align: left;
 }
 
+.group-header-info div,
 .subject-header-info div {
   margin: 15px;
 }
 
+.group-header-info span,
 .subject-header-info span {
   border-bottom: 1px solid rgb(233, 126, 89);
 }
@@ -112,6 +135,7 @@
   width: inherit;
 }
 
+.group-content,
 .subject-content {
   font-size: 12px;
   font-family: "Arial";
@@ -119,6 +143,13 @@
   line-height: 1.5;
   text-align: justify;
 }
+
+.group-content > div:first-child,
+.subject-content > div:first-child {
+  max-height: 600px;
+  overflow: auto;
+}
+
 
 .md-raised.task-button {
   border: 1px solid rgb(233, 126, 89);
@@ -134,6 +165,7 @@
   text-align: center;
 }
 
+.group,
 .subject {
   margin-top: 8px;
 }

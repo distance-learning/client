@@ -1,28 +1,34 @@
-<div class="profile-student"
+<div class="profile-teacher"
      layout="column" layout-wrap
      ng-cloak>
   <md-progress-linear md-mode="indeterminate"
-                      ng-if="profileStudent.loading"></md-progress-linear>
-  <div ng-if="!profileStudent.loading">
+                      ng-if="profileTeacher.loading"></md-progress-linear>
+  <div ng-if="!profileTeacher.loading">
     <menu-client></menu-client>
-    <div class="profile-student-container"
+    <div class="profile-teacher-container"
          layout layout-xs="column" layout-align="space-around center"
          layout-wrap
          layout-margin layout-padding>
       <div>
-        <img ng-src="{{ profileStudent.user.avatar }}" alt=""/>
+        <img ng-src="{{ profileTeacher.user.avatar }}" alt=""/>
       </div>
       <div layout layout-align="space-around center"
            layout-margin layout-padding>
-        <div class="profile-student-username"
-             layout-margin layout-padding>
-          {{ profileStudent.user.name }} {{ profileStudent.user.surname }}
+        <div class="profile-teacher-username"
+             layout="column" layout-align="center center"
+             layout-margin>
+          <div>
+            {{ profileTeacher.user.name }} {{ profileTeacher.user.surname }}
+          </div>
+          <div>
+            {{ profileTeacher.user.description }}
+          </div>
         </div>
-        <div class="profile-student-info"
+        <div class="profile-teacher-info"
              layout="column">
-          <span>{{ profileStudent.user.phone }}</span>
-          <span>{{ profileStudent.user.birthday }}</span>
-          <span>{{ profileStudent.user.email }}</span>
+          <span>{{ profileTeacher.user.phone }}</span>
+          <span>{{ profileTeacher.user.birthday }}</span>
+          <span>{{ profileTeacher.user.email }}</span>
         </div>
       </div>
     </div>
@@ -31,49 +37,45 @@
          layout-xs="column" layout-align-xs="center center"
          layout-sm="column" layout-align-sm="center center">
       <div layout="column">
-        <md-virtual-repeat-container id="subject-container">
+        <md-virtual-repeat-container id="group-container">
           <div id="header">
             <div>
-              Предмети:
+              Групи:
             </div>
             <div></div>
           </div>
-          <div class="subject-item" ng-class="{ clear: subject.action.length == 0 }"
-               flex
-               md-virtual-repeat="subject in profileStudent.subjects">
-          <span ng-if="subject.action.length != 0">
-            {{ subject.action.length }}
-          </span>
-            {{ subject.name }}
+          <div class="group-item" flex
+               md-virtual-repeat="group in profileTeacher.groups">
+            {{ group.title }}
           </div>
         </md-virtual-repeat-container>
-        <calendar option="profileStudent.currentSelectedDate"></calendar>
+        <calendar></calendar>
       </div>
-      <div class="subject"
+      <div class="group"
            layout>
-        <div class="subject-container">
+        <div class="group-container">
           <div layout layout-align="space-around center"
                layout-wrap
                hide show-xs>
             <div class="task-item"
-                 ng-repeat="task in profileStudent.currentSelectedDate.event track by $index">
+                 ng-repeat="task in profileTeacher.currentSelectedDate.event track by $index">
               <md-button class="md-icon-button" aria-label="">
-                <img ng-src="{{ profileStudent.taskIconURL }}" alt="" aria-label=""/>
+                <img ng-src="{{ profileTeacher.taskIconURL }}" alt="" aria-label=""/>
               </md-button>
             </div>
           </div>
-          <div class="subject-header-info">
+          <div class="group-header-info">
             <div>
-              <span>Предмет</span>: {{ profileStudent.task.subject }}
+              <span>Предмет</span>: {{ profileTeacher.task.subject }}
             </div>
             <div>
-              <span>Викладач</span>: {{ profileStudent.task.teacher }}
+              <span>Студент</span>: {{ profileTeacher.task.student }}
             </div>
           </div>
-          <div class="subject-content"
+          <div class="group-content"
                layout="column" layout-align="space-around center">
             <div layout-margin layout-padding>
-              {{ profileStudent.task.describe }}
+              {{ profileTeacher.task.describe }}
             </div>
             <div class="task-action-button"
                  layout layout-align="space-around center"
@@ -92,9 +94,9 @@
         <div class="task-list"
              hide-xs>
           <div class="task-item"
-               ng-repeat="task in profileStudent.currentSelectedDate.event track by $index">
+               ng-repeat="task in profileTeacher.currentSelectedDate.event track by $index">
             <md-button class="md-icon-button" aria-label="">
-              <img ng-src="{{ profileStudent.taskIconURL }}" alt="" aria-label=""/>
+              <img ng-src="{{ profileTeacher.taskIconURL }}" alt="" aria-label=""/>
             </md-button>
           </div>
         </div>

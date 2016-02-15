@@ -35,6 +35,9 @@
         .when('/profile/admin', {
           template: '<profile-admin></profile-admin>'
         })
+        .when('/profile/teacher', {
+          template: '<profile-teacher></profile-teacher>'
+        })
         .when('/profile/student', {
           template: '<profile-student></profile-student>'
         })
