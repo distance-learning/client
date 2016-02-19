@@ -76,8 +76,10 @@
   color: rgb(41, 41, 40);
   cursor: pointer;
   border-bottom: 1px solid rgba(233, 126, 89, 0.5);
+  outline: none;
 }
 
+.teacher-students-container #students-container .student-item span:hover,
 .profile-teacher .group-item:hover,
 .profile-student .subject-item:hover {
   color: rgb(233, 126, 89);
@@ -198,4 +200,30 @@
 .menu-admin .menu-admin-container .menu-admin-users:hover,
 .menu-admin .menu-admin-container .menu-admin-faculties:hover{
   background-color: rgb(233, 126, 89);
+}
+.teacher-students-container #students-container {
+  margin: 10px;
+  padding: 10px;
+  height: 500px;
+  width: 250px;
+  border: 1px solid rgb(233, 126, 89);
+  border-radius: 0 20px 0 20px;
+}
+
+.teacher-students-container  h2{
+  color : rgb(233, 126, 89);
+}
+
+.teacher-students-container #students-container .student-item {
+  color: rgb(84, 85, 85);
+  margin: 10px;
+  border-bottom: 1px solid rgb(233, 126, 89);
+}
+
+.teacher-students-container #students-container .student-item span {
+  outline: none;
+}
+
+.teacher-students-container #students-container .student-item span:hover {
+  cursor: pointer;
 }

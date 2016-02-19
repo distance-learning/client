@@ -45,7 +45,8 @@
             <div></div>
           </div>
           <div class="group-item" flex
-               md-virtual-repeat="group in profileTeacher.groups">
+               md-virtual-repeat="group in profileTeacher.groups"
+               ng-click="profileTeacher.showStudents(group)">
             {{ group.title }}
           </div>
         </md-virtual-repeat-container>
@@ -64,7 +65,12 @@
               </md-button>
             </div>
           </div>
-          <div class="group-header-info">
+          <div layout="column" layout-align="center center"
+               ng-if="profileTeacher.studentContetnLoading">
+            <md-progress-circular class="md-warn md-hue-3" md-mode="indeterminate"></md-progress-circular>
+          </div>
+          <div class="group-header-info"
+               ng-if="!profileTeacher.studentContetnLoading">
             <div>
               <span>Предмет</span>: {{ profileTeacher.task.subject }}
             </div>
@@ -73,7 +79,8 @@
             </div>
           </div>
           <div class="group-content"
-               layout="column" layout-align="space-around center">
+               layout="column" layout-align="space-around center"
+               ng-if="!profileTeacher.studentContetnLoading">
             <div layout-margin layout-padding>
               {{ profileTeacher.task.describe }}
             </div>
@@ -104,4 +111,17 @@
     </div>
     <footer></footer>
   </div>
+  <md-sidenav md-component-id="studentsContainer" class="md-sidenav-right teacher-students-container"
+              layout="column" layout-align="center center"
+              layout-padding>
+    <h2>{{ profileTeacher.currentGroup.title }}</h2>
+    <md-virtual-repeat-container id="students-container">
+      <div class="student-item" flex
+           md-virtual-repeat="student in profileTeacher.currentGroup.students">
+        <span ng-click="profileTeacher.getStudentTasks(student)">
+          {{ student.surname }} {{ student.name }}
+        </span>
+      </div>
+    </md-virtual-repeat-container>
+  </md-sidenav>
 </div>
