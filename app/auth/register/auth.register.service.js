@@ -6,14 +6,15 @@
       .factory('RegisterUtils', RegisterUtils);
 
   RegisterUtils.$inject = [
-    '$q',
+    '$q', '$http',
     '$auth'
   ];
 
-  function RegisterUtils($q,
-                      $auth) {
+  function RegisterUtils($q, $http,
+                         $auth) {
     var service = {
-      signUp: signUp
+      signUp: signUp,
+      getFaculties: getFaculties
     };
 
     function signUp(value) {
@@ -35,6 +36,32 @@
             deferred.reject(err);
           });
 
+      return deferred.promise;
+    }
+
+    function getFaculties() {
+      var deferred = $q.defer();
+      var faculties = [
+        {
+          title: 'fotius',
+          id: 1
+        },
+        {
+          title: 'fotius1',
+          id: 2
+        },
+        {
+          title: 'fotius2',
+          id: 3
+        },
+        {
+          title: 'fotius3',
+          id: 4
+        }
+      ];
+
+
+      deferred.resolve(faculties);
       return deferred.promise;
     }
 

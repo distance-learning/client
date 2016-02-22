@@ -13,6 +13,22 @@
   function RegisterController($log, $location,
                               RegisterUtils) {
     var vm = this;
+    vm.loading = true;
+
+    init();
+    function init() {
+      vm.loading = true;
+
+      RegisterUtils.getFaculties()
+          .then(function (ok) {
+            vm.faculty = ok;
+
+            vm.loading = false;
+          }, function (err) {
+            $log.log('{ERROR} RegisterController.init().RegisterUtils.getFaculties()', err);
+          });
+    }
+
     vm.register = function (user) {
       if (!isValidUser(user)) { return $log.log('[VALIDATION] User date isn`t valid'); }
 
