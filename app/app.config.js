@@ -4,10 +4,12 @@
   angular
       .module('distanceLearning')
       .config(configURL)
-      .config(configAuth);
+      .config(configAuth)
+      .config(configCalendar);
 
   configURL.$inject = ['$routeProvider'];
   configAuth.$inject = ['$authProvider'];
+  configCalendar.$inject = ['$mdDateLocaleProvider'];
 
   function configURL($routeProvider) {
     $routeProvider
@@ -73,5 +75,9 @@
     $authProvider.storageType = 'sessionStorage';
     $authProvider.authToken = 'Bearer';
     $authProvider.authHeader = 'Authorization';
+  }
+
+  function configCalendar($mdDateLocaleProvider) {
+    $mdDateLocaleProvider.firstDayOfWeek = 1;
   }
 })();
