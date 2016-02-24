@@ -6,6 +6,7 @@
   "repository": "https://constantinez@bitbucket.org/distancelearning/distancelearningfront-end.git",
   "license": "MIT",
   "scripts": {
+    "prestart": "npm install",
     "start": "gulp serve"
   },
   "devDependencies": {
