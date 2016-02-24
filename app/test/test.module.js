@@ -3,6 +3,7 @@
 
   angular
       .module('distanceLearning.test', [
-        'distanceLearning.auth'
+        'distanceLearning.auth',
+        'distanceLearning.profile'
       ]);
 })();

@@ -13,7 +13,8 @@
     var service = {
       getGroups: getGroups,
       getStudents: getStudents,
-      getStudentTasks: getStudentTasks
+      getStudentTasks: getStudentTasks,
+      getFaculties: getFaculties
     };
 
     function getGroups(teacher) {
@@ -115,6 +116,31 @@
       };
 
       defer.resolve(task);
+      return defer.promise;
+    }
+
+    function getFaculties(teacher) {
+      var defer = $q.defer();
+      var faculties = [
+        {
+          title: 'fotius',
+          id: 1
+        },
+        {
+          title: 'fotius1',
+          id: 2
+        },
+        {
+          title: 'fotius2',
+          id: 3
+        },
+        {
+          title: 'fotius3',
+          id: 4
+        }
+      ];
+
+      defer.resolve(faculties);
       return defer.promise;
     }
 

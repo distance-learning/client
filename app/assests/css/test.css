@@ -1,0 +1,13 @@
+.test-build .test-build-container{
+  border: 1px solid black;
+  width: 650px;
+  height: 650px;
+}
+
+.test-build .test-build-container h1 {
+  color: rgb(233, 126, 89);
+}
+
+.test-build .test-build-container md-input-container {
+  width: 240px;
+}
