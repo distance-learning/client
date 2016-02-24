@@ -85,5 +85,9 @@
             $log.log('[ERROR] ProfileTeacherController', err);
           });
     };
+
+    vm.goToCreateTest = function () {
+      $location.path('/test/create');
+    };
   }
 })();

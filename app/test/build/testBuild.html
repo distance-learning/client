@@ -1,0 +1,14 @@
+<div>
+  <md-progress-linear md-mode="indeterminate"
+                      ng-if="testBuild.loading"></md-progress-linear>
+  <div class="test-build"
+       layout="column" layout-wrap
+       ng-cloak
+       ng-if="!testBuild.loading">
+    <menu-client></menu-client>
+    <div layout="column" layout-align="center center">
+      test build
+    </div>
+    <footer></footer>
+  </div>
+</div>

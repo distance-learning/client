@@ -56,6 +56,9 @@
         .when('/admin/faculties/info/:slug', {
           template: '<faculty-page-info></faculty-page-info>'
         })
+        .when('/test/create', {
+          template: '<test-build></test-build>'
+        })
         .otherwise({
           redirectTo: '/home'
         });

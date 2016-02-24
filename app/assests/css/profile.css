@@ -227,3 +227,16 @@
 .teacher-students-container #students-container .student-item span:hover {
   cursor: pointer;
 }
+
+.md-raised.teacher-create-test-button {
+  border: 1px solid rgb(233, 126, 89);
+  background-color: rgb(233, 126, 89);
+  border-radius: 0;
+  height: 46px;
+  font-size: 12px;
+  font-family: "Arial";
+  color: rgb(249, 251, 251);
+  text-transform: uppercase;
+  line-height: 0.28;
+  text-align: center;
+}
