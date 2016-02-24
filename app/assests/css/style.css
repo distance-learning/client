@@ -33,12 +33,12 @@ a:hover {
 }
 
 ::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
 }
 
 ::-webkit-scrollbar-thumb {
   background: rgb(233, 126, 89);
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
 }
 
 .md-fling.float-button.lock-size {
@@ -59,4 +59,9 @@ md-select.md-default-theme:not([disabled]) .md-select-value, md-select:not([disa
 
 md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value label, md-input-container:not(.md-input-invalid).md-input-has-value label {
   color: rgb(233, 126, 89);
+}
+
+.ng-inline-edit__text {
+  outline: none;
+  cursor: pointer;
 }
