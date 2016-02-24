@@ -22,6 +22,7 @@
     "angular-aria": "^1.4.7",
     "angular-material": "^1.0.1",
     "angular-route": "^1.4.8",
+    "ng-inline-edit": "^0.7.0",
     "satellizer": "^0.13.4"
   }
 }

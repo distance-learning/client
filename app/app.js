@@ -6,6 +6,7 @@
         'ngMaterial',
         'ngRoute',
         'satellizer',
+        'angularInlineEdit',
         'distanceLearning.auth',
         'distanceLearning.home',
         'distanceLearning.menu',
