@@ -3,6 +3,7 @@
 
   angular
       .module('distanceLearning.component', [
-          'distanceLearning.component.calendar'
+          'distanceLearning.component.calendar',
+          'distanceLearning.component.ngThumb'
       ]);
 })();

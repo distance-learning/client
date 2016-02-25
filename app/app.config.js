@@ -61,6 +61,9 @@
         .when('/test/create', {
           template: '<test-build></test-build>'
         })
+        .when('/test/question/create', {
+          template: '<test-build-question></test-build-question>'
+        })
         .otherwise({
           redirectTo: '/home'
         });

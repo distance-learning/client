@@ -116,7 +116,7 @@
     };
 
     vm.addQuestion = function () {
-      console.log('ok');
+      $location.path('/test/question/create');
     };
   }
 })();
