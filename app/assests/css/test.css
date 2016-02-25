@@ -40,4 +40,11 @@
 
 .test-answer-container {
   width: 100%;
+  max-height: 650px;
+  overflow: auto;
+}
+
+.test-answer-container .test-answer-item .test-answer-item-name {
+  margin: 1px 5px 0 0;
+  max-width: 380px;
 }

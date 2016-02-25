@@ -20,72 +20,46 @@
               inline-edit-textarea>
           </h3>
 
-          <div ng-show="testBuildQuestion.uploaderQuestion.isHTML5">
+          <div ng-show="testBuildQuestion.uploader.isHTML5">
             <div class="drop-file-container"
-                 nv-file-drop="" uploader="testBuildQuestion.uploaderQuestion">
+                 nv-file-drop="" uploader="testBuildQuestion.uploader"
+                 ng-if="!testBuildQuestion.uploader.queue.length">
               Перетягніть файл для завантаження(запитання)
             </div>
-            <input type="file" class="file-upload-button"
-                   nv-file-select uploader="testBuildQuestion.uploaderQuestion"/><br/>
-            <ul>
-              <li layout="column" ng-repeat="item in testBuildQuestion.uploaderQuestion.queue">
-                <b>Ім'я файлу: <span ng-bind="item.file.name"></span></b>
+            <div layout="column"
+                 ng-if="testBuildQuestion.uploader.queue.length">
+              <b>Ім'я файлу: <span ng-bind="testBuildQuestion.uploader.queue[0].file.name"></span></b>
 
-                <div layout>
-                  <md-button class="md-icon-button" aria-label=""
-                             ng-click="item.remove()">
-                    <md-icon md-svg-icon="{{ testBuildQuestion.removeFileIconURL }}"></md-icon>
-                    <md-tooltip md-direction="left">Видалити</md-tooltip>
-                  </md-button>
-                  <div ng-show="testBuildQuestion.uploaderQuestion.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
-                </div>
-              </li>
-            </ul>
+              <div layout>
+                <md-button class="md-icon-button" aria-label=""
+                           ng-click="testBuildQuestion.uploader.queue[0].remove()">
+                  <md-icon md-svg-icon="{{ testBuildQuestion.removeFileIconURL }}"></md-icon>
+                  <md-tooltip md-direction="left">Видалити</md-tooltip>
+                </md-button>
+                <div ng-show="testBuildQuestion.uploader.isHTML5"
+                     ng-thumb="{ file: testBuildQuestion.uploader.queue[0]._file, height: 100 }"></div>
+              </div>
+            </div>
           </div>
-
+          <md-button class="md-icon-button" aria-label=""
+                     ng-click="testBuildQuestion.addAnswer()">
+            <md-icon md-svg-icon="{{ testBuildQuestion.addAnswerFileIconURL }}"></md-icon>
+            <md-tooltip md-direction="right">Додати варіант</md-tooltip>
+          </md-button>
           <div class="test-answer-container"
-               layout="column"
-               layout-padding>
-            <md-button class="md-icon-button" aria-label=""
-                       ng-click="testBuildQuestion.addAnswer()">
-              <md-icon md-svg-icon="{{ testBuildQuestion.addAnswerFileIconURL }}"></md-icon>
-              <md-tooltip md-direction="right">Додати варіант</md-tooltip>
-            </md-button>
+               layout="column" layout-padding>
             <div class="test-answer-item"
-                 layout layout-xs="column" layout-sm="column" layout-align="start start"
-                 ng-repeat="answer in testBuildQuestion.question.answers">
+                 layout layout-xs="column" layout-align="start start"
+                 ng-repeat="answer in testBuildQuestion.question.answers track by $index">
               <md-checkbox layout-padding
                            ng-model="answer.isCorrectly" aria-label=""></md-checkbox>
-              <div layout-margin
+              <div class="test-answer-item-name" layout-margin
                    inline-edit="answer.name"
                    inline-edit-callback="testBuildQuestion.editAnswerName(newValue, answer)"
                    inline-edit-btn-edit=""
                    inline-edit-on-blur="save"
                    inline-edit-on-click
                    inline-edit-textarea>
-              </div>
-
-              <div ng-show="testBuildQuestion.uploaderQuestion.isHTML5">
-                <div class="drop-file-container"
-                     nv-file-drop="" uploader="testBuildQuestion.uploader">
-                  Перетягніть файл для завантаження(запитання)
-                </div>
-                <!--                  <input type="file" class="file-upload-button"
-                                         nv-file-select uploader="testBuildQuestion.uploader"/><br/>-->
-                <ul>
-                  <li layout="column" ng-repeat="item in testBuildQuestion.uploader.queue">
-                    <b>Ім'я файлу: <span ng-bind="item.file.name"></span></b>
-
-                    <div layout>
-                      <md-button class="md-icon-button" aria-label=""
-                                 ng-click="item.remove()">
-                        <md-icon md-svg-icon="{{ testBuildQuestion.removeFileIconURL }}"></md-icon>
-                        <md-tooltip md-direction="left">Видалити</md-tooltip>
-                      </md-button>
-                      <div ng-show="testBuildQuestion.uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
-                    </div>
-                  </li>
-                </ul>
               </div>
             </div>
           </div>

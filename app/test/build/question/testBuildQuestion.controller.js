@@ -18,31 +18,24 @@
     vm.addAnswerFileIconURL = './assests/images/ic_add_black_18px.svg';
     vm.question = {
       title: 'Запитання',
+      file: undefined,
       answers: [
         {
           id: 0,
           name: 'Відповідь',
-          img: undefined,
           isCorrectly: false
         }
       ]
     };
 
-    var uploader;
-    var uploadImgFilter = {
+    var uploader = vm.uploader = new FileUploader({ autoUpload: true });
+    uploader.filters.push({
       name: 'imageFilter',
       fn: function (item /*{File|FileLikeObject}*/, options) {
         var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
         return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
       }
-    };
-    var uploaderQuestion = uploader =
-        vm.uploaderQuestion = vm.uploader = new FileUploader({
-          autoUpload: true
-        });
-
-    uploaderQuestion.filters.push(uploadImgFilter);
-    uploader.filters.push(uploadImgFilter);
+    });
 
     init();
     function init() {
@@ -75,7 +68,6 @@
     };
 
     vm.createQuestion = function () {
-      console.log(vm.uploaderQuestion.queue);
       console.log(vm.uploader.queue);
     };
   }
