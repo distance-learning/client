@@ -45,11 +45,29 @@
                 <md-datepicker ng-model="testBuild.test.date"></md-datepicker>
               </div>
             </md-content>
+            <div class="md-title">
+              <span> Кількість запитань: {{ testBuild.test.questions.length }} </span>
+              <md-button class="md-icon-button" aria-label=""
+                         ng-click="testBuild.addQuestion()">
+                <md-icon md-svg-icon="{{ testBuild.newQuestionIconURL }}"></md-icon>
+                <md-tooltip>Створити запитання</md-tooltip>
+              </md-button>
+            </div>
+          </div>
+
+          <div class="test-questions-container">
+            <div class="test-question-item"
+                 ng-repeat="question in testBuild.test.questions track by $index">
+              {{ $index + 1 }}. {{ question.title }}
+            </div>
           </div>
         </div>
       </div>
       <div class="test-build-buttons">
-        asdasd
+        <md-button class="md-raised test-create-button"
+                   ng-click="testBuild.createTest()">
+          Створити тест
+        </md-button>
       </div>
     </div>
     <footer></footer>

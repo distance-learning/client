@@ -1,4 +1,12 @@
-.test-build .test-build-container{
+.test-build {
+  color: rgb(84, 85, 85);
+}
+
+.test-build .test-build-container .test-build-content {
+  width: 100%;
+}
+
+.test-build .test-build-container {
   border: 1px solid black;
   width: 650px;
   height: 650px;
@@ -10,4 +18,22 @@
 
 .test-build .test-build-container md-input-container {
   width: 240px;
+}
+
+.test-build-buttons .md-raised.test-create-button {
+  background-color: rgb(233, 126, 89);
+  width: 250px;
+  height: 38px;
+}
+
+.test-build .test-build-container .test-build-content .test-questions-container {
+  max-height: 150px;
+  width: 98%;
+  overflow: auto;
+  cursor: default;
+}
+
+.test-questions-container .test-question-item {
+  margin: 3px;
+  text-align: justify;
 }

@@ -15,9 +15,69 @@
     var vm = this;
     vm.loading = true;
     vm.times = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
+    vm.newQuestionIconURL = './assests/images/ic_add_black_18px.svg';
     vm.test = {
       title: 'Назва тесту',
-      date: new Date()
+      date: new Date(),
+      questions: [
+        {
+          title: 'q1'
+        },
+        {
+          title: 'q1'
+        },
+        {
+          title: 'q1'
+        },
+        {
+          title: 'q1'
+        },
+        {
+          title: 'q1'
+        },
+        {
+          title: 'q1'
+        },
+        {
+          title: 'q1'
+        },
+        {
+          title: 'q1'
+        },
+        {
+          title: 'q1'
+        },
+        {
+          title: 'q1'
+        },
+        {
+          title: 'q1'
+        },
+        {
+          title: 'q1'
+        },
+        {
+          title: 'q1'
+        },
+        {
+          title: 'q1'
+        },
+        {
+          title: 'q1'
+        },
+        {
+          title: 'q1'
+        },
+        {
+          title: 'q1'
+        },
+        {
+          title: 'q1'
+        },
+        {
+          title: 'q1'
+        }
+      ]
     };
 
     init();
@@ -47,6 +107,16 @@
     vm.editTestTitle = function (newTitle) {
       if (!newTitle) { vm.test.title = 'Назва тесту' }
       else { vm.test.title = newTitle; }
+    };
+
+    vm.createTest = function () {
+      if (!vm.test.questions.length) { return $log.log('[ERROR] question.length = 0'); }
+
+      $location.path('/profile/teacher');
+    };
+
+    vm.addQuestion = function () {
+      console.log('ok');
     };
   }
 })();
