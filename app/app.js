@@ -7,6 +7,7 @@
         'ngRoute',
         'satellizer',
         'angularInlineEdit',
+        'angularFileUpload',
         'distanceLearning.auth',
         'distanceLearning.home',
         'distanceLearning.menu',
