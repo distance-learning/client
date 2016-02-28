@@ -47,12 +47,11 @@
             <md-tooltip md-direction="right">Додати варіант</md-tooltip>
           </md-button>
           <div class="test-answer-container"
-               layout="column" layout-padding>
+               layout="column" layout-padding layout-wrap>
             <div class="test-answer-item"
                  layout layout-xs="column" layout-align="start start"
                  ng-repeat="answer in testBuildQuestion.question.answers track by $index">
-              <md-checkbox layout-padding
-                           ng-model="answer.isCorrectly" aria-label=""></md-checkbox>
+              <md-checkbox ng-model="answer.isCorrectly" aria-label=""></md-checkbox>
               <div class="test-answer-item-name" layout-margin
                    inline-edit="answer.name"
                    inline-edit-callback="testBuildQuestion.editAnswerName(newValue, answer)"

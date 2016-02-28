@@ -69,6 +69,17 @@
 
     vm.createQuestion = function () {
       console.log(vm.uploader.queue);
+      console.log(vm.question);
+    };
+
+    vm.addAnswer = function () {
+      var answer = {
+        id: vm.question.answers.length,
+        name: 'Відповідь',
+        isCorrectly: false
+      };
+
+      vm.question.answers.push(answer);
     };
   }
 })();

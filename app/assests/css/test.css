@@ -48,3 +48,8 @@
   margin: 1px 5px 0 0;
   max-width: 380px;
 }
+
+.test-answer-container .test-answer-item {
+  min-height: 15px;
+  width: 100%;
+}
