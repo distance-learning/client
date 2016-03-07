@@ -5,11 +5,12 @@
        layout="column" layout-align="center center"
        ng-cloak layout-wrap
        ng-if="!groupList.loading">
-    <div class="group-contianer"
-         layout layout-align="center center"
+    <div class="group-container"
+         layout layout-xs="column"
+         layout-align="center start" layout-align-xs="center center"
          layout-margin layout-padding>
       <div>
-        <h3>Список факультетів</h3>
+        <h3>Факультетів</h3>
 
         <div class="group-faculty-container">
           <div class="group-faculty-container-item"
@@ -20,7 +21,7 @@
         </div>
       </div>
       <div>
-        <h4>Направлення</h4>
+        <h3>Направлення</h3>
 
         <div class="group-direction-container">
           <div class="group-direction-container-item"
@@ -30,6 +31,45 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="group-info-container">
+      <md-tabs md-dynamic-height md-border-bottom>
+        <md-tab label="Створити групу">
+          <md-content class="md-padding"
+                      layout layout-xs="column"
+                      layout-align="space-between start">
+            <div>
+              <h3 inline-edit="groupList.group.name"
+                  inline-edit-callback="groupList.editGroupName(newValue)"
+                  inline-edit-btn-edit=""
+                  inline-edit-on-blur="save"
+                  inline-edit-on-click></h3>
+
+              <div class="md-margin">Факультет: {{ groupList.group.faculty.name }}</div>
+              <div class="md-margin">Направлення: {{ groupList.group.direction.name }}</div>
+            </div>
+            <div>
+              <h3>Список студентів</h3>
+
+              <div class="group-student-container">
+                <div class="group-student-container-item"
+                     ng-repeat="student in groupList.students track by $index">
+                  {{ student.name }} {{ student.surname }}
+                </div>
+              </div>
+            </div>
+          </md-content>
+        </md-tab>
+        <md-tab label="Список груп">
+          <md-content class="md-padding">
+            <h1 class="md-display-2">Tab One</h1>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat
+              neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas
+              lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+          </md-content>
+        </md-tab>
+      </md-tabs>
     </div>
   </div>
 </div>

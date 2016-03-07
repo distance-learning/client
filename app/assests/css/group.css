@@ -1,0 +1,23 @@
+.group .group-container {
+  width: 750px;
+  color: #1d1d1d;
+}
+.group .group-container > div {
+  width: 450px;
+}
+
+.group .group-container .group-faculty-container-item,
+.group .group-container .group-direction-container-item {
+  outline: none;
+  cursor: pointer;
+}
+
+.group .group-container .group-faculty-container-item:hover,
+.group .group-container .group-direction-container-item:hover,
+.group .group-container div > h3 {
+  color: rgb(233, 126, 89);
+}
+
+.group .group-info-container {
+  width: 750px;
+}
