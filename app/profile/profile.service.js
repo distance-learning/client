@@ -22,7 +22,7 @@
     function getUserInfo() {
       var defer = $q.defer();
 
-      $http.get(server_host + 'api/auth/user')
+      $http.get(server_host + 'api/account')
           .success(function (ok, status, headers, config) {
             defer.resolve(ok);
           })
@@ -37,7 +37,7 @@
     function userResetPassword(user) {
       var defer = $q.defer();
 
-      $http.put(server_host + 'api/user/reset-password', user)
+      $http.put(server_host + 'api/account/reset-password', user)
           .success(function (ok, status, headers, config) {
             defer.resolve(ok);
           })
@@ -65,7 +65,7 @@
     function changeInfo(user) {
       var defer = $q.defer();
 
-      $http.put(server_host + 'api/user/update', user)
+      $http.put(server_host + 'api/account/update', user)
           .success(function (ok, status, headers, config) {
             defer.resolve(ok);
           })

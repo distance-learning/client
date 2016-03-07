@@ -32,7 +32,7 @@
     }
 
     function logout() {
-      $http.get(server_host + 'api/auth/logout')
+      $http.get(server_host + 'api/account/logout')
           .then(function () {
             $auth.logout();
           });
