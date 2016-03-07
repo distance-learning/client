@@ -1,7 +1,35 @@
 <div>
   <md-progress-linear md-mode="indeterminate"
                       ng-if="groupList.loading"></md-progress-linear>
-  <div>
-    group
+  <div class="group"
+       layout="column" layout-align="center center"
+       ng-cloak layout-wrap
+       ng-if="!groupList.loading">
+    <div class="group-contianer"
+         layout layout-align="center center"
+         layout-margin layout-padding>
+      <div>
+        <h3>Список факультетів</h3>
+
+        <div class="group-faculty-container">
+          <div class="group-faculty-container-item"
+               ng-repeat="faculty in groupList.faculties"
+               ng-click="groupList.showFacultyDirections(faculty)">
+            {{ faculty.name }}
+          </div>
+        </div>
+      </div>
+      <div>
+        <h4>Направлення</h4>
+
+        <div class="group-direction-container">
+          <div class="group-direction-container-item"
+               ng-repeat="direction in groupList.directions"
+               ng-click="groupList.selectDirection(direction)">
+            {{ direction.name }}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -22,12 +22,20 @@
 
       GroupUtils.getFacultyInfo()
           .then(function (ok) {
-            vm.faculty = ok;
+            vm.faculties = ok;
 
             vm.loading = false;
           }, function (err) {
             $log.log('[ERROR] GroupController.init().GroupUtils.getFacultyInfo()', err);
           });
     }
+
+    vm.showFacultyDirections = function (faculty) {
+      for(var i in vm.faculties) {
+        if (vm.faculties[i].id == faculty.id) {
+          vm.directions = vm.faculties[i].directions;
+        }
+      }
+    };
   }
 })();
