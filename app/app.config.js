@@ -55,6 +55,9 @@
         .when('/admin/faculties', {
           template: '<faculty-list></faculty-list>'
         })
+        .when('/admin/groups', {
+          template: '<group-list></group-list>'
+        })
         .when('/admin/faculties/info/:slug', {
           template: '<faculty-page-info></faculty-page-info>'
         })

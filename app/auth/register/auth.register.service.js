@@ -25,7 +25,8 @@
         password: value.password,
         password_confirmation: value.password_confirmation,
         phone: value.phone,
-        email: value.email
+        email: value.email,
+        faculty_id: value.faculty_id
       };
 
       $auth.signup(user)
