@@ -7,11 +7,11 @@
 
   RegisterUtils.$inject = [
     '$q', '$http',
-    '$auth'
+    '$auth', 'server_host'
   ];
 
   function RegisterUtils($q, $http,
-                         $auth) {
+                         $auth, server_host) {
     var service = {
       signUp: signUp,
       getFaculties: getFaculties
@@ -40,29 +40,19 @@
     }
 
     function getFaculties() {
-      var deferred = $q.defer();
-      var faculties = [
-        {
-          title: 'fotius',
-          id: 1
-        },
-        {
-          title: 'fotius1',
-          id: 2
-        },
-        {
-          title: 'fotius2',
-          id: 3
-        },
-        {
-          title: 'fotius3',
-          id: 4
-        }
-      ];
+      var defer = $q.defer();
+
+      $http.get(server_host + 'api/auth/faculties')
+          .success(function (ok, status, headers, config) {
+            defer.resolve(ok);
+          })
+          .error(function (err, status, headers, config) {
+            debugger;
+            defer.reject(err);
+          });
 
 
-      deferred.resolve(faculties);
-      return deferred.promise;
+      return defer.promise;
     }
 
     return service;

@@ -60,9 +60,9 @@
         <md-input-container class="md-block"
             layout-margin>
           <label>Факультет</label>
-          <md-select ng-model="register.user.state">
+          <md-select ng-model="register.user.faculty_id">
             <md-option ng-repeat="state in register.faculty" value="{{ state.id }}">
-              {{state.title}}
+              {{state.name}}
             </md-option>
           </md-select>
         </md-input-container>

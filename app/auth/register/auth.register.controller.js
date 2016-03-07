@@ -22,6 +22,7 @@
       RegisterUtils.getFaculties()
           .then(function (ok) {
             vm.faculty = ok;
+            console.log(vm.faculty);
 
             vm.loading = false;
           }, function (err) {
@@ -34,7 +35,7 @@
 
       RegisterUtils.signUp(user)
           .then(function () {
-            $location.path('/profile');
+            $location.path('/home');
           }, function (err) {
             $log.log('[ERROR] RegisterController.register().LoginUtils.register()', err);
           })
