@@ -21,9 +21,9 @@
     function init() {
       vm.loading = true;
       vm.loadingStudents = true;
-      vm.params = {
-        page: 1
-      };
+      vm.loadingGroups = true;
+      vm.paramsStudents = { page: 1 };
+      vm.paramsGroups = { page: 1 };
       vm.group = {
         name: 'Назва групи',
         faculty: {},
@@ -33,7 +33,8 @@
 
       if (!LoginUtils.isLogged()) { return $location.path('/home'); }
 
-      GroupUtils.getFacultyInfo(vm.params)
+      getGroups(vm.paramsGroups);
+      GroupUtils.getFacultyInfo(vm.paramsStudents)
           .then(function (ok) {
             vm.faculties = ok;
             vm.directions = vm.faculties[0].directions;
@@ -72,6 +73,20 @@
             vm.students.total = ok.total;
 
             vm.loadingStudents = false;
+          }, function (err) {
+            $log.log('[ERROR] GroupController.init().GroupUtils.getFacultyInfo().GroupUtils.getStudents()', err);
+          });
+    }
+
+    function getGroups(params) {
+      vm.loadingGroups = true;
+
+      GroupUtils.getGroups(params)
+          .then(function (ok) {
+            vm.groups = ok.data;
+            vm.groups.total = ok.total;
+
+            vm.loadingGroups = false;
           }, function (err) {
             $log.log('[ERROR] GroupController.init().GroupUtils.getFacultyInfo().GroupUtils.getStudents()', err);
           });
@@ -125,10 +140,10 @@
       return new Array(countPage);
     };
 
-    vm.jumpToPage = function (page) {
-      vm.params.page = page;
+    vm.jumpToPageStudents = function (page) {
+      vm.paramsStudents.page = page;
 
-      getStudents(vm.params);
+      getStudents(vm.paramsStudents);
     };
 
     vm.saveGroup = function () {
@@ -139,6 +154,12 @@
       //    }, function (err) {
       //      $log.log('[ERROR] GroupController.saveGroup().GroupUtils.saveGroup()', err);
       //    });
+    };
+
+    vm.jumpToPageGroups = function (page) {
+      vm.paramsGroups.page = page;
+
+      getGroups(vm.paramsGroups);
     };
   }
 })();

@@ -81,7 +81,7 @@
                    layout layout-align="center center">
                 <div class="pagination-page"
                      ng-repeat="page in groupList.range(groupList.students.total) track by $index"
-                     ng-click="groupList.jumpToPage($index + 1)">
+                     ng-click="groupList.jumpToPageStudents($index + 1)">
                 </div>
               </div>
             </div>
@@ -89,11 +89,27 @@
         </md-tab>
         <md-tab label="Список груп">
           <md-content class="md-padding">
-            <h1 class="md-display-2">Tab One</h1>
+            <md-progress-linear md-mode="indeterminate"
+                                ng-if="groupList.loadingGroups"></md-progress-linear>
+            <div ng-if="!groupList.loadingGroups"
+                layout-margin>
+              <h3>Список груп:</h3>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat
-              neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas
-              lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+              <div ng-if="!groupList.groups.length">
+                Список груп порожній
+              </div>
+              <div ng-repeat="group in groupList.groups track by $index">
+                {{ group.name }}
+              </div>
+
+              <div class="pagination"
+                   layout layout-align="center center">
+                <div class="pagination-page"
+                     ng-repeat="page in groupList.range(groupList.groups.total) track by $index"
+                     ng-click="groupList.jumpToPageGroups($index + 1)">
+                </div>
+              </div>
+            </div>
           </md-content>
         </md-tab>
       </md-tabs>

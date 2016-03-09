@@ -15,7 +15,8 @@
     var service = {
       getFacultyInfo: getFacultyInfo,
       getStudents: getStudents,
-      saveGroup: saveGroup
+      saveGroup: saveGroup,
+      getGroups: getGroups
     };
 
     function getFacultyInfo() {
@@ -51,6 +52,21 @@
 
       // TODO: create group
       $http.post(server_host + 'api/admin/group', group)
+          .success(function (ok) {
+            defer.resolve(ok);
+          })
+          .error(function (err) {
+            defer.reject(err);
+          });
+
+      return defer.promise;
+    }
+
+    function getGroups(param) {
+      var defer = $q.defer();
+
+      // TODO :getGroups()
+      $http.get(server_host + 'api/admin/groups', { params: param })
           .success(function (ok) {
             defer.resolve(ok);
           })
