@@ -125,10 +125,16 @@
     };
 
     vm.checkedStudent = function (student) {
-      var index = vm.group.students.indexOf(student);
+      var exist = true;
 
-      if (index > -1) { vm.group.students.splice(index, 1); }
-      else { vm.group.students.push(student); }
+        for(var i in vm.group.students) {
+          if (student.id == vm.group.students[i].id) {
+            vm.group.students.splice(i, 1);
+            exist = false;
+          }
+        }
+
+      if (exist) {vm.group.students.push(student); }
     };
 
     vm.range = function (page) {
