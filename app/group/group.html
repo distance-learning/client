@@ -39,6 +39,11 @@
                       layout layout-xs="column"
                       layout-align="space-between start">
             <div>
+              <md-button class="md-icon-button" aria-label=""
+                         ng-click="groupList.saveGroup()">
+                <md-icon md-svg-src="{{ groupList.saveGroupIconURL }}" aria-label=""></md-icon>
+                <md-tooltip md-direction="right">Зберегти</md-tooltip>
+              </md-button>
               <h3 inline-edit="groupList.group.name"
                   inline-edit-callback="groupList.editGroupName(newValue)"
                   inline-edit-btn-edit=""
@@ -47,14 +52,36 @@
 
               <div class="md-margin">Факультет: {{ groupList.group.faculty.name }}</div>
               <div class="md-margin">Направлення: {{ groupList.group.direction.name }}</div>
+              <div> Список групи {{ groupList.group.name }} :</div>
+              <div layout-margin>
+                <div ng-if="!groupList.group.students.length">
+                  Група порожня
+                </div>
+                <div ng-repeat="student in groupList.group.students track by $index">
+                  {{ student.name }} {{ student.surname }}
+                </div>
+              </div>
             </div>
-            <div>
+            <md-progress-circular class="md-warn md-hue-3"
+                                  md-mode='indeterminate'
+                                  ng-if="groupList.loadingStudents"></md-progress-circular>
+            <div ng-if="!groupList.loadingStudents">
               <h3>Список студентів</h3>
 
               <div class="group-student-container">
                 <div class="group-student-container-item"
                      ng-repeat="student in groupList.students track by $index">
-                  {{ student.name }} {{ student.surname }}
+                  <md-checkbox ng-model="student.isChecked" aria-label=""
+                               ng-change="groupList.checkedStudent(student)">
+                    {{ student.name }} {{ student.surname }}
+                  </md-checkbox>
+                </div>
+              </div>
+              <div class="pagination"
+                   layout layout-align="center center">
+                <div class="pagination-page"
+                     ng-repeat="page in groupList.range(groupList.students.total) track by $index"
+                     ng-click="groupList.jumpToPage($index + 1)">
                 </div>
               </div>
             </div>

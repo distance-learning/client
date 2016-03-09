@@ -14,7 +14,8 @@
                       server_host) {
     var service = {
       getFacultyInfo: getFacultyInfo,
-      getStudents: getStudents
+      getStudents: getStudents,
+      saveGroup: saveGroup
     };
 
     function getFacultyInfo() {
@@ -31,11 +32,25 @@
       return defer.promise;
     }
 
-    function getStudents() {
+    function getStudents(param) {
       var defer = $q.defer();
 
-      // TODO: change url for get students
-      $http.get(server_host + 'api/admin/faculties')
+      $http.get(server_host + 'api/admin/students', { params: param })
+          .success(function (ok) {
+            defer.resolve(ok);
+          })
+          .error(function (err) {
+            defer.reject(err);
+          });
+
+      return defer.promise;
+    }
+
+    function saveGroup(group) {
+      var defer = $q.defer();
+
+      // TODO: create group
+      $http.post(server_host + 'api/admin/group', group)
           .success(function (ok) {
             defer.resolve(ok);
           })
