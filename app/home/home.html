@@ -22,7 +22,10 @@
        ng-if="home.userCheck()">
     <div class="user-info"
          layout layout-align="space-around center">
-      <div>
+      <md-progress-circular class="md-warn md-hue-3"
+                            md-mode='indeterminate'
+                            ng-if="home.loadingUserInfo"></md-progress-circular>
+      <div ng-if="!home.loadingUserInfo">
         <img src="./assests/images/ic_account_circle_black_24dp_1x.png" alt=""
              ng-click="home.goToProfile()"/>
         <span ng-click="home.goToProfile()">

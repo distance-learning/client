@@ -13,6 +13,7 @@
   function HomeController($location, $log,
                           LoginUtils, ProfileUtils) {
     var vm = this;
+    vm.loadingUserInfo = true;
     vm.logoutIconURL = './assests/images/ic_weekend_black_24px.svg';
     vm.user = {};
     vm.specialtyAreas = [
@@ -27,15 +28,20 @@
 
     init();
     function init() {
+      vm.loadingUserInfo = true;
       vm.user = {};
-      if (LoginUtils.isLogged()) {
-        ProfileUtils.getUserInfo()
-            .then(function (ok) {
-              vm.user = ok;
-            }, function (err) {
-              $log.log('[ERROR] HomeController.init().ProfileUtils.getUserInfo()', err);
-            });
-      }
+
+      if (!LoginUtils.isLogged()) { return vm.user = {}; }
+
+      ProfileUtils.getUserInfo()
+          .then(function (ok) {
+            vm.user = ok;
+
+            vm.loadingUserInfo = false;
+          }, function (err) {
+            $log.log('[ERROR] HomeController.init().ProfileUtils.getUserInfo()', err);
+          });
+
     }
 
     vm.userCheck = function () {
