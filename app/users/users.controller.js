@@ -47,6 +47,7 @@
 
     function getUsers(params) {
       vm.loading = true;
+
       UsersUtils.getUsers(params.page)
           .then(function (ok) {
             vm.users = ok.data;
@@ -102,6 +103,7 @@
 
     vm.jumpToPage = function (page) {
       vm.params.page = page;
+
       getUsers(vm.params);
     };
 
