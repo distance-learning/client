@@ -24,8 +24,12 @@
       </div>
       <div layout="column" layout-align="center center">
         <div layout layout-align="start center">
+          <md-progress-circular class="md-warn md-hue-3"
+                                md-mode='indeterminate'
+                                ng-if="!login.loadingLogin"></md-progress-circular>
           <md-button class="md-raised dl-footer-button" type="submit"
                      ng-click="login.login(login.user)"
+                     ng-if="login.loadingLogin""
                      ng-disabled="LoginForm.$invalid">
             Вхід
           </md-button>

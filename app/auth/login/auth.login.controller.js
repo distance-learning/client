@@ -13,7 +13,11 @@
   function LoginController($mdToast, $location,
                            LoginUtils) {
     var vm = this;
+    vm.loadingLogin = true;
+
     vm.login = function (user) {
+      vm.loadingLogin = false;
+
       LoginUtils.login(user)
           .then(function () {
             $location.path('/home');
@@ -25,6 +29,8 @@
                     .textContent(notification)
                     .hideDelay(3000)
             );
+
+            vm.loadingLogin = true;
           });
     };
   }
