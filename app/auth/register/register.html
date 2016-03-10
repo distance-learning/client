@@ -67,8 +67,12 @@
           </md-select>
         </md-input-container>
         <div layout="column" layout-align="center center">
+          <md-progress-circular class="md-warn md-hue-3"
+                                md-mode='indeterminate'
+                                ng-if="!register.loadingLogin"></md-progress-circular>
           <md-button class="md-raised dl-register-button" type="submit"
                      ng-click="register.register(register.user)"
+                     ng-if="register.loadingLogin"
                      ng-disabled="RegisterForm.$invalid">
             Зареєструватися
           </md-button>

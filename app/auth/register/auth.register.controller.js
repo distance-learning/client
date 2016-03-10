@@ -14,6 +14,7 @@
                               RegisterUtils) {
     var vm = this;
     vm.loading = true;
+    vm.loadingLogin = true;
 
     init();
     function init() {
@@ -22,7 +23,6 @@
       RegisterUtils.getFaculties()
           .then(function (ok) {
             vm.faculty = ok;
-            console.log(vm.faculty);
 
             vm.loading = false;
           }, function (err) {
@@ -31,13 +31,21 @@
     }
 
     vm.register = function (user) {
-      if (!isValidUser(user)) { return $log.log('[VALIDATION] User date isn`t valid'); }
+      vm.loadingLogin = false;
+
+      if (!isValidUser(user)) {
+        vm.loadingLogin = true;
+
+        return $log.log('[VALIDATION] User date isn`t valid');
+      }
 
       RegisterUtils.signUp(user)
           .then(function () {
             $location.path('/home');
           }, function (err) {
             $log.log('[ERROR] RegisterController.register().LoginUtils.register()', err);
+
+            vm.loadingLogin = true;
           })
     };
 
