@@ -11,6 +11,7 @@
                      layout="column" layout-align="center center"
                      layout-margin layout-padding>
         <h2>Реагування факультету <span>{{ facultyPageInfo.faculty.name }}</span></h2>
+
         <div layout="column" layout-align="space-around center"
              layout-magin layout-padding
              layout-fill>
@@ -22,6 +23,15 @@
             <label>Опис</label>
             <input ng-model="facultyPageInfo.faculty.description">
           </md-input-container>
+          <div>
+            <div ng-if="!facultyPageInfo.faculty.direction.length">
+              Не створено жодного направлення =(
+            </div>
+            <div layout-margin
+                 ng-repeat="direction in facultyPageInfo.faculty.direction track by $index">
+              {{ direction.name }}
+            </div>
+          </div>
         </div>
         <div layout layout-align="end center"
              layout-magin layout-padding>

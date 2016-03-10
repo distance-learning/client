@@ -28,9 +28,11 @@
 
     function getFaculty(facultySlug) {
       vm.loading = true;
+
       FacultyListUtils.getFacultyBySlug(facultySlug)
           .then(function (ok) {
             vm.faculty = ok.data;
+            console.log(vm.faculty);
 
             vm.loading = false;
           }, function (err) {
