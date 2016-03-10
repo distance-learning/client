@@ -15,6 +15,7 @@
     var vm = this;
     vm.loading = true;
     vm.saveGroupIconURL = './assests/images/ic_save_black_24px.svg';
+    vm.removeStudentIconURL = './assests/images/ic_remove_circle_black_18px.svg';
     vm.loadingStudents = true;
 
     init();
@@ -23,7 +24,11 @@
       vm.loadingStudents = true;
       vm.loadingGroups = true;
       vm.paramsStudents = { page: 1 };
-      vm.paramsGroups = { page: 1 };
+      vm.paramsGroups = {
+        page: 1,
+        faculty: {},
+        direction: {}
+      };
       vm.group = {
         name: 'Назва групи',
         faculty: {},
@@ -33,7 +38,6 @@
 
       if (!LoginUtils.isLogged()) { return $location.path('/home'); }
 
-      getGroups(vm.paramsGroups);
       GroupUtils.getFacultyInfo(vm.paramsStudents)
           .then(function (ok) {
             vm.faculties = ok;
@@ -42,6 +46,10 @@
             vm.group.faculty.name = vm.faculties[0].name;
             vm.group.direction.id = vm.faculties[0].directions[0].id;
             vm.group.direction.name = vm.faculties[0].directions[0].name;
+
+            vm.paramsGroups.faculty = vm.faculties[0];
+            vm.paramsGroups.direction = vm.faculties[0].directions[0];
+            getGroups(vm.paramsGroups);
 
             GroupUtils.getStudents()
                 .then(function (ok) {
@@ -111,12 +119,16 @@
           vm.group.faculty.name = vm.faculties[i].name;
           vm.group.direction.id = vm.faculties[i].directions[0].id;
           vm.group.direction.name = vm.faculties[i].directions[0].name;
+
+          vm.paramsGroups.faculty = vm.faculties[i];
+          vm.paramsGroups.direction = vm.faculties[i].directions[0];
         }
       }
     };
 
     vm.selectDirection = function (direction) {
       vm.group.direction = direction;
+      vm.paramsGroups.direction = direction;
     };
 
     vm.editGroupName = function (newName) {
@@ -166,6 +178,13 @@
       vm.paramsGroups.page = page;
 
       getGroups(vm.paramsGroups);
+    };
+
+    vm.removeStudent = function (student) {
+      for(var i in vm.students) {
+        if (vm.students[i].id == student.id) { vm.students[i].isChecked = false;  }
+      }
+      this.checkedStudent(student);
     };
   }
 })();

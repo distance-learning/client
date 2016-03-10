@@ -1,11 +1,11 @@
 <div>
   <md-progress-linear md-mode="indeterminate"
                       ng-if="groupList.loading"></md-progress-linear>
-  <div class="group"
+  <div class="admin-group"
        layout="column" layout-align="center center"
        ng-cloak layout-wrap
        ng-if="!groupList.loading">
-    <div class="group-container"
+    <div class="admin-group-container"
          layout layout-xs="column"
          layout-align="center start" layout-align-xs="center center"
          layout-margin layout-padding>
@@ -58,6 +58,9 @@
                   Група порожня
                 </div>
                 <div ng-repeat="student in groupList.group.students track by $index">
+                  <md-icon class="group-student-remove-img"
+                           md-svg-src="{{ groupList.removeStudentIconURL }}" aria-label=""
+                           ng-click="groupList.removeStudent(student)"></md-icon>
                   {{ student.name }} {{ student.surname }}
                 </div>
               </div>
@@ -92,7 +95,13 @@
             <md-progress-linear md-mode="indeterminate"
                                 ng-if="groupList.loadingGroups"></md-progress-linear>
             <div ng-if="!groupList.loadingGroups"
-                layout-margin>
+                 layout-margin>
+              <div layout-margin>
+                Факультет: {{ groupList.paramsGroups.faculty.name }}
+              </div>
+              <div>
+                Напрямок: {{ groupList.paramsGroups.direction.name }}
+              </div>
               <h3>Список груп:</h3>
 
               <div ng-if="!groupList.groups.length">
