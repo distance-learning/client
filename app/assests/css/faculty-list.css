@@ -98,19 +98,32 @@
   color: red;
 }
 
+.FacultyAdminForm {
+  width: 650px;
+}
+
 .FacultyAdminForm h2 {
   color: #000;
 }
 
+.admin-faculty-direction-container h3,
+.md-sidenav-left h1,
 .FacultyAdminForm h2 > span {
   color: rgb(233, 126, 89);
 }
 
-.faculty-admin-info .FacultyAdminForm {
-  width: auto;
-}
-
 .faculty-admin-info .FacultyAdminForm div > md-input-container {
   width: 100%;
-  padding: 8px;
+  margin: 8px;
+}
+
+.admin-faculty-direction-container .admin-faculty-direction-container-item {
+  color: #232323;
+  outline: none;
+}
+
+.admin-faculty-direction-container .admin-faculty-direction-container-item:hover,
+.faculty-admin-info .md-sidenav-right h1{
+  color: rgb(233, 126, 89);
+  cursor: pointer;
 }

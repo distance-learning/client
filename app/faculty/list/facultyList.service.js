@@ -18,7 +18,10 @@
       createAdminFaculty: createAdminFaculty,
       removeAdminFaculty: removeAdminFaculty,
       getFacultyBySlug: getFacultyBySlug,
-      updateAdminFaculty: updateAdminFaculty
+      updateAdminFaculty: updateAdminFaculty,
+      getDirectionInfo: getDirectionInfo,
+      removeDirection: removeDirection,
+      createDirection: createDirection
     };
 
     function getFaculties(params) {
@@ -93,6 +96,45 @@
       var defer = $q.defer();
 
       $http.put(server_host + 'api/admin/faculties/' + faculty.slug, faculty)
+          .then(function (ok) {
+            defer.resolve(ok);
+          }, function (err) {
+            defer.reject(err);
+          });
+
+      return defer.promise;
+    }
+
+    function getDirectionInfo(direction) {
+      var defer = $q.defer();
+
+      $http.get(server_host + 'api/admin/directions/' + direction.slug)
+          .then(function (ok) {
+            defer.resolve(ok);
+          }, function (err) {
+            defer.reject(err);
+          });
+
+      return defer.promise;
+    }
+
+    function removeDirection(direction) {
+      var defer = $q.defer();
+
+      $http.delete(server_host + 'api/admin/directions/' + direction.slug)
+          .then(function (ok) {
+            defer.resolve(ok);
+          }, function (err) {
+            defer.reject(err);
+          });
+
+      return defer.promise;
+    }
+
+    function createDirection(direction) {
+      var defer = $q.defer();
+
+      $http.post(server_host + 'api/admin/directions', direction)
           .then(function (ok) {
             defer.resolve(ok);
           }, function (err) {
