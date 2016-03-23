@@ -31,8 +31,6 @@
       };
       vm.group = {
         name: 'Назва групи',
-        faculty: {},
-        direction: {},
         students: []
       };
 
@@ -42,10 +40,8 @@
           .then(function (ok) {
             vm.faculties = ok;
             vm.directions = vm.faculties[0].directions;
-            vm.group.faculty.id = vm.faculties[0].id;
-            vm.group.faculty.name = vm.faculties[0].name;
-            vm.group.direction.id = vm.faculties[0].directions[0].id;
-            vm.group.direction.name = vm.faculties[0].directions[0].name;
+            vm.group.faculty_id = vm.faculties[0].id;
+            vm.group.direction_id = vm.faculties[0].directions[0].id;
 
             vm.paramsGroups.faculty = vm.faculties[0];
             vm.paramsGroups.direction = vm.faculties[0].directions[0];
@@ -115,13 +111,13 @@
         if (vm.faculties[i].id == faculty.id) {
           vm.directions = vm.faculties[i].directions;
 
-          vm.group.faculty.id = vm.faculties[i].id;
-          vm.group.faculty.name = vm.faculties[i].name;
-          vm.group.direction.id = vm.faculties[i].directions[0].id;
-          vm.group.direction.name = vm.faculties[i].directions[0].name;
+          vm.group.faculty_id = vm.faculties[0].id;
+          vm.group.direction_id = vm.faculties[0].directions[0].id;
 
           vm.paramsGroups.faculty = vm.faculties[i];
           vm.paramsGroups.direction = vm.faculties[i].directions[0];
+
+          getGroups(vm.paramsGroups);
         }
       }
     };
@@ -129,6 +125,8 @@
     vm.selectDirection = function (direction) {
       vm.group.direction = direction;
       vm.paramsGroups.direction = direction;
+
+      getGroups(vm.paramsGroups);
     };
 
     vm.editGroupName = function (newName) {
@@ -153,7 +151,7 @@
       if (!page) { return new Array(1); }
       var countPage = Math.floor(page / 10);
 
-      if ((page % 5) != 0) { countPage++; }
+      if ((page % 10) != 0) { countPage++; }
 
       return new Array(countPage);
     };
@@ -165,13 +163,20 @@
     };
 
     vm.saveGroup = function () {
-      console.log(1);
-      //GroupUtils.saveGroup(vm.group)
-      //    .then(function () {
-      //      init();
-      //    }, function (err) {
-      //      $log.log('[ERROR] GroupController.saveGroup().GroupUtils.saveGroup()', err);
-      //    });
+      vm.loading = true;
+
+      var students = vm.group.students;
+      vm.group.students = [];
+      for(var i in students){
+        vm.group.students.push(students[i].id);
+      }
+
+      GroupUtils.saveGroup(vm.group)
+          .then(function () {
+            init();
+          }, function (err) {
+            $log.log('[ERROR] GroupController.saveGroup().GroupUtils.saveGroup()', err);
+          });
     };
 
     vm.jumpToPageGroups = function (page) {
@@ -184,6 +189,7 @@
       for(var i in vm.students) {
         if (vm.students[i].id == student.id) { vm.students[i].isChecked = false;  }
       }
+
       this.checkedStudent(student);
     };
   }

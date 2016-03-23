@@ -50,8 +50,7 @@
     function saveGroup(group) {
       var defer = $q.defer();
 
-      // TODO: create group
-      $http.post(server_host + 'api/admin/group', group)
+      $http.post(server_host + 'api/admin/groups', group)
           .success(function (ok) {
             defer.resolve(ok);
           })
@@ -65,8 +64,7 @@
     function getGroups(param) {
       var defer = $q.defer();
 
-      // TODO :getGroups()
-      $http.get(server_host + 'api/admin/groups', { params: param })
+      $http.get(server_host + '/api/admin/directions/' + param.direction.slug + '/groups')
           .success(function (ok) {
             defer.resolve(ok);
           })
