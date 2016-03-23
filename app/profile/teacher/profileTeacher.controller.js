@@ -7,11 +7,11 @@
 
   ProfileTeacherController.$inject = [
     '$log', '$location', '$mdSidenav',
-    'ProfileUtils', 'ProfileTeacherUtils', 'LoginUtils'
+    'ProfileUtils', 'ProfileTeacherUtils', 'LoginUtils', 'TestUtils'
   ];
 
   function ProfileTeacherController($log, $location, $mdSidenav,
-                                    ProfileUtils, ProfileTeacherUtils, LoginUtils) {
+                                    ProfileUtils, ProfileTeacherUtils, LoginUtils, TestUtils) {
     var vm = this;
     vm.loading = true;
     vm.currentSelectedDate = {};
@@ -87,7 +87,16 @@
     };
 
     vm.goToCreateTest = function () {
-      $location.path('/test/create');
+      vm.loading = true;
+
+      TestUtils.createTest()
+          .then(function (ok) {
+
+            $location.path('/test/create');
+          }, function (err) {
+            $log.log('[ERROR] ProfileTeacherController.goToCreateTest().TestUtils.createTest()', err);
+          });
+
     };
   }
 })();
