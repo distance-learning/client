@@ -11,8 +11,25 @@
   ];
 
   function TestUtils($q, $http,
-                        server_host) {
-    var service = {};
+                     server_host) {
+    var service = {
+      getTest: getTest
+    };
+
+    function getTest(testId) {
+      var defer = $q.defer();
+
+      $http.get(server_host + 'api/test/' + testId)
+          .success(function (ok, status, headers, config) {
+            defer.resolve(ok);
+          })
+          .error(function (err, status, headers, config) {
+            debugger;
+            defer.reject(err);
+          });
+
+      return defer.promise;
+    }
 
     return service;
   }

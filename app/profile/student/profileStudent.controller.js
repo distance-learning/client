@@ -46,5 +46,10 @@
             $log.log('[ERROR] ProfileStudentController.ProfileStudentUtils.getUser() ', err);
           });
     }
+
+    vm.goToCompleteTest = function () {
+      var path = 'test/4A2d45asd7167asd13qw4e84d1c';
+      $location.path(path);
+    };
   }
 })();
