@@ -64,9 +64,10 @@
 
     function getGroups(param) {
       var defer = $q.defer();
+      console.log(param);
 
       // TODO :getGroups()
-      $http.get(server_host + 'api/admin/groups', { params: param })
+      $http.get(server_host + '/api/admin/directions/' + param.direction.slug + '/groups')
           .success(function (ok) {
             defer.resolve(ok);
           })
