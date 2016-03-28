@@ -108,6 +108,9 @@
                 Список груп порожній
               </div>
               <div ng-repeat="group in groupList.groups track by $index">
+                <md-icon class="group-student-remove-img"
+                         md-svg-src="{{ groupList.removeStudentIconURL }}" aria-label=""
+                         ng-click="groupList.removeGroup($event, group)"></md-icon>
                 {{ group.name }}
               </div>
 

@@ -6,11 +6,11 @@
       .controller('GroupController', GroupController);
 
   GroupController.$inject = [
-    '$location', '$log',
+    '$location', '$log', '$mdDialog',
     'LoginUtils', 'GroupUtils'
   ];
 
-  function GroupController($location, $log,
+  function GroupController($location, $log, $mdDialog,
                            LoginUtils, GroupUtils) {
     var vm = this;
     vm.loading = true;
@@ -197,5 +197,25 @@
 
       this.checkedStudent(student);
     };
+
+    vm.removeGroup = function (ev, group) {
+      $mdDialog.show({
+        controller: 'UsersDialogController',
+        controllerAs: 'userDialog',
+        templateUrl: './users/dialog/notification.html',
+        targetEvent: ev,
+        clickOutsideToClose: true,
+        locals: {
+          user: group
+        }
+      }).then(function () {
+        GroupUtils.removeGroup(group)
+            .then(function (ok) {
+              getGroups(vm.paramsGroups);
+            }, function (err) {
+              $log.log('[ERROR] GroupController.removeGroup().GroupUtils.removeGroup()', err);
+            });
+      });
+    }
   }
 })();
