@@ -21,14 +21,6 @@
           <div layout="column"
                layout-padding>
             <md-input-container>
-              <label>Група</label>
-              <md-select ng-model="testBuild.test.group">
-                <md-option ng-repeat="group in testBuild.groups" value="{{ group.title }}">
-                  {{ group.title }}
-                </md-option>
-              </md-select>
-            </md-input-container>
-            <md-input-container>
               <label>Час виконання</label>
               <md-select ng-model="testBuild.test.time">
                 <md-option ng-repeat="time in testBuild.times" value="{{ time }}">
@@ -36,15 +28,6 @@
                 </md-option>
               </md-select>
             </md-input-container>
-            <md-content layout="row" layout-align="space-between center"
-                        layout-padding>
-              <div>
-                <label>Дата:</label>
-              </div>
-              <div>
-                <md-datepicker ng-model="testBuild.test.date"></md-datepicker>
-              </div>
-            </md-content>
             <div class="md-title">
               <span> Кількість запитань: {{ testBuild.test.questions.length }} </span>
               <md-button class="md-icon-button" aria-label=""
@@ -54,7 +37,6 @@
               </md-button>
             </div>
           </div>
-
           <div class="test-questions-container">
             <div class="test-question-item"
                  ng-repeat="question in testBuild.test.questions track by $index">
@@ -62,12 +44,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="test-build-buttons">
-        <md-button class="md-raised test-create-button"
-                   ng-click="testBuild.createTest()">
-          Створити тест
-        </md-button>
       </div>
     </div>
     <footer></footer>

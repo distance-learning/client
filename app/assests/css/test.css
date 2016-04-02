@@ -9,7 +9,8 @@
 .test-build .test-build-container {
   border: 1px solid black;
   width: 650px;
-  height: 650px;
+  height: 500px;
+  margin-bottom: 20px;
 }
 
 .test-build .test-build-container h1 {

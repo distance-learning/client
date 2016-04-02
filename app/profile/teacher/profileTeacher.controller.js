@@ -89,13 +89,15 @@
     vm.goToCreateTest = function () {
       vm.loading = true;
 
-      TestUtils.createTest()
+      $location.path('/test/create');
+
+      /*TestUtils.createTest()
           .then(function (ok) {
 
             $location.path('/test/create');
           }, function (err) {
             $log.log('[ERROR] ProfileTeacherController.goToCreateTest().TestUtils.createTest()', err);
-          });
+          });*/
 
     };
   }
