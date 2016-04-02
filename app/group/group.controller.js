@@ -113,10 +113,10 @@
         if (vm.faculties[i].id == faculty.id) {
           vm.directions = vm.faculties[i].directions;
 
-          vm.group.faculty = vm.faculties[0];
-          vm.group.faculty_id = vm.faculties[0].id;
-          vm.group.direction = vm.faculties[0].directions[0];
-          vm.group.direction_id = vm.faculties[0].directions[0].id;
+          vm.group.faculty = vm.faculties[i];
+          vm.group.faculty_id = vm.faculties[i].id;
+          vm.group.direction = vm.faculties[i].directions[0];
+          vm.group.direction_id = vm.faculties[i].directions[0].id;
 
           vm.paramsGroups.faculty = vm.faculties[i];
           vm.paramsGroups.direction = vm.faculties[i].directions[0];
@@ -212,6 +212,7 @@
         GroupUtils.removeGroup(group)
             .then(function (ok) {
               getGroups(vm.paramsGroups);
+              getStudents(vm.paramsStudents);
             }, function (err) {
               $log.log('[ERROR] GroupController.removeGroup().GroupUtils.removeGroup()', err);
             });
