@@ -18,6 +18,11 @@ gulp.task('html', function () {
       .pipe(reload({stream: true}));
 });
 
+gulp.task('css', function () {
+  return gulp.src('app/**/*.css')
+      .pipe(reload({stream: true}));
+});
+
 gulp.task('browserSync', function () {
   browserSync({
     port: 8000,
@@ -33,7 +38,7 @@ gulp.task('browserSync', function () {
 gulp.task('watch', function () {
   gulp.watch('app/**/*.html', ['html', 'build:copyApp']);
   gulp.watch('app/**/*.js', ['scripts']);
-  gulp.watch('app/**/*.css', ['build:copyCss']);
+  gulp.watch('app/**/*.css', ['css', 'build:copyCss']);
 });
 
 gulp.task('build:cleanFolder', function (callback) {
@@ -60,4 +65,4 @@ gulp.task('build:remove', function (callback) {
 });
 
 gulp.task('build', ['build:cleanFolder', 'build:copyApp', 'build:remove']);
-gulp.task('serve', ['build', 'scripts', 'html', 'browserSync', 'watch']);
+gulp.task('serve', ['build', 'scripts', 'html', 'css', 'browserSync', 'watch']);
