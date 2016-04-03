@@ -14,6 +14,7 @@
                      server_host) {
     var service = {
       getTest: getTest,
+      getTests: getTests,
       createTest: createTest,
       createQuestion: createQuestion,
       updateQuestion: updateQuestion
@@ -23,6 +24,21 @@
       var defer = $q.defer();
 
       $http.get(server_host + 'api/tests/' + testId)
+          .success(function (ok, status, headers, config) {
+            defer.resolve(ok);
+          })
+          .error(function (err, status, headers, config) {
+            debugger;
+            defer.reject(err);
+          });
+
+      return defer.promise;
+    }
+
+    function getTests() {
+      var defer = $q.defer();
+
+      $http.get(server_host + 'api/tests')
           .success(function (ok, status, headers, config) {
             defer.resolve(ok);
           })

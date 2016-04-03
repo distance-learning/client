@@ -58,6 +58,9 @@
         .when('/admin/groups', {
           template: '<group-list></group-list>'
         })
+        .when('/admin/tests', {
+          template: '<test-list></test-list>'
+        })
         .when('/admin/faculties/info/:slug', {
           template: '<faculty-page-info></faculty-page-info>'
         })
