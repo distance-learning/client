@@ -17,6 +17,7 @@
       getTests: getTests,
       createTest: createTest,
       createQuestion: createQuestion,
+      getQuestion: getQuestion,
       updateQuestion: updateQuestion
     };
 
@@ -69,6 +70,21 @@
       var defer = $q.defer();
 
       $http.post(server_host + 'api/tests/' + testId + '/questions')
+          .success(function (ok, status, headers, config) {
+            defer.resolve(ok);
+          })
+          .error(function (err, status, headers, config) {
+            debugger;
+            defer.reject(err);
+          });
+
+      return defer.promise;
+    }
+
+    function getQuestion(questionId) {
+      var defer = $q.defer();
+
+      $http.get(server_host + 'api/tests/' + testId + '/questions')
           .success(function (ok, status, headers, config) {
             defer.resolve(ok);
           })

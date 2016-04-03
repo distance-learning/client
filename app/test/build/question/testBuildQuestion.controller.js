@@ -13,11 +13,11 @@
   function TestBuildQuestionController($log, $location, $routeParams, FileUploader,
                                        ProfileUtils, LoginUtils, TestUtils) {
     var vm = this;
+    var testId = $routeParams.testId;
+    var questionId = $routeParams.questionId;
     vm.loading = true;
     vm.removeFileIconURL = './assests/images/ic_delete_black_24px.svg';
     vm.addAnswerFileIconURL = './assests/images/ic_add_black_18px.svg';
-    var testId = $routeParams.testId;
-    var questionId = $routeParams.questionId;
     vm.question = {
       id: questionId,
       testId: testId,
@@ -51,7 +51,16 @@
           .then(function (ok) {
             vm.user = ok;
 
-            vm.loading = false;
+            TestUtils.getQuestion(questionId)
+                .then(function (ok) {
+                  vm.question = ok;
+                  vm.question.id = questionId;
+                  vm.question.testId = testId;
+
+                  vm.loading = false;
+                }, function (err) {
+                  $log.log('[ERROR] TestBuildController.init().ProfileUtils.getUserInfo().TestUtils.getQuestion()', err);
+                });
           }, function (err) {
             $log.log('[ERROR] TestBuildController.init().ProfileUtils.getUserInfo()', err);
             $location.path('/home');

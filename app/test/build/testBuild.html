@@ -42,7 +42,8 @@
               Запитання відсутні
             </div>
             <div class="test-question-item"
-                 ng-repeat="question in testBuild.test.questions track by $index">
+                 ng-repeat="question in testBuild.test.questions track by $index"
+                 ng-click="testBuild.updateQuestion(question)">
               {{ $index + 1 }}. {{ question.name }}
             </div>
           </div>

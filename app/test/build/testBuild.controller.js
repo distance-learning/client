@@ -55,5 +55,10 @@
             $log.log('[ERROR] TestBuildController.addQuestion(). TestUtils.createQuestion()', err);
           });
     };
+
+    vm.updateQuestion = function (question) {
+      var path = '/test/' + testId + '/question/' + question.code;
+      $location.path(path);
+    };
   }
 })();
