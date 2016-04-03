@@ -56,21 +56,18 @@
           });
     };
 
-    vm.directionInfo = function directionInfo(direction) {
-      //vm.loadingDirections = true;
-      vm.direction = direction;
-
+    vm.directionInfo = function (direction) {
+      vm.loadingDirections = true;
       $mdSidenav('directionInfoSidenav').toggle();
 
+      FacultyListUtils.getDirectionInfo(direction)
+          .then(function (ok) {
+            vm.direction = ok.data;
 
-      //FacultyListUtils.getDirectionInfo(direction)
-      //    .then(function (ok) {
-      //      console.log(ok);
-      //
-      //      vm.loadingDirections = false;
-      //    }, function (err) {
-      //      $log.log('[ERROR] FacultyPageInfoController.directionInfo().FacultyListUtils.getDirectionInfo()', err);
-      //    });
+            vm.loadingDirections = false;
+          }, function (err) {
+            $log.log('[ERROR] FacultyPageInfoController.directionInfo().FacultyListUtils.getDirectionInfo()', err);
+          });
     };
 
     vm.editDirectionName = function(newName) {
