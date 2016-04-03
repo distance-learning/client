@@ -12,7 +12,7 @@
         <div class="test-build-content"
              layout="column" layout-align="center start"
              layout-padding>
-          <h1 inline-edit="testBuild.test.title"
+          <h1 inline-edit="testBuild.test.name"
               inline-edit-callback="testBuild.editTestTitle(newValue)"
               inline-edit-btn-edit=""
               inline-edit-on-blur="save"
@@ -38,6 +38,9 @@
             </div>
           </div>
           <div class="test-questions-container">
+            <div ng-if="testBuild.test.questions.length == 0">
+              Запитання відсутні
+            </div>
             <div class="test-question-item"
                  ng-repeat="question in testBuild.test.questions track by $index">
               {{ $index + 1 }}. {{ question.title }}

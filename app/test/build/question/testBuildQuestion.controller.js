@@ -6,18 +6,23 @@
       .controller('TestBuildQuestionController', TestBuildQuestionController);
 
   TestBuildQuestionController.$inject = [
-    '$log', '$location', 'FileUploader',
+    '$log', '$location', '$routeParams', 'FileUploader',
     'ProfileUtils', 'LoginUtils', 'TestUtils'
   ];
 
-  function TestBuildQuestionController($log, $location, FileUploader,
+  function TestBuildQuestionController($log, $location, $routeParams, FileUploader,
                                        ProfileUtils, LoginUtils, TestUtils) {
     var vm = this;
     vm.loading = true;
     vm.removeFileIconURL = './assests/images/ic_delete_black_24px.svg';
     vm.addAnswerFileIconURL = './assests/images/ic_add_black_18px.svg';
+    var testId = $routeParams.testId;
+    var questionId = $routeParams.questionId;
     vm.question = {
+      id: questionId,
+      testId: testId,
       title: 'Запитання',
+      type: 'single',
       file: undefined,
       answers: [
         {
@@ -68,8 +73,29 @@
     };
 
     vm.createQuestion = function () {
-      console.log(vm.uploader.queue);
-      console.log(vm.question);
+      vm.loading = true;
+
+      var countSelectedAnswer = 0;
+      for(var i in vm.question.answers) {
+        if (vm.question.answers[i].isCorrectly) {
+          countSelectedAnswer++;
+        }
+      }
+
+      vm.question.type = countSelectedAnswer == 1 ? 'single' : 'multiSelect';
+
+
+      TestUtils.updateQuestion(vm.question)
+          .then(function (ok) {
+            console.log(ok);
+
+            var path = '/test/' + testId + '/edit';
+            $location.path(path);
+
+            vm.loading = false;
+          }, function (err) {
+            $log.log('[ERROR] TestBuildQuestionController.createQuestion().TestUtils.updateQuestion()', err);
+          });
     };
 
     vm.addAnswer = function () {

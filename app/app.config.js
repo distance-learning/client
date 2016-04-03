@@ -61,13 +61,13 @@
         .when('/admin/faculties/info/:slug', {
           template: '<faculty-page-info></faculty-page-info>'
         })
-        .when('/test/create', {
+        .when('/test/:testId/edit', {
           template: '<test-build></test-build>'
         })
         .when('/test/:testId', {
           template: '<test-pass></test-pass>'
         })
-        .when('/test/question/create', {
+        .when('/test/:testId/question/:questionId', {
           template: '<test-build-question></test-build-question>'
         })
         .otherwise({
