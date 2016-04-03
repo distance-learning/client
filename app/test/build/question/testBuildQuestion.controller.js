@@ -21,7 +21,7 @@
     vm.question = {
       id: questionId,
       testId: testId,
-      title: 'Запитання',
+      name: 'Запитання',
       type: 'single',
       file: undefined,
       answers: [
@@ -59,8 +59,8 @@
     }
 
     vm.editQuestionTitle = function (newTitle) {
-      if (!newTitle) { vm.question.title = 'Запитання'; }
-      else { vm.question.title = newTitle; }
+      if (!newTitle) { vm.question.name = 'Запитання'; }
+      else { vm.question.name = newTitle; }
     };
 
     vm.editAnswerName = function (newName, answer) {
@@ -84,11 +84,8 @@
 
       vm.question.type = countSelectedAnswer == 1 ? 'single' : 'multiSelect';
 
-
       TestUtils.updateQuestion(vm.question)
           .then(function (ok) {
-            console.log(ok);
-
             var path = '/test/' + testId + '/edit';
             $location.path(path);
 
