@@ -84,7 +84,7 @@
     function getQuestion(questionId) {
       var defer = $q.defer();
 
-      $http.get(server_host + 'api/tests/' + testId + '/questions')
+      $http.get(server_host + 'api/tests/questions/' + questionId)
           .success(function (ok, status, headers, config) {
             defer.resolve(ok);
           })
