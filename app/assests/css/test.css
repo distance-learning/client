@@ -54,3 +54,13 @@
   min-height: 15px;
   width: 100%;
 }
+
+.admin-test-list-template h1 {
+  color: rgb(233, 126, 89);
+}
+
+.admin-test-list-template .admin-test-container {
+  height: 450px;
+  width: 500px;
+  color: black;
+}

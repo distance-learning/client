@@ -1,6 +1,14 @@
-<div>
-  <h1>?????? ??????</h1>
-  <div ng-repeat="test in testList.tests track by $index">
-    {{ test.name }}
-  </div>
+<div class="admin-test-list-template">
+  <md-progress-linear md-mode="indeterminate"
+                      ng-if="testList.loading"></md-progress-linear>
+  <md-whiteframe class="md-whiteframe-1dp"
+                 layout="column" layout-align="start center"
+                 ng-if="!testList.loading">
+    <h1>Список тестів</h1>
+    <div class="admin-test-container">
+      <div ng-repeat="test in testList.tests track by $index">
+        {{ $index + 1 }}. {{ test.name }}
+      </div>
+    </div>
+  </md-whiteframe>
 </div>
