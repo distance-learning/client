@@ -14,7 +14,8 @@
       getGroups: getGroups,
       getStudents: getStudents,
       getStudentTasks: getStudentTasks,
-      getFaculties: getFaculties
+      getFaculties: getFaculties,
+      getSubjects: getSubjects
     };
 
     function getGroups(teacher) {
@@ -141,6 +142,14 @@
       ];
 
       defer.resolve(faculties);
+      return defer.promise;
+    }
+
+    function getSubjects(teacherId) {
+      var defer = $q.defer();
+
+      //$http.get();
+
       return defer.promise;
     }
 
