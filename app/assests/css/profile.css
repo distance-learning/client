@@ -1,4 +1,4 @@
-.dl-reset-pass-button{
+.dl-reset-pass-button {
   width: 200px;
 }
 
@@ -99,9 +99,10 @@
 .group-container,
 .subject-container {
   border: 1px solid rgb(157, 155, 154);
-  width: 550px;
+  max-width: 550px;
   height: auto;
   border-radius: 20px;
+  margin-bottom: 15px;
 }
 
 .task-list {
@@ -152,7 +153,6 @@
   overflow: auto;
 }
 
-
 .md-raised.task-button {
   border: 1px solid rgb(233, 126, 89);
   background-color: rgb(233, 126, 89);
@@ -170,6 +170,7 @@
 .group,
 .subject {
   margin-top: 8px;
+  width: 550px;
 }
 
 .task-container {
@@ -181,7 +182,7 @@
 }
 
 .menu-admin .menu-admin-container .menu-admin-users,
-.menu-admin .menu-admin-container .menu-admin-faculties{
+.menu-admin .menu-admin-container .menu-admin-faculties {
   border: 2px solid rgb(233, 126, 89);
   width: 302px;
   height: 200px;
@@ -192,15 +193,16 @@
 }
 
 .menu-admin .menu-admin-container .menu-admin-users img,
-.menu-admin .menu-admin-container .menu-admin-faculties img{
+.menu-admin .menu-admin-container .menu-admin-faculties img {
   margin: 35px;
   width: 100px;
 }
 
 .menu-admin .menu-admin-container .menu-admin-users:hover,
-.menu-admin .menu-admin-container .menu-admin-faculties:hover{
+.menu-admin .menu-admin-container .menu-admin-faculties:hover {
   background-color: rgb(233, 126, 89);
 }
+
 .teacher-students-container #students-container {
   margin: 10px;
   padding: 10px;
@@ -210,8 +212,8 @@
   border-radius: 0 20px 0 20px;
 }
 
-.teacher-students-container  h2{
-  color : rgb(233, 126, 89);
+.teacher-students-container h2 {
+  color: rgb(233, 126, 89);
 }
 
 .teacher-students-container #students-container .student-item {
@@ -239,4 +241,14 @@
   text-transform: uppercase;
   line-height: 0.28;
   text-align: center;
+}
+
+.group-container > h3,
+.group-container .group-container-item:hover {
+  color: rgb(233, 126, 89);
+}
+
+.group-container .group-container-item {
+  cursor: pointer;
+  outline: none;
 }
