@@ -89,10 +89,18 @@
                  ng-repeat="task in profileTeacher.tasks">
               {{ task.name }}
             </div>
+            <md-button class="md-raised teacher-bind-task-with-group"
+                       ng-click="profileTeacher.bindingTaskWithGroup()">
+              Додати завдання
+            </md-button>
           </div>
         </div>
       </div>
     </div>
     <footer></footer>
   </div>
+  <md-sidenav class="md-sidenav-right"
+              md-component-id="teacher-task-list">
+    task
+  </md-sidenav>
 </div>

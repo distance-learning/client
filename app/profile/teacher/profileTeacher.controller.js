@@ -102,5 +102,9 @@
           });
 
     };
+
+    vm.bindingTaskWithGroup = function () {
+      $mdSidenav('teacher-task-list').toggle();
+    };
   }
 })();
