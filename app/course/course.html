@@ -1,3 +1,82 @@
 <div>
-
+  <md-progress-linear md-mode="indeterminate"
+                      ng-if="course.loading"></md-progress-linear>
+  <div class="users"
+       layout="column" layout-align="center center"
+       ng-cloak layout-wrap
+       ng-if="!course.loading">
+    <md-whiteframe class="md-whiteframe-1dp"
+                   layout layout-align="center center"
+                   layout-margin layout-padding>
+      <md-content>
+        <div class="course-container"
+             layout="column"
+             layout-wrap>
+          <div>
+            <h2>Список курсів</h2>
+          </div>
+          <div class="user-item"
+               ng-repeat="item in course.courses track by $index">
+            <div layout layout-align="space-between center">
+              <div>{{ item.name }}</div>
+              <md-menu>
+                <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="">
+                  <md-icon md-svg-icon="{{ course.managerCourseIconURL }}" aria-label=""></md-icon>
+                </md-button>
+                <md-menu-content>
+                  <md-menu-item>
+                    <md-button ng-click="course.editCourse(item)">
+                      <md-icon md-svg-src="{{ course.editCourseIconURL }}" aria-label=""></md-icon>
+                      Редагувати
+                    </md-button>
+                  </md-menu-item>
+                  <md-menu-item>
+                    <md-button ng-click="course.removeCourse($event, item)">
+                      <md-icon md-svg-src="{{ course.removeCourseIconURL }}" aria-label=""></md-icon>
+                      Видалити
+                    </md-button>
+                  </md-menu-item>
+                </md-menu-content>
+              </md-menu>
+            </div>
+          </div>
+          <div class="pagination"
+               layout layout-align="center center"
+               layout-magin layout-padding>
+            <div class="pagination-page"
+                 ng-repeat="page in course.range(course.total) track by $index"
+                 ng-click="course.jumpToPage($index + 1)">
+            </div>
+          </div>
+        </div>
+      </md-content>
+    </md-whiteframe>
+  </div>
+  <md-fab-speed-dial md-open="course.isOpen"
+                     md-direction="up" class="md-fling float-button lock-size"
+                     ng-if="!course.loading">
+    <md-fab-trigger>
+      <md-button class="md-fab md-warn" aria-label="">
+        <md-icon md-svg-src="{{ course.menuCourseIconURL }}" aria-label=""></md-icon>
+        <md-tooltip md-direction="left">
+          Операція
+        </md-tooltip>
+      </md-button>
+    </md-fab-trigger>
+    <md-fab-actions>
+      <md-button class="md-fab md-raised md-mini" aria-label="Add User"
+                 ng-click="course.createCourse()">
+        <md-icon md-svg-src="{{ course.createCourseIconURL }}" aria-label=""></md-icon>
+        <md-tooltip md-direction="left">
+          Створити користувача
+        </md-tooltip>
+      </md-button>
+      <md-button class="md-fab md-raised md-mini" aria-label="Filter User">
+        <md-icon md-svg-src="{{ course.filterCourseIconURL }}" aria-label=""></md-icon>
+        <md-tooltip md-direction="left">
+          Фільтр | Пошук
+        </md-tooltip>
+      </md-button>
+    </md-fab-actions>
+  </md-fab-speed-dial>
 </div>

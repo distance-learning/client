@@ -3,6 +3,9 @@
   'use strict';
 
   angular
-      .module('distanceLearning.course', []);
+      .module('distanceLearning.course', [
+        'distanceLearning.auth',
+        'distanceLearning.profile'
+      ]);
 
 })();

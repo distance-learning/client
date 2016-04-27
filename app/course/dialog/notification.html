@@ -1,0 +1,24 @@
+<md-dialog aria-label="removeCourse" class="courseDialog" ng-cloak>
+  <md-toolbar>
+    <div class="md-toolbar-tools courseDialog-header">
+      <h2>Підтвердження видалення</h2>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div class="md-dialog-content courseDialog-content"
+         layout>
+      {{ courseDialog.course.name }}
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions layout="row" layout-aligment="end center">
+    <span flex></span>
+    <md-button class="courseDialog-button"
+               ng-click="courseDialog.removeCourse()">
+      Видалити
+    </md-button>
+    <md-button class="courseDialog-button courseDialog-cancel"
+               ng-click="courseDialog.cancel()">
+      Відмінити
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>
