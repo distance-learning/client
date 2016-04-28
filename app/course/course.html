@@ -1,7 +1,7 @@
 <div>
   <md-progress-linear md-mode="indeterminate"
                       ng-if="course.loading"></md-progress-linear>
-  <div class="users"
+  <div class="course"
        layout="column" layout-align="center center"
        ng-cloak layout-wrap
        ng-if="!course.loading">
@@ -15,7 +15,7 @@
           <div>
             <h2>Список курсів</h2>
           </div>
-          <div class="user-item"
+          <div class="course-item"
                ng-repeat="item in course.courses track by $index">
             <div layout layout-align="space-between center">
               <div>{{ item.name }}</div>
@@ -64,14 +64,14 @@
       </md-button>
     </md-fab-trigger>
     <md-fab-actions>
-      <md-button class="md-fab md-raised md-mini" aria-label="Add User"
+      <md-button class="md-fab md-raised md-mini" aria-label=""
                  ng-click="course.createCourse()">
         <md-icon md-svg-src="{{ course.createCourseIconURL }}" aria-label=""></md-icon>
         <md-tooltip md-direction="left">
-          Створити користувача
+          Створити курс
         </md-tooltip>
       </md-button>
-      <md-button class="md-fab md-raised md-mini" aria-label="Filter User">
+      <md-button class="md-fab md-raised md-mini" aria-label="">
         <md-icon md-svg-src="{{ course.filterCourseIconURL }}" aria-label=""></md-icon>
         <md-tooltip md-direction="left">
           Фільтр | Пошук

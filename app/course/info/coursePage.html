@@ -1,0 +1,35 @@
+<div class="course-info">
+  <md-progress-linear md-mode="indeterminate"
+                      ng-if="coursePageInfo.loading"></md-progress-linear>
+  <div class="course-info-container"
+       ng-if="!coursePageInfo.loading"
+       layout="column" layout-align="center center"
+       layout-fill layout-padding>
+    <form name="CourseForm" class="CourseForm"
+          layout="column">
+      <md-whiteframe class="md-whiteframe-1dp"
+                     layout="column" layout-align="center center">
+        <div layout="column" layout-align="space-around center"
+             layout-magin layout-padding>
+          <h1>Інформація про курс</h1>
+          <md-input-container>
+            <label>Назва</label>
+            <input ng-model="coursePageInfo.course.name">
+          </md-input-container>
+        </div>
+        <div layout layout-align="end center"
+             layout-magin layout-padding>
+          <md-button class="md-raised" type="submit"
+                     ng-click="coursePageInfo.saveCourse()"
+                     ng-disabled="CourseForm.$invalid">
+            Зберегти
+          </md-button>
+          <md-button class="md-raised"
+                     ng-click="coursePageInfo.cancelCourse()">
+            Скасувати
+          </md-button>
+        </div>
+      </md-whiteframe>
+    </form>
+  </div>
+</div>

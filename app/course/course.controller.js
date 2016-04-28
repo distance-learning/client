@@ -64,7 +64,7 @@
     }
 
     vm.createCourse = function () {
-      var path = '/admin/course/info/create';
+      var path = '/admin/course/info';
       $location.path(path);
     };
 

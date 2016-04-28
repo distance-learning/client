@@ -61,8 +61,11 @@
         .when('/admin/course', {
           template: '<course></course>'
         })
-        .when('/admin/tests', {
-          template: '<test-list></test-list>'
+        .when('/admin/course/info', {
+          template: '<course-page-info></course-page-info>'
+        })
+        .when('/admin/course/info/:slug', {
+          template: '<course-page-info></course-page-info>'
         })
         .when('/admin/faculties/info/:slug', {
           template: '<faculty-page-info></faculty-page-info>'

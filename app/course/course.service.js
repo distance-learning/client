@@ -19,7 +19,7 @@
       removeCourse: removeCourse
     };
 
-    function createCourse() {
+    function createCourse(course) {
       var defer = $q.defer();
 
       // TODO: need API
@@ -35,7 +35,7 @@
       return defer.promise;
     }
 
-    function getCourse() {
+    function getCourse(slug) {
       var defer = $q.defer();
 
       // TODO: need API
@@ -43,7 +43,7 @@
       return defer.promise;
     }
 
-    function updateCourse() {
+    function updateCourse(course) {
       var defer = $q.defer();
 
       // TODO: need API
