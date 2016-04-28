@@ -61,6 +61,9 @@
         .when('/admin/subject', {
           template: '<subject></course>'
         })
+        .when('/admin/subject/info', {
+          template: '<subject-page-info></subject-page-info>'
+        })
         .when('/admin/course', {
           template: '<course></course>'
         })

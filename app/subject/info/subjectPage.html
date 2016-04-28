@@ -1,0 +1,80 @@
+<div class="non-select">
+  <md-progress-linear md-mode="indeterminate"
+                      ng-if="subjectPageInfo.loading"></md-progress-linear>
+  <div class="admin-subject-info-container"
+       ng-if="!subjectPageInfo.loading"
+       layout="column" layout-align="center center"
+       layout-fill layout-padding>
+    <md-whiteframe class="md-whiteframe-1dp"
+                   layout="column" layout-align="center center">
+      <div layout layout-align="space-between start"
+           layout-xs="column" layout-sm="column"
+           layout-magin layout-padding>
+        <div class="admin-subject-teacher">
+          <h1>Викладачі</h1>
+          <md-progress-circular class="md-warn md-hue-3"
+                                md-mode='indeterminate'
+                                ng-if="subjectPageInfo.loadingTeachers"></md-progress-circular>
+          <div class="admin-subject-teacher-item"
+               ng-repeat="teacher in subjectPageInfo.teachers track by $index"
+               ng-if="!subjectPageInfo.loadingTeachers"
+               ng-drag="true" ng-drag-data="{ teacher: teacher, type: 'teacher' }" data-allow-transform="true">
+            {{ teacher.surname }} {{ teacher.name }}
+          </div>
+        </div>
+        <div class="admin-subject-info"
+             ng-drop="true" ng-drop-success="subjectPageInfo.onDropComplete($data, $event)">
+          <h1>Предмет</h1>
+
+          <div class="admin-subject-info-content">
+            <h4>Факультет: {{ subjectPageInfo.subject.faculty.name }}</h4>
+
+            <h4>Викладач: {{ subjectPageInfo.subject.teacher.surname }} {{ subjectPageInfo.subject.teacher.name }}</h4>
+
+            <h4 class="admin-subject-info-name"
+                inline-edit="subjectPageInfo.subject.name"
+                inline-edit-callback="subjectPageInfo.editSubjectName(newValue)"
+                inline-edit-btn-edit=""
+                inline-edit-on-blur="save"
+                inline-edit-on-click></h4>
+          </div>
+        </div>
+        <div class="admin-subject-facultyDirection"
+             layout="column">
+          <h1>Факультети</h1>
+          <md-progress-circular class="md-warn md-hue-3"
+                                md-mode='indeterminate'
+                                ng-if="subjectPageInfo.loadingFacultyDirection"></md-progress-circular>
+          <div class="admin-subject-facultyDirection-item"
+               layout-align="space-around center"
+               ng-repeat="faculty in subjectPageInfo.facultyDirection.data track by $index"
+               ng-if="!subjectPageInfo.loadingFacultyDirection"
+               ng-drag="true" ng-drag-data="{ faculty: faculty, type: 'faculty' }" data-allow-transform="true">
+            {{ faculty.name }}
+          </div>
+          <div class="pagination"
+               layout layout-align="center center"
+               layout-magin layout-padding
+               ng-if="!subjectPageInfo.loadingFacultyDirection">
+            <div class="pagination-page"
+                 ng-repeat="page in subjectPageInfo.range(subjectPageInfo.facultyDirection.total) track by $index"
+                 ng-click="subjectPageInfo.jumpToFacultyPage($index + 1)">
+              {{ $index + 1 }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div layout layout-align="end center"
+           layout-magin layout-padding>
+        <md-button class="md-raised" type="submit"
+                   ng-click="subjectPageInfo.saveSubject()">
+          Зберегти
+        </md-button>
+        <md-button class="md-raised"
+                   ng-click="subjectPageInfo.cancelSubject()">
+          Скасувати
+        </md-button>
+      </div>
+    </md-whiteframe>
+  </div>
+</div>

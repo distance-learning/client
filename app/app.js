@@ -8,6 +8,7 @@
         'satellizer',
         'angularInlineEdit',
         'angularFileUpload',
+        'ngDraggable',
         'distanceLearning.auth',
         'distanceLearning.home',
         'distanceLearning.menu',

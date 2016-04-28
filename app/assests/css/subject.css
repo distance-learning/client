@@ -57,3 +57,47 @@ md-menu-item > .md-button span {
 .adminSubjectDialog .adminSubjectDialog-button.adminSubjectDialog-cancel {
   color: red;
 }
+
+.admin-subject-teacher,
+.admin-subject-facultyDirection {
+  width: 350px;
+}
+
+.admin-subject-teacher h1,
+.admin-subject-facultyDirection h1 {
+  color: rgb(233, 126, 89);
+}
+
+.admin-subject-teacher .admin-subject-teacher-item,
+.admin-subject-facultyDirection .admin-subject-facultyDirection-item {
+  margin: 3px;
+  padding: 3px;
+  outline: none;
+  color: black;
+  cursor: pointer;
+  border: 1px solid rgb(233, 126, 89);;
+}
+
+.admin-subject-teacher h1,
+.admin-subject-teacher .admin-subject-teacher-item {
+  text-align: right;
+}
+
+.admin-subject-teacher .admin-subject-teacher-item:hover,
+.admin-subject-facultyDirection .admin-subject-facultyDirection-item:hover {
+  color: rgb(233, 126, 89);
+}
+
+.admin-subject-info h1 {
+  color: rgb(233, 126, 89);
+  text-align: center;
+}
+
+.admin-subject-info-content {
+  width: 300px;
+  height: 150px;
+  border: 1px dashed rgb(233, 126, 89);
+  border-radius: 15px;
+  color: rgb(233, 126, 89);
+  padding: 5px;
+}

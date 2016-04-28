@@ -1,0 +1,24 @@
+<md-dialog aria-label="removeAdminSubject" class="removeAdminSubject" ng-cloak>
+  <md-toolbar>
+    <div class="md-toolbar-tools adminSubjectDialog-header">
+      <h2>Підтвердження видалення</h2>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div class="md-dialog-content adminSubjectDialog-content"
+         layout>
+      {{ subjectDialog.subject.name }}
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions layout="row" layout-aligment="end center">
+    <span flex></span>
+    <md-button class="adminSubjectDialog-button"
+               ng-click="subjectDialog.removeSubject()">
+      Видалити
+    </md-button>
+    <md-button class="adminSubjectDialog-button adminSubjectDialog-cancel"
+               ng-click="subjectDialog.cancelSubject()">
+      Відмінити
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

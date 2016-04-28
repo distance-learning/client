@@ -45,7 +45,8 @@
       }
     ];
     var service = {
-      getTeachers: getTeachers
+      getTeachers: getTeachers,
+      getTeacherWithOutRandom: getTeacherWithOutRandom
     };
 
     function getTeachers() {
@@ -55,6 +56,16 @@
           .then(function (data, status, headers, config) {
             defer.resolve(data);
           });
+
+      return defer.promise;
+    }
+
+    function getTeacherWithOutRandom(params) {
+      var defer = $q.defer();
+
+      $http.get(server_host + 'api/admin/teachers',  { params: params })
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }
