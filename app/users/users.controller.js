@@ -33,8 +33,6 @@
               if (ok.role != 'admin') { return $location.path('/home'); }
 
               getUsers(vm.params);
-
-              vm.loading = false;
             }, function (err) {
               $log.log('UsersController.init()', err);
 

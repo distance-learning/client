@@ -1,0 +1,59 @@
+.admin-subject .md-whiteframe-1dp md-content {
+  width: 550px;
+}
+
+.admin-subject-container {
+  width: 100%;
+  height: auto;
+}
+
+.AdminSubjectForm h1,
+.admin-subject-container h2 {
+  color: rgb(233, 126, 89);
+  cursor: default;
+}
+
+.admin-subject-container .admin-subject-item {
+  border-bottom: 1px solid rgb(233, 126, 89);
+  box-sizing: border-box;
+  height: 40px;
+  color: black;
+}
+
+.admin-subject-item div:first-child {
+  cursor: default;
+}
+
+md-menu-item > .md-button span {
+  color: black;
+}
+
+.admin-subject .md-whiteframe-1dp {
+  margin: 25px 0 25px 0;
+}
+
+.AdminSubjectForm {
+  width: auto;
+}
+
+.AdminSubjectForm div > md-input-container {
+  width: 100%;
+  padding: 8px;
+}
+
+.adminSubjectDialog {
+  width: 350px;
+}
+
+.adminSubjectDialog .md-dialog-content.adminSubjectDialog-content,
+.adminSubjectDialog .adminSubjectDialog-button {
+  color: black;
+}
+
+.adminSubjectDialog .md-toolbar-tools.adminSubjectDialog-header {
+  background-color: rgb(233, 126, 89);
+}
+
+.adminSubjectDialog .adminSubjectDialog-button.adminSubjectDialog-cancel {
+  color: red;
+}

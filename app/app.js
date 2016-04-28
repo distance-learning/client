@@ -21,7 +21,8 @@
         'distanceLearning.users',
         'distanceLearning.test',
         'distanceLearning.group',
-        'distanceLearning.course'
+        'distanceLearning.course',
+        'distanceLearning.subject'
       ])
       .constant('server_host', 'http://distance-learning.herokuapp.com/');
 })();
