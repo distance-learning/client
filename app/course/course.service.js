@@ -51,7 +51,7 @@
       return defer.promise;
     }
 
-    function removeCourse() {
+    function removeCourse(course) {
       var defer = $q.defer();
 
       // TODO: need API
