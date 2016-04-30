@@ -11,7 +11,6 @@
     return {
       replace: true,
       controller: 'ContactController',
-      controllerAs: 'contact',
       templateUrl: 'contact/contact.html'
     };
   }
