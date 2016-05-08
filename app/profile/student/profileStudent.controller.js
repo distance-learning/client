@@ -48,7 +48,7 @@
     }
 
     vm.goToCompleteTest = function () {
-      var path = 'test/4A2d45asd7167asd13qw4e84d1c';
+      var path = 'test/123';
       $location.path(path);
     };
   }

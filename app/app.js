@@ -9,6 +9,7 @@
         'angularInlineEdit',
         'angularFileUpload',
         'ngDraggable',
+        'angular-svg-round-progressbar',
         'distanceLearning.auth',
         'distanceLearning.home',
         'distanceLearning.menu',

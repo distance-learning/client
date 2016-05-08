@@ -64,7 +64,6 @@
   width: 500px;
   color: black;
 }
-}
 
 .admin-tests {
   color: black;
@@ -77,4 +76,17 @@
 .preview-img img{
   width: 160px;
   height: 100px;
+}
+
+.test-pass .test-pass-header {
+  color: black;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.26);
+}
+
+.test-pass .test-pass-header h1 {
+  color: rgb(233, 126, 89);
+}
+
+.test-pass .test-pass-content {
+
 }

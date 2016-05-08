@@ -1,3 +1,52 @@
 <div>
-  testPass
+  <md-progress-linear md-mode="indeterminate"
+                      ng-if="testPass.loading"></md-progress-linear>
+  <div class="test-pass">
+    <div class="test-pass-header"
+         layout layout-align="space-between center"
+         layout-xs="column">
+      <div layout layout-align="center center"
+           layout-margin>
+        <round-progress
+            max="testPass.test.questions.length"
+            current="testPass.test.current"
+            color="rgb(233, 126, 89)"
+            bgcolor="#eaeaea"
+            radius="15"
+            stroke="2"
+            semi="false"
+            offset="inherit"
+            clockwise="true"
+            responsive="false"
+            duration="800"
+            animation="easeInOutQuart"
+            animation-delay="0"></round-progress>
+        <div layout-margin>Результат</div>
+      </div>
+
+      <h1>{{ testPass.test.name }}</h1>
+
+      <div layout layout-align="center center"
+           layout-margin>
+        <div layout-margin>Час</div>
+        <round-progress
+            max="testPass.question.totalTime"
+            current="testPass.question.currentTime"
+            color="rgb(233, 126, 89)"
+            bgcolor="#eaeaea"
+            radius="15"
+            stroke="2"
+            semi="false"
+            offset="inherit"
+            clockwise="true"
+            responsive="false"
+            duration="800"
+            animation="easeInOutQuart"
+            animation-delay="0"></round-progress>
+      </div>
+    </div>
+    <div class="test-pass-content">
+
+    </div>
+  </div>
 </div>
