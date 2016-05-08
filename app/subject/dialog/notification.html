@@ -1,22 +1,22 @@
-<md-dialog aria-label="removeAdminSubject" class="removeAdminSubject" ng-cloak>
+<md-dialog aria-label="removeAdminSubject" class="facultyListAdminDialog" ng-cloak>
   <md-toolbar>
-    <div class="md-toolbar-tools adminSubjectDialog-header">
+    <div class="md-toolbar-tools facultyListDialog-header">
       <h2>Підтвердження видалення</h2>
     </div>
   </md-toolbar>
   <md-dialog-content>
-    <div class="md-dialog-content adminSubjectDialog-content"
+    <div class="md-dialog-content facultyListAdminDialog-content"
          layout>
       {{ subjectDialog.subject.name }}
     </div>
   </md-dialog-content>
   <md-dialog-actions layout="row" layout-aligment="end center">
     <span flex></span>
-    <md-button class="adminSubjectDialog-button"
+    <md-button class="facultyListAdmin-button"
                ng-click="subjectDialog.removeSubject()">
       Видалити
     </md-button>
-    <md-button class="adminSubjectDialog-button adminSubjectDialog-cancel"
+    <md-button class="facultyListAdmin-button facultyListAdmin-cancel"
                ng-click="subjectDialog.cancelSubject()">
       Відмінити
     </md-button>

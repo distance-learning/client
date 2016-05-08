@@ -7,13 +7,14 @@
 
   SubjectDialogController.$inject = [
     '$mdDialog',
-    'subject'
+    'subject', 'faculties'
   ];
 
   function SubjectDialogController($mdDialog,
-                                   subject) {
+                                   subject, faculties) {
     var vm = this;
     vm.subject = subject;
+    vm.faculties = faculties;
 
     vm.hide = function () {
       $mdDialog.hide();
@@ -25,6 +26,10 @@
 
     vm.removeUser = function () {
       $mdDialog.hide();
+    };
+
+    vm.saveSubject = function (subject) {
+      $mdDialog.hide(subject);
     };
   }
 })();

@@ -7,10 +7,12 @@
       .factory('SubjectUtils', SubjectUtils);
 
   SubjectUtils.$inject = [
-    '$q', '$http'
+    '$q', '$http',
+    'server_host'
   ];
 
-  function SubjectUtils($q, $http) {
+  function SubjectUtils($q, $http,
+                        server_host) {
     var service = {
       createSubject: createSubject,
       getSubjects: getSubjects,
@@ -19,10 +21,12 @@
       removeSubject: removeSubject
     };
 
-    function createSubject(subject) {
+    function createSubject(data) {
       var defer = $q.defer();
 
-      // TODO: need API
+      $http.post(server_host + 'api/admin/subjects', data)
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }
@@ -30,23 +34,29 @@
     function getSubjects(params) {
       var defer = $q.defer();
 
-      // TODO: need API
+      $http.get(server_host + 'api/admin/subjects', { params: params })
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }
 
-    function getSubject(slug) {
+    function getSubject(subjectId) {
       var defer = $q.defer();
 
-      // TODO: need API
+      $http.get(server_host + 'api/admin/subjects/' + subjectId)
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }
 
-    function updateSubject(subject) {
+    function updateSubject(data) {
       var defer = $q.defer();
 
-      // TODO: need API
+      $http.put(server_host + 'api/admin/subjects/' + data.subjectId, data)
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }

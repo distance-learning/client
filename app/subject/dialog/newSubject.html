@@ -1,0 +1,45 @@
+<md-dialog aria-label="newSubject" class="facultyListAdminDialog" ng-cloak>
+  <md-toolbar>
+    <div class="md-toolbar-tools facultyListDialog-header">
+      <h2>Створення предмету</h2>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div class="md-dialog-content facultyListAdminDialog-content"
+         layout>
+      <form name="facultyListAdminDialogForm">
+        <md-input-container layout-fill>
+          <label>Назва</label>
+          <input type="text" required
+                 ng-model="subjectDialog.subject.name"/>
+        </md-input-container>
+        <md-input-container layout-fill>
+          <label>Опис</label>
+          <input type="text" required
+                 ng-model="subjectDialog.subject.description"/>
+        </md-input-container>
+        <md-input-container class="md-block"
+                            layout-margin>
+          <label>Факультет</label>
+          <md-select ng-model="subjectDialog.subject.faculty_id">
+            <md-option ng-repeat="faculty in subjectDialog.faculties track by $index" value="{{ faculty.id }}">
+              {{ faculty.name }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </form>
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions layout="row" layout-aligment="end center">
+    <span flex></span>
+    <md-button class="facultyListAdmin-button"
+               type="submit"
+               ng-click="subjectDialog.saveSubject(subjectDialog.subject)">
+      Зберегти
+    </md-button>
+    <md-button class="facultyListAdmin-button facultyListAdmin-cancel"
+               ng-click="subjectDialog.cancelSubject()">
+      Відмінити
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

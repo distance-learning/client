@@ -9,12 +9,12 @@
   SubjectController.$inject = [
     '$log', '$location',
     '$mdDialog',
-    'SubjectUtils', 'LoginUtils', 'ProfileUtils'
+    'SubjectUtils', 'LoginUtils', 'ProfileUtils', 'RegisterUtils'
   ];
 
   function SubjectController($log, $location,
                              $mdDialog,
-                             SubjectUtils, LoginUtils, ProfileUtils) {
+                             SubjectUtils, LoginUtils, ProfileUtils, RegisterUtils) {
     var vm = this;
     var countSubjectsInPage = 15;
     vm.isOpen = true;
@@ -26,13 +26,17 @@
     vm.filterSubjectIconURL = './assests/images/ic_filter_list_black_24px.svg';
     vm.loading = true;
     vm.subjects = [];
-    vm.params = { page: 1 };
+    vm.params = {
+      page: 1,
+      count: countSubjectsInPage
+    };
 
     init();
     function init() {
       if (!LoginUtils.isLogged()) { return $location.path('/home'); }
       vm.loading = true;
 
+      getFaculty();
       ProfileUtils.getUserInfo()
           .then(function (ok) {
             if (ok.role != 'admin') { return $location.path('/home'); }
@@ -63,14 +67,79 @@
           });
     }
 
-    vm.createSubject = function () {
-      var path = '/admin/subject/info';
-      $location.path(path);
+    function getFaculty() {
+      RegisterUtils.getFaculties()
+          .then(function (ok) {
+            vm.faculties = ok;
+          }, function (err) {
+            $log.log('{ERROR} RegisterController.init().RegisterUtils.getFaculties()', err);
+          });
+    }
+
+    vm.createSubject = function (ev) {
+      $mdDialog.show({
+        controller: 'SubjectDialogController',
+        controllerAs: 'subjectDialog',
+        templateUrl: './subject/dialog/newSubject.html',
+        targetEvent: ev,
+        clickOutsideToClose: true,
+        locals: {
+          subject: {},
+          faculties: vm.faculties
+        }
+      }).then(function (data) {
+        SubjectUtils.createSubject({
+            name: data.name,
+            description: data.description,
+            faculty_id: data.faculty_id
+          })
+            .then(function () {
+              getSubjects(vm.params);
+            }, function (err) {
+              $log.log('[ERROR] SubjectInfoController.createSubject().SubjectUtils.createSubject()', err);
+            });
+      });
+
+      // GOTO : bind faculty teacher subject group
+      //var path = '/admin/subject/info';
+      //$location.path(path);
     };
 
-    vm.editSubject = function (subject) {
-      var path = '/admin/subject/info/' + subject.slug;
-      $location.path(path);
+    vm.editSubject = function (ev, subject) {
+      SubjectUtils.getSubject(subject.id)
+          .then(function (ok) {
+            console.log(ok);
+            $mdDialog.show({
+              controller: 'SubjectDialogController',
+              controllerAs: 'subjectDialog',
+              templateUrl: './subject/dialog/newSubject.html',
+              targetEvent: ev,
+              clickOutsideToClose: true,
+              locals: {
+                subject: ok,
+                faculties: vm.faculties
+              }
+            }).then(function (data) {
+              SubjectUtils.updateSubject({
+                subjectId: subject.id,
+                name: data.name,
+                description: data.description,
+                faculty_id: data.faculty_id
+              })
+                  .then(function () {
+                    getSubjects(vm.params);
+                  }, function (err) {
+                    $log.log('[ERROR] SubjectInfoController.createSubject().SubjectUtils.createSubject()', err);
+                  });
+            });
+          }, function (err) {
+            $log.log('[ERROR] SubjectController.getSubject().SubjectUtils.getSubject()', err);
+          });
+
+
+      // GOTO : bind faculty teacher subject group
+      //var path = '/admin/subject/info/' + subject.slug;
+      //$location.path(path);
     };
 
     vm.removeSubject = function (ev, subject) {
@@ -81,7 +150,8 @@
         targetEvent: ev,
         clickOutsideToClose: true,
         locals: {
-          subject: subject
+          subject: subject,
+          faculties: {}
         }
       }).then(function () {
         SubjectUtils.removeSubject(subject)

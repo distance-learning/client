@@ -25,7 +25,7 @@
                 </md-button>
                 <md-menu-content>
                   <md-menu-item>
-                    <md-button ng-click="subject.editSubject(item)">
+                    <md-button ng-click="subject.editSubject($event, item)">
                       <md-icon md-svg-src="{{ subject.editSubjectIconURL }}" aria-label=""></md-icon>
                       Редагувати
                     </md-button>
@@ -65,7 +65,7 @@
     </md-fab-trigger>
     <md-fab-actions>
       <md-button class="md-fab md-raised md-mini" aria-label=""
-                 ng-click="subject.createSubject()">
+                 ng-click="subject.createSubject($event)">
         <md-icon md-svg-src="{{ subject.createSubjectIconURL }}" aria-label=""></md-icon>
         <md-tooltip md-direction="left">
           Створити предмет
