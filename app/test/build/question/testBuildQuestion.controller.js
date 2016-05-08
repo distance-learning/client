@@ -27,13 +27,19 @@
       answers: [
         {
           id: 0,
-          name: 'Відповідь',
-          isCorrectly: false
+          body: 'Відповідь',
+          iscorrectly: false
         }
       ]
     };
 
-    var uploader = vm.uploader = new FileUploader({ autoUpload: true });
+    var uploader = vm.uploader = new FileUploader({
+      autoUpload: true,
+      url: 'http://distance-learning.herokuapp.com/api/tests/' + testId + '/questions/' + questionId + '/upload',
+      headers: {
+        'Authorization': 'Bearer ' + LoginUtils.getToken()
+      }
+    });
     uploader.filters.push({
       name: 'imageFilter',
       fn: function (item /*{File|FileLikeObject}*/, options) {
@@ -51,11 +57,23 @@
           .then(function (ok) {
             vm.user = ok;
 
-            TestUtils.getQuestion(questionId)
+            var options = {
+              testId: testId,
+              questionId: questionId
+            };
+            TestUtils.getQuestion(options)
                 .then(function (ok) {
                   vm.question = ok;
                   vm.question.id = questionId;
                   vm.question.testId = testId;
+                  if (!ok.name) { vm.question.name = 'Запитання'; }
+                  if (ok.answers.length === 0) {
+                    vm.question.answers.push({
+                      id: 0,
+                      body: 'Відповідь',
+                      iscorrectly: false
+                    });
+                  }
 
                   vm.loading = false;
                 }, function (err) {
@@ -75,8 +93,8 @@
     vm.editAnswerName = function (newName, answer) {
       for (var i in vm.question.answers) {
         if (vm.question.answers[i].id == answer.id) {
-          if (!newName) { vm.question.answers[i].name = 'Відповідь'; }
-          else { vm.question.answers[i].name = newName; }
+          if (!newName) { vm.question.answers[i].body = 'Відповідь'; }
+          else { vm.question.answers[i].body = newName; }
         }
       }
     };
@@ -86,7 +104,7 @@
 
       var countSelectedAnswer = 0;
       for(var i in vm.question.answers) {
-        if (vm.question.answers[i].isCorrectly) {
+        if (vm.question.answers[i].iscorrectly) {
           countSelectedAnswer++;
         }
       }
@@ -107,11 +125,15 @@
     vm.addAnswer = function () {
       var answer = {
         id: vm.question.answers.length,
-        name: 'Відповідь',
-        isCorrectly: false
+        body: 'Відповідь',
+        iscorrectly: false
       };
 
       vm.question.answers.push(answer);
+    };
+
+    vm.removeImg = function () {
+      vm.question.image = null;
     };
   }
 })();

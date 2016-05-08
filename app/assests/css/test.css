@@ -64,3 +64,17 @@
   width: 500px;
   color: black;
 }
+}
+
+.admin-tests {
+  color: black;
+}
+
+.admin-tests h1 {
+  color: rgb(233, 126, 89);
+}
+
+.preview-img img{
+  width: 160px;
+  height: 100px;
+}

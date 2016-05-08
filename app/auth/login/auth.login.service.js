@@ -15,7 +15,8 @@
     var service = {
       login: login,
       logout: logout,
-      isLogged: isLogged
+      isLogged: isLogged,
+      getToken: getToken
     };
 
     function login(user) {
@@ -40,6 +41,10 @@
 
     function isLogged() {
       return $auth.isAuthenticated();
+    }
+
+    function getToken() {
+      return $auth.getToken();
     }
 
     return service;
