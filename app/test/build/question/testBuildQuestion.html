@@ -20,7 +20,8 @@
               inline-edit-textarea>
           </h3>
 
-          <div ng-show="testBuildQuestion.uploader.isHTML5">
+          <div ng-show="testBuildQuestion.uploader.isHTML5"
+               ng-if="!testBuildQuestion.question.image">
             <div class="drop-file-container"
                  nv-file-drop="" uploader="testBuildQuestion.uploader"
                  ng-if="!testBuildQuestion.uploader.queue.length">
@@ -41,6 +42,17 @@
               </div>
             </div>
           </div>
+          <div class="preview-img"
+               layout
+               ng-if="testBuildQuestion.question.image">
+            <md-button class="md-icon-button" aria-label=""
+                       ng-click="testBuildQuestion.removeImg()">
+              <md-icon md-svg-icon="{{ testBuildQuestion.removeFileIconURL }}"></md-icon>
+              <md-tooltip>Видалити</md-tooltip>
+            </md-button>
+            <img ng-src="{{ testBuildQuestion.question.image }}" alt=""/>
+          </div>
+
           <md-button class="md-icon-button" aria-label=""
                      ng-click="testBuildQuestion.addAnswer()">
             <md-icon md-svg-icon="{{ testBuildQuestion.addAnswerFileIconURL }}"></md-icon>
@@ -51,9 +63,9 @@
             <div class="test-answer-item"
                  layout layout-xs="column" layout-align="start start"
                  ng-repeat="answer in testBuildQuestion.question.answers track by $index">
-              <md-checkbox ng-model="answer.isCorrectly" aria-label=""></md-checkbox>
+              <md-checkbox ng-model="answer.iscorrectly" aria-label=""></md-checkbox>
               <div class="test-answer-item-name" layout-margin
-                   inline-edit="answer.name"
+                   inline-edit="answer.body"
                    inline-edit-callback="testBuildQuestion.editAnswerName(newValue, answer)"
                    inline-edit-btn-edit=""
                    inline-edit-on-blur="save"

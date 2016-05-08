@@ -18,7 +18,8 @@
       createTest: createTest,
       createQuestion: createQuestion,
       getQuestion: getQuestion,
-      updateQuestion: updateQuestion
+      updateQuestion: updateQuestion,
+      updateTestInfo: updateTestInfo
     };
 
     function getTest(testId) {
@@ -81,10 +82,10 @@
       return defer.promise;
     }
 
-    function getQuestion(questionId) {
+    function getQuestion(options) {
       var defer = $q.defer();
 
-      $http.get(server_host + 'api/tests/questions/' + questionId)
+      $http.get(server_host + 'api/tests/' + options.testId + '/questions/' + options.questionId)
           .success(function (ok, status, headers, config) {
             defer.resolve(ok);
           })
@@ -100,6 +101,21 @@
       var defer = $q.defer();
 
       $http.put(server_host + 'api/tests/' + options.testId + '/questions/' + options.id, { question: options })
+          .success(function (ok, status, headers, config) {
+            defer.resolve(ok);
+          })
+          .error(function (err, status, headers, config) {
+            debugger;
+            defer.reject(err);
+          });
+
+      return defer.promise;
+    }
+
+    function updateTestInfo(test) {
+      var defer = $q.defer();
+
+      $http.put(server_host + 'api/tests/' + test.code, test)
           .success(function (ok, status, headers, config) {
             defer.resolve(ok);
           })

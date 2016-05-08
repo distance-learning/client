@@ -35,9 +35,17 @@
     }
 
     vm.editTestTitle = function (newTitle) {
+      vm.loading = true;
       if (!newTitle) { return vm.test.name = 'Назва тесту' }
 
       vm.test.name = newTitle;
+
+      TestUtils.updateTestInfo(vm.test)
+          .then(function (ok) {
+            vm.loading = false;
+          }, function (err) {
+            $log.log('[ERROR] TestBuildController.editTestTitle().TestUtils.updateTestInfo()', err);
+          });
     };
 
     vm.addQuestion = function () {

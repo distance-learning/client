@@ -22,7 +22,7 @@
 
       TestUtils.getTests()
           .then(function (ok) {
-            vm.tests = ok;
+            vm.tests = ok.data;
 
             vm.loading = false;
           }, function (err) {

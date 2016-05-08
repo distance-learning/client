@@ -1,6 +1,14 @@
-<div>
-  <h1>?????? ??????</h1>
-  <div ng-repeat="test in testList.tests track by $index">
-    {{ test.name }}
+<div class="admin-tests">
+  <md-progress-linear md-mode="indeterminate"
+                      ng-if="testList.loading"></md-progress-linear>
+  <div ng-if="!testList.loading"
+       layout="column" layout-align="center center">
+    <div>
+      <h1>Список тестів</h1>
+
+      <div ng-repeat="test in testList.tests track by $index">
+        {{ $index + 1 }}. {{ test.name }}
+      </div>
+    </div>
   </div>
 </div>
