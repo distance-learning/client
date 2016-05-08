@@ -24,7 +24,7 @@
       $mdDialog.cancel();
     };
 
-    vm.removeUser = function () {
+    vm.removeSubject = function () {
       $mdDialog.hide();
     };
 

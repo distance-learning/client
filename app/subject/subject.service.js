@@ -64,7 +64,9 @@
     function removeSubject(subject) {
       var defer = $q.defer();
 
-      // TODO: need API
+      $http.delete(server_host + 'api/admin/subjects/' + subject.id)
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }
