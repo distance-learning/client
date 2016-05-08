@@ -45,7 +45,7 @@
 
     function prepareFaculties() {
       vm.teachers = [];
-      if (checkFacilties(FacultyUtils.getLocalFaculty())) {
+      if (checkFaculties(FacultyUtils.getLocalFaculty())) {
         getFacultyBySlug(FacultyUtils.getLocalFaculty());
       } else {
         getFacultyBySlug(vm.faculties.faculties[0].slug);
@@ -56,10 +56,10 @@
       vm.teachers = getTeachers(vm.faculties.faculties);
     }
 
-    function checkFacilties(slug) {
+    function checkFaculties(slug) {
       var findFaculty = false;
 
-      for (var i in vm.faculties) {
+      for (var i in vm.faculties.faculties) {
         if (vm.faculties[i].slug === slug) {
           findFaculty = true;
         }

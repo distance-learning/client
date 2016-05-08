@@ -26,11 +26,8 @@
 
     function getFaculties(params) {
       var defer = $q.defer();
-      var parameters = {
-        page: params.page
-      };
 
-      $http.get(server_host + 'api/faculties', { params: parameters })
+      $http.get(server_host + 'api/faculties', { params: params })
           .then(function (ok) {
             defer.resolve(ok);
           }, function (err) {

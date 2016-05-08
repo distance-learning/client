@@ -18,11 +18,11 @@
     vm.facultyDirection = {};
     vm.facultyDirectionParams = {
       page: 1,
-      count: 10
+      count: 5
     };
     vm.teacherParams = {
-      count: 10,
-      page: 1
+      page: 1,
+      count: 5
     };
     vm.subject= {
       faculty: {
@@ -60,9 +60,10 @@
     function getTeachers() {
       vm.loadingTeachers = true;
 
-      TeacherUtils.getTeachers()
+      TeacherUtils.getTeacherWithOutRandom(vm.teacherParams)
           .then(function (ok) {
-            vm.teachers = ok.data;
+            vm.teachers.data = ok.data;
+            vm.teachers.total = ok.total;
 
             vm.loadingTeachers = false;
           }, function (err) {
@@ -138,6 +139,12 @@
       vm.facultyDirectionParams.page = page;
 
       getFacultyDirection(vm.facultyDirectionParams);
+    };
+
+    vm.jumpToTeacherPage = function (page) {
+      vm.teacherParams.page = page;
+
+      getTeachers(vm.teacherParams);
     };
 
     vm.range = function (page) {
