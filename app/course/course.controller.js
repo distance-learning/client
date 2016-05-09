@@ -69,7 +69,7 @@
     };
 
     vm.editCourse = function (course) {
-      var path = '/admin/course/info/' + course.slug;
+      var path = '/admin/course/info/' + course.id;
       $location.path(path);
     };
 

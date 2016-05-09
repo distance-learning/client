@@ -57,3 +57,50 @@ md-menu-item > .md-button span {
 .courseDialog .courseDialog-button.courseDialog-cancel {
   color: red;
 }
+
+.admin-course-groups,
+.admin-course-teacher,
+.admin-course-subject {
+  max-width: 350px;
+}
+
+.admin-course-groups h1,
+.admin-course-teacher h1,
+.admin-course-subject h1 {
+  color: rgb(233, 126, 89);
+}
+
+.admin-course-groups .admin-course-groups-item,
+.admin-course-teacher .admin-course-teacher-item,
+.admin-course-subject .admin-course-subject-item {
+  margin: 3px;
+  padding: 3px;
+  outline: none;
+  color: black;
+  cursor: pointer;
+  border: 1px solid rgb(233, 126, 89);
+  width: 300px;
+}
+
+.admin-course-groups .admin-course-groups-item:hover,
+.admin-course-teacher .admin-course-teacher-item:hover,
+.admin-course-subject .admin-course-subject-item:hover {
+  color: rgb(233, 126, 89);
+}
+
+.admin-course-info {
+  width: 450px;
+}
+
+.admin-course-info h1 {
+  color: rgb(233, 126, 89);
+  text-align: center;
+}
+
+.admin-course-info-content {
+  height: 150px;
+  border: 1px dashed rgb(233, 126, 89);
+  border-radius: 15px;
+  color: rgb(233, 126, 89);
+  padding: 5px;
+}

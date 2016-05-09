@@ -7,16 +7,21 @@
 
   CourseInfoController.$inject = [
     '$log', '$location', '$routeParams',
-    'CourseUtils', 'LoginUtils', 'FacultyListUtils', 'TeacherUtils'
+    'CourseUtils', 'LoginUtils', 'FacultyListUtils', 'TeacherUtils', 'SubjectUtils', 'GroupUtils'
   ];
 
   function CourseInfoController($log, $location, $routeParams,
-                                CourseUtils, LoginUtils, FacultyListUtils, TeacherUtils) {
+                                CourseUtils, LoginUtils, FacultyListUtils, TeacherUtils, SubjectUtils, GroupUtils) {
     var vm = this;
     vm.courseSlug = $routeParams.slug;
     vm.teachers = [];
-    vm.facultyDirection = {};
-    vm.facultyDirectionParams = {
+    vm.subjects = [];
+    vm.groups = [];
+    vm.subjectsParams = {
+      page: 1,
+      count: 5
+    };
+    vm.groupsParams = {
       page: 1,
       count: 5
     };
@@ -25,16 +30,20 @@
       count: 5
     };
     vm.course = {
-      faculty: {
-        name: 'Пертягніть факультет'
+      group: {
+        name: 'Пертягніть групу'
       },
       teacher: {
         name: 'Пертягніть викладача'
+      },
+      subject: {
+        name: 'Пертягніть предмет'
       }
     };
     vm.loading = true;
     vm.loadingTeachers = true;
-    vm.loadingFacultyDirection = true;
+    vm.loadingGroups = true;
+    vm.loadingSubjects = true;
 
     init();
     function init() {
@@ -47,19 +56,9 @@
       }
 
       getTeachers();
-      getFacultyDirection();
+      getSubjects();
+      getGroups();
 
-      vm.course = {
-        group: {
-          name: 'Пертягніть факультет'
-        },
-        teacher: {
-          name: 'Пертягніть викладача'
-        },
-        subject: {
-          name: 'Пертягніть предмет'
-        }
-      };
       vm.loading = false;
     }
 
@@ -77,17 +76,29 @@
           });
     }
 
-    function getFacultyDirection() {
-      vm.loadingFacultyDirection = true;
+    function getGroups(){
+      vm.loadingGroups = true;
 
-      FacultyListUtils.getFaculties(vm.facultyDirectionParams)
+      GroupUtils.getGroupsWithoutDirection(vm.groupsParams)
           .then(function (ok) {
-            vm.facultyDirection.data = ok.data.data;
-            vm.facultyDirection.total = ok.data.total;
+            vm.groups.data = ok.data;
+            vm.groups.total= ok.total;
 
-            console.log(vm.facultyDirection);
+            vm.loadingGroups = false;
+          }, function (err) {
+            $log.log('[ERROR] SubjectInfoController.getGroups().GroupUtils.getGroupsWithoutDirection()', err);
+          });
+    }
 
-            vm.loadingFacultyDirection = false;
+    function getSubjects() {
+      vm.loadingSubjects = true;
+
+      SubjectUtils.getSubjects(vm.subjectsParams)
+          .then(function (ok) {
+            vm.subjects.data = ok.data;
+            vm.subjects.total = ok.total;
+
+            vm.loadingSubjects = false;
           }, function (err) {
             $log.log('[ERROR] SubjectInfoController.getFacultyDirection().FacultyListUtils.getFaculties()', err);
           });
@@ -96,7 +107,7 @@
     function getCourseInfo(slug) {
       vm.loading = true;
 
-      CourseUtils.getSubject(slug)
+      CourseUtils.getCourse(slug)
           .then(function (ok) {
             vm.course = ok;
 
@@ -140,10 +151,16 @@
       $location.path('/admin/subject');
     };
 
-    vm.jumpToFacultyPage = function (page) {
-      vm.facultyDirectionParams.page = page;
+    vm.jumpToSubjectPage = function (page) {
+      vm.subjectsParams.page = page;
 
-      getFacultyDirection(vm.facultyDirectionParams);
+      getSubjects(vm.subjectsParams);
+    };
+
+    vm.jumpToGroupPage = function (page) {
+      vm.groupsParams.page = page;
+
+      getGroups(vm.groupsParams);
     };
 
     vm.jumpToTeacherPage = function (page) {
@@ -157,8 +174,8 @@
         return new Array(1);
       }
 
-      var countPage = Math.floor(page / vm.facultyDirectionParams.count);
-      if ((page % vm.facultyDirectionParams.count) != 0) {
+      var countPage = Math.floor(page / vm.subjectsParams.count);
+      if ((page % vm.subjectsParams.count) != 0) {
         countPage++;
       }
 
@@ -166,17 +183,25 @@
     };
 
     vm.onDropComplete = function (data, event) {
-      if (data.type == 'faculty') vm.course.faculty = data.faculty;
+      if (data.type == 'subject') vm.course.subject = data.subject;
       if (data.type == 'teacher') vm.course.teacher = data.teacher;
+      if (data.type == 'group') vm.course.group = data.group;
     };
 
-    vm.cancelCourset = function () {
-      $location.path('/admin/subject');
+    vm.cancelCourse = function () {
+      $location.path('/admin/course');
     };
 
     vm.saveCourse = function () {
-      console.log('save subject', vm.course);
-      $location.path('/admin/subject');
+      vm.loading = true;
+
+      CourseUtils.createCourse(vm.course)
+          .then(function (ok) {
+            $location.path('/admin/course');
+          }, function (err) {
+            $log.log('[ERROR] SubjectInfoController.saveCourse(). CourseUtils.createCourse()', err);
+          });
+
     };
   }
 })();

@@ -17,7 +17,8 @@
       getStudents: getStudents,
       saveGroup: saveGroup,
       getGroups: getGroups,
-      removeGroup: removeGroup
+      removeGroup: removeGroup,
+      getGroupsWithoutDirection: getGroupsWithoutDirection
     };
 
     function getFacultyInfo() {
@@ -80,6 +81,20 @@
       var defer = $q.defer();
 
       $http.delete(server_host + '/api/admin/groups/' + group.slug)
+          .success(function (ok) {
+            defer.resolve(ok);
+          })
+          .error(function (err) {
+            defer.reject(err);
+          });
+
+      return defer.promise;
+    }
+
+    function getGroupsWithoutDirection(param) {
+      var defer = $q.defer();
+
+      $http.get(server_host + '/api/admin/groups', { params: param })
           .success(function (ok) {
             defer.resolve(ok);
           })

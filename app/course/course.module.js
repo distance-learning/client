@@ -8,7 +8,8 @@
         'distanceLearning.profile',
         'distanceLearning.facultyList',
         'distanceLearning.teacher',
-        'distanceLearning.subject'
+        'distanceLearning.subject',
+        'distanceLearning.group'
       ]);
 
 })();

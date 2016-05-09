@@ -1,17 +1,31 @@
 <div class="non-select">
   <md-progress-linear md-mode="indeterminate"
                       ng-if="coursePageInfo.loading"></md-progress-linear>
-  <div class="admin-subject-info-container"
+  <div class="admin-course-info-container"
        ng-if="!coursePageInfo.loading"
        layout="column" layout-align="center center"
        layout-fill layout-padding>
     <md-whiteframe class="md-whiteframe-1dp"
-                   layout="column" layout-align="center center">
+                   layout="column" layout-align="center center"
+                   layout-wrap>
+      <div class="admin-course-info"
+           ng-drop="true" ng-drop-success="coursePageInfo.onDropComplete($data, $event)">
+        <h1>Курс</h1>
+
+        <div class="admin-course-info-content">
+          <h4>Група: {{ coursePageInfo.course.group.name }}</h4>
+          <h4>Предмет: {{ coursePageInfo.course.subject.name }}</h4>
+          <h4>Викладач: {{ coursePageInfo.course.teacher.surname }} {{ coursePageInfo.course.teacher.name }}</h4>
+        </div>
+      </div>
       <div layout layout-align="space-between start"
            layout-xs="column" layout-sm="column"
            layout-magin layout-padding>
-        <div class="admin-subject-teacher">
+        <div class="admin-course-teacher"
+             layout="column"
+             layout-wrap>
           <h1>Викладачі</h1>
+
           <div class="pagination"
                layout layout-align="center center"
                layout-magin layout-padding
@@ -25,54 +39,65 @@
           <md-progress-circular class="md-warn md-hue-3"
                                 md-mode='indeterminate'
                                 ng-if="coursePageInfo.loadingTeachers"></md-progress-circular>
-          <div class="admin-subject-teacher-item"
+          <div class="admin-course-teacher-item"
+               layout-align="space-around center"
                ng-repeat="teacher in coursePageInfo.teachers.data track by $index"
                ng-if="!coursePageInfo.loadingTeachers"
                ng-drag="true" ng-drag-data="{ teacher: teacher, type: 'teacher' }" data-allow-transform="true">
             {{ teacher.surname }} {{ teacher.name }}
           </div>
         </div>
-        <div class="admin-subject-info"
-             ng-drop="true" ng-drop-success="subjectPageInfo.onDropComplete($data, $event)">
-          <h1>Предмет</h1>
 
-          <div class="admin-subject-info-content">
-            <h4>Факультет: {{ coursePageInfo.course.faculty.name }}</h4>
-
-            <h4>Викладач: {{ coursePageInfo.course.teacher.surname }} {{ coursePageInfo.course.teacher.name }}</h4>
-
-            <h4 class="admin-subject-info-name"
-                inline-edit="coursePageInfo.course.name"
-                inline-edit-callback="coursePageInfo.editCourseName(newValue)"
-                inline-edit-btn-edit=""
-                inline-edit-on-blur="save"
-                inline-edit-on-click></h4>
-          </div>
-        </div>
-        <div class="admin-subject-facultyDirection"
+        <div class="admin-course-groups"
              layout="column">
-          <h1>Факультети</h1>
+          <h1>Групи</h1>
           <md-progress-circular class="md-warn md-hue-3"
                                 md-mode='indeterminate'
-                                ng-if="coursePageInfo.loadingFacultyDirection"></md-progress-circular>
+                                ng-if="coursePageInfo.loadingGroups"></md-progress-circular>
           <div class="pagination"
                layout layout-align="center center"
                layout-magin layout-padding
-               ng-if="!coursePageInfo.loadingFacultyDirection">
+               ng-if="!coursePageInfo.loadingGroups">
             <div class="pagination-page"
-                 ng-repeat="page in coursePageInfo.range(coursePageInfo.facultyDirection.total) track by $index"
-                 ng-click="coursePageInfo.jumpToFacultyPage($index + 1)">
+                 ng-repeat="page in coursePageInfo.range(coursePageInfo.groups.total) track by $index"
+                 ng-click="coursePageInfo.jumpToGroupPage($index + 1)">
               {{ $index + 1 }}
             </div>
           </div>
-          <div class="admin-subject-facultyDirection-item"
+          <div class="admin-course-groups-item"
                layout-align="space-around center"
-               ng-repeat="faculty in coursePageInfo.facultyDirection.data track by $index"
-               ng-if="!coursePageInfo.loadingFacultyDirection"
-               ng-drag="true" ng-drag-data="{ faculty: faculty, type: 'faculty' }" data-allow-transform="true">
-            {{ faculty.name }}
+               ng-repeat="group in coursePageInfo.groups.data track by $index"
+               ng-if="!coursePageInfo.loadingGroups"
+               ng-drag="true" ng-drag-data="{ group: group, type: 'group' }" data-allow-transform="true">
+            {{ group.name }}
           </div>
         </div>
+
+        <div class="admin-course-subject"
+             layout="column">
+          <h1>Предмети</h1>
+          <md-progress-circular class="md-warn md-hue-3"
+                                md-mode='indeterminate'
+                                ng-if="coursePageInfo.loadingSubjects"></md-progress-circular>
+          <div class="pagination"
+               layout layout-align="center center"
+               layout-magin layout-padding
+               ng-if="!coursePageInfo.loadingSubjects">
+            <div class="pagination-page"
+                 ng-repeat="page in coursePageInfo.range(coursePageInfo.subjects.total) track by $index"
+                 ng-click="coursePageInfo.jumpToSubjectPage($index + 1)">
+              {{ $index + 1 }}
+            </div>
+          </div>
+          <div class="admin-course-subject-item"
+               layout-align="space-around center"
+               ng-repeat="subject in coursePageInfo.subjects.data track by $index"
+               ng-if="!coursePageInfo.loadingSubjects"
+               ng-drag="true" ng-drag-data="{ subject: subject, type: 'subject' }" data-allow-transform="true">
+            {{ subject.name }}
+          </div>
+        </div>
+
       </div>
       <div layout layout-align="end center"
            layout-magin layout-padding>

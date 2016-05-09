@@ -7,10 +7,12 @@
       .factory('CourseUtils', CourseUtils);
 
   CourseUtils.$inject = [
-    '$q', '$http'
+    '$q', '$http',
+    'server_host'
   ];
 
-  function CourseUtils($q, $http) {
+  function CourseUtils($q, $http,
+                       server_host) {
     var service = {
       createCourse: createCourse,
       getCourses: getCourses,
@@ -21,21 +23,30 @@
 
     function createCourse(course) {
       var defer = $q.defer();
+      var data = {
+        subject_id: course.subject.id,
+        teacher_id: course.teacher.id,
+        group_id: course.group.id
+      };
 
-      // TODO: need API
+      $http.post(server_host + 'api/admin/courses', data)
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }
 
-    function getCourses() {
+    function getCourses(params) {
       var defer = $q.defer();
 
-      // TODO: need API
+      $http.get(server_host + 'api/admin/courses', { params: params })
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }
 
-    function getCourse(slug) {
+    function getCourse(courseId) {
       var defer = $q.defer();
 
       // TODO: need API

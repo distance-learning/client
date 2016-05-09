@@ -18,7 +18,7 @@
           <div class="course-item"
                ng-repeat="item in course.courses track by $index">
             <div layout layout-align="space-between center">
-              <div>{{ item.name }}</div>
+              <div>{{ item.group.name }} - {{ item.subject.name }} - {{ item.teacher.name }}</div>
               <md-menu>
                 <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="">
                   <md-icon md-svg-icon="{{ course.managerCourseIconURL }}" aria-label=""></md-icon>
