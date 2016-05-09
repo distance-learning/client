@@ -46,7 +46,28 @@
       </div>
     </div>
     <div class="test-pass-content">
+      <div class="question-header"
+           layout layout-align="space-between center"
+           layout-xs="column">
+        <div>
+          {{ testPass.question.name }}
+        </div>
+        <img ng-src="{{ testPass.question.img }}" alt=""
+             ng-if="testPass.question.img"/>
+      </div>
+      <div class="question-content"
+           layout>
+        <!--single-->
 
+        <!--multiselect-->
+        <md-checkbox ng-model="data.cb1" aria-label=""
+                     ng-repeat="answer in testPass.question.answers track by $index">
+          {{ answer.name }}
+        </md-checkbox>
+      </div>
+      <div class="question-button">
+
+      </div>
     </div>
   </div>
 </div>
