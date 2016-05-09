@@ -99,10 +99,6 @@
               $log.log('[ERROR] SubjectInfoController.createSubject().SubjectUtils.createSubject()', err);
             });
       });
-
-      // GOTO : bind faculty teacher subject group
-      //var path = '/admin/subject/info';
-      //$location.path(path);
     };
 
     vm.editSubject = function (ev, subject) {
