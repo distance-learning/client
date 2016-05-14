@@ -19,7 +19,8 @@
       createQuestion: createQuestion,
       getQuestion: getQuestion,
       updateQuestion: updateQuestion,
-      updateTestInfo: updateTestInfo
+      updateTestInfo: updateTestInfo,
+      completeTest: completeTest
     };
 
     function getTest(testId) {
@@ -124,6 +125,23 @@
             defer.reject(err);
           });
 
+      return defer.promise;
+    }
+
+    function completeTest(test) {
+      var defer = $q.defer();
+
+      // TODO: API
+      //$http.post(server_host + '/api/URL', test)
+      //    .success(function (ok, status, headers, config) {
+      //      defer.resolve(ok);
+      //    })
+      //    .error(function (err, status, headers, config) {
+      //      debugger;
+      //      defer.reject(err);
+      //    });
+
+      defer.resolve();
       return defer.promise;
     }
 

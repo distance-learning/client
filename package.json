@@ -24,6 +24,7 @@
     "angular-material": "^1.0.1",
     "angular-route": "^1.4.8",
     "angular-svg-round-progressbar": "git+https://github.com/crisbeto/angular-svg-round-progressbar.git",
+    "ng-ckeditor": "git+https://github.com/esvit/ng-ckeditor.git#8b9ece3",
     "ng-draggable": "^1.0.0",
     "ng-inline-edit": "^0.7.0",
     "satellizer": "^0.13.4"

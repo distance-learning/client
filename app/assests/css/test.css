@@ -83,10 +83,14 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.26);
 }
 
-.test-pass .test-pass-header h1 {
+.test-pass .test-pass-header h1,
+.test-pass .test-pass-content .question-header{
   color: rgb(233, 126, 89);
 }
 
-.test-pass .test-pass-content {
-
+.test-pass .test-pass-content .question-content md-radio-button,
+.test-pass .test-pass-content .question-content md-checkbox{
+  margin-left: inherit;
+  margin-right: inherit;
+  color: black;
 }

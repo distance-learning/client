@@ -9,7 +9,7 @@
            layout-margin>
         <round-progress
             max="testPass.test.questions.length"
-            current="testPass.test.current"
+            current="testPass.test.countAnswered"
             color="rgb(233, 126, 89)"
             bgcolor="#eaeaea"
             radius="15"
@@ -30,8 +30,8 @@
            layout-margin>
         <div layout-margin>Час</div>
         <round-progress
-            max="testPass.question.totalTime"
-            current="testPass.question.currentTime"
+            max="testPass.test.questions[testPass.test.currentQuestionIndex].time"
+            current="testPass.questionTimer"
             color="rgb(233, 126, 89)"
             bgcolor="#eaeaea"
             radius="15"
@@ -46,27 +46,47 @@
       </div>
     </div>
     <div class="test-pass-content">
+      <div class="question-button"
+           layout layout-align="space-between start">
+        <md-button class="md-raised test-pass-button"
+                   ng-click="testPass.nextQuestion()">
+          Відповісти
+        </md-button>
+        <md-button class="md-raised test-pass-button"
+                   ng-click="testPass.skipQuestion()">
+          Пропустити
+        </md-button>
+      </div>
       <div class="question-header"
            layout layout-align="space-between center"
-           layout-xs="column">
-        <div>
-          {{ testPass.question.name }}
-        </div>
-        <img ng-src="{{ testPass.question.img }}" alt=""
-             ng-if="testPass.question.img"/>
+           layout-xs="column"
+           layout-margin>
+        <h3>
+          {{ testPass.test.questions[testPass.test.currentQuestionIndex].name }}
+        </h3>
+        <img ng-src="{{ testPass.test.questions[testPass.test.currentQuestionIndex].img }}" alt=""
+             ng-if="testPass.test.questions[testPass.test.currentQuestionIndex].img"/>
       </div>
       <div class="question-content"
-           layout>
+           layout="column" layout-align="space-around start"
+           layout-margin>
+
         <!--single-->
+        <md-radio-group ng-model="testPass.test.questions[testPass.test.currentQuestionIndex].answerId"
+                        ng-if="testPass.test.questions[testPass.test.currentQuestionIndex].type == testPass.type.single">
+          <md-radio-button ng-value="answer.id" class="md-primary"
+                           ng-repeat="answer in testPass.test.questions[testPass.test.currentQuestionIndex].answers track by $index">
+            {{ answer.name }}
+          </md-radio-button>
+        </md-radio-group>
 
         <!--multiselect-->
-        <md-checkbox ng-model="data.cb1" aria-label=""
-                     ng-repeat="answer in testPass.question.answers track by $index">
+        <md-checkbox ng-model="testPass.test.questions[testPass.test.currentQuestionIndex].answers[$index].selected"
+                     aria-label=""
+                     ng-repeat="answer in testPass.test.questions[testPass.test.currentQuestionIndex].answers track by $index"
+                     ng-if="testPass.test.questions[testPass.test.currentQuestionIndex].type == testPass.type.multiSelect">
           {{ answer.name }}
         </md-checkbox>
-      </div>
-      <div class="question-button">
-
       </div>
     </div>
   </div>

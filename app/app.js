@@ -10,6 +10,7 @@
         'angularFileUpload',
         'ngDraggable',
         'angular-svg-round-progressbar',
+        'ngCkeditor',
         'distanceLearning.auth',
         'distanceLearning.home',
         'distanceLearning.menu',
