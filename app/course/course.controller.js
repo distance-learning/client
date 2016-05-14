@@ -39,14 +39,11 @@
 
             getCourses(vm.params);
 
-            vm.loading = false;
           }, function (err) {
             $log.log('CourseController.init().ProfileUtils.getUserInfo()', err);
 
             return $location.path('/home');
           });
-
-      vm.loading = false;
     }
 
     function getCourses(params) {
