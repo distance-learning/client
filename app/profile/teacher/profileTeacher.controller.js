@@ -48,41 +48,45 @@
 
     function getInfo(teacher) {
       vm.loading = true;
-      vm.studentContetnLoading = true;
 
-      ProfileTeacherUtils.getGroups(teacher)
+      ProfileTeacherUtils.getSubjects(teacher.id)
           .then(function (ok) {
-            vm.groups = ok;
+            vm.subjects = ok;
 
             vm.loading = false;
-            vm.studentContetnLoading = false;
           }, function (err) {
             $log.log('[ERROR] ProfileTeacherController.getInfo().ProfileTeacherUtils.getGroups()', err);
           });
     }
 
-    vm.showStudents = function (group) {
-      ProfileTeacherUtils.getStudents(group)
-          .then(function (ok) {
-            vm.currentGroup = ok;
-
-            $mdSidenav('studentsContainer').toggle();
+    function getTasks(group) {
+      ProfileTeacherUtils.getTasks(group)
+          .then(function (tasks) {
+            vm.tasks = tasks;
           }, function (err) {
-            $log.log('[ERROR] ProfileTeacherController.showStudents().ProfileTeacherUtils.getStudents()', err);
+            $log.log('[ERROR] ProfileTeacherController.getTasks()', err);
+          });
+    }
+
+    vm.getSubject = function (subject) {
+      ProfileTeacherUtils.getGroups(subject)
+          .then(function (groups) {
+            vm.groups = groups;
+          }, function (err) {
+            console.log(err);
           });
     };
 
-    vm.getStudentTasks = function (student) {
-      vm.studentContetnLoading = true;
-      $mdSidenav('studentsContainer').close();
-
-      ProfileTeacherUtils.getStudentTasks(student)
+    vm.showStudents = function (group) {
+      ProfileTeacherUtils.getStudents(group)
           .then(function (ok) {
-            vm.task = ok;
+            vm.students = ok;
+            console.log(vm.students);
 
-            vm.studentContetnLoading = false;
+            getTasks(group);
+
           }, function (err) {
-            $log.log('[ERROR] ProfileTeacherController', err);
+            $log.log('[ERROR] ProfileTeacherController.showStudents().ProfileTeacherUtils.getStudents()', err);
           });
     };
 
@@ -97,6 +101,10 @@
             $log.log('[ERROR] ProfileTeacherController.goToCreateTest().TestUtils.createTest()', err);
           });
 
+    };
+
+    vm.bindingTaskWithGroup = function () {
+      $mdSidenav('teacher-task-list').toggle();
     };
   }
 })();

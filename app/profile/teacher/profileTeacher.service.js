@@ -14,15 +14,17 @@
       getGroups: getGroups,
       getStudents: getStudents,
       getStudentTasks: getStudentTasks,
-      getFaculties: getFaculties
+      getFaculties: getFaculties,
+      getSubjects: getSubjects,
+      getTasks: getTasks
     };
 
-    function getGroups(teacher) {
+    function getGroups(subject) {
       var defer = $q.defer();
 
       var groups = [
         {
-          title: 'KE-11',
+          name: 'KE-11',
           users: [
             {
               name: 'Vasa',
@@ -39,7 +41,7 @@
           ]
         },
         {
-          title: 'KE-12',
+          name: 'KE-12',
           users: [
             {
               name: 'Vasa',
@@ -56,7 +58,7 @@
           ]
         },
         {
-          title: 'KE-13',
+          name: 'KE-13',
           users: [
             {
               name: 'Vasa',
@@ -73,7 +75,7 @@
           ]
         },
         {
-          title: 'KE-14',
+          name: 'KE-14',
           users: [
             {
               name: 'Vasa',
@@ -98,12 +100,7 @@
     function getStudents(group) {
       var defer = $q.defer();
 
-      var result = {
-        title: group.title,
-        students: group.users
-      };
-
-      defer.resolve(result);
+      defer.resolve(group.users);
       return defer.promise;
     }
 
@@ -141,6 +138,49 @@
       ];
 
       defer.resolve(faculties);
+      return defer.promise;
+    }
+
+    function getSubjects(teacherId) {
+      var defer = $q.defer();
+      var subjects = [
+        {
+          name: 'Sub 1',
+          id: 1
+        },
+        {
+          name: 'Sub 2',
+          id: 2
+        },
+        {
+          name: 'Sub 3',
+          id: 3
+        },
+        {
+          name: 'Sub 4',
+          id: 4
+        }
+      ];
+      //$http.get();
+
+      defer.resolve(subjects);
+      return defer.promise;
+    }
+
+    function getTasks(group) {
+      var defer = $q.defer();
+      var tasks = [{
+        id: 1,
+        name: 'Tasks 1'
+      }, {
+        id: 2,
+        name: 'Tasks 2'
+      }, {
+        id: 3,
+        name: 'Tasks 3'
+      }];
+
+      defer.resolve(tasks);
       return defer.promise;
     }
 
