@@ -135,5 +135,11 @@
     vm.removeImg = function () {
       vm.question.image = null;
     };
+
+    vm.cancelQuestion = function () {
+      var path = '/test/' + testId + '/edit';
+      console.log(path);
+      $location.path(path);
+    };
   }
 })();
