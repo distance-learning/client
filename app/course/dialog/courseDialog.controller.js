@@ -23,7 +23,7 @@
       $mdDialog.cancel();
     };
 
-    vm.removeUser = function () {
+    vm.removeCourse = function () {
       $mdDialog.hide();
     };
   }
