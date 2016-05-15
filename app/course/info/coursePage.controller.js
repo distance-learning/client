@@ -48,12 +48,8 @@
     init();
     function init() {
       vm.loading = true;
-      if (!LoginUtils.isLogged()) {
-        return $location.path('/home');
-      }
-      if ($routeParams.slug) {
-        return getCourseInfo($routeParams.slug);
-      }
+      if (!LoginUtils.isLogged()) { return $location.path('/home'); }
+      if ($routeParams.slug) { getCourseInfo($routeParams.slug); }
 
       getTeachers();
       getSubjects();
@@ -110,6 +106,7 @@
       CourseUtils.getCourse(slug)
           .then(function (ok) {
             vm.course = ok;
+            console.log(vm.course);
 
             vm.loading = false;
           }, function (err) {

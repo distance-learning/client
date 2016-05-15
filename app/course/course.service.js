@@ -49,7 +49,9 @@
     function getCourse(courseId) {
       var defer = $q.defer();
 
-      // TODO: need API
+      $http.get(server_host + 'api/admin/course/' + courseId)
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }
@@ -65,7 +67,7 @@
     function removeCourse(course) {
       var defer = $q.defer();
 
-      $http.delete(server_host + '/api/admin/courses/' + course.id)
+      $http.delete(server_host + 'api/admin/courses/' + course.id)
           .success(defer.resolve)
           .error(defer.reject);
 
