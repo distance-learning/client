@@ -118,3 +118,12 @@ md-radio-button:not([disabled]).md-primary .md-on{
 md-radio-button:not([disabled]).md-primary.md-checked .md-off {
   border-color: rgb(233, 126, 89) !important;
 }
+
+
+.text-with-simple-style {
+  color: rgb(233, 126, 89);
+}
+
+.separator-top {
+  border-top: 1px dashed rgb(233, 126, 89);
+}

@@ -18,6 +18,14 @@
           <input type="text" required
                  ng-model="facultyListDialog.newFaculty.description"/>
         </md-input-container>
+        <h2 class="md-title">Предмети для вступу(ЗНО)</h2>
+        <md-chips
+            ng-model="facultyListDialog.newFaculty.examinations"
+            readonly="false"
+            placeholder="Введіть предмет"
+            delete-button-label="Видалити предмет"
+            delete-hint="DELETE для видалення предмету"
+            secondary-placeholder="+ предмет"></md-chips>
       </form>
     </div>
   </md-dialog-content>
@@ -25,7 +33,7 @@
     <span flex></span>
     <md-button class="facultyListAdmin-button"
                type="submit"
-               ng-click="facultyListDialog.createFaculty(facultyListDialog.newFaculty)">
+               ng-click="facultyListDialog.createFaculty()">
       Створити
     </md-button>
     <md-button class="facultyListAdmin-button facultyListAdmin-cancel"

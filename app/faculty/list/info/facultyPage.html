@@ -23,6 +23,17 @@
             <label>Опис</label>
             <input ng-model="facultyPageInfo.faculty.description">
           </md-input-container>
+          <div layout-fill
+               class="separator-top">
+            <h2 class="md-title">Предмети для вступу(ЗНО)</h2>
+            <md-chips
+                ng-model="facultyPageInfo.faculty.examinations"
+                readonly="false"
+                placeholder="Введіть предмет"
+                delete-button-label="Видалити предмет"
+                delete-hint="DELETE для видалення предмету"
+                secondary-placeholder="+ предмет"></md-chips>
+          </div>
           <div class="admin-faculty-direction-container"
                layout="column" layout-align="center start"
                layout-fill>
@@ -41,7 +52,8 @@
                                   md-mode='indeterminate'
                                   ng-if="facultyPageInfo.loadingDirections"></md-progress-circular>
             <div ng-if="!facultyPageInfo.loadingDirections">
-              <div ng-if="!facultyPageInfo.faculty.directions.length">
+              <div ng-if="!facultyPageInfo.faculty.directions.length"
+                   class="text-with-simple-style">
                 Не створено жодного направлення =(
               </div>
               <div class="admin-faculty-direction-container-item"
@@ -78,8 +90,9 @@
           inline-edit-btn-edit=""
           inline-edit-on-blur="save"
           inline-edit-on-click></h1>
+
       <div class="admin-faculty-direction-info-description"
-          layout-margin layout-margin layout-padding>
+           layout-margin layout-margin layout-padding>
         {{ facultyPageInfo.direction.description }}
       </div>
     </div>
