@@ -2,5 +2,7 @@
   'use strict';
 
   angular
-      .module('distanceLearning.menu', []);
+      .module('distanceLearning.menu', [
+          'distanceLearning.component'
+      ]);
 })();

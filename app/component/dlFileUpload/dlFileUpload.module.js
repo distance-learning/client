@@ -2,5 +2,7 @@
   'use strict';
 
   angular
-      .module('distanceLearning.component.dlFileUpload', []);
+      .module('distanceLearning.component.dlFileUpload', [
+        'distanceLearning.auth'
+      ]);
 })();

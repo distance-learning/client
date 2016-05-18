@@ -7,14 +7,18 @@
 
   dlFileUploadUtils.$inject = [
     '$q', '$http',
+    '$auth',
     'server_host'
   ];
 
   function dlFileUploadUtils($q, $http,
+                             $auth,
                              server_host) {
     var service = {
       getImages: getImages,
-      uploadFile: uploadFile
+      getFiles: getFiles,
+      getUploadURL: getUploadURL,
+      getUploadHeader: getUploadHeader
     };
 
     function getImages() {
@@ -27,14 +31,22 @@
       return defer.promise;
     }
 
-    function uploadFile(file) {
+    function getFiles() {
       var defer = $q.defer();
 
-      $http.post(server_host + 'api/files', file)
+      $http.get(server_host + 'api/files')
           .success(defer.resolve)
           .error(defer.reject);
 
       return defer.promise();
+    }
+
+    function getUploadURL() {
+      return server_host + 'api/files';
+    }
+
+    function getUploadHeader() {
+      return 'Bearer ' + $auth.getToken()
     }
 
     return service;
