@@ -93,6 +93,6 @@
 
     vm.editFileName = function (fileName) {
       vm.uploader.queue[0].file.name = fileName;
-    }
+    };
   }
 })();

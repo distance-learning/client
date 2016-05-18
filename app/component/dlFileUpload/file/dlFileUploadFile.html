@@ -1,10 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title></title>
-</head>
-<body>
+<md-dialog aria-label="" class="dl-file-upload-file" ng-cloak>
+  <md-toolbar>
+    <div class="md-toolbar-tools dl-file-upload-file-header"
+         layout layout-align="space-between center">
+      <h2>Менеджер зображень</h2>
+      <md-button class="md-icon-button"
+                 ng-click="dlFileUploadFile.close()">
+        <md-icon md-svg-icon="{{ dlFileUploadFile.closeIconURL }}"></md-icon>
+        <md-tooltip>Закрити</md-tooltip>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div class="md-dialog-content dl-file-upload-image-content"
+         layout>
+      <md-tabs md-dynamic-height md-border-bottom
+               layout-fill>
+        <md-tab label="Додати файл">
+          <md-content class="md-padding"
+                      layout layout-xs="column"
+                      layout-align="space-between start">
+            <div ng-show="dlFileUploadFile.uploader.isHTML5">
+              <div class="drop-file-container"
+                   nv-file-drop="" uploader="dlFileUploadFile.uploader"
+                   ng-if="!dlFileUploadFile.uploader.queue.length">
+                Перетягніть файл для завантаження
+              </div>
+              <div layout="column"
+                   ng-if="dlFileUploadFile.uploader.queue.length">
 
-</body>
-</html>
+                <h3 inline-edit="dlFileUploadFile.uploader.queue[0].file.name"
+                    inline-edit-callback="dlFileUploadFile.editFileName(newValue)"
+                    inline-edit-btn-edit=""
+                    inline-edit-on-blur="save"
+                    inline-edit-on-click>
+                </h3>
+
+                <img ng-src="{{ dlFileUploadFile.templateFileIconURL }}" alt=""
+                     layout-fill/>
+              </div>
+              <div layout layout-align="start center"
+                   layout-fill>
+                <span flex></span>
+                <md-button class="md-icon-button"
+                           ng-click="dlFileUploadFile.uploader.uploadAll()">
+                  <md-icon md-svg-icon="{{ dlFileUploadFile.uploadFileIconURL }}"></md-icon>
+                  <md-tooltip>Завантажити</md-tooltip>
+                </md-button>
+                <md-button class="md-icon-button"
+                           ng-click="dlFileUploadFile.uploader.clearQueue()">
+                  <md-icon md-svg-icon="{{ dlFileUploadFile.cancelUploadIconURL }}"></md-icon>
+                  <md-tooltip>Видалити</md-tooltip>
+                </md-button>
+              </div>
+            </div>
+          </md-content>
+        </md-tab>
+        <md-tab label="Файли">
+          <md-content class="md-padding">
+            <md-progress-linear md-mode="indeterminate"
+                                ng-if="dlFileUploadFile.loadingFiles"></md-progress-linear>
+            <div ng-if="!dlFileUploadFile.loadingFiles"
+                 layout-margin>
+              <div ng-repeat="file in dlFileUploadFile.files.data track by $index"
+                   clipboard supported="true" text="image.url"
+                   on-copied="dlFileUploadFile.clipboardSuccess()"
+                   on-error="dlFileUploadFile.clipboardFail(err)"
+                   layout-margin>
+                {{ file.name }}
+              </div>
+              <div class="pagination"
+                   layout layout-align="center center">
+                <div class="pagination-page"
+                     ng-repeat="page in dlFileUploadFile.range(dlFileUploadFile.files.total) track by $index"
+                     ng-click="dlFileUploadFile.jumpToPageFiles($index + 1)">
+                </div>
+              </div>
+            </div>
+          </md-content>
+        </md-tab>
+      </md-tabs>
+    </div>
+  </md-dialog-content>
+</md-dialog>

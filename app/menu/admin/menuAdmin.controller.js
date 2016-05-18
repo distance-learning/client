@@ -21,6 +21,7 @@
     vm.courseIconURL = 'assests/images/ic_account_balance_wallet_black_24px.svg';
     vm.subjectIconURL = 'assests/images/ic_school_black_24px.svg';
     vm.filesImageIconURL = 'assests/images/ic_collections_black_24px.svg';
+    vm.filesIconURL = 'assests/images/ic_insert_drive_file_black_24px.svg';
 
     vm.goToUsers = function () {
       $location.path('/admin/users');
@@ -55,5 +56,15 @@
         clickOutsideToClose: false
       });
     };
+
+    vm.opendlFileUploadFile = function (ev) {
+      $mdDialog.show({
+        controller: 'dlFileUploadFileController',
+        controllerAs: 'dlFileUploadFile',
+        templateUrl: './component/dlFileUpload/file/dlFileUploadFile.html',
+        targetEvent: ev,
+        clickOutsideToClose: false
+      });
+    }
   }
 })();
