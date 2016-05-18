@@ -53,7 +53,9 @@
     vm.uploader = new FileUploader({
       autoUpload: false,
       url: dlFileUploadUtils.getUploadURL(),
-      headers: dlFileUploadUtils.getUploadHeader()
+      headers: {
+        'Authorization': dlFileUploadUtils.getUploadHeader()
+      }
     });
 
     //getFiles();
