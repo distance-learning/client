@@ -29,5 +29,10 @@
             $log.log('[ERROR] TestPassController.init().TestUtils.getTest()', err);
           });
     }
+
+    vm.goToTestPage = function (test) {
+      var path = '/test/' + test.code + '/edit';
+      $location.path(path);
+    };
   }
 })();

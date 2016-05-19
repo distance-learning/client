@@ -6,7 +6,8 @@
                  ng-if="!testList.loading">
     <h1>Список тестів</h1>
     <div class="admin-test-container">
-      <div ng-repeat="test in testList.tests track by $index">
+      <div ng-repeat="test in testList.tests track by $index"
+          ng-click="testList.goToTestPage(test)">
         {{ $index + 1 }}. {{ test.name }}
       </div>
     </div>
