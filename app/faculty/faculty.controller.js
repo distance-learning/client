@@ -7,31 +7,38 @@
 
   FacultyController.$inject = [
     '$log', '$location',
-    'FacultyHomeUtils', 'FacultyListUtils', 'FacultyUtils'
+    'FacultyHomeUtils', 'FacultyListUtils'
   ];
 
   function FacultyController($log, $location,
-                             FacultyHomeUtils, FacultyListUtils, FacultyUtils) {
+                             FacultyHomeUtils, FacultyListUtils) {
     var vm = this;
-    vm.params = {};
+    vm.loadingFaculty = true;
+    vm.faculties = {
+      data: [],
+      total: 5
+    };
+    vm.selectedFaculty = { };
+    vm.params = {
+      count: 5,
+      page: 1
+    };
 
     getFaculties();
-
     function getFaculties() {
       var path = $location.path();
       if (path === '/faculties') {
+        vm.loadingFaculty = true;
+
         FacultyListUtils.getFaculties(vm.params)
             .then(function (ok) {
-              vm.faculties = {
-                faculties: ok.data.data,
-                total: ok.data.total
-              };
-              if (!FacultyUtils.getLocalFaculty()) {
-                FacultyUtils.saveLocalFaculty(vm.faculties.faculties[0].slug);
-              }
+              console.log(ok.data);
+              vm.faculties.data = ok.data;
+              vm.faculties.total = ok.total;
+              vm.selectedFaculty = vm.faculties.data[0];
+              console.log(vm.selectedFaculty);
 
-              prepareFaculties();
-
+              vm.loadingFaculty = false;
             }, function (error) {
               $log.log('[ERROR] FacultyController.FacultyListUtils.getFaculties()', error);
             })
@@ -39,118 +46,33 @@
         FacultyHomeUtils.getRandomPreviewFaculties()
             .then(function (data) {
               vm.facultiesInfo = data.data;
+            }, function (error) {
+              $log.log('[ERROR] FacultyController.FacultyHomeUtils.getRandomPreviewFaculties()', error);
             });
       }
     }
 
-    function prepareFaculties() {
-      vm.teachers = [];
-      if (checkFaculties(FacultyUtils.getLocalFaculty())) {
-        getFacultyBySlug(FacultyUtils.getLocalFaculty());
-      } else {
-        getFacultyBySlug(vm.faculties.faculties[0].slug);
-      }
-
-      vm.faculties.directions = getCurrentDirections(vm.faculties.faculties);
-      vm.faculties.subjects = getCurrentSubjects(vm.faculties.directions, FacultyUtils.getLocalFaculty());
-      vm.teachers = getTeachers(vm.faculties.faculties);
-    }
-
-    function checkFaculties(slug) {
-      var findFaculty = false;
-
-      for (var i in vm.faculties.faculties) {
-        if (vm.faculties[i].slug === slug) {
-          findFaculty = true;
-        }
-      }
-
-      return findFaculty;
-    }
-
-    vm.showFaculty = function (facultySlug) {
-      FacultyUtils.saveLocalFaculty(facultySlug);
+    vm.showFaculty = function () {
       $location.path('/faculties');
     };
 
-    function getFacultyBySlug(slug) {
-      if (slug) {
-        return slug;
-      }
-
-      FacultyUtils.saveLocalFaculty(vm.faculties.faculties[0].slug);
-    }
-
-    function getCurrentDirections(faculties) {
-      var slug = FacultyUtils.getLocalFaculty();
-      var result = {};
-
-      for (var i in faculties) {
-        if (faculties[i].slug === slug) {
-          result = faculties[i].directions;
-        }
-      }
-
-      return result;
-    }
-
-    function getCurrentSubjects(directions, currentDirections) {
-      var result = [];
-      if (directions.length) {
-        result = directions[0].subjects;
-      }
-
-      for (var i in directions) {
-        if (directions[i] === currentDirections) {
-          result = directions[i].subjects;
-        }
-      }
-
-      return result;
-    }
-
-    function getTeachers(faculties) {
-      var slug = FacultyUtils.getLocalFaculty();
-      var result = [];
-
-      for (var i in faculties) {
-        if (faculties[i].slug === slug) {
-            result = faculties[i].teachers;
-        }
-      }
-
-      return result;
-    }
-
-    vm.showDirectionsInfo = function (directions) {
-      vm.faculties.subjects = getCurrentSubjects(vm.faculties.directions, directions);
-    };
-
     vm.range = function (page) {
-      if (!page) {
-        return new Array(1);
-      }
-      var countPage = Math.floor(page / 5);
+      if (!page) { return new Array(1); }
 
-      if ((page % 5) != 0) {
-        countPage++;
-      }
+      var countPage = Math.floor(page / 5);
+      if ((page % vm.params.count) != 0) { countPage++; }
 
       return new Array(countPage);
     };
 
     vm.jumpToPage = function (page) {
-      FacultyUtils.saveLocalFaculty('');
-
       vm.params.page = page;
+
       getFaculties();
-      prepareFaculties();
     };
 
-    vm.showFacultyInfo = function (facultySlug) {
-      FacultyUtils.saveLocalFaculty(facultySlug);
-
-      prepareFaculties();
+    vm.showFacultyInfo = function (faculty) {
+      vm.selectedFaculty = faculty;
     };
   }
 })();

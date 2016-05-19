@@ -24,10 +24,10 @@
 }
 
 .faculty-list-item {
-  height: 45px;
   font-family: "Arial";
   color: rgb(84, 85, 85);
   text-align: left;
+  margin: 7px;
 }
 
 .faculty-list-container a,

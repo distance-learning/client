@@ -28,11 +28,8 @@
       var defer = $q.defer();
 
       $http.get(server_host + 'api/faculties', { params: params })
-          .then(function (ok) {
-            defer.resolve(ok);
-          }, function (err) {
-            defer.reject(err);
-          });
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }

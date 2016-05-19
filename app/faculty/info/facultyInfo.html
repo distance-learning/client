@@ -11,11 +11,11 @@
              layout-margin layout-padding layout-wrap>
           <div class="faculty-list-container">
             <div class="faculty-list-title">Факультети</div>
-            <div ng-repeat="faculty in facultyInfo.faculties.faculties"
+            <div ng-repeat="faculty in facultyInfo.faculties.data"
                  layout="row" layout-align="start center">
               <div class="faculty-list-item">
                 <div class="faculty-list-faculty"
-                     ng-click="facultyInfo.showFacultyInfo(faculty.slug)">
+                     ng-click="facultyInfo.showFacultyInfo(faculty)">
                   {{ faculty.name }}
                 </div>
               </div>
@@ -30,11 +30,10 @@
           </div>
           <div class="faculty-list-container">
             <div class="faculty-list-title">Напрямки</div>
-            <div ng-repeat="directions in facultyInfo.faculties.directions"
+            <div ng-repeat="directions in facultyInfo.selectedFaculty.directions"
                  layout="row" layout-align="start center">
               <div class="faculty-list-item">
-                <div class="faculty-list-directions"
-                     ng-click="facultyInfo.showDirectionsInfo(directions)">
+                <div class="faculty-list-directions">
                   {{ directions.name }}
                 </div>
               </div>
@@ -43,8 +42,8 @@
           <div class="faculty-list-container">
             <div class="faculty-list-title">Предмети</div>
             <ui>
-              <li ng-repeat="directions in facultyInfo.faculties.subjects">
-                <span>{{ directions.name }}</span>
+              <li ng-repeat="exam in facultyInfo.selectedFaculty.examinations">
+                <span>{{ exam }}</span>
               </li>
             </ui>
           </div>
@@ -57,34 +56,16 @@
     <div class="teacher-list">
       <div class="teacher-list-header"
            layout-padding>
-        Преподавательский_состав
+        Викладачі
       </div>
       <div class="teacher-list-item"
-           ng-repeat="teacher in facultyInfo.teachers"
+           ng-repeat="teacher in facultyInfo.selectedFaculty.teachers"
            layout-padding>
         {{ teacher.surname }} {{ teacher.name }}
       </div>
     </div>
     <div class="about-faculty">
-      Повседневная практика показывает, что укрепление и развитие структуры способствует подготовки и реализации
-      позиций, занимаемых участниками в отношении поставленных задач. Задача организации, в особенности же новая модель
-      организационной деятельности позволяет выполнять важные задания по разработке систем массового участия.
-      Товарищи! сложившаяся структура организации требуют от нас анализа существенных финансовых и административных
-      условий. Повседневная практика показывает, что постоянное информационно-пропагандистское обеспечение нашей
-      деятельности требуют от нас анализа дальнейших направлений развития. Задача организации, в особенности же рамки и
-      место обучения кадров влечет за собой процесс внедрения и модернизации дальнейших направлений развития. Значимость
-      этих проблем настолько очевидна, что реализация намеченных плановых заданий обеспечивает широкому кругу
-      (специалистов) участие в формировании модели развития.
-      Значимость этих проблем настолько очевидна, что постоянное информационно-пропагандистское обеспечение нашей
-      деятельности позволяет оценить значение новых предложений. Равным образом рамки и место обучения кадров позволяет
-      выполнять важные задания по разработке модели развития. Не следует, однако забывать, что дальнейшее развитие
-      различных форм деятельности обеспечивает широкому кругу (специалистов) участие в формировании дальнейших
-      направлений развития. Разнообразный и богатый опыт постоянный количественный рост и сфера нашей активности
-      обеспечивает широкому кругу (специалистов) участие в формировании дальнейших направлений развития.
-      Равным образом постоянный количественный рост и сфера нашей активности позволяет выполнять важные задания по
-      разработке дальнейших направлений развития. Товарищи! дальнейшее развитие различных форм деятельности требуют
-      определения и уточнения направлений прогрессивного развития. Идейные соображения высшего порядка, а также рамки и
-      место обучения кадров позволяет выполнять важные задания по разработке дальнейших направлений развития.
+      {{ facultyInfo.selectedFaculty.description }}
     </div>
   </div>
   <contact></contact>
