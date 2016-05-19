@@ -38,7 +38,8 @@
       },
       subject: {
         name: 'Пертягніть предмет'
-      }
+      },
+      is_active: true
     };
     vm.loading = true;
     vm.loadingTeachers = true;
@@ -191,13 +192,21 @@
 
     vm.saveCourse = function () {
       vm.loading = true;
-
-      CourseUtils.createCourse(vm.course)
-          .then(function (ok) {
-            $location.path('/admin/course');
-          }, function (err) {
-            $log.log('[ERROR] SubjectInfoController.saveCourse(). CourseUtils.createCourse()', err);
-          });
+      if (!vm.courseSlug) {
+        CourseUtils.createCourse(vm.course)
+            .then(function (ok) {
+              $location.path('/admin/course');
+            }, function (err) {
+              $log.log('[ERROR] SubjectInfoController.saveCourse(). CourseUtils.createCourse()', err);
+            });
+      } else {
+        CourseUtils.updateCourse(vm.course)
+            .then(function (ok) {
+              $location.path('/admin/course');
+            }, function (err) {
+              $log.log('[ERROR] SubjectInfoController.saveCourse(). CourseUtils.updateCourse()', err);
+            });
+      }
 
     };
   }

@@ -16,6 +16,7 @@
           <h4>Група: {{ coursePageInfo.course.group.name }}</h4>
           <h4>Предмет: {{ coursePageInfo.course.subject.name }}</h4>
           <h4>Викладач: {{ coursePageInfo.course.teacher.surname }} {{ coursePageInfo.course.teacher.name }}</h4>
+          <md-checkbox ng-model="coursePageInfo.course.is_active" aria-label="">Активний курс</md-checkbox>
         </div>
       </div>
       <div layout layout-align="space-between start"

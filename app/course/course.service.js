@@ -49,7 +49,7 @@
     function getCourse(courseId) {
       var defer = $q.defer();
 
-      $http.get(server_host + 'api/admin/course/' + courseId)
+      $http.get(server_host + 'api/admin/courses/' + courseId)
           .success(defer.resolve)
           .error(defer.reject);
 
@@ -58,8 +58,16 @@
 
     function updateCourse(course) {
       var defer = $q.defer();
+      var data = {
+        subject_id: course.subject.id,
+        teacher_id: course.teacher.id,
+        group_id: course.group.id,
+        is_active: course.is_active
+      };
 
-      // TODO: need API
+      $http.put(server_host + 'api/admin/courses/' + course.id, data)
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }
