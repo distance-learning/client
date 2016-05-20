@@ -1,0 +1,15 @@
+<md-bottom-sheet class="md-grid" layout="column" ng-cloak>
+  <div layout="row" layout-align="center center">
+    <h4 class="text-with-style">Опції викладача</h4>
+  </div>
+  <div>
+    <md-list flex layout="row" layout-align="center center">
+      <md-list-item ng-repeat="option in teacherOptions.options">
+        <md-button class="md-grid-item-content" ng-click="teacherOptions.selectOption($index)">
+          <md-icon md-svg-src="{{ option.icon }}"></md-icon>
+          <div class="md-grid-text"> {{ option.name }} </div>
+        </md-button>
+      </md-list-item>
+    </md-list>
+  </div>
+</md-bottom-sheet>

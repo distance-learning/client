@@ -7,12 +7,12 @@
 
   ProfileTeacherController.$inject = [
     '$log', '$location',
-    '$mdSidenav', '$mdDialog', '$mdToast',
+    '$mdSidenav', '$mdDialog', '$mdToast', '$mdBottomSheet',
     'ProfileUtils', 'ProfileTeacherUtils', 'LoginUtils', 'TestUtils'
   ];
 
   function ProfileTeacherController($log, $location,
-                                    $mdSidenav, $mdDialog, $mdToast,
+                                    $mdSidenav, $mdDialog, $mdToast, $mdBottomSheet,
                                     ProfileUtils, ProfileTeacherUtils, LoginUtils, TestUtils) {
     var vm = this;
     vm.loading = true;
@@ -177,7 +177,7 @@
           });
     }
 
-    vm.goToCreateTest = function () {
+    function goToCreateTest() {
       vm.loading = true;
 
       TestUtils.createTest()
@@ -188,7 +188,7 @@
             $log.log('[ERROR] ProfileTeacherController.goToCreateTest().TestUtils.createTest()', err);
           });
 
-    };
+    }
 
     vm.onDropComplete = function (module, event, target) {
       module.target = target;
@@ -207,6 +207,18 @@
 
     vm.canNgDrop = function (node) {
       return node.type != 'subject';
+    };
+
+    vm.showTeacherOptions = function () {
+      $mdBottomSheet.show({
+        templateUrl: './profile/teacher/options/options.html',
+        controller: 'TeacherOptions',
+        controllerAs: 'teacherOptions',
+        clickOutsideToClose: true
+      }).then(function(option) {
+        console.log(option);
+        if (option.value == 'test') { return goToCreateTest(); }
+      });
     }
   }
 })();

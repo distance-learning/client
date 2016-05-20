@@ -149,3 +149,12 @@ md-dialog .md-dialog-content {
 md-dialog .md-dialog-content h2 {
   color: rgb(233, 126, 89);
 }
+
+md-bottom-sheet.md-grid md-list-item .md-grid-item-content {
+  width: 100%;
+  color: rgb(233, 126, 89);
+}
+
+md-bottom-sheet.md-grid md-list-item .md-grid-text {
+  width: 100%;
+}
