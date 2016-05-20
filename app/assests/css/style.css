@@ -98,9 +98,17 @@ md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value la
   user-select: none;
 }
 
+.wrapper-item {
+  border: 1px solid rgba(233, 126, 89, 0.5);
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+
 [ng-drag].dragging{
   background-color: rgb(252, 255, 123);
 }
+
 [ng-drag].drag-over{
   background-color: rgba(64, 255, 50, 0.49);
 }
@@ -117,4 +125,27 @@ md-radio-button:not([disabled]).md-primary .md-on{
 
 md-radio-button:not([disabled]).md-primary.md-checked .md-off {
   border-color: rgb(233, 126, 89) !important;
+}
+
+.md-subheader.md-default-theme.md-primary, .md-subheader.md-primary {
+  color: rgb(233, 126, 89);
+}
+
+md-icon,
+span,
+.outline-off {
+  outline: none;
+}
+
+.text-with-style {
+  color: rgb(233, 126, 89);
+  border-bottom: 1px solid rgb(233, 126, 89);
+}
+
+md-dialog .md-dialog-content {
+  color: black;
+}
+
+md-dialog .md-dialog-content h2 {
+  color: rgb(233, 126, 89);
 }

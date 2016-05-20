@@ -11,6 +11,7 @@
         'ngDraggable',
         'angular-svg-round-progressbar',
         'ngCkeditor',
+        'treeControl',
         'distanceLearning.auth',
         'distanceLearning.home',
         'distanceLearning.menu',

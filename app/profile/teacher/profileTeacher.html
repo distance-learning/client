@@ -10,7 +10,7 @@
          layout-wrap
          layout-margin layout-padding>
       <div>
-        <img ng-src="{{ profileTeacher.user.avatar }}" alt=""/>
+        <img ng-src="{{ profileTeacher.teacher.avatar }}" alt=""/>
       </div>
       <div layout layout-align="space-around center"
            layout-margin layout-padding>
@@ -18,17 +18,17 @@
              layout="column" layout-align="center center"
              layout-margin>
           <div>
-            {{ profileTeacher.user.name }} {{ profileTeacher.user.surname }}
+            {{ profileTeacher.teacher.name }} {{ profileTeacher.teacher.surname }}
           </div>
           <div>
-            {{ profileTeacher.user.description }}
+            {{ profileTeacher.teacher.description }}
           </div>
         </div>
         <div class="profile-teacher-info"
              layout="column">
-          <span>{{ profileTeacher.user.phone }}</span>
-          <span>{{ profileTeacher.user.birthday }}</span>
-          <span>{{ profileTeacher.user.email }}</span>
+          <span>{{ profileTeacher.teacher.phone }}</span>
+          <span>{{ profileTeacher.teacher.birthday }}</span>
+          <span>{{ profileTeacher.teacher.email }}</span>
         </div>
       </div>
     </div>
@@ -37,19 +37,27 @@
          layout-xs="column" layout-align-xs="center center"
          layout-sm="column" layout-align-sm="center center">
       <div layout="column">
-        <md-virtual-repeat-container id="group-container">
-          <div id="header">
-            <div>
-              Предмет:
-            </div>
-            <div></div>
-          </div>
-          <div class="group-item" flex
-               md-virtual-repeat="subject in profileTeacher.subjects"
-               ng-click="profileTeacher.getSubject(subject)">
-            {{ subject.name}}
-          </div>
-        </md-virtual-repeat-container>
+        <treecontrol class="tree-light"
+                     tree-model="profileTeacher.treeControl.data"
+                     options="profileTeacher.treeControl.options"
+                     on-selection="showSelected(node)"
+                     selected-node="node1">
+          <span ng-drop="profileTeacher.canNgDrop(node)"
+                ng-drop-success="profileTeacher.onDropComplete($data, $event, node)">
+            <span ng-switch="" on="node.type">
+            <span ng-switch-when="subject" aria-hidden="true">
+              <md-icon md-svg-src="{{ profileTeacher.subjectIconURL }}" aria-label=""></md-icon>
+            </span>
+            <span ng-switch-when="group" aria-hidden="true">
+              <md-icon md-svg-src="{{ profileTeacher.groupIconURL }}" aria-label=""></md-icon>
+            </span>
+            <span ng-switch-when="student" aria-hidden="true">
+              <md-icon md-svg-src="{{ profileTeacher.studentIconURL }}" aria-label=""></md-icon>
+            </span>
+          </span>
+          {{ node.name }}
+          </span>
+        </treecontrol>
         <calendar></calendar>
         <md-button class="md-raised teacher-create-test-button"
                    ng-click="profileTeacher.goToCreateTest()">
@@ -59,48 +67,23 @@
       <div class="group"
            layout="column"
            layout-wrap
-           leyout-margin>
-        <div class="group-container">
-          <h3>Список груп:</h3>
-
-          <div class="group-container-item"
-               layout-margin
-               ng-repeat="group in profileTeacher.groups"
-               ng-click="profileTeacher.showStudents(group)">
-            {{ group.name }}
+           layout-margin>
+        <md-content>
+          <div ng-repeat="module in profileTeacher.teacher.modules track by $index">
+            <md-subheader class="md-primary">{{ module.name }}</md-subheader>
+            <md-list layout-padding>
+              <md-list-item class="md-1-line wrapper-item"
+                            ng-repeat="item in module.items">
+                <div class="md-list-item-text non-select cursor-pointer"
+                     ng-drag="true" ng-drag-data="{ data: item, type: 'item' }" data-allow-transform="false">
+                  {{ item.name }}
+                </div>
+              </md-list-item>
+            </md-list>
           </div>
-        </div>
-        <div class="group-container group-student-container"
-             layout layout-align="space-between stretch">
-          <div>
-            <h3>Студенти:</h3>
-
-            <div class="group-student-container-item"
-                 layout-margin
-                 ng-repeat="student in profileTeacher.students"
-                 ng-click="profileTeacher.showStudentInfo(student)">
-              {{ student.surname }} {{ student.name }}
-            </div>
-          </div>
-          <div>
-            <h3 class="students-tasks">Завдання:</h3>
-
-            <div class="students-tasks-item"
-                 ng-repeat="task in profileTeacher.tasks">
-              {{ task.name }}
-            </div>
-            <md-button class="md-raised teacher-bind-task-with-group"
-                       ng-click="profileTeacher.bindingTaskWithGroup()">
-              Додати завдання
-            </md-button>
-          </div>
-        </div>
+        </md-content>
       </div>
     </div>
     <footer></footer>
   </div>
-  <md-sidenav class="md-sidenav-right"
-              md-component-id="teacher-task-list">
-    task
-  </md-sidenav>
 </div>
