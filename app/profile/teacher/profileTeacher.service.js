@@ -18,7 +18,8 @@
       getSubjectsWithGroups: getSubjectsWithGroups,
       getTasks: getTasks,
       setupTaskForGroup: setupTaskForGroup,
-      setupTaskForStudent: setupTaskForStudent
+      setupTaskForStudent: setupTaskForStudent,
+      addModuleContent: addModuleContent
     };
 
     // TODO: deprecated?
@@ -184,6 +185,16 @@
     function setupTaskForStudent(data) {
       // data.target = student
       // data.data = task
+      var defer = $q.defer();
+
+      // TODO: need API
+
+      return defer.promise;
+    }
+
+    function addModuleContent(data) {
+      // data.content = module content
+      // data.target = id moduleGroup
       var defer = $q.defer();
 
       // TODO: need API

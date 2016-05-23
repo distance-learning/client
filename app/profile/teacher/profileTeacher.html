@@ -69,21 +69,45 @@
            layout-wrap
            layout-margin>
         <md-content>
-          <div ng-repeat="module in profileTeacher.teacher.modules track by $index">
+          <md-progress-linear md-mode="indeterminate"
+                              ng-if="profileTeacher.teacherModuleLoading"></md-progress-linear>
+          <div ng-repeat="module in profileTeacher.teacher.modules track by $index"
+               ng-if="!profileTeacher.teacherModuleLoading">
             <md-subheader class="md-primary">{{ module.name }}</md-subheader>
             <md-list layout-padding>
               <md-list-item class="md-1-line wrapper-item"
+                            layout layout-align="space-between center"
                             ng-repeat="item in module.items">
                 <div class="md-list-item-text non-select cursor-pointer"
                      ng-drag="true" ng-drag-data="{ data: item, type: 'item' }" data-allow-transform="false">
                   {{ item.name }}
                 </div>
+                <md-button class="md-icon-button"
+                           ng-click="profileTeacher.showModule(item)">
+                  <md-icon md-svg-icon="{{ profileTeacher.moduleInfoIconURL }}"></md-icon>
+                  <md-tooltip>Переглянути</md-tooltip>
+                </md-button>
               </md-list-item>
             </md-list>
           </div>
         </md-content>
       </div>
     </div>
+    <md-sidenav class="md-sidenav-left ckeditor-style"
+                md-component-id="ckeditor"
+                layout="column" layout-align="space-between stretch">
+    <textarea ckeditor="profileTeacher.CKEditorOptions" ng-model="profileTeacher.CKEditorContent.content"
+              layout-margin></textarea>
+
+      <div layout layout-aligment="start center">
+        <span flex></span>
+        <md-button class="md-icon-button"
+                   ng-click="profileTeacher.saveCKEditorContent()">
+          <md-icon md-svg-icon="{{ profileTeacher.saveIconURL }}"></md-icon>
+          <md-tooltip md-direction="top">Зберегти</md-tooltip>
+        </md-button>
+      </div>
+    </md-sidenav>
     <footer></footer>
   </div>
 </div>

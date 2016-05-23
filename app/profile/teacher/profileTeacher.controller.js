@@ -20,9 +20,18 @@
     vm.subjectIconURL = '../assests/images/ic_school_black_24px.svg';
     vm.groupIconURL = '../assests/images/ic_people_black_48px.svg';
     vm.studentIconURL = '../assests/images/ic_person_outline_black_24px.svg';
+    vm.saveIconURL = './assests/images/ic_save_black_24px.svg';
+    vm.moduleInfoIconURL = './assests/images/ic_mode_edit_black_24px.svg';
     vm.teacher = {
         avatar: '../assests/images/user_tmp.png',
         description: 'Викладач гуманітарних наук'
+    };
+    vm.CKEditorOptions = {
+      language: 'uk'
+    };
+    vm.CKEditorContent = {
+      target: '',
+      content: ''
     };
     vm.treeControl = {
       data: [
@@ -75,7 +84,7 @@
             vm.teacher.description = 'Викладач гуманітарних наук';
 
             //getSubjectWithGroups(vm.teacher);
-            getTeacherModule(vm.teacher);
+            getTeacherModule();
 
             console.log(vm.teacher);
             // TODO: remove when getSubjectWithGroups() uncomment
@@ -99,16 +108,16 @@
           });
     }
 
-    function getTeacherModule(teacher) {
+    function getTeacherModule() {
       vm.teacherModuleLoading = true;
-      teacher.modules = [
+      vm.teacher.modules = [
         {
           id: 1,
           name: 'Module 1',
           items: [
-            { id: 11, name: 'Module 1 - 1' },
-            { id: 12, name: 'Module 1 - 2' },
-            { id: 13, name: 'Module 1 - 3' }
+            { id: 11, name: 'Module 1 - 1', content: 'Module 1 - 1 content' },
+            { id: 12, name: 'Module 1 - 2', content: 'Module 1 - 2 content' },
+            { id: 13, name: 'Module 1 - 3', content: 'Module 1 - 3 content' }
           ]
         },
         {
@@ -134,7 +143,7 @@
 
       //ProfileTeacherUtils.getTeacherModule()
       //    .then(function (module) {
-      //      teacher.module = module;
+      //      vm.teacher.module = module;
       //
       //      vm.teacherModuleLoading = false;
       //    }, function (err) {
@@ -187,7 +196,10 @@
           }, function (err) {
             $log.log('[ERROR] ProfileTeacherController.goToCreateTest().TestUtils.createTest()', err);
           });
+    }
 
+    function openModuleCKEditor() {
+      $mdSidenav('ckeditor').toggle();
     }
 
     vm.onDropComplete = function (module, event, target) {
@@ -218,7 +230,45 @@
       }).then(function(option) {
         console.log(option);
         if (option.value == 'test') { return goToCreateTest(); }
+        if (option.value == 'module') {
+          vm.CKEditorContent.content = 'Контент модуля';
+
+          return openModuleCKEditor();
+        }
       });
+    };
+
+    vm.saveCKEditorContent = function () {
+      $mdSidenav('ckeditor').close();
+
+
+
+
+      // remove here
+      vm.CKEditorContent = {
+        target: '',
+        content: ''
+      };
+      getTeacherModule();
+
+      //ProfileTeacherUtils.addModuleContent(vm.CKEditorContent)
+      //    .then(function (ok) {
+      //      vm.CKEditorContent = {
+      //        target: '',
+      //        content: ''
+      //      };
+      //
+      //      getTeacherModule();
+      //    }, function (err) {
+      //      $log.log('[ERROR] ProfileTeacherController.saveCKEditorContent().ProfileTeacherUtils.addModuleContent()', err);
+      //    });
+    };
+
+    vm.showModule = function (module) {
+      vm.CKEditorContent.content = module.content;
+      vm.CKEditorContent.target = module.id;
+
+      openModuleCKEditor();
     }
   }
 })();
