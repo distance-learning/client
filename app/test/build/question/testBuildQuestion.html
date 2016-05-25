@@ -28,7 +28,10 @@
                        ng-model="testBuildQuestion.question.time"/>
               </md-input-container>
               <md-checkbox ng-model="testBuildQuestion.question.isSkipped" aria-label="">
-                Пропустити запитання?
+                Пропускати запитання при проходжені тесту?
+              </md-checkbox>
+              <md-checkbox ng-model="testBuildQuestion.question.isActive" aria-label="">
+                Додавати питання при формуванні тесту?
               </md-checkbox>
             </div>
             <div class="test-build-image-container"
@@ -112,12 +115,6 @@
           Зберегти
         </md-button>
       </div>
-    </div>
-    <div class="test-build-question-buttons">
-      <md-button class="md-raised test-create-question-button"
-                 ng-click="testBuildQuestion.createQuestion()">
-        Додати запитання
-      </md-button>
     </div>
     <footer></footer>
   </div>

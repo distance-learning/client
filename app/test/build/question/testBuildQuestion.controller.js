@@ -38,6 +38,8 @@
     vm.question = {
       id: questionId,
       testId: testId,
+      isSkipped: false,
+      isActive: true,
       name: '<p>Запитання</p>',
       type: 'single',
       file: undefined,
