@@ -62,7 +62,7 @@
             <div ng-if="!dlFileUploadFile.loadingFiles"
                  layout-margin>
               <div ng-repeat="file in dlFileUploadFile.files.data track by $index"
-                   clipboard supported="true" text="image.url"
+                   clipboard supported="true" text="file.url"
                    on-copied="dlFileUploadFile.clipboardSuccess()"
                    on-error="dlFileUploadFile.clipboardFail(err)"
                    layout-margin>

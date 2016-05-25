@@ -27,10 +27,10 @@
                 <input type="time" required
                        ng-model="testBuildQuestion.question.time"/>
               </md-input-container>
-              <md-checkbox ng-model="testBuildQuestion.question.isSkipped" aria-label="">
+              <md-checkbox ng-model="testBuildQuestion.question.is_skipped" aria-label="">
                 Пропускати запитання при проходжені тесту?
               </md-checkbox>
-              <md-checkbox ng-model="testBuildQuestion.question.isActive" aria-label="">
+              <md-checkbox ng-model="testBuildQuestion.question.is_active" aria-label="">
                 Додавати питання при формуванні тесту?
               </md-checkbox>
             </div>
@@ -38,37 +38,11 @@
                  layout layout-align="space-between start"
                  layout-xs="column"
                  layout-fill>
-              <div ng-show="testBuildQuestion.uploader.isHTML5"
-                   ng-if="!testBuildQuestion.question.image">
+              <div>
                 <div class="drop-file-container"
-                     nv-file-drop="" uploader="testBuildQuestion.uploader"
-                     ng-if="!testBuildQuestion.uploader.queue.length">
-                  Перетягніть файл для завантаження(запитання)
+                     ng-click="testBuildQuestion.opendlFileUploadImage($event)">
+                  Натисніть, щоб відкрити менеджер зображень
                 </div>
-                <div layout="column"
-                     ng-if="testBuildQuestion.uploader.queue.length">
-                  <b>Ім'я файлу: <span ng-bind="testBuildQuestion.uploader.queue[0].file.name"></span></b>
-
-                  <div layout>
-                    <md-button class="md-icon-button" aria-label=""
-                               ng-click="testBuildQuestion.uploader.queue[0].remove()">
-                      <md-icon md-svg-icon="{{ testBuildQuestion.removeFileIconURL }}"></md-icon>
-                      <md-tooltip>Видалити</md-tooltip>
-                    </md-button>
-                    <div ng-show="testBuildQuestion.uploader.isHTML5"
-                         ng-thumb="{ file: testBuildQuestion.uploader.queue[0]._file, height: 100 }"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="preview-img"
-                   layout
-                   ng-if="testBuildQuestion.question.image">
-                <md-button class="md-icon-button" aria-label=""
-                           ng-click="testBuildQuestion.removeImg()">
-                  <md-icon md-svg-icon="{{ testBuildQuestion.removeFileIconURL }}"></md-icon>
-                  <md-tooltip>Видалити</md-tooltip>
-                </md-button>
-                <img ng-src="{{ testBuildQuestion.question.image }}" alt=""/>
               </div>
             </div>
           </div>

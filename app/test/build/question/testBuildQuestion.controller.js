@@ -6,13 +6,13 @@
       .controller('TestBuildQuestionController', TestBuildQuestionController);
 
   TestBuildQuestionController.$inject = [
-    '$log', '$location', '$routeParams', 'FileUploader',
-    '$mdSidenav',
+    '$log', '$location', '$routeParams',
+    '$mdSidenav', '$mdDialog',
     'ProfileUtils', 'LoginUtils', 'TestUtils'
   ];
 
-  function TestBuildQuestionController($log, $location, $routeParams, FileUploader,
-                                       $mdSidenav,
+  function TestBuildQuestionController($log, $location, $routeParams,
+                                       $mdSidenav, $mdDialog,
                                        ProfileUtils, LoginUtils, TestUtils) {
     var vm = this;
     var testId = $routeParams.testId;
@@ -38,11 +38,10 @@
     vm.question = {
       id: questionId,
       testId: testId,
-      isSkipped: false,
-      isActive: true,
+      is_skipped: false,
+      is_active: true,
       name: '<p>Запитання</p>',
       type: 'single',
-      file: undefined,
       answers: [
         {
           id: countAnswers,
@@ -51,21 +50,6 @@
         }
       ]
     };
-
-    var uploader = vm.uploader = new FileUploader({
-      autoUpload: true,
-      url: 'http://distance-learning.herokuapp.com/api/tests/' + testId + '/questions/' + questionId + '/upload',
-      headers: {
-        'Authorization': 'Bearer ' + LoginUtils.getToken()
-      }
-    });
-    uploader.filters.push({
-      name: 'imageFilter',
-      fn: function (item /*{File|FileLikeObject}*/, options) {
-        var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-        return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
-      }
-    });
 
     init();
     function init() {
@@ -135,12 +119,8 @@
     vm.editAnswerName = function (newName, answer) {
       for (var i in vm.question.answers) {
         if (vm.question.answers[i].id == answer.id) {
-          if (!newName) {
-            vm.question.answers[i].body = '<p>Відповідь</p>';
-          }
-          else {
-            vm.question.answers[i].body = newName;
-          }
+          if (!newName) { vm.question.answers[i].body = '<p>Відповідь</p>'; }
+          else { vm.question.answers[i].body = newName; }
         }
       }
     };
@@ -218,6 +198,16 @@
           return vm.question.answers.splice(i, 1);
         }
       }
-    }
+    };
+
+    vm.opendlFileUploadImage = function (ev) {
+      $mdDialog.show({
+        controller: 'dlFileUploadImageController',
+        controllerAs: 'dlFileUploadImage',
+        templateUrl: './component/dlFileUpload/image/dlFileUploadImage.html',
+        targetEvent: ev,
+        clickOutsideToClose: false
+      });
+    };
   }
 })();

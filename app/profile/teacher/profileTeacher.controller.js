@@ -230,6 +230,16 @@
       }).then(function(option) {
         console.log(option);
         if (option.value == 'test') { return goToCreateTest(); }
+        if (option.value == 'file') {
+          $mdDialog.show({
+            controller: 'dlFileUploadFileController',
+            controllerAs: 'dlFileUploadFile',
+            templateUrl: './component/dlFileUpload/file/dlFileUploadFile.html',
+            clickOutsideToClose: false
+          });
+
+          return;
+        }
         if (option.value == 'module') {
           vm.CKEditorContent.content = 'Контент модуля';
 

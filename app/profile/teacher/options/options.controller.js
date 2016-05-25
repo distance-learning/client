@@ -24,7 +24,7 @@
       },
       {
         name: 'Файловий менеджер',
-        icon: '',
+        icon: '../assests/images/ic_insert_drive_file_black_24px.svg',
         value: 'file'
       }
     ];
