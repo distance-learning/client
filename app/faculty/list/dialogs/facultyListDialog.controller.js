@@ -14,6 +14,11 @@
                                        faculty) {
     var vm = this;
     vm.faculty = faculty;
+    vm.newFaculty = {
+      name: '',
+      description: '',
+      examinations: []
+    };
 
     vm.hide = function () {
       $mdDialog.hide();
@@ -27,8 +32,8 @@
       $mdDialog.hide();
     };
 
-    vm.createFaculty = function (faculty) {
-      $mdDialog.hide(faculty);
+    vm.createFaculty = function () {
+      $mdDialog.hide(vm.newFaculty);
     };
   }
 })();

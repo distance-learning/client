@@ -181,3 +181,11 @@ md-sidenav ul {
 .ckeditor-style md-input-container .md-placeholder, md-input-container label:not(.md-no-float):not(.md-container-ignore) {
   z-index: 0;
 }
+
+.text-with-simple-style {
+  color: rgb(233, 126, 89);
+}
+
+.separator-top {
+  border-top: 1px dashed rgb(233, 126, 89);
+}
