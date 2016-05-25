@@ -12,6 +12,7 @@
         'angular-svg-round-progressbar',
         'ngCkeditor',
         'angular-clipboard',
+        'treeControl',
         'distanceLearning.auth',
         'distanceLearning.home',
         'distanceLearning.menu',

@@ -2,7 +2,8 @@
   <md-progress-linear md-mode="indeterminate"
                       ng-if="testBuildQuestion.loading"></md-progress-linear>
   <div class="test-build"
-       layout="column" layout-wrap
+       layout="column"
+       layout-wrap
        ng-cloak
        ng-if="!testBuildQuestion.loading">
     <menu-client></menu-client>
@@ -76,12 +77,16 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="test-build-question-buttons">
-      <md-button class="md-raised test-create-question-button"
-                 ng-click="testBuildQuestion.createQuestion()">
-        Додати запитання
-      </md-button>
+      <div class="test-build-question-buttons">
+        <md-button class="md-raised test-create-question-button"
+                   ng-click="testBuildQuestion.createQuestion()">
+          Додати запитання
+        </md-button>
+        <md-button class="md-raised test-create-question-button"
+                   ng-click="testBuildQuestion.cancelQuestion()">
+          Відмінити
+        </md-button>
+      </div>
     </div>
     <footer></footer>
   </div>

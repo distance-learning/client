@@ -6,57 +6,149 @@
       .controller('ProfileTeacherController', ProfileTeacherController);
 
   ProfileTeacherController.$inject = [
-    '$log', '$location', '$mdSidenav',
+    '$log', '$location',
+    '$mdSidenav', '$mdDialog', '$mdToast', '$mdBottomSheet',
     'ProfileUtils', 'ProfileTeacherUtils', 'LoginUtils', 'TestUtils'
   ];
 
-  function ProfileTeacherController($log, $location, $mdSidenav,
+  function ProfileTeacherController($log, $location,
+                                    $mdSidenav, $mdDialog, $mdToast, $mdBottomSheet,
                                     ProfileUtils, ProfileTeacherUtils, LoginUtils, TestUtils) {
     var vm = this;
     vm.loading = true;
     vm.currentSelectedDate = {};
-    vm.user = {};
-    vm.task = {
-      subject: 'Правознавство',
-      describe: 'Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмыслет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмысленного текстаСайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмысленного текста рыбы на русском языке, а начинающему оратору отточить навык публичных выступлений в домашних условиях.При создании генератора мы использовали небезызвестный универсальный код речей. Текст генерируется абзацами случайным образом от двух до десяти предложений в абзаце, что позволяет сделать текст более привлекательным и живым для визуально-слухового восприятия.По своей сути рыбатекст является альтернативой традиционному lorem ipsum, который вызывает у некторых клиентов недоумение при попытках прочитать рыбу текст. В отличии от lorem ipsum, текст рыба на русском языке наполнит любой макет непонятным смыслом и придаст неповторимый колорит советских времен рыбы на русском языке, а начинающему оратору отточить навык публичных выступлений в домашних условиях.При создании генератора мы использовали небезызвестный универсальный код речей. Текст генерируется абзацами случайным образом от двух до десяти предложений в абзаце, что позволяет сделать текст более привлекательным и живым для визуально-слухового восприятия.Значимость этих проблем настолько очевидна, что начало повседневной работы по формированию позиции способствует подготовки и реализации системы обучения кадров, соответствует насущным потребностям. Равным образом постоянный количественный рост и сфера нашей активности позволяет в Равным образом постоянный количественный рост и сфера нашей активности .',
-      student: 'Іванов Іван Іванович'
+    vm.subjectIconURL = '../assests/images/ic_school_black_24px.svg';
+    vm.groupIconURL = '../assests/images/ic_people_black_48px.svg';
+    vm.studentIconURL = '../assests/images/ic_person_outline_black_24px.svg';
+    vm.saveIconURL = './assests/images/ic_save_black_24px.svg';
+    vm.moduleInfoIconURL = './assests/images/ic_mode_edit_black_24px.svg';
+    vm.teacher = {
+        avatar: '../assests/images/user_tmp.png',
+        description: 'Викладач гуманітарних наук'
     };
-    vm.studentContetnLoading = true;
-    vm.groups = [];
-    vm.currentGroup = {};
-    vm.taskIconURL = './assests/images/task.png';
+    vm.CKEditorOptions = {
+      language: 'uk'
+    };
+    vm.CKEditorContent = {
+      target: '',
+      content: ''
+    };
+    vm.treeControl = {
+      data: [
+        { id: 1,
+          name: 'OOP',
+          type: 'subject',
+          children: [
+            { id: 11, name: 'Group 1', type: 'group', children: [
+              { id: 111, name: 'User 1', type: 'student', children: [] }
+            ] },
+            { id: 12, name: 'Group 2', type: 'group', children: [] },
+            { id: 13, name: 'Group 3', type: 'group', children: [] }
+          ]},
+        { id: 2,
+          name: 'math',
+          type: 'subject',
+          children: [
+            { id: 21, name: 'Group 21', type: 'group', children: [
+              { id: 222, name: 'User 21', type: 'student', children: [] }
+            ] },
+            { id: 22, name: 'Group 22', type: 'group', children: [] },
+            { id: 23, name: 'Group 23', type: 'group', children: [] }
+          ]}
+      ],
+      options: {
+        nodeChildren: "children",
+        dirSelectable: true,
+        injectClasses: {
+          ul: "outline-off",
+          li: "outline-off",
+          liSelected: "outline-off text-with-style",
+          iExpanded: "outline-off",
+          iCollapsed: "outline-off",
+          iLeaf: "outline-off",
+          label: "outline-off",
+          labelSelected: "outline-off"
+        }
+      }
+    };
 
     init();
     function init() {
       vm.loading = true;
-      vm.studentContetnLoading = true;
-
       if (!LoginUtils.isLogged()) { return $location.path('/home'); }
 
       ProfileUtils.getUserInfo()
-          .then(function (ok) {
-            vm.user = ok;
-            vm.user.avatar = './assests/images/user_tmp.png';
-            vm.user.description = 'Викладач гуманітарних наук';
+          .then(function (teacher) {
+            vm.teacher = teacher;
+            vm.teacher.avatar = './assests/images/user_tmp.png';
+            vm.teacher.description = 'Викладач гуманітарних наук';
 
-            getInfo(vm.user);
+            //getSubjectWithGroups(vm.teacher);
+            getTeacherModule();
+
+            console.log(vm.teacher);
+            // TODO: remove when getSubjectWithGroups() uncomment
+            vm.loading = false;
           }, function (err) {
             $log.log('[ERROR] ProfileStudentController.LoginUtils.userProfile()', err);
             return $location.path('/home');
           });
     }
 
-    function getInfo(teacher) {
+    function getSubjectWithGroups(teacher) {
       vm.loading = true;
 
-      ProfileTeacherUtils.getSubjects(teacher.id)
+      ProfileTeacherUtils.getSubjectsWithGroups(teacher)
           .then(function (ok) {
-            vm.subjects = ok;
+            vm.treeControl.data = ok;
 
             vm.loading = false;
           }, function (err) {
             $log.log('[ERROR] ProfileTeacherController.getInfo().ProfileTeacherUtils.getGroups()', err);
           });
+    }
+
+    function getTeacherModule() {
+      vm.teacherModuleLoading = true;
+      vm.teacher.modules = [
+        {
+          id: 1,
+          name: 'Module 1',
+          items: [
+            { id: 11, name: 'Module 1 - 1', content: 'Module 1 - 1 content' },
+            { id: 12, name: 'Module 1 - 2', content: 'Module 1 - 2 content' },
+            { id: 13, name: 'Module 1 - 3', content: 'Module 1 - 3 content' }
+          ]
+        },
+        {
+          id: 2,
+          name: 'Module 2',
+          items: [
+            { id: 21, name: 'Module 2 - 1' },
+            { id: 22, name: 'Module 2 - 2' },
+            { id: 23, name: 'Module 2 - 3' }
+          ]
+        },
+        {
+          id: 3,
+          name: 'Module 3',
+          items: [
+            { id: 31, name: 'Module 3- 1' },
+            { id: 32, name: 'Module 3 - 2' },
+            { id: 33, name: 'Module 3 - 3' }
+          ]
+        }
+      ];
+      vm.teacherModuleLoading = false;
+
+      //ProfileTeacherUtils.getTeacherModule()
+      //    .then(function (module) {
+      //      vm.teacher.module = module;
+      //
+      //      vm.teacherModuleLoading = false;
+      //    }, function (err) {
+      //      $log.log('[ERROR] ProfileTeacherController.getTeacherModule().ProfileTeacherUtils.getTeacherModule()', err);
+      //    });
     }
 
     function getTasks(group) {
@@ -68,29 +160,33 @@
           });
     }
 
-    vm.getSubject = function (subject) {
-      ProfileTeacherUtils.getGroups(subject)
-          .then(function (groups) {
-            vm.groups = groups;
-          }, function (err) {
-            console.log(err);
-          });
-    };
-
-    vm.showStudents = function (group) {
-      ProfileTeacherUtils.getStudents(group)
+    function setupTaskForGroup(data) {
+      ProfileTeacherUtils.setupTaskForGroup(data)
           .then(function (ok) {
-            vm.students = ok;
-            console.log(vm.students);
-
-            getTasks(group);
-
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent('Завдання ' + data.data.name + ' для ' + data.target.name + 'збережено')
+                    .hideDelay(3000)
+            );
           }, function (err) {
-            $log.log('[ERROR] ProfileTeacherController.showStudents().ProfileTeacherUtils.getStudents()', err);
+            $log.log('[ERROR] ProfileTeacherController.setupTaskForGroup().ProfileTeacherUtils.setupTaskForGroup()', err);
           });
-    };
+    }
 
-    vm.goToCreateTest = function () {
+    function setupTaskForStudent(data) {
+      ProfileTeacherUtils.setupTaskForStudent(data)
+          .then(function (ok) {
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent('Завдання ' + data.data.name + ' для ' + data.target.name + 'збережено')
+                    .hideDelay(3000)
+            );
+          }, function (err) {
+            $log.log('[ERROR] ProfileTeacherController.setupTaskForGroup().ProfileTeacherUtils.setupTaskForGroup()', err);
+          });
+    }
+
+    function goToCreateTest() {
       vm.loading = true;
 
       TestUtils.createTest()
@@ -100,11 +196,79 @@
           }, function (err) {
             $log.log('[ERROR] ProfileTeacherController.goToCreateTest().TestUtils.createTest()', err);
           });
+    }
 
+    function openModuleCKEditor() {
+      $mdSidenav('ckeditor').toggle();
+    }
+
+    vm.onDropComplete = function (module, event, target) {
+      module.target = target;
+
+      $mdDialog.show(
+          $mdDialog.confirm()
+              .title('Завдання')
+              .textContent(module.data.name + ' для ' + module.target.name)
+              .ok('Підтвердити')
+              .cancel('Відмінити')
+      ).then(function () {
+        if (target.type == 'group') { return setupTaskForGroup(module); }
+        if (target.type == 'student') { return setupTaskForStudent(module); }
+      });
     };
 
-    vm.bindingTaskWithGroup = function () {
-      $mdSidenav('teacher-task-list').toggle();
+    vm.canNgDrop = function (node) {
+      return node.type != 'subject';
     };
+
+    vm.showTeacherOptions = function () {
+      $mdBottomSheet.show({
+        templateUrl: './profile/teacher/options/options.html',
+        controller: 'TeacherOptions',
+        controllerAs: 'teacherOptions',
+        clickOutsideToClose: true
+      }).then(function(option) {
+        console.log(option);
+        if (option.value == 'test') { return goToCreateTest(); }
+        if (option.value == 'module') {
+          vm.CKEditorContent.content = 'Контент модуля';
+
+          return openModuleCKEditor();
+        }
+      });
+    };
+
+    vm.saveCKEditorContent = function () {
+      $mdSidenav('ckeditor').close();
+
+
+
+
+      // remove here
+      vm.CKEditorContent = {
+        target: '',
+        content: ''
+      };
+      getTeacherModule();
+
+      //ProfileTeacherUtils.addModuleContent(vm.CKEditorContent)
+      //    .then(function (ok) {
+      //      vm.CKEditorContent = {
+      //        target: '',
+      //        content: ''
+      //      };
+      //
+      //      getTeacherModule();
+      //    }, function (err) {
+      //      $log.log('[ERROR] ProfileTeacherController.saveCKEditorContent().ProfileTeacherUtils.addModuleContent()', err);
+      //    });
+    };
+
+    vm.showModule = function (module) {
+      vm.CKEditorContent.content = module.content;
+      vm.CKEditorContent.target = module.id;
+
+      openModuleCKEditor();
+    }
   }
 })();

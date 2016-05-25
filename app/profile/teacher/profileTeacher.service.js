@@ -15,10 +15,14 @@
       getStudents: getStudents,
       getStudentTasks: getStudentTasks,
       getFaculties: getFaculties,
-      getSubjects: getSubjects,
-      getTasks: getTasks
+      getSubjectsWithGroups: getSubjectsWithGroups,
+      getTasks: getTasks,
+      setupTaskForGroup: setupTaskForGroup,
+      setupTaskForStudent: setupTaskForStudent,
+      addModuleContent: addModuleContent
     };
 
+    // TODO: deprecated?
     function getGroups(subject) {
       var defer = $q.defer();
 
@@ -97,6 +101,7 @@
       return defer.promise;
     }
 
+    // TODO: deprecated?
     function getStudents(group) {
       var defer = $q.defer();
 
@@ -116,6 +121,7 @@
       return defer.promise;
     }
 
+    // TODO: deprecated?
     function getFaculties(teacher) {
       var defer = $q.defer();
       var faculties = [
@@ -141,29 +147,11 @@
       return defer.promise;
     }
 
-    function getSubjects(teacherId) {
+    function getSubjectsWithGroups(teacher) {
       var defer = $q.defer();
-      var subjects = [
-        {
-          name: 'Sub 1',
-          id: 1
-        },
-        {
-          name: 'Sub 2',
-          id: 2
-        },
-        {
-          name: 'Sub 3',
-          id: 3
-        },
-        {
-          name: 'Sub 4',
-          id: 4
-        }
-      ];
-      //$http.get();
 
-      defer.resolve(subjects);
+      // TODO: need API
+
       return defer.promise;
     }
 
@@ -181,6 +169,36 @@
       }];
 
       defer.resolve(tasks);
+      return defer.promise;
+    }
+
+    function setupTaskForGroup(data) {
+      // data.target = group
+      // data.data = task
+      var defer = $q.defer();
+
+      // TODO: need API
+
+      return defer.promise;
+    }
+
+    function setupTaskForStudent(data) {
+      // data.target = student
+      // data.data = task
+      var defer = $q.defer();
+
+      // TODO: need API
+
+      return defer.promise;
+    }
+
+    function addModuleContent(data) {
+      // data.content = module content
+      // data.target = id moduleGroup
+      var defer = $q.defer();
+
+      // TODO: need API
+
       return defer.promise;
     }
 

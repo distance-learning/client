@@ -39,7 +39,6 @@
   margin: 5px;
 }
 
-.profile-teacher #group-container,
 .profile-student #subject-container {
   margin: 10px;
   padding: 10px;
@@ -49,7 +48,6 @@
   border-radius: 20px;
 }
 
-.profile-teacher #group-container #header,
 .profile-student #subject-container #header {
   font-size: 14px;
   font-family: "Arial";
@@ -58,7 +56,6 @@
   margin: 10px;
 }
 
-.profile-teacher #group-container #header div:last-child,
 .profile-student #subject-container #header div:last-child {
   background-color: rgb(233, 126, 89);
   width: 37px;
@@ -167,7 +164,14 @@
   text-align: center;
 }
 
-.group,
+.group {
+  margin-top: 8px;
+  width: 550px;
+  max-height: 500px;
+  border: 1px solid #E97E59;
+  border-radius: 25px;
+}
+
 .subject {
   margin-top: 8px;
   width: 550px;
@@ -251,8 +255,4 @@
 .group-container .group-container-item {
   cursor: pointer;
   outline: none;
-}
-
-.teacher-bind-task-with-group{
-
 }
