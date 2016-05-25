@@ -1,5 +1,11 @@
 .menu-client .menu-client-normal a {
   text-transform: uppercase;
+  color: #323130;
+}
+
+.menu-client .menu-client-normal a:hover {
+  text-decoration: none;
+  color: #e97e59;
 }
 
 .menu-client .menu-client-sm-button:not([disabled]):hover {
