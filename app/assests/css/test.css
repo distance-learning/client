@@ -2,14 +2,26 @@
   color: rgb(84, 85, 85);
 }
 
+.test-build .test-build-question {
+  border-top: 1px solid rgba(233, 126, 89, 0.3);
+  border-bottom: 1px solid rgba(233, 126, 89, 0.3);
+  height: 150px;
+  overflow: auto;
+  outline: none;
+  cursor: pointer;
+}
+
 .test-build .test-build-container .test-build-content {
   width: 100%;
 }
 
+.test-build .test-build-container .test-build-content .test-build-image-container {
+  width: 200px;
+}
+
 .test-build .test-build-container {
-  border: 1px solid black;
+  border-top: 1px solid rgb(233, 126, 89);
   width: 650px;
-  height: 500px;
   margin-bottom: 20px;
 }
 
@@ -40,19 +52,27 @@
 }
 
 .test-answer-container {
-  width: 100%;
-  max-height: 650px;
+  height: 160px;
   overflow: auto;
+  margin-bottom: 15px;
 }
 
 .test-answer-container .test-answer-item .test-answer-item-name {
   margin: 1px 5px 0 0;
   max-width: 380px;
+  outline: none;
+  cursor: pointer;
+}
+
+.test-answer-container .test-answer-item .test-answer-item-name p {
+  margin: 0;
 }
 
 .test-answer-container .test-answer-item {
   min-height: 15px;
   width: 100%;
+  outline: none;
+  cursor: pointer;
 }
 
 .admin-test-list-template h1 {

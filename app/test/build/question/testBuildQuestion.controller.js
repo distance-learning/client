@@ -7,27 +7,44 @@
 
   TestBuildQuestionController.$inject = [
     '$log', '$location', '$routeParams', 'FileUploader',
+    '$mdSidenav',
     'ProfileUtils', 'LoginUtils', 'TestUtils'
   ];
 
   function TestBuildQuestionController($log, $location, $routeParams, FileUploader,
+                                       $mdSidenav,
                                        ProfileUtils, LoginUtils, TestUtils) {
     var vm = this;
     var testId = $routeParams.testId;
     var questionId = $routeParams.questionId;
+    var countAnswers = 0;
+    vm.targetType = {
+      question: 'question',
+      answer: 'answer'
+    };
     vm.loading = true;
     vm.removeFileIconURL = './assests/images/ic_delete_black_24px.svg';
+    vm.cancelIconURL = './assests/images/ic_delete_black_24px.svg';
     vm.addAnswerFileIconURL = './assests/images/ic_add_black_18px.svg';
+    vm.saveIconURL = './assests/images/ic_save_black_24px.svg';
+    vm.CKEditorOptions = {
+      language: 'uk'
+    };
+    vm.CKEditorContent = {
+      target: '',
+      content: '',
+      indexAnswer: 0
+    };
     vm.question = {
       id: questionId,
       testId: testId,
-      name: 'Запитання',
+      name: '<p>Запитання</p>',
       type: 'single',
       file: undefined,
       answers: [
         {
-          id: 0,
-          body: 'Відповідь',
+          id: countAnswers,
+          body: '<p>Відповідь</p>',
           iscorrectly: false
         }
       ]
@@ -66,7 +83,7 @@
                   vm.question = ok;
                   vm.question.id = questionId;
                   vm.question.testId = testId;
-                  if (!ok.name) { vm.question.name = 'Запитання'; }
+                  if (!ok.name) { vm.question.name = '<p>Запитання</p>'; }
                   if (ok.answers.length === 0) {
                     vm.question.answers.push({
                       id: 0,
@@ -85,32 +102,60 @@
           });
     }
 
-    vm.editQuestionTitle = function (newTitle) {
-      if (!newTitle) { vm.question.name = 'Запитання'; }
-      else { vm.question.name = newTitle; }
+    function clearCKEditor() {
+      vm.CKEditorContent = {
+        target: '',
+        content: '',
+        indexAnswer: 0
+      };
+    }
+
+    vm.openCKEditor = function (data) {
+      clearCKEditor();
+
+      if (data.type == vm.targetType.question) {
+        vm.CKEditorContent.target = vm.targetType.question;
+        vm.CKEditorContent.content = vm.question.name;
+      }
+      if (data.type == vm.targetType.answer) {
+        for(var i in vm.question.answers) {
+          if (vm.question.answers[i].id == data.indexAnswer) {
+            vm.CKEditorContent.target = vm.targetType.answer;
+            vm.CKEditorContent.content = vm.question.answers[i].body;
+            vm.CKEditorContent.indexAnswer = vm.question.answers[i].id;
+          }
+        }
+      }
+
+      $mdSidenav('ckeditor').toggle();
     };
 
     vm.editAnswerName = function (newName, answer) {
       for (var i in vm.question.answers) {
         if (vm.question.answers[i].id == answer.id) {
-          if (!newName) { vm.question.answers[i].body = 'Відповідь'; }
-          else { vm.question.answers[i].body = newName; }
+          if (!newName) {
+            vm.question.answers[i].body = '<p>Відповідь</p>';
+          }
+          else {
+            vm.question.answers[i].body = newName;
+          }
         }
       }
     };
 
-    vm.createQuestion = function () {
+    vm.saveQuestion = function () {
       vm.loading = true;
 
       var countSelectedAnswer = 0;
-      for(var i in vm.question.answers) {
+      for (var i in vm.question.answers) {
         if (vm.question.answers[i].iscorrectly) {
           countSelectedAnswer++;
         }
       }
 
-      console.log(vm.uploader);
-      vm.question.type = countSelectedAnswer == 1 ? 'single' : 'multiSelect';
+      vm.question.type = countSelectedAnswer == 1 ? 'single' : 'multiselect';
+      vm.question.time = (vm.question.time.getHours() * 60) + vm.question.time.getMinutes();
+      console.log(vm.question);
 
       //TestUtils.updateQuestion(vm.question)
       //    .then(function (ok) {
@@ -124,9 +169,10 @@
     };
 
     vm.addAnswer = function () {
+      countAnswers++;
       var answer = {
-        id: vm.question.answers.length,
-        body: 'Відповідь',
+        id: countAnswers,
+        body: '<p>Відповідь</p>',
         iscorrectly: false
       };
 
@@ -142,5 +188,34 @@
       console.log(path);
       $location.path(path);
     };
+
+    vm.saveCKEditorContent = function () {
+      if (vm.CKEditorContent.target == vm.targetType.question) {
+        vm.question.name = vm.CKEditorContent.content;
+      }
+      if (vm.CKEditorContent.target == vm.targetType.answer) {
+        for(var i in vm.question.answers) {
+          if (vm.question.answers[i].id == vm.CKEditorContent.indexAnswer) {
+            vm.question.answers[i].body = vm.CKEditorContent.content;
+          }
+        }
+      }
+
+      clearCKEditor();
+      $mdSidenav('ckeditor').close();
+    };
+
+    vm.removeAnswer = function () {
+      console.log(vm.CKEditorContent.indexAnswer);
+      console.log(vm.question.answers);
+      for (var i in vm.question.answers) {
+        if (vm.CKEditorContent.indexAnswer == vm.question.answers[i].id) {
+          clearCKEditor();
+          $mdSidenav('ckeditor').close();
+
+          return vm.question.answers.splice(i, 1);
+        }
+      }
+    }
   }
 })();

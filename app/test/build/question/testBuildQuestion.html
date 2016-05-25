@@ -2,92 +2,144 @@
   <md-progress-linear md-mode="indeterminate"
                       ng-if="testBuildQuestion.loading"></md-progress-linear>
   <div class="test-build"
-       layout="column"
-       layout-wrap
+       layout="column" layout-wrap
        ng-cloak
        ng-if="!testBuildQuestion.loading">
     <menu-client></menu-client>
     <div layout="column" layout-align="center center">
-      <div class="test-build-container"
-           layout="column" layout-align="start start">
+      <form name="QuestionForm"
+            class="test-build-container"
+            layout="column" layout-align="start start">
         <div class="test-build-content"
              layout="column" layout-align="center start"
              layout-padding>
-          <h3 inline-edit="testBuildQuestion.question.name"
-              inline-edit-callback="testBuildQuestion.editQuestionTitle(newValue)"
-              inline-edit-btn-edit=""
-              inline-edit-on-blur="save"
-              inline-edit-on-click
-              inline-edit-textarea>
-          </h3>
-
-          <div ng-show="testBuildQuestion.uploader.isHTML5"
-               ng-if="!testBuildQuestion.question.image">
-            <div class="drop-file-container"
-                 nv-file-drop="" uploader="testBuildQuestion.uploader"
-                 ng-if="!testBuildQuestion.uploader.queue.length">
-              Перетягніть файл для завантаження(запитання)
+          <div layout layout-align="space-between start"
+               layout-xs="column" layout-align-xs="center center"
+               layout-fill>
+            <div layout="column" layout-align="space-between start">
+              <md-input-container layout-fill>
+                <label>К-сть балів</label>
+                <input type="number" required
+                       ng-model="testBuildQuestion.question.score"/>
+              </md-input-container>
+              <md-input-container layout-fill>
+                <label>Час</label>
+                <input type="time" required
+                       ng-model="testBuildQuestion.question.time"/>
+              </md-input-container>
+              <md-checkbox ng-model="testBuildQuestion.question.isSkipped" aria-label="">
+                Пропустити запитання?
+              </md-checkbox>
             </div>
-            <div layout="column"
-                 ng-if="testBuildQuestion.uploader.queue.length">
-              <b>Ім'я файлу: <span ng-bind="testBuildQuestion.uploader.queue[0].file.name"></span></b>
+            <div class="test-build-image-container"
+                 layout layout-align="space-between start"
+                 layout-xs="column"
+                 layout-fill>
+              <div ng-show="testBuildQuestion.uploader.isHTML5"
+                   ng-if="!testBuildQuestion.question.image">
+                <div class="drop-file-container"
+                     nv-file-drop="" uploader="testBuildQuestion.uploader"
+                     ng-if="!testBuildQuestion.uploader.queue.length">
+                  Перетягніть файл для завантаження(запитання)
+                </div>
+                <div layout="column"
+                     ng-if="testBuildQuestion.uploader.queue.length">
+                  <b>Ім'я файлу: <span ng-bind="testBuildQuestion.uploader.queue[0].file.name"></span></b>
 
-              <div layout>
+                  <div layout>
+                    <md-button class="md-icon-button" aria-label=""
+                               ng-click="testBuildQuestion.uploader.queue[0].remove()">
+                      <md-icon md-svg-icon="{{ testBuildQuestion.removeFileIconURL }}"></md-icon>
+                      <md-tooltip>Видалити</md-tooltip>
+                    </md-button>
+                    <div ng-show="testBuildQuestion.uploader.isHTML5"
+                         ng-thumb="{ file: testBuildQuestion.uploader.queue[0]._file, height: 100 }"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="preview-img"
+                   layout
+                   ng-if="testBuildQuestion.question.image">
                 <md-button class="md-icon-button" aria-label=""
-                           ng-click="testBuildQuestion.uploader.queue[0].remove()">
+                           ng-click="testBuildQuestion.removeImg()">
                   <md-icon md-svg-icon="{{ testBuildQuestion.removeFileIconURL }}"></md-icon>
                   <md-tooltip>Видалити</md-tooltip>
                 </md-button>
-                <div ng-show="testBuildQuestion.uploader.isHTML5"
-                     ng-thumb="{ file: testBuildQuestion.uploader.queue[0]._file, height: 100 }"></div>
+                <img ng-src="{{ testBuildQuestion.question.image }}" alt=""/>
               </div>
             </div>
           </div>
-          <div class="preview-img"
-               layout
-               ng-if="testBuildQuestion.question.image">
-            <md-button class="md-icon-button" aria-label=""
-                       ng-click="testBuildQuestion.removeImg()">
-              <md-icon md-svg-icon="{{ testBuildQuestion.removeFileIconURL }}"></md-icon>
-              <md-tooltip>Видалити</md-tooltip>
-            </md-button>
-            <img ng-src="{{ testBuildQuestion.question.image }}" alt=""/>
+          <div layout layout-fill>
+            <div class="test-build-question ckeditor-style"
+                 ng-bind-html="testBuildQuestion.question.name"
+                 ng-click="testBuildQuestion.openCKEditor({ content: testBuildQuestion.question.name, type: testBuildQuestion.targetType.question })"
+                 layout-fill layout-padding>
+            </div>
           </div>
-
-          <md-button class="md-icon-button" aria-label=""
-                     ng-click="testBuildQuestion.addAnswer()">
-            <md-icon md-svg-icon="{{ testBuildQuestion.addAnswerFileIconURL }}"></md-icon>
-            <md-tooltip md-direction="right">Додати варіант</md-tooltip>
-          </md-button>
-          <div class="test-answer-container"
-               layout="column" layout-padding layout-wrap>
-            <div class="test-answer-item"
-                 layout layout-xs="column" layout-align="start start"
-                 ng-repeat="answer in testBuildQuestion.question.answers track by $index">
-              <md-checkbox ng-model="answer.iscorrectly" aria-label=""></md-checkbox>
-              <div class="test-answer-item-name" layout-margin
-                   inline-edit="answer.body"
-                   inline-edit-callback="testBuildQuestion.editAnswerName(newValue, answer)"
-                   inline-edit-btn-edit=""
-                   inline-edit-on-blur="save"
-                   inline-edit-on-click
-                   inline-edit-textarea>
+          <div layout="column" layout-align="start start"
+               layout-fill>
+            <md-button class="md-icon-button" aria-label=""
+                       ng-click="testBuildQuestion.addAnswer()">
+              <md-icon md-svg-icon="{{ testBuildQuestion.addAnswerFileIconURL }}"></md-icon>
+              <md-tooltip md-direction="right">Додати варіант</md-tooltip>
+            </md-button>
+            <div layout layout-align="space-between start"
+                 layout-fill>
+              <div class="test-answer-container"
+                   layout layout-align="start start"
+                   layout-fill layout-wrap>
+                <div class="test-answer-item"
+                     layout layout-xs="column" layout-align="space-between start"
+                     ng-repeat="answer in testBuildQuestion.question.answers track by $index">
+                  <div layout>
+                    <md-checkbox ng-model="answer.iscorrectly" aria-label=""></md-checkbox>
+                    <div class="test-answer-item-name ckeditor-style"
+                         ng-bind-html="answer.body"
+                         ng-click="testBuildQuestion.openCKEditor({ content: answer.body, type: testBuildQuestion.targetType.answer, indexAnswer: answer.id })"
+                         layout-margin>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </form>
       <div class="test-build-question-buttons">
         <md-button class="md-raised test-create-question-button"
-                   ng-click="testBuildQuestion.createQuestion()">
-          Додати запитання
-        </md-button>
-        <md-button class="md-raised test-create-question-button"
-                   ng-click="testBuildQuestion.cancelQuestion()">
-          Відмінити
+                   ng-click="testBuildQuestion.saveQuestion()"
+                   ng-disabled="QuestionForm.$invalid">
+          Зберегти
         </md-button>
       </div>
     </div>
+    <div class="test-build-question-buttons">
+      <md-button class="md-raised test-create-question-button"
+                 ng-click="testBuildQuestion.createQuestion()">
+        Додати запитання
+      </md-button>
+    </div>
     <footer></footer>
   </div>
+  <md-sidenav class="md-sidenav-left ckeditor-style"
+              md-component-id="ckeditor"
+              layout="column" layout-align="space-between stretch">
+    <textarea ckeditor="testBuildQuestion.CKEditorOptions" ng-model="testBuildQuestion.CKEditorContent.content"
+              layout-margin></textarea>
+
+    <div layout layout-aligment="start center">
+      <span flex></span>
+      <md-button class="md-icon-button"
+                 ng-click="testBuildQuestion.saveCKEditorContent()">
+        <md-icon md-svg-icon="{{ testBuildQuestion.saveIconURL }}"></md-icon>
+        <md-tooltip md-direction="top">Зберегти</md-tooltip>
+      </md-button>
+      <md-button class="md-icon-button"
+                 ng-click="testBuildQuestion.removeAnswer()"
+                 ng-if="testBuildQuestion.CKEditorContent.target == testBuildQuestion.targetType.answer">
+        <md-icon md-svg-icon="{{ testBuildQuestion.cancelIconURL }}"></md-icon>
+        <md-tooltip md-direction="top">Видалити</md-tooltip>
+      </md-button>
+    </div>
+  </md-sidenav>
 </div>

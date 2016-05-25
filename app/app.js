@@ -11,6 +11,7 @@
         'ngDraggable',
         'angular-svg-round-progressbar',
         'ngCkeditor',
+        'ngSanitize',
         'angular-clipboard',
         'treeControl',
         'distanceLearning.auth',

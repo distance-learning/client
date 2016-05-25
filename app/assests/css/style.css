@@ -86,8 +86,8 @@ md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value la
   background-color: #f5f5f5;
   border: 1px solid #e3e3e3;
   border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 
 .non-select {
@@ -105,7 +105,7 @@ md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value la
   cursor: pointer;
 }
 
-[ng-drag].dragging{
+[ng-drag].dragging {
   background-color: rgb(252, 255, 123);
 }
 
@@ -119,7 +119,7 @@ md-checkbox.md-default-theme.md-checked .md-label, md-checkbox.md-checked {
 }
 
 md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-icon,
-md-radio-button:not([disabled]).md-primary .md-on{
+md-radio-button:not([disabled]).md-primary .md-on {
   background-color: rgb(233, 126, 89);
 }
 
@@ -161,4 +161,23 @@ md-bottom-sheet.md-grid md-list-item .md-grid-text {
 
 md-bottom-sheet.md-grid {
   position: fixed;
+}
+md-sidenav ul {
+  list-style: inherit;
+}
+
+.cke_contents,
+.ckeditor-style {
+  color: black !important;
+  overflow: hidden;
+}
+
+.ckeditor-style h1, .ckeditor-style h2, .ckeditor-style h3, .ckeditor-style h4, .ckeditor-style h5, .ckeditor-style h6,
+.cke_contents h1, .cke_contents h2, .cke_contents h3, .cke_contents h4, .cke_contents h5, .cke_contents h6 {
+  color: rgb(233, 126, 89) !important;
+}
+
+
+.ckeditor-style md-input-container .md-placeholder, md-input-container label:not(.md-no-float):not(.md-container-ignore) {
+  z-index: 0;
 }

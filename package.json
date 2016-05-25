@@ -23,6 +23,7 @@
     "angular-file-upload": "^2.2.0",
     "angular-material": "^1.0.1",
     "angular-route": "^1.4.8",
+    "angular-sanitize": "^1.5.5",
     "angular-svg-round-progressbar": "git+https://github.com/crisbeto/angular-svg-round-progressbar.git",
     "angular-tree-control": "^0.2.26",
     "ng-ckeditor": "git+https://github.com/esvit/ng-ckeditor.git#8b9ece3",
