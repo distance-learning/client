@@ -114,3 +114,7 @@
   margin-right: inherit;
   color: black;
 }
+
+.fix-footer {
+  min-height: calc(100% - 434px);
+}
