@@ -1,0 +1,9 @@
+.dl-file-upload-image img{
+  width: 150px;
+  height: 150px;
+}
+
+.dl-file-upload-file img {
+  width: 300px;
+  height: 200px;
+}

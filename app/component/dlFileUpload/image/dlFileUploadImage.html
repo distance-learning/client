@@ -1,0 +1,91 @@
+<md-dialog aria-label="" class="dl-file-upload-image" ng-cloak>
+  <md-toolbar>
+    <div class="md-toolbar-tools dl-file-upload-image-header"
+         layout layout-align="space-between center">
+      <h2>Менеджер зображень</h2>
+      <md-button class="md-icon-button"
+                 ng-click="dlFileUploadImage.close()">
+        <md-icon md-svg-icon="{{ dlFileUploadImage.closeIconURL }}"></md-icon>
+        <md-tooltip>Закрити</md-tooltip>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div class="md-dialog-content dl-file-upload-image-content"
+         layout>
+      <md-tabs md-dynamic-height md-border-bottom
+               layout-fill>
+        <md-tab label="Додати файл">
+          <md-content class="md-padding"
+                      layout layout-xs="column"
+                      layout-align="space-between start">
+            <div ng-show="dlFileUploadImage.uploader.isHTML5">
+              <div class="drop-file-container"
+                   nv-file-drop="" uploader="dlFileUploadImage.uploader"
+                   ng-if="!dlFileUploadImage.uploader.queue.length">
+                Перетягніть файл для завантаження (зображеня)
+              </div>
+              <div layout="column"
+                   ng-if="dlFileUploadImage.uploader.queue.length">
+
+                <h3 inline-edit="dlFileUploadImage.uploader.queue[0].file.name"
+                    inline-edit-callback="dlFileUploadImage.editFileName(newValue)"
+                    inline-edit-btn-edit=""
+                    inline-edit-on-blur="save"
+                    inline-edit-on-click>
+                </h3>
+
+                <div layout>
+                  <md-button class="md-icon-button" aria-label=""
+                             ng-click="dlFileUploadImage.uploader.queue[0].remove()">
+                    <md-icon md-svg-icon="{{ dlFileUploadImage.removeFileIconURL }}"></md-icon>
+                    <md-tooltip>Видалити</md-tooltip>
+                  </md-button>
+                  <div ng-show="dlFileUploadImage.uploader.isHTML5"
+                       ng-thumb="{ file: dlFileUploadImage.uploader.queue[0]._file, height: 100 }"></div>
+                </div>
+              </div>
+              <div layout layout-align="start center"
+                   layout-fill>
+                <span flex></span>
+                <md-button class="md-icon-button"
+                           ng-click="dlFileUploadImage.uploader.uploadAll()">
+                  <md-icon md-svg-icon="{{ dlFileUploadImage.uploadFileIconURL }}"></md-icon>
+                  <md-tooltip>Завантажити</md-tooltip>
+                </md-button>
+                <md-button class="md-icon-button"
+                           ng-click="dlFileUploadImage.uploader.clearQueue()">
+                  <md-icon md-svg-icon="{{ dlFileUploadImage.cancelUploadIconURL }}"></md-icon>
+                  <md-tooltip>Видалити</md-tooltip>
+                </md-button>
+              </div>
+            </div>
+          </md-content>
+        </md-tab>
+        <md-tab label="Файли">
+          <md-content class="md-padding">
+            <md-progress-linear md-mode="indeterminate"
+                                ng-if="dlFileUploadImage.loadingImages"></md-progress-linear>
+            <div ng-if="!dlFileUploadImage.loadingImages"
+                 layout-margin>
+              <img ng-src="{{ image }}"
+                   ng-repeat="image in dlFileUploadImage.images.data track by $index"
+                   clipboard supported="true" text="image"
+                   on-copied="dlFileUploadImage.clipboardSuccess()"
+                   on-error="dlFileUploadImage.clipboardFail(err)"
+                   layout-margin>
+              </img>
+              <div class="pagination"
+                   layout layout-align="center center">
+                <div class="pagination-page"
+                     ng-repeat="page in dlFileUploadImage.range(dlFileUploadImage.images.total) track by $index"
+                     ng-click="groupList.jumpToPageImages($index + 1)">
+                </div>
+              </div>
+            </div>
+          </md-content>
+        </md-tab>
+      </md-tabs>
+    </div>
+  </md-dialog-content>
+</md-dialog>

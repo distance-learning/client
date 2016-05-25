@@ -109,17 +109,18 @@
         }
       }
 
+      console.log(vm.uploader);
       vm.question.type = countSelectedAnswer == 1 ? 'single' : 'multiSelect';
 
-      TestUtils.updateQuestion(vm.question)
-          .then(function (ok) {
-            var path = '/test/' + testId + '/edit';
-            $location.path(path);
-
-            vm.loading = false;
-          }, function (err) {
-            $log.log('[ERROR] TestBuildQuestionController.createQuestion().TestUtils.updateQuestion()', err);
-          });
+      //TestUtils.updateQuestion(vm.question)
+      //    .then(function (ok) {
+      //      var path = '/test/' + testId + '/edit';
+      //      $location.path(path);
+      //
+      //      vm.loading = false;
+      //    }, function (err) {
+      //      $log.log('[ERROR] TestBuildQuestionController.createQuestion().TestUtils.updateQuestion()', err);
+      //    });
     };
 
     vm.addAnswer = function () {
