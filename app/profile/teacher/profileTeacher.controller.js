@@ -34,28 +34,7 @@
       content: ''
     };
     vm.treeControl = {
-      data: [
-        { id: 1,
-          name: 'OOP',
-          type: 'subject',
-          children: [
-            { id: 11, name: 'Group 1', type: 'group', children: [
-              { id: 111, name: 'User 1', type: 'student', children: [] }
-            ] },
-            { id: 12, name: 'Group 2', type: 'group', children: [] },
-            { id: 13, name: 'Group 3', type: 'group', children: [] }
-          ]},
-        { id: 2,
-          name: 'math',
-          type: 'subject',
-          children: [
-            { id: 21, name: 'Group 21', type: 'group', children: [
-              { id: 222, name: 'User 21', type: 'student', children: [] }
-            ] },
-            { id: 22, name: 'Group 22', type: 'group', children: [] },
-            { id: 23, name: 'Group 23', type: 'group', children: [] }
-          ]}
-      ],
+      data: [],
       options: {
         nodeChildren: "children",
         dirSelectable: true,
@@ -83,29 +62,50 @@
             vm.teacher.avatar = './assests/images/user_tmp.png';
             vm.teacher.description = 'Викладач гуманітарних наук';
 
-            //getSubjectWithGroups(vm.teacher);
+            getSubjectWithGroups();
             getTeacherModule();
-
-            console.log(vm.teacher);
-            // TODO: remove when getSubjectWithGroups() uncomment
-            vm.loading = false;
           }, function (err) {
             $log.log('[ERROR] ProfileStudentController.LoginUtils.userProfile()', err);
             return $location.path('/home');
           });
     }
 
-    function getSubjectWithGroups(teacher) {
+    function getSubjectWithGroups() {
       vm.loading = true;
 
-      ProfileTeacherUtils.getSubjectsWithGroups(teacher)
+      ProfileTeacherUtils.getSubjectsWithGroups()
           .then(function (ok) {
-            vm.treeControl.data = ok;
+            vm.treeControl.data = prepareSubjectWithGroups(ok);
 
             vm.loading = false;
           }, function (err) {
             $log.log('[ERROR] ProfileTeacherController.getInfo().ProfileTeacherUtils.getGroups()', err);
           });
+    }
+
+    function prepareSubjectWithGroups(data) {
+      var result = [];
+      var item = {};
+
+      for(var i in data) {
+        item = data[i];
+        item.type = 'subject';
+        item.children = data[i].groups;
+
+
+        for(var j in item.children) {
+          item.children[j].type = 'group';
+          item.children[j].children = item.children[j].students;
+
+          for(var z in item.children[j].children) {
+            item.children[j].children[z].type = 'student';
+          }
+        }
+
+        result.push(item);
+      }
+
+      return result;
     }
 
     function getTeacherModule() {

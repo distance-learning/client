@@ -13,7 +13,7 @@
   function SubjectDialogController($mdDialog,
                                    subject, faculties) {
     var vm = this;
-    vm.course = subject;
+    vm.subject = subject;
     vm.faculties = faculties;
 
     vm.hide = function () {

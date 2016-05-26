@@ -6,10 +6,12 @@
       .factory('ProfileTeacherUtils', ProfileTeacherUtils);
 
   ProfileTeacherUtils.$inject = [
-    '$q', '$http'
+    '$q', '$http',
+    'server_host'
   ];
 
-  function ProfileTeacherUtils($q, $http) {
+  function ProfileTeacherUtils($q, $http,
+                               server_host) {
     var service = {
       getGroups: getGroups,
       getStudents: getStudents,
@@ -147,10 +149,12 @@
       return defer.promise;
     }
 
-    function getSubjectsWithGroups(teacher) {
+    function getSubjectsWithGroups() {
       var defer = $q.defer();
 
-      // TODO: need API
+      $http.get(server_host + 'api/account/subjects')
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }
