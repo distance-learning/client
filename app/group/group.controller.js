@@ -18,8 +18,11 @@
     vm.loading = true;
     vm.saveGroupIconURL = './assests/images/ic_save_black_24px.svg';
     vm.removeStudentIconURL = './assests/images/ic_remove_circle_black_18px.svg';
+    vm.addStudentIconURL = './assests/images/ic_add_black_18px.svg';
+    vm.offStudentIconURL = './assests/images/ic_remove_circle_black_18px.svg';
     vm.loadingStudents = true;
     vm.groupInfo = {};
+    vm.isUpdateGroup = false;
 
     init();
     function init() {
@@ -258,6 +261,29 @@
               $log.log('[ERROR] GroupController.removeStudentFromGroup().GroupUtils.removeStudentFromGroup()', err);
             });
       });
+    };
+
+    vm.addStudentInGroup = function () {
+      vm.isUpdateGroup = true;
+    };
+
+    vm.offStudentInGroup = function () {
+      vm.isUpdateGroup = false;
+    };
+
+    vm.addStudentsOnGroup = function (student) {
+      GroupUtils.addStudentInGroup({ group: vm.groupInfo, student: student })
+          .then(function (ok) {
+            GroupUtils.getGroup(vm.groupInfo)
+                .then(function (group) {
+                  vm.groupInfo = group;
+
+                }, function (err) {
+                  $log.log('[ERROR] GroupController.addStudentsOnGroup().GroupUtils.addStudentInGroup(). GroupUtils.getGroup()', err);
+                });
+          }, function (err) {
+            $log.log('[ERROR] GroupController.addStudentsOnGroup().GroupUtils.addStudentInGroup()', err);
+          });
     };
   }
 })();
