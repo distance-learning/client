@@ -38,7 +38,7 @@
           .success(defer.resolve)
           .error(defer.reject);
 
-      return defer.promise();
+      return defer.promise;
     }
 
     function getUploadURL() {

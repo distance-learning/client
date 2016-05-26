@@ -19,14 +19,7 @@
     vm.uploadFileIconURL = './assests/images/ic_cloud_upload_black_24px.svg';
     vm.cancelUploadIconURL = './assests/images/ic_remove_circle_black_18px.svg';
     vm.images = {
-      data:[
-        'http://distance-learning.herokuapp.com/uploads/questions/32e78e6d1f318aeaad8c57eb366574ab.jpg',
-        'http://distance-learning.herokuapp.com/uploads/questions/32e78e6d1f318aeaad8c57eb366574ab.jpg',
-        'http://distance-learning.herokuapp.com/uploads/questions/32e78e6d1f318aeaad8c57eb366574ab.jpg',
-        'http://distance-learning.herokuapp.com/uploads/questions/32e78e6d1f318aeaad8c57eb366574ab.jpg',
-        'http://distance-learning.herokuapp.com/uploads/questions/32e78e6d1f318aeaad8c57eb366574ab.jpg',
-        'http://distance-learning.herokuapp.com/uploads/questions/32e78e6d1f318aeaad8c57eb366574ab.jpg'
-      ],
+      data:[],
       total: 10
     };
     vm.imagesParams = {
@@ -50,13 +43,14 @@
       }
     });
 
-    //getImages();
+    getImages();
     function getImages() {
       vm.loadingImages = false;
 
       dlFileUploadUtils.getImages(vm.imagesParams)
           .then(function (images) {
-            vm.images = images;
+            vm.images.data = images.data;
+            vm.images.total = images.total;
 
             vm.loadingImages = false;
           }, function (err) {
@@ -95,6 +89,22 @@
 
     vm.editFileName = function (fileName) {
       vm.uploader.queue[0].file.name = fileName;
+    };
+
+    vm.uploader.onSuccessItem = function(fileItem, response, status, headers) {
+      if (status != 200) {
+        return $mdToast.show(
+            $mdToast.simple()
+                .textContent('Помилка при завантажені файлу')
+                .hideDelay(3000)
+        );
+      }
+
+      $mdToast.show(
+          $mdToast.simple()
+              .textContent('Файл ' + fileItem.filename + 'завантажено')
+              .hideDelay(3000)
+      );
     };
   }
 })();

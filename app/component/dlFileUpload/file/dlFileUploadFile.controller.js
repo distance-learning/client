@@ -20,28 +20,7 @@
     vm.cancelUploadIconURL = './assests/images/ic_remove_circle_black_18px.svg';
     vm.templateFileIconURL = './assests/images/ic_data_usage_black_24px.svg';
     vm.files = {
-      data: [
-        {
-          name: '123123123123.pdf',
-          url: 'http://distance-learning.herokuapp.com/uploads/questions/ef8139e6a066dd320537f29f9f2a351b.jpg'
-        },
-        {
-          name: 'sdasdasd.pdf',
-          url: 'http://distance-learning.herokuapp.com/uploads/questions/ef8139e6a066dd320537f29f9f2a351b.jpg'
-        },
-        {
-          name: '12312xzc zxc zxc 3123123.pdf',
-          url: 'http://distance-learning.herokuapp.com/uploads/questions/ef8139e6a066dd320537f29f9f2a351b.jpg'
-        },
-        {
-          name: '123123123 sad ad 123123.pdf',
-          url: 'http://distance-learning.herokuapp.com/uploads/questions/ef8139e6a066dd320537f29f9f2a351b.jpg'
-        },
-        {
-          name: '123123 12 312 3 12   21//asd/ /as d/123123.pdf',
-          url: 'http://distance-learning.herokuapp.com/uploads/questions/ef8139e6a066dd320537f29f9f2a351b.jpg'
-        }
-      ],
+      data: [ ],
       total: 10
     };
     vm.filesParams = {
@@ -58,7 +37,7 @@
       }
     });
 
-    //getFiles();
+    getFiles();
     function getFiles() {
       vm.loadingFiles = false;
 
@@ -106,6 +85,22 @@
 
     vm.editFileName = function (fileName) {
       vm.uploader.queue[0].file.name = fileName;
+    };
+
+    vm.uploader.onSuccessItem = function(fileItem, response, status, headers) {
+      if (status != 200) {
+        return $mdToast.show(
+            $mdToast.simple()
+                .textContent('Помилка при завантажені файлу')
+                .hideDelay(3000)
+        );
+      }
+
+      $mdToast.show(
+          $mdToast.simple()
+              .textContent('Файл ' + fileItem.filename + 'завантажено')
+              .hideDelay(3000)
+      );
     };
   }
 })();

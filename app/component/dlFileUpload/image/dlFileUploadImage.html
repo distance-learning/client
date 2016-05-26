@@ -68,9 +68,9 @@
                                 ng-if="dlFileUploadImage.loadingImages"></md-progress-linear>
             <div ng-if="!dlFileUploadImage.loadingImages"
                  layout-margin>
-              <img ng-src="{{ image }}"
+              <img ng-src="{{ image.path }}"
                    ng-repeat="image in dlFileUploadImage.images.data track by $index"
-                   clipboard supported="true" text="image"
+                   clipboard supported="true" text="image.path"
                    on-copied="dlFileUploadImage.clipboardSuccess()"
                    on-error="dlFileUploadImage.clipboardFail(err)"
                    layout-margin>

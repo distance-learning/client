@@ -61,15 +61,20 @@
                                 ng-if="dlFileUploadFile.loadingFiles"></md-progress-linear>
             <div ng-if="!dlFileUploadFile.loadingFiles"
                  layout-margin>
+              <div ng-if="!dlFileUploadFile.files.data.length">
+                <h1 class="text-with-simple-style">Файлів не завантажено</h1>
+              </div>
               <div ng-repeat="file in dlFileUploadFile.files.data track by $index"
-                   clipboard supported="true" text="file.url"
+                   clipboard supported="true" text="file.path"
                    on-copied="dlFileUploadFile.clipboardSuccess()"
                    on-error="dlFileUploadFile.clipboardFail(err)"
+                   ng-if="dlFileUploadFile.files.data.length"
                    layout-margin>
-                {{ file.name }}
+                {{ file.filename }}
               </div>
               <div class="pagination"
-                   layout layout-align="center center">
+                   layout layout-align="center center"
+                   ng-if="dlFileUploadFile.files.data.length">
                 <div class="pagination-page"
                      ng-repeat="page in dlFileUploadFile.range(dlFileUploadFile.files.total) track by $index"
                      ng-click="dlFileUploadFile.jumpToPageFiles($index + 1)">
