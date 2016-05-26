@@ -101,6 +101,7 @@ md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value la
 .wrapper-item {
   border: 1px solid rgba(233, 126, 89, 0.5);
 }
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -182,8 +183,13 @@ md-sidenav ul {
   z-index: 0;
 }
 
-.text-with-simple-style {
+.text-with-simple-style,
+.text-with-simple-style-hover:hover{
   color: rgb(233, 126, 89);
+}
+
+.text-without-style {
+  color: black;
 }
 
 .separator-top {

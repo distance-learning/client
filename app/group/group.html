@@ -107,7 +107,9 @@
               <div ng-if="!groupList.groups.length">
                 Список груп порожній
               </div>
-              <div ng-repeat="group in groupList.groups track by $index">
+              <div class="outline-off text-with-simple-style-hover cursor-pointer"
+                   ng-repeat="group in groupList.groups track by $index"
+                   ng-click="groupList.showGroup(group)">
                 <md-icon class="group-student-remove-img"
                          md-svg-src="{{ groupList.removeStudentIconURL }}" aria-label=""
                          ng-click="groupList.removeGroup($event, group)"></md-icon>
@@ -127,4 +129,24 @@
       </md-tabs>
     </div>
   </div>
+  <md-sidenav class="md-sidenav-right"
+              md-component-id="groupInfo"
+              layout="column" layout-align="space-between stretch">
+    <div>
+      <h1 class="text-with-simple-style">{{ groupList.groupInfo.name }}</h1>
+
+      <div class="text-with-simple-style"
+           ng-if="!groupList.groupInfo.students.length">
+        Група порожня
+      </div>
+      <div class="text-with-simple-style-hover text-without-style cursor-pointer outline-off"
+           ng-repeat="student in groupList.groupInfo.students track by $index"
+           ng-click="groupList.removeStudentFromGroup(student)">
+        {{ student.surname }} {{ student.name }}
+      </div>
+    </div>
+    <div class="text-with-simple-style">
+      Натисніть на студента для видалення
+    </div>
+  </md-sidenav>
 </div>

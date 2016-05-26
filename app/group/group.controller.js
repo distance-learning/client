@@ -6,17 +6,20 @@
       .controller('GroupController', GroupController);
 
   GroupController.$inject = [
-    '$location', '$log', '$mdDialog',
+    '$location', '$log',
+    '$mdDialog', '$mdSidenav',
     'LoginUtils', 'GroupUtils'
   ];
 
-  function GroupController($location, $log, $mdDialog,
+  function GroupController($location, $log,
+                           $mdDialog, $mdSidenav,
                            LoginUtils, GroupUtils) {
     var vm = this;
     vm.loading = true;
     vm.saveGroupIconURL = './assests/images/ic_save_black_24px.svg';
     vm.removeStudentIconURL = './assests/images/ic_remove_circle_black_18px.svg';
     vm.loadingStudents = true;
+    vm.groupInfo = {};
 
     init();
     function init() {
@@ -217,6 +220,44 @@
               $log.log('[ERROR] GroupController.removeGroup().GroupUtils.removeGroup()', err);
             });
       });
-    }
+    };
+
+    vm.showGroup = function (group) {
+      GroupUtils.getGroup(group)
+          .then(function (group) {
+            vm.groupInfo = group;
+
+            $mdSidenav('groupInfo').toggle();
+          }, function (err) {
+            $log.log('[ERROR] GroupController.showGroup().GroupUtils.getGroup()', err);
+          });
+    };
+
+    vm.removeStudentFromGroup = function (student) {
+      $mdDialog.show(
+          $mdDialog.confirm()
+              .title('Видалення')
+              .textContent('Видалення студента [' + student.surname + ' ' + student.name + '] із групи [' + vm.groupInfo.name + ']')
+              .ok('Підтвердити')
+              .cancel('Відмінити')
+      ).then(function () {
+        var data = {
+          student: student,
+          group: vm.groupInfo
+        };
+        $mdSidenav('groupInfo').close();
+
+        GroupUtils.removeStudentFromGroup(data)
+            .then(function (ok) {
+              $mdToast.show(
+                  $mdToast.simple()
+                      .textContent('Студента ' + data.student.surname + ' ' + data.student.name + 'видалено із групи' + data.group.name)
+                      .hideDelay(3000)
+              );
+            }, function (err) {
+              $log.log('[ERROR] GroupController.removeStudentFromGroup().GroupUtils.removeStudentFromGroup()', err);
+            });
+      });
+    };
   }
 })();
