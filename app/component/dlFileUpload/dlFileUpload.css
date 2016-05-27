@@ -8,6 +8,13 @@
   height: 200px;
 }
 
+.dl-file-upload-file,
+.dl-file-upload-image {
+  min-width: 350px;
+  min-height: 300px;
+}
+
+
 .dl-file-upload-file .dl-file-upload-file-header,
 .dl-file-upload-image .dl-file-upload-image-header{
   background-color: #e97e59;

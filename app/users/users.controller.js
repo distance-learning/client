@@ -13,7 +13,7 @@
   function UsersController($log, $mdDialog, $location,
                            UsersUtils, LoginUtils, ProfileUtils) {
     var vm = this;
-    var countUsersInPage = 15;
+    var countUsersInPage = 10;
     vm.isOpen = true;
     vm.managerUserIconURL = './assests/images/ic_more_vert_black_24px.svg';
     vm.menuUserIconURL = './assests/images/ic_menu_black_24px.svg';
