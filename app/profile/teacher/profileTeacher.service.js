@@ -21,7 +21,10 @@
       getTasks: getTasks,
       setupTaskForGroup: setupTaskForGroup,
       setupTaskForStudent: setupTaskForStudent,
-      addModuleContent: addModuleContent
+      addModuleContent: addModuleContent,
+      getTaskForGroup: getTaskForGroup,
+      getTaskForStudent: getTaskForStudent,
+      removeTask: removeTask
     };
 
     // TODO: deprecated?
@@ -199,6 +202,32 @@
     function addModuleContent(data) {
       // data.content = module content
       // data.target = id moduleGroup
+      var defer = $q.defer();
+
+      // TODO: need API
+
+      return defer.promise;
+    }
+
+    function getTaskForGroup(group) {
+      var defer = $q.defer();
+
+      // TODO: need API
+
+      return defer.promise;
+    }
+
+    function getTaskForStudent (student) {
+      var defer = $q.defer();
+
+      // TODO: need API
+
+      return defer.promise;
+    }
+
+    function removeTask(data) {
+      //data.task
+      //data.target = group | student
       var defer = $q.defer();
 
       // TODO: need API
