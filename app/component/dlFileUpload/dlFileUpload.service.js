@@ -18,6 +18,7 @@
       getImages: getImages,
       getFiles: getFiles,
       getUploadURL: getUploadURL,
+      getUploadImageProfileURL: getUploadImageProfileURL,
       getUploadHeader: getUploadHeader
     };
 
@@ -43,6 +44,10 @@
 
     function getUploadURL() {
       return server_host + 'api/files';
+    }
+
+    function getUploadImageProfileURL() {
+      return server_host + 'api/user/profile/image';
     }
 
     function getUploadHeader() {

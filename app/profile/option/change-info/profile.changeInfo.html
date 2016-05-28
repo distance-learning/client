@@ -14,14 +14,32 @@
             layout="column" layout-align="space-around center"
             layout-magin layout-padding
             layout-fill>
-        <md-input-container>
-          <label>Прізвище</label>
-          <input ng-model="UserChangeInfo.user.surname">
-        </md-input-container>
-        <md-input-container>
-          <label>Ім'я</label>
-          <input ng-model="UserChangeInfo.user.name">
-        </md-input-container>
+        <div layout layout-align="space-between center"
+             layout-xs layout-align-xs="space-around center"
+             layout-fill>
+          <div layout="column" layout-align="start start"
+               layout-fill>
+            <md-input-container>
+              <label>Прізвище</label>
+              <input ng-model="UserChangeInfo.user.surname">
+            </md-input-container>
+            <md-input-container>
+              <label>Ім'я</label>
+              <input ng-model="UserChangeInfo.user.name">
+            </md-input-container>
+          </div>
+          <div layout="column" layout-align="center center"
+               layout-margin layout-padding>
+            <img ng-src="{{ UserChangeInfo.user.image }}" alt=""
+                 ng-if="!UserChangeInfo.uploader.queue[0]._file"/>
+
+            <div ng-show="UserChangeInfo.uploader.isHTML5"
+                 ng-if="UserChangeInfo.uploader.queue[0]._file"
+                 ng-thumb="{ file: UserChangeInfo.uploader.queue[0]._file, height: 100 }"></div>
+            <input type="file" nv-file-select="" uploader="UserChangeInfo.uploader"
+                   ng-if="!UserChangeInfo.uploader.queue[0]._file"/>
+          </div>
+        </div>
         <md-input-container>
           <label>Електрона скринька</label>
           <input type="email" ng-model="UserChangeInfo.user.email">
@@ -36,7 +54,7 @@
         </div>
         <div layout layout-align="space-around center">
           <md-button class="md-raised dl-reset-pass-button" type="submit"
-                     ng-click="UserChangeInfo.changeInformation(UserChangeInfo.user)"
+                     ng-click="UserChangeInfo.changeInformation()"
                      ng-disabled="UserChangeInfo.$invalid">
             Зберегти
           </md-button>
