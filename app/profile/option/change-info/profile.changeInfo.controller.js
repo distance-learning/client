@@ -50,7 +50,7 @@
     }
 
     function prepareToShow(user) {
-      if (!user.image) { user.image = './assests/images/nophoto_user.png'; }
+      if (user.avatar == null) { user.avatar = { path: './assests/images/nophoto_user.png' }}
       if (!user.birthday) {
         user.birthday = null;
         return user;
@@ -75,10 +75,7 @@
     };
 
     vm.changeInformation = function() {
-      vm.uploader.uploadAll();
-    };
-
-    vm.uploader.onCompleteAll = function () {
+      if (vm.uploader.queue.length != 0) vm.uploader.uploadAll();
       var value  = {
         name: vm.user.name,
         surname: vm.user.surname,

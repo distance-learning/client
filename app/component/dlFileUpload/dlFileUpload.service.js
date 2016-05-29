@@ -48,7 +48,7 @@
     }
 
     function getUploadImageProfileURL() {
-      return server_host + 'api/user/profile/image';
+      return server_host + 'api/account/image';
     }
 
     function getUploadImageFacultyURL(faculty) {
