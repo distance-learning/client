@@ -105,6 +105,11 @@
   width: 650px;
 }
 
+.FacultyAdminForm img {
+  max-width: 150px;
+  max-height: 150px;
+}
+
 .FacultyAdminForm h2 {
   color: #000;
 }

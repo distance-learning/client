@@ -19,6 +19,7 @@
       getFiles: getFiles,
       getUploadURL: getUploadURL,
       getUploadImageProfileURL: getUploadImageProfileURL,
+      getUploadImageFacultyURL: getUploadImageFacultyURL,
       getUploadHeader: getUploadHeader
     };
 
@@ -48,6 +49,10 @@
 
     function getUploadImageProfileURL() {
       return server_host + 'api/user/profile/image';
+    }
+
+    function getUploadImageFacultyURL() {
+      return server_host + 'api/admin/faculty/image';
     }
 
     function getUploadHeader() {

@@ -6,11 +6,15 @@
       .controller('FacultyPageInfoController', FacultyPageInfoController);
 
   FacultyPageInfoController.$inject = [
-    '$routeParams', '$location', '$log', '$mdSidenav',
+    '$routeParams', '$location', '$log',
+    '$mdSidenav',
+    'FileUploader', 'dlFileUploadUtils',
     'LoginUtils', 'FacultyListUtils'
   ];
 
-  function FacultyPageInfoController($routeParams, $location, $log, $mdSidenav,
+  function FacultyPageInfoController($routeParams, $location, $log,
+                                     $mdSidenav,
+                                     FileUploader, dlFileUploadUtils,
                                      LoginUtils, FacultyListUtils) {
     var vm = this;
     var facultySlug = $routeParams.slug;
@@ -20,6 +24,20 @@
     vm.loadingDirections = true;
     vm.faculty = {};
     vm.direction = {};
+    vm.uploader = new FileUploader({
+      autoUpload: false,
+      url: dlFileUploadUtils.getUploadImageFacultyURL(),
+      headers: {
+        'Authorization': dlFileUploadUtils.getUploadHeader()
+      }
+    });
+    vm.uploader.filters.push({
+      name: 'imageFilter',
+      fn: function (item /*{File|FileLikeObject}*/, options) {
+        var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+        return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+      }
+    });
 
     init();
     function init() {
@@ -35,6 +53,7 @@
       FacultyListUtils.getFacultyBySlug(facultySlug)
           .then(function (ok) {
             vm.faculty = ok.data;
+            if (!vm.faculty.image) { vm.faculty.image = './assests/images/nophoto_user.png'; }
 
             vm.loading = false;
             vm.loadingDirections = false;
@@ -48,12 +67,9 @@
     };
 
     vm.saveFaculty = function() {
-      FacultyListUtils.updateAdminFaculty(vm.faculty)
-          .then(function () {
-            $location.path('/admin/faculties');
-          }, function (err) {
-            $log.log('[ERROR] FacultyPageInfoController.saveFaculty().FacultyListUtils.updateAdminFaculty()', err);
-          });
+      vm.loading = true;
+
+      vm.uploader.uploadAll();
     };
 
     vm.directionInfo = function (direction) {
@@ -108,6 +124,15 @@
                 }, function (err) {
                   $log.log('[ERROR] FacultyPageInfoController.removeDirection().$mdSidenav.then().FacultyListUtils.removeDirection()', err);
                 });
+          });
+    };
+
+    vm.uploader.onCompleteAll = function () {
+      FacultyListUtils.updateAdminFaculty(vm.faculty)
+          .then(function () {
+            $location.path('/admin/faculties');
+          }, function (err) {
+            $log.log('[ERROR] FacultyPageInfoController.saveFaculty().FacultyListUtils.updateAdminFaculty()', err);
           });
     };
   }

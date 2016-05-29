@@ -23,102 +23,118 @@
             <label>Опис</label>
             <input ng-model="facultyPageInfo.faculty.description">
           </md-input-container>
-          <div layout-fill
-               class="separator-top">
-            <h2 class="md-title">Предмети для вступу(ЗНО)</h2>
-            <md-chips
-                ng-model="facultyPageInfo.faculty.examinations"
-                readonly="false"
-                placeholder="Введіть предмет"
-                delete-button-label="Видалити предмет"
-                delete-hint="DELETE для видалення предмету"
-                secondary-placeholder="+ предмет"></md-chips>
-          </div>
-          <div class="admin-faculty-direction-container"
-               layout="column" layout-align="center start"
+          <div layout layout-align="space-between center"
+               layout-xs="column" layout-align-sx="center center"
                layout-fill>
-            <div layout>
-              <h3>Направлення</h3>
-
-              <div layout-margin>
-                <md-button class="md-icon-button"
-                           ng-click="facultyPageInfo.createDirection()">
-                  <md-icon md-svg-icon="{{ facultyPageInfo.createDirectionIconURL }}"></md-icon>
-                  <md-tooltip>Створити</md-tooltip>
-                </md-button>
-              </div>
+            <div layout-fill
+                 class="separator-top">
+              <h2 class="md-title">Предмети для вступу(ЗНО)</h2>
+              <md-chips
+                  ng-model="facultyPageInfo.faculty.examinations"
+                  readonly="false"
+                  placeholder="Введіть предмет"
+                  delete-button-label="Видалити предмет"
+                  delete-hint="DELETE для видалення предмету"
+                  secondary-placeholder="+ предмет"></md-chips>
             </div>
-            <md-progress-circular class="md-warn md-hue-3"
-                                  md-mode='indeterminate'
-                                  ng-if="facultyPageInfo.loadingDirections"></md-progress-circular>
-            <div ng-if="!facultyPageInfo.loadingDirections">
-              <div ng-if="!facultyPageInfo.faculty.directions.length"
-                   class="text-with-simple-style">
-                Не створено жодного направлення =(
-              </div>
-              <div class="admin-faculty-direction-container-item"
-                   layout-margin
-                   ng-repeat="direction in facultyPageInfo.faculty.directions track by $index"
-                   ng-click="facultyPageInfo.directionInfo(direction)">
-                {{ direction.name }}
-              </div>
+            <div layout="column" layout-align="center center"
+                 layout-fill>
+            <img ng-src="{{ facultyPageInfo.faculty.image }}" alt=""
+                 ng-if="!facultyPageInfo.uploader.queue[0]._file"/>
+
+            <div ng-show="facultyPageInfo.uploader.isHTML5"
+                 ng-if="facultyPageInfo.uploader.queue[0]._file"
+                 ng-thumb="{ file: facultyPageInfo.uploader.queue[0]._file, height: 100 }"></div>
+            <input type="file" nv-file-select="" uploader="facultyPageInfo.uploader"
+                   ng-if="!facultyPageInfo.uploader.queue[0]._file"/>
+          </div>
+        </div>
+
+        <div class="admin-faculty-direction-container"
+             layout="column" layout-align="center start"
+             layout-fill>
+          <div layout>
+            <h3>Направлення</h3>
+
+            <div layout-margin>
+              <md-button class="md-icon-button"
+                         ng-click="facultyPageInfo.createDirection()">
+                <md-icon md-svg-icon="{{ facultyPageInfo.createDirectionIconURL }}"></md-icon>
+                <md-tooltip>Створити</md-tooltip>
+              </md-button>
+            </div>
+          </div>
+          <md-progress-circular class="md-warn md-hue-3"
+                                md-mode='indeterminate'
+                                ng-if="facultyPageInfo.loadingDirections"></md-progress-circular>
+          <div ng-if="!facultyPageInfo.loadingDirections">
+            <div ng-if="!facultyPageInfo.faculty.directions.length"
+                 class="text-with-simple-style">
+              Не створено жодного направлення =(
+            </div>
+            <div class="admin-faculty-direction-container-item"
+                 layout-margin
+                 ng-repeat="direction in facultyPageInfo.faculty.directions track by $index"
+                 ng-click="facultyPageInfo.directionInfo(direction)">
+              {{ direction.name }}
             </div>
           </div>
         </div>
-        <div layout layout-align="end center"
-             layout-magin layout-padding>
-          <md-button class="md-raised" type="submit"
-                     ng-click="facultyPageInfo.saveFaculty()"
-                     ng-disabled="FacultyAdminForm.$invalid">
-            Зберегти
-          </md-button>
-          <md-button class="md-raised"
-                     ng-click="facultyPageInfo.cancelUpdateFaculty()">
-            Скасувати
-          </md-button>
-        </div>
-      </md-whiteframe>
-    </form>
   </div>
-  <md-sidenav class="md-sidenav-right"
-              md-component-id="directionInfoSidenav"
-              layout="column" layout-align="space-between start"
-              layout-fill>
-    <div layout-margin>
-      <h1 inline-edit="facultyPageInfo.direction.name"
-          inline-edit-callback="facultyPageInfo.editDirectionName(newValue)"
-          inline-edit-btn-edit=""
-          inline-edit-on-blur="save"
-          inline-edit-on-click></h1>
-
-      <div class="admin-faculty-direction-info-description"
-           layout-margin layout-margin layout-padding>
-        {{ facultyPageInfo.direction.description }}
-      </div>
-    </div>
-    <div layout layout-align="end end"
-         layout-magin layout-padding
-         layout-fill>
-      <md-button class="md-icon-button"
-                 ng-click="facultyPageInfo.removeDirection()">
-        <md-icon md-svg-icon="{{ facultyPageInfo.removeDirectionIconURL }}"></md-icon>
-        <md-tooltip md-direction="left">Видалити</md-tooltip>
-      </md-button>
-    </div>
-  </md-sidenav>
-  <md-sidenav class="md-sidenav-left"
-              md-component-id="directionCreateSidenav"
-              layout="column" layout-align="center center"
-              layout-fill>
+  <div layout layout-align="end center"
+       layout-magin layout-padding>
+    <md-button class="md-raised" type="submit"
+               ng-click="facultyPageInfo.saveFaculty()"
+               ng-disabled="FacultyAdminForm.$invalid">
+      Зберегти
+    </md-button>
+    <md-button class="md-raised"
+               ng-click="facultyPageInfo.cancelUpdateFaculty()">
+      Скасувати
+    </md-button>
+  </div>
+  </md-whiteframe>
+  </form>
+</div>
+<md-sidenav class="md-sidenav-right"
+            md-component-id="directionInfoSidenav"
+            layout="column" layout-align="space-between start"
+            layout-fill>
+  <div layout-margin>
     <h1 inline-edit="facultyPageInfo.direction.name"
         inline-edit-callback="facultyPageInfo.editDirectionName(newValue)"
         inline-edit-btn-edit=""
         inline-edit-on-blur="save"
         inline-edit-on-click></h1>
+
+    <div class="admin-faculty-direction-info-description"
+         layout-margin layout-margin layout-padding>
+      {{ facultyPageInfo.direction.description }}
+    </div>
+  </div>
+  <div layout layout-align="end end"
+       layout-magin layout-padding
+       layout-fill>
     <md-button class="md-icon-button"
-               ng-click="facultyPageInfo.saveNewDirection()">
-      <md-icon md-svg-icon="{{ facultyPageInfo.createDirectionIconURL }}"></md-icon>
-      <md-tooltip md-direction="left">Створити</md-tooltip>
+               ng-click="facultyPageInfo.removeDirection()">
+      <md-icon md-svg-icon="{{ facultyPageInfo.removeDirectionIconURL }}"></md-icon>
+      <md-tooltip md-direction="left">Видалити</md-tooltip>
     </md-button>
-  </md-sidenav>
+  </div>
+</md-sidenav>
+<md-sidenav class="md-sidenav-left"
+            md-component-id="directionCreateSidenav"
+            layout="column" layout-align="center center"
+            layout-fill>
+  <h1 inline-edit="facultyPageInfo.direction.name"
+      inline-edit-callback="facultyPageInfo.editDirectionName(newValue)"
+      inline-edit-btn-edit=""
+      inline-edit-on-blur="save"
+      inline-edit-on-click></h1>
+  <md-button class="md-icon-button"
+             ng-click="facultyPageInfo.saveNewDirection()">
+    <md-icon md-svg-icon="{{ facultyPageInfo.createDirectionIconURL }}"></md-icon>
+    <md-tooltip md-direction="left">Створити</md-tooltip>
+  </md-button>
+</md-sidenav>
 </div>
