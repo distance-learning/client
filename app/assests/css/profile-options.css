@@ -1,9 +1,14 @@
 .ChangeInfoForm{
-  max-width: 500px;
+  max-width: 700px;
 }
 
 .ChangeInfoForm  md-input-container {
   width: inherit;
+}
+
+.ChangeInfoForm img {
+  max-width: 150px;
+  max-height: 150px;
 }
 
 .layout-fill {
