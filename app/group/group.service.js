@@ -17,7 +17,10 @@
       getStudents: getStudents,
       saveGroup: saveGroup,
       getGroups: getGroups,
+      getGroup: getGroup,
       removeGroup: removeGroup,
+      addStudentInGroup: addStudentInGroup,
+      removeStudentFromGroup:removeStudentFromGroup,
       getGroupsWithoutDirection: getGroupsWithoutDirection
     };
 
@@ -77,10 +80,52 @@
       return defer.promise;
     }
 
+    function getGroup(group) {
+      var defer = $q.defer();
+
+      $http.get(server_host + '/api/admin/groups/' + group.slug)
+          .success(function (ok) {
+            defer.resolve(ok);
+          })
+          .error(function (err) {
+            defer.reject(err);
+          });
+
+      return defer.promise;
+    }
+
     function removeGroup(group) {
       var defer = $q.defer();
 
       $http.delete(server_host + '/api/admin/groups/' + group.slug)
+          .success(function (ok) {
+            defer.resolve(ok);
+          })
+          .error(function (err) {
+            defer.reject(err);
+          });
+
+      return defer.promise;
+    }
+
+    function addStudentInGroup(data) {
+      var defer = $q.defer();
+
+      $http.post(server_host + 'api/admin/groups/' + data.group.slug + '/students', { students : [data.student.id] })
+          .success(function (ok) {
+            defer.resolve(ok);
+          })
+          .error(function (err) {
+            defer.reject(err);
+          });
+
+      return defer.promise;
+    }
+
+    function removeStudentFromGroup(data) {
+      var defer = $q.defer();
+
+      $http.delete(server_host + 'api/admin/groups/' + data.group.slug + '/students/' + data.student.slug)
           .success(function (ok) {
             defer.resolve(ok);
           })

@@ -6,17 +6,23 @@
       .controller('GroupController', GroupController);
 
   GroupController.$inject = [
-    '$location', '$log', '$mdDialog',
+    '$location', '$log',
+    '$mdDialog', '$mdSidenav', '$mdToast',
     'LoginUtils', 'GroupUtils'
   ];
 
-  function GroupController($location, $log, $mdDialog,
+  function GroupController($location, $log,
+                           $mdDialog, $mdSidenav, $mdToast,
                            LoginUtils, GroupUtils) {
     var vm = this;
     vm.loading = true;
     vm.saveGroupIconURL = './assests/images/ic_save_black_24px.svg';
     vm.removeStudentIconURL = './assests/images/ic_remove_circle_black_18px.svg';
+    vm.addStudentIconURL = './assests/images/ic_add_black_18px.svg';
+    vm.offStudentIconURL = './assests/images/ic_remove_circle_black_18px.svg';
     vm.loadingStudents = true;
+    vm.groupInfo = {};
+    vm.isUpdateGroup = false;
 
     init();
     function init() {
@@ -106,6 +112,17 @@
           if (students[i].id == group[j].id) { students[i].isChecked = true; }
         }
       }
+    }
+
+    function showGroup(group) {
+      GroupUtils.getGroup(group)
+          .then(function (group) {
+            vm.groupInfo = group;
+
+            $mdSidenav('groupInfo').open();
+          }, function (err) {
+            $log.log('[ERROR] GroupController.showGroup().GroupUtils.getGroup()', err);
+          });
     }
 
     vm.showFacultyDirections = function (faculty) {
@@ -217,6 +234,64 @@
               $log.log('[ERROR] GroupController.removeGroup().GroupUtils.removeGroup()', err);
             });
       });
-    }
+    };
+
+    vm.showGroup = function (group) {
+      showGroup(group);
+    };
+
+    vm.removeStudentFromGroup = function (student) {
+      $mdDialog.show(
+          $mdDialog.confirm()
+              .title('Видалення')
+              .textContent('Видалення студента [' + student.surname + ' ' + student.name + '] із групи [' + vm.groupInfo.name + ']')
+              .ok('Підтвердити')
+              .cancel('Відмінити')
+      ).then(function () {
+        var data = {
+          student: student,
+          group: vm.groupInfo
+        };
+
+        GroupUtils.removeStudentFromGroup(data)
+            .then(function (ok) {
+              $mdToast.show(
+                  $mdToast.simple()
+                      .textContent('Студента ' + data.student.surname + ' ' + data.student.name + 'видалено із групи' + data.group.name)
+                      .hideDelay(3000)
+              );
+
+              showGroup(data.group);
+              getStudents(vm.paramsStudents);
+            }, function (err) {
+              $log.log('[ERROR] GroupController.removeStudentFromGroup().GroupUtils.removeStudentFromGroup()', err);
+            });
+      });
+    };
+
+    vm.addStudentInGroup = function () {
+      vm.isUpdateGroup = true;
+    };
+
+    vm.offStudentInGroup = function () {
+      vm.isUpdateGroup = false;
+    };
+
+    vm.addStudentsOnGroup = function (student) {
+      GroupUtils.addStudentInGroup({ group: vm.groupInfo, student: student })
+          .then(function (ok) {
+            GroupUtils.getGroup(vm.groupInfo)
+                .then(function (group) {
+                  vm.groupInfo = group;
+
+                }, function (err) {
+                  $log.log('[ERROR] GroupController.addStudentsOnGroup().GroupUtils.addStudentInGroup(). GroupUtils.getGroup()', err);
+                });
+
+            getStudents(vm.paramsStudents);
+          }, function (err) {
+            $log.log('[ERROR] GroupController.addStudentsOnGroup().GroupUtils.addStudentInGroup()', err);
+          });
+    };
   }
 })();
