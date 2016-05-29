@@ -53,7 +53,7 @@
       FacultyListUtils.getFacultyBySlug(facultySlug)
           .then(function (ok) {
             vm.faculty = ok.data;
-            if (!vm.faculty.avatar.path) { vm.faculty.avatar.path = './assests/images/nophoto_user.png'; }
+            if (vm.faculty.avatar == null) { vm.faculty.avatar = { path: './assests/images/nophoto_user.png' }; }
 
             vm.loading = false;
             vm.loadingDirections = false;

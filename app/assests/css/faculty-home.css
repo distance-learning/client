@@ -25,6 +25,13 @@
   min-width: 220px
 }
 
+.faculty .faculty-image img{
+  width: 220px;
+  height: 220px;
+  max-width: 220px;
+  max-height: 220px;
+}
+
 .faculty .faculty-description {
   font-size: 12px;
   font-family: "Arial";

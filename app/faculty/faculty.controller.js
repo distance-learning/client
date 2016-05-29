@@ -45,6 +45,8 @@
       } else {
         FacultyHomeUtils.getRandomPreviewFaculties()
             .then(function (data) {
+              console.log(data);
+              console.log(vm.facultiesInfo);
               vm.facultiesInfo = data.data;
             }, function (error) {
               $log.log('[ERROR] FacultyController.FacultyHomeUtils.getRandomPreviewFaculties()', error);

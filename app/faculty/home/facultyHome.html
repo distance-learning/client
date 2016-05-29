@@ -10,15 +10,18 @@
          layout-wrap>
       <a href="" ng-click="facultyHome.showFaculty(faculty.slug)">
         <div class="faculty-image">
-          <!--<img ng-src="faculty.image" alt="">-->
+          <img ng-src="{{ faculty.avatar.path }}" alt=""
+               ng-if="faculty.avatar.path">
         </div>
       </a>
+
       <div class="faculty-description">
         <a href="" ng-click="facultyHome.showFaculty(faculty.slug)">
           <div class="faculty-description-name">
             {{ faculty.name }}
           </div>
         </a>
+
         <div class="faculty-description-content">
           {{ faculty.description }}
         </div>
