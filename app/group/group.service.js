@@ -111,7 +111,7 @@
     function addStudentInGroup(data) {
       var defer = $q.defer();
 
-      $http.put(server_host + 'api/admin/groups/' + data.group.slug + '/students/' + data.student.slug)
+      $http.post(server_host + 'api/admin/groups/' + data.group.slug + '/students', { students : [data.student.id] })
           .success(function (ok) {
             defer.resolve(ok);
           })
@@ -125,7 +125,7 @@
     function removeStudentFromGroup(data) {
       var defer = $q.defer();
 
-      $http.delete(server_host + '/api/admin/groups/' + data.group.slug + '/students/' + data.student.slug)
+      $http.delete(server_host + 'api/admin/groups/' + data.group.slug + '/students/' + data.student.slug)
           .success(function (ok) {
             defer.resolve(ok);
           })

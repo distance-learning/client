@@ -7,12 +7,12 @@
 
   GroupController.$inject = [
     '$location', '$log',
-    '$mdDialog', '$mdSidenav',
+    '$mdDialog', '$mdSidenav', '$mdToast',
     'LoginUtils', 'GroupUtils'
   ];
 
   function GroupController($location, $log,
-                           $mdDialog, $mdSidenav,
+                           $mdDialog, $mdSidenav, $mdToast,
                            LoginUtils, GroupUtils) {
     var vm = this;
     vm.loading = true;
@@ -112,6 +112,17 @@
           if (students[i].id == group[j].id) { students[i].isChecked = true; }
         }
       }
+    }
+
+    function showGroup(group) {
+      GroupUtils.getGroup(group)
+          .then(function (group) {
+            vm.groupInfo = group;
+
+            $mdSidenav('groupInfo').open();
+          }, function (err) {
+            $log.log('[ERROR] GroupController.showGroup().GroupUtils.getGroup()', err);
+          });
     }
 
     vm.showFacultyDirections = function (faculty) {
@@ -226,14 +237,7 @@
     };
 
     vm.showGroup = function (group) {
-      GroupUtils.getGroup(group)
-          .then(function (group) {
-            vm.groupInfo = group;
-
-            $mdSidenav('groupInfo').toggle();
-          }, function (err) {
-            $log.log('[ERROR] GroupController.showGroup().GroupUtils.getGroup()', err);
-          });
+      showGroup(group);
     };
 
     vm.removeStudentFromGroup = function (student) {
@@ -248,7 +252,6 @@
           student: student,
           group: vm.groupInfo
         };
-        $mdSidenav('groupInfo').close();
 
         GroupUtils.removeStudentFromGroup(data)
             .then(function (ok) {
@@ -257,6 +260,9 @@
                       .textContent('Студента ' + data.student.surname + ' ' + data.student.name + 'видалено із групи' + data.group.name)
                       .hideDelay(3000)
               );
+
+              showGroup(data.group);
+              getStudents(vm.paramsStudents);
             }, function (err) {
               $log.log('[ERROR] GroupController.removeStudentFromGroup().GroupUtils.removeStudentFromGroup()', err);
             });
@@ -281,6 +287,8 @@
                 }, function (err) {
                   $log.log('[ERROR] GroupController.addStudentsOnGroup().GroupUtils.addStudentInGroup(). GroupUtils.getGroup()', err);
                 });
+
+            getStudents(vm.paramsStudents);
           }, function (err) {
             $log.log('[ERROR] GroupController.addStudentsOnGroup().GroupUtils.addStudentInGroup()', err);
           });
