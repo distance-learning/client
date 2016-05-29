@@ -68,18 +68,18 @@
            layout="column"
            layout-wrap
            layout-margin>
-        <md-content>
+        <div>
           <md-progress-linear md-mode="indeterminate"
                               ng-if="profileTeacher.teacherModuleLoading"></md-progress-linear>
           <div ng-repeat="module in profileTeacher.teacher.modules track by $index"
                ng-if="!profileTeacher.teacherModuleLoading">
-            <md-subheader class="md-primary">{{ module.name }}</md-subheader>
-            <md-list layout-padding>
-              <md-list-item class="md-1-line wrapper-item"
-                            layout layout-align="space-between center"
-                            ng-repeat="item in module.items">
+            <h3 class="text-with-simple-style">{{ module.name }}</h3>
+            <div layout-padding>
+              <div class="md-1-line wrapper-item"
+                   layout layout-align="space-between center"
+                   ng-repeat="item in module.items">
                 <div class="md-list-item-text non-select cursor-pointer"
-                     ng-drag="true" ng-drag-data="{ data: item, type: 'item' }" data-allow-transform="false">
+                     ng-drag="true" ng-drag-data="{ data: item, type: 'item' }" data-allow-transform="true">
                   {{ item.name }}
                 </div>
                 <md-button class="md-icon-button"
@@ -87,10 +87,10 @@
                   <md-icon md-svg-icon="{{ profileTeacher.moduleInfoIconURL }}"></md-icon>
                   <md-tooltip>Переглянути</md-tooltip>
                 </md-button>
-              </md-list-item>
-            </md-list>
+              </div>
+            </div>
           </div>
-        </md-content>
+        </div>
       </div>
     </div>
     <md-sidenav class="md-sidenav-left ckeditor-style"
