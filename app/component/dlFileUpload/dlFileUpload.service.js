@@ -51,8 +51,8 @@
       return server_host + 'api/user/profile/image';
     }
 
-    function getUploadImageFacultyURL() {
-      return server_host + 'api/admin/faculty/image';
+    function getUploadImageFacultyURL(faculty) {
+      return server_host + 'api/admin/faculties/' + faculty.slug + '/image';
     }
 
     function getUploadHeader() {
