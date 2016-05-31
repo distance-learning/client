@@ -45,14 +45,14 @@
       GroupUtils.getFacultyInfo(vm.paramsStudents)
           .then(function (ok) {
             vm.faculties = ok;
-            vm.directions = vm.faculties[0].directions;
-            vm.group.faculty = vm.faculties[0];
-            vm.group.faculty_id = vm.faculties[0].id;
-            vm.group.direction = vm.faculties[0].directions[0];
-            vm.group.direction_id = vm.faculties[0].directions[0].id;
+            vm.directions = vm.faculties[0].directions ? vm.faculties[0].directions : [];
+            vm.group.faculty = vm.faculties[0] ? vm.faculties[0] : {};
+            vm.group.faculty_id = vm.faculties[0] ? vm.faculties[0].id : undefined;
+            vm.group.direction = vm.faculties[0].directions[0] ? vm.faculties[0].directions[0] : {};
+            vm.group.direction_id = vm.faculties[0].directions[0] ? vm.faculties[0].directions[0].id : undefined;
 
-            vm.paramsGroups.faculty = vm.faculties[0];
-            vm.paramsGroups.direction = vm.faculties[0].directions[0];
+            vm.paramsGroups.faculty = vm.faculties[0] ? vm.faculties[0] : {};
+            vm.paramsGroups.direction = vm.faculties[0].directions[0] ? vm.faculties[0].directions[0] : {};
             getGroups(vm.paramsGroups);
 
             GroupUtils.getStudents()
@@ -131,12 +131,12 @@
           vm.directions = vm.faculties[i].directions;
 
           vm.group.faculty = vm.faculties[i];
-          vm.group.faculty_id = vm.faculties[i].id;
-          vm.group.direction = vm.faculties[i].directions[0];
-          vm.group.direction_id = vm.faculties[i].directions[0].id;
+          vm.group.faculty_id = vm.faculties[i] ? vm.faculties[i].id : undefined;
+          vm.group.direction = vm.faculties[i].directions[0] ? vm.faculties[i].directions[0] : [];
+          vm.group.direction_id = vm.faculties[i].directions[0] ? vm.faculties[i].directions[0].id : undefined;
 
           vm.paramsGroups.faculty = vm.faculties[i];
-          vm.paramsGroups.direction = vm.faculties[i].directions[0];
+          vm.paramsGroups.direction = vm.faculties[i].directions[0] ? vm.faculties[i].directions[0] : [];
 
           getGroups(vm.paramsGroups);
         }
