@@ -20,7 +20,8 @@
       getQuestion: getQuestion,
       updateQuestion: updateQuestion,
       updateTestInfo: updateTestInfo,
-      completeTest: completeTest
+      completeTest: completeTest,
+      getTestResult: getTestResult
     };
 
     function getTest(testId) {
@@ -142,6 +143,14 @@
       //    });
 
       defer.resolve();
+      return defer.promise;
+    }
+
+    function getTestResult(testCode) {
+      var defer = $q.defer();
+
+      // TODO: need API
+
       return defer.promise;
     }
 
