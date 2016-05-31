@@ -65,12 +65,19 @@
                 <h1 class="text-with-simple-style">Файлів не завантажено</h1>
               </div>
               <div ng-repeat="file in dlFileUploadFile.files.data track by $index"
-                   clipboard supported="true" text="file.path"
-                   on-copied="dlFileUploadFile.clipboardSuccess()"
-                   on-error="dlFileUploadFile.clipboardFail(err)"
                    ng-if="dlFileUploadFile.files.data.length"
+                   layout layout-align="space-between center"
                    layout-margin>
-                {{ file.updated_at }} : <span class="text-with-simple-style cursor-pointer">{{ file.filename }}</span>
+                <span>{{ file.updated_at }} : <span class="text-with-simple-style cursor-pointer"
+                                                    clipboard supported="true" text="file.path"
+                                                    on-copied="dlFileUploadFile.clipboardSuccess()"
+                                                    on-error="dlFileUploadFile.clipboardFail(err)">{{ file.filename }}</span>
+                </span>
+                <md-button class="md-icon-button"
+                           ng-click="dlFileUploadFile.downloadFile(file.path)">
+                  <md-icon md-svg-icon="{{ dlFileUploadFile.downloadFileIconURL }}"></md-icon>
+                  <md-tooltip>Завантажити</md-tooltip>
+                </md-button>
               </div>
               <div class="pagination"
                    layout layout-align="center center"

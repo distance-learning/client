@@ -33,10 +33,10 @@
       return defer.promise;
     }
 
-    function getFiles() {
+    function getFiles(params) {
       var defer = $q.defer();
 
-      $http.get(server_host + 'api/files')
+      $http.get(server_host + 'api/files', { params: params })
           .success(defer.resolve)
           .error(defer.reject);
 
