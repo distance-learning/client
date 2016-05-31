@@ -205,13 +205,15 @@
     vm.onDropComplete = function (module, event, target) {
       module.target = target;
 
-      $mdDialog.show(
-          $mdDialog.confirm()
-              .title('Завдання')
-              .textContent(module.data.name + ' для ' + module.target.name)
-              .ok('Підтвердити')
-              .cancel('Відмінити')
-      ).then(function () {
+      $mdDialog.show({
+            controller: 'ProfileTeacherDialogController',
+            controllerAs: 'profileTeacherDialog',
+            templateUrl: './profile/teacher/dialog/dialog.html',
+            clickOutsideToClose:true
+          }
+      ).then(function (date) {
+        module.deadline = date;
+
         if (target.type == 'group') { return setupTaskForGroup(module); }
         if (target.type == 'student') { return setupTaskForStudent(module); }
       });

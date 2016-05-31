@@ -1,0 +1,19 @@
+<md-dialog aria-label="">
+  <md-toolbar style="background-color: rgb(233, 126, 89)">
+    <div class="md-toolbar-tools">
+      <h1>Дата здачі роботи</h1>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div class="md-dialog-content"
+         layout layout-align="center center"
+         layout-fill>
+      <md-datepicker ng-model="profileTeacherDialog.date" md-placeholder="Виберіть дату"></md-datepicker>
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions layout layout-align="end center">
+    <span flex></span>
+    <md-button ng-click="profileTeacherDialog.ok()" class="md-primary">Зберегти</md-button>
+    <md-button ng-click="profileTeacherDialog.no()" class="md-primary">Відмінити</md-button>
+  </md-dialog-actions>
+</md-dialog>
