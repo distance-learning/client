@@ -1,0 +1,45 @@
+<div class="test-result">
+  <md-progress-linear md-mode="indeterminate"
+                      ng-if="testResult.loading"></md-progress-linear>
+  <div ng-if="!testResult.loading"
+       layout layout-align="center center">
+    <md-whiteframe class="md-whiteframe-1dp"
+                   layout="column" layout-align="center center">
+      <h1 class="text-with-simple-style">{{ testResult.testResult.name }}</h1>
+
+      <div class="text-with-simple-style md-title">{{ testResult.testResult.group.name }}</div>
+      <div class="text-with-simple-style md-subhead">{{ testResult.testResult.endDate | date: 'd.MM.yyyy' }}</div>
+      <div>
+        <md-input-container class="dl-input test-result-search-user-input"
+                            layout-fill>
+          <label>Пошук</label>
+          <input ng-model="testResult.searchUser">
+        </md-input-container>
+        <div class="point-info"
+             layout>
+          <div class="text-without-style F"> 1-34 </div>
+          <div class="text-without-style FX"> 35-59 </div>
+          <div class="text-without-style E"> 60-66 </div>
+          <div class="text-without-style D"> 67-74 </div>
+          <div class="text-without-style C"> 75-81 </div>
+          <div class="text-without-style B"> 82-89 </div>
+          <div class="text-without-style A"> 90-100 </div>
+        </div>
+      </div>
+      <div class="test-result-wrapper"
+           layout="column" layout-align="space-around center"
+           layout-margin layout-padding
+           layout-fill>
+        <div layout layout-align="space-between center"
+             ng-repeat="item in testResult.testResult.group.students | filter : testResult.searchUser track by $index"
+             ng-class="testResult.getBackgroundColor(item.points)"
+             layout-margin
+             layout-fill>
+          <span class="text-without-style">{{ item.surname }} {{ item.name }}</span>
+          <span class="text-without-style">{{ item.correctAnswered }}</span>
+          <span class="text-without-style">{{ item.points }}</span>
+        </div>
+      </div>
+    </md-whiteframe>
+  </div>
+</div>

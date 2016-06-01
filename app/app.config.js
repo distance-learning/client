@@ -85,6 +85,9 @@
         .when('/test/:testId', {
           template: '<test-pass></test-pass>'
         })
+        .when('/test/result/:testId', {
+          template: '<test-result></test-result>'
+        })
         .when('/test/:testId/question/:questionId', {
           template: '<test-build-question></test-build-question>'
         })
