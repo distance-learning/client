@@ -43,19 +43,20 @@
                      on-selection="showSelected(node)"
                      selected-node="node1">
           <span ng-drop="profileTeacher.canNgDrop(node)"
-                ng-drop-success="profileTeacher.onDropComplete($data, $event, node)">
+                ng-drop-success="profileTeacher.onDropComplete($data, $event, node)"
+                ng-dblclick="profileTeacher.showTask(node)">
             <span ng-switch="" on="node.type">
-            <span ng-switch-when="subject" aria-hidden="true">
-              <md-icon md-svg-src="{{ profileTeacher.subjectIconURL }}" aria-label=""></md-icon>
+              <span ng-switch-when="subject" aria-hidden="true">
+                <md-icon md-svg-src="{{ profileTeacher.subjectIconURL }}" aria-label=""></md-icon>
+              </span>
+              <span ng-switch-when="group" aria-hidden="true">
+                <md-icon md-svg-src="{{ profileTeacher.groupIconURL }}" aria-label=""></md-icon>
+              </span>
+              <span ng-switch-when="student" aria-hidden="true">
+                <md-icon md-svg-src="{{ profileTeacher.studentIconURL }}" aria-label=""></md-icon>
+              </span>
             </span>
-            <span ng-switch-when="group" aria-hidden="true">
-              <md-icon md-svg-src="{{ profileTeacher.groupIconURL }}" aria-label=""></md-icon>
-            </span>
-            <span ng-switch-when="student" aria-hidden="true">
-              <md-icon md-svg-src="{{ profileTeacher.studentIconURL }}" aria-label=""></md-icon>
-            </span>
-          </span>
-          {{ node.name }}
+            {{ node.name }}
           </span>
         </treecontrol>
         <calendar></calendar>
@@ -106,6 +107,27 @@
           <md-icon md-svg-icon="{{ profileTeacher.saveIconURL }}"></md-icon>
           <md-tooltip md-direction="top">Зберегти</md-tooltip>
         </md-button>
+      </div>
+    </md-sidenav>
+    <md-sidenav class="md-sidenav-right"
+                md-component-id="targetTasks"
+                layout="column" layout-align="space-between stretch">
+      <div layout-padding>
+        <h1 class="text-with-simple-style">{{ profileTeacher.targetTasks.name }}</h1>
+
+        <div class="text-with-simple-style"
+             ng-if="!profileTeacher.targetTasks.tasks.length">
+          Список задач порожній
+        </div>
+        <div class="text-with-simple-style-hover text-without-style cursor-pointer outline-off"
+             ng-repeat="task in profileTeacher.targetTasks.tasks track by $index"
+             ng-click="profileTeacher.removeTaskFromTarget(task)">
+          {{ task.name }}
+        </div>
+      </div>
+      <div class="text-with-simple-style"
+           layout-padding>
+        Натисніть на задачу для видалення
       </div>
     </md-sidenav>
     <footer></footer>

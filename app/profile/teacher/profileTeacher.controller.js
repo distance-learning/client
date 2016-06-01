@@ -26,6 +26,7 @@
         avatar: '../assests/images/user_tmp.png',
         description: 'Викладач гуманітарних наук'
     };
+    vm.targetTasks = [];
     vm.CKEditorOptions = {
       language: 'uk'
     };
@@ -99,6 +100,7 @@
 
           for(var z in item.children[j].children) {
             item.children[j].children[z].type = 'student';
+            item.children[j].children[z].name = item.children[j].children[z].surname + '. ' + item.children[j].children[z].name[0];
           }
         }
 
@@ -202,6 +204,44 @@
       $mdSidenav('ckeditor').toggle();
     }
 
+    function showTaskForGroup(target) {
+      vm.targetTasks = {
+        name: target.name,
+        type: "group",
+        tasks: [
+          {id: 1, name: 'tesk 1'},
+          {id: 3, name: 'tesk 2'},
+          {id: 4, name: 'tesk 3'}
+        ]
+      };
+
+      //ProfileTeacherUtils.getTaskForGroup(target)
+      //    .then(function (tasks) {
+      //      vm.targetTasks.tasks = tasks;
+      //    }, function (err) {
+      //      $log.log('[ERROR] ProfileTeacherController.showTaskForGroup().ProfileTeacherUtils.getTaskForGroup()', err);
+      //    });
+    }
+
+    function showTaskForStudent(target) {
+      vm.targetTasks = {
+        name: target.name,
+        type: "student",
+        tasks: [
+          {id: 1, name: '12312ds 1'},
+          {id: 3, name: 'teadasdxcsk 2'},
+          {id: 4, name: 'tezxczxczx czsk 3'}
+        ]
+      };
+
+      //ProfileTeacherUtils.getTaskForStudent(target)
+      //    .then(function (tasks) {
+      //      vm.targetTasks.tasks = tasks;
+      //    }, function (err) {
+      //      $log.log('[ERROR] ProfileTeacherController.showTaskForGroup().ProfileTeacherUtils.getTaskForGroup()', err);
+      //    });
+    }
+
     vm.onDropComplete = function (module, event, target) {
       module.target = target;
 
@@ -281,6 +321,36 @@
       vm.CKEditorContent.target = module.id;
 
       openModuleCKEditor();
-    }
+    };
+
+    vm.showTask = function (target) {
+      if (target.type == 'subject') { return; }
+      if (target.type == 'group') { showTaskForGroup(target); }
+      if (target.type == 'student') {
+        if (target.surname) target.name = target.surname + '. ' + target.name[0];
+        showTaskForStudent(target);
+      }
+
+      $mdSidenav('targetTasks').open();
+    };
+
+    vm.removeTaskFromTarget = function (task) {
+      $mdDialog.show(
+          $mdDialog.confirm()
+              .title('Видалення')
+              .textContent('Видалення завдання [' + task.name)
+              .ok('Підтвердити')
+              .cancel('Відмінити')
+      ).then(function () {
+            console.log('remove ok');
+            vm.showTask(vm.targetTasks);
+            //ProfileTeacherUtils.removeTask({ task: task, target: vm.targetTasks })
+            //    .then(function (ok) {
+            //      vm.showTask(vm.targetTasks);
+            //    }, function (err) {
+            //      $log.log('[ERROR] ProfileTeacherController.removeTaskFromTarget(). ProfileTeacherUtils.removeTask()', err);
+            //    });
+       });
+    };
   }
 })();
