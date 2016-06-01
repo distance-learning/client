@@ -6,12 +6,14 @@
       .controller('dlFileUploadFileController', dlFileUploadFileController);
 
   dlFileUploadFileController.$inject = [
-    '$log', '$mdToast', '$mdDialog',
+    '$log', '$window',
+    '$mdToast', '$mdDialog',
     'FileUploader',
     'dlFileUploadUtils'
   ];
 
-  function dlFileUploadFileController($log, $mdToast, $mdDialog,
+  function dlFileUploadFileController($log, $window,
+                                      $mdToast, $mdDialog,
                                       FileUploader,
                                       dlFileUploadUtils) {
     var vm = this;
@@ -19,6 +21,7 @@
     vm.uploadFileIconURL = './assests/images/ic_cloud_upload_black_24px.svg';
     vm.cancelUploadIconURL = './assests/images/ic_remove_circle_black_18px.svg';
     vm.templateFileIconURL = './assests/images/ic_data_usage_black_24px.svg';
+    vm.downloadFileIconURL = './assests/images/ic_cloud_download_black_24px.svg';
     vm.files = {
       data: [ ],
       total: 10
@@ -39,7 +42,7 @@
 
     getFiles();
     function getFiles() {
-      vm.loadingFiles = false;
+      vm.loadingFiles = true;
 
       dlFileUploadUtils.getFiles(vm.filesParams)
           .then(function (files) {
@@ -64,7 +67,7 @@
       );
     };
 
-    vm.jumpToPage = function (page) {
+    vm.jumpToPageFiles = function (page) {
       vm.filesParams.page = page;
 
       getFiles();
@@ -101,6 +104,10 @@
               .textContent('Файл ' + fileItem.filename + 'завантажено')
               .hideDelay(3000)
       );
+    };
+
+    vm.downloadFile = function (fileURL) {
+      $window.open(fileURL, '_blank');
     };
   }
 })();
