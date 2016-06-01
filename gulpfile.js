@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var gulpsync = require('gulp-sync')(gulp);
 var plumber = require('gulp-plumber');
 var rename = require('gulp-rename');
 var browserSync = require('browser-sync');
@@ -41,10 +42,10 @@ gulp.task('watch', function () {
   gulp.watch('app/**/*.css', ['css', 'build:copyCss']);
 });
 
-gulp.task('build:cleanFolder', function (callback) {
-  del([
+gulp.task('build:cleanFolder', function () {
+  return del([
     'build/*'
-  ], callback);
+  ]);
 });
 
 gulp.task('build:copyApp', function () {
@@ -58,11 +59,4 @@ gulp.task('build:copyCss', function () {
       .pipe(reload({stream: true}));
 });
 
-gulp.task('build:remove', function (callback) {
-  del([
-    'build/less/'
-  ], callback);
-});
-
-gulp.task('build', ['build:cleanFolder', 'build:copyApp', 'build:remove']);
-gulp.task('serve', ['build', 'scripts', 'html', 'css', 'browserSync', 'watch']);
+gulp.task('serve', gulpsync.sync(['build:cleanFolder', 'build:copyApp', 'scripts', 'html', 'css', 'browserSync', 'watch']));
