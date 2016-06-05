@@ -21,7 +21,8 @@
       updateAdminFaculty: updateAdminFaculty,
       getDirectionInfo: getDirectionInfo,
       removeDirection: removeDirection,
-      createDirection: createDirection
+      createDirection: createDirection,
+      searchFaculty: searchFaculty
     };
 
     function getFaculties(params) {
@@ -134,6 +135,16 @@
           }, function (err) {
             defer.reject(err);
           });
+
+      return defer.promise;
+    }
+
+    function searchFaculty(search) {
+      var defer = $q.defer();
+
+      $http.get(server_host + 'api/admin/faculties/search', { params: { search: search }})
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }

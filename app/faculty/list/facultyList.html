@@ -45,7 +45,8 @@
                layout-magin layout-padding>
             <div class="pagination-page"
                  ng-repeat="page in facultyList.range(facultyList.total) track by $index"
-                 ng-click="facultyList.jumpToPage($index + 1)">
+                 ng-click="facultyList.jumpToPage($index + 1)"
+                 ng-if="!facultyList.isSearchFaculty">
             </div>
           </div>
         </div>
@@ -71,10 +72,16 @@
           Створити факультет
         </md-tooltip>
       </md-button>
-      <md-button class="md-fab md-raised md-mini" aria-label="Filter User">
+      <md-button class="md-fab md-raised md-mini" aria-label="Filter User"
+                 ng-click="facultyList.searchFaculty()">
         <md-icon md-svg-src="{{ facultyList.filterFacultyIconURL }}" aria-label=""></md-icon>
-        <md-tooltip md-direction="left">
+        <md-tooltip md-direction="left"
+                    ng-if="!facultyList.isSearchFaculty">
           Фільтр | Пошук
+        </md-tooltip>
+        <md-tooltip md-direction="left"
+                    ng-if="facultyList.isSearchFaculty">
+          Відмінити фільтр | пошук
         </md-tooltip>
       </md-button>
     </md-fab-actions>

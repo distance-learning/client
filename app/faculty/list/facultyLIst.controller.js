@@ -15,6 +15,7 @@
     var vm = this;
     vm.isOpen = true;
     vm.loading = true;
+    vm.isSearchFaculty = false;
     vm.managerFacultyIconURL = './assests/images/ic_more_vert_black_24px.svg';
     vm.menuFacultyIconURL = './assests/images/ic_menu_black_24px.svg';
     vm.createFacultyIconURL = './assests/images/ic_person_add_black_24px.svg';
@@ -107,6 +108,30 @@
     vm.editFaculty = function (faculty) {
       var path = '/admin/faculties/info/' + faculty.slug;
       $location.path(path);
+    };
+
+    vm.searchFaculty = function () {
+      if (vm.isSearchFaculty) {
+        vm.isSearchFaculty = false;
+
+        return getFaculties(vm.params);
+      }
+      var confirm = $mdDialog.prompt()
+          .title('Пошук факультету')
+          .textContent('Введіть назву')
+          .ok('Зберегти')
+          .cancel('Відмінити');
+      $mdDialog.show(confirm)
+          .then(function(search) {
+            FacultyListUtils.searchFaculty(search)
+                .then(function (faculty) {
+                  vm.faculties = faculty;
+
+                  vm.isSearchFaculty = true;
+                }, function (err) {
+                  $log.log('[ERRPR] UsersController.searchFaculty().FacultyListUtils.searchFaculty()', err);
+                });
+          });
     };
   }
 })();
