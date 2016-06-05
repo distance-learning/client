@@ -15,6 +15,7 @@
     var vm = this;
     var countUsersInPage = 10;
     vm.isOpen = true;
+    vm.isFilteredUser = false;
     vm.managerUserIconURL = './assests/images/ic_more_vert_black_24px.svg';
     vm.menuUserIconURL = './assests/images/ic_menu_black_24px.svg';
     vm.createUserIconURL = './assests/images/ic_person_add_black_24px.svg';
@@ -114,6 +115,31 @@
       }
 
       return new Array(countPage);
+    };
+
+    vm.getUsers = function () {
+      vm.isFilteredUser = false;
+
+      getUsers(vm.params);
+    };
+
+    vm.filterUsers = function () {
+      var confirm = $mdDialog.prompt()
+          .title('Пошук користувача')
+          .textContent('Введіть прізвище або email')
+          .ok('Зберегти')
+          .cancel('Відмінити');
+      $mdDialog.show(confirm)
+          .then(function(search) {
+            UsersUtils.searchUser(search)
+                .then(function (users) {
+                  vm.users = users;
+
+                  vm.isFilteredUser = true;
+                }, function (err) {
+                  $log.log('[ERRPR] UsersController.filterUsers().UsersUtils.searchUser()', err);
+                });
+          });
     };
   }
 })();

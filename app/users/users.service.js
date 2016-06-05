@@ -17,7 +17,8 @@
       changeUser: changeUser,
       createUser: createUser,
       deleteUser: deleteUser,
-      getUserBySlug: getUserBySlug
+      getUserBySlug: getUserBySlug,
+      searchUser: searchUser
     };
 
     function getUsers(value) {
@@ -106,6 +107,16 @@
           .error(function (err, status, headers, config) {
             defer.reject(err);
           });
+
+      return defer.promise;
+    }
+
+    function searchUser(search) {
+      var defer = $q.defer();
+
+      $http.get(server_host + 'api/admin/users/search', { params: { search: search }})
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }

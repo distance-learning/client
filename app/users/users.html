@@ -45,7 +45,8 @@
                layout-magin layout-padding>
             <div class="pagination-page"
                  ng-repeat="page in users.range(users.total) track by $index"
-                 ng-click="users.jumpToPage($index + 1)">
+                 ng-click="users.jumpToPage($index + 1)"
+                 ng-show="!users.isFilteredUser">
             </div>
           </div>
         </div>
@@ -71,10 +72,20 @@
           Створити користувача
         </md-tooltip>
       </md-button>
-      <md-button class="md-fab md-raised md-mini" aria-label="Filter User">
+      <md-button class="md-fab md-raised md-mini" aria-label="Filter User"
+                 ng-click="users.filterUsers()"
+                 ng-if="!users.isFilteredUser">
         <md-icon md-svg-src="{{ users.filterUserIconURL }}" aria-label=""></md-icon>
         <md-tooltip md-direction="left">
           Фільтр | Пошук
+        </md-tooltip>
+      </md-button>
+      <md-button class="md-fab md-raised md-mini" aria-label="Filter User"
+                 ng-click="users.getUsers()"
+                 ng-if="users.isFilteredUser">
+        <md-icon md-svg-src="{{ users.filterUserIconURL }}" aria-label=""></md-icon>
+        <md-tooltip md-direction="left">
+          Вімінити фільтр | пошук
         </md-tooltip>
       </md-button>
     </md-fab-actions>
