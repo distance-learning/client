@@ -198,8 +198,17 @@
       // data.target = student
       // data.data = task
       var defer = $q.defer();
+      var value = {
+        attachment_id: data.data.id,
+        attachment_type: 'module',
+        student_id: data.target.id,
+        deadline: data.deadline
+      };
+      console.log(value);
 
-      // TODO: need API
+      //$http.post(server_host + 'api/tasks', value)
+      //    .success(defer.resolve)
+      //    .error(defer.reject);
 
       return defer.promise;
     }
