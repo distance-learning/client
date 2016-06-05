@@ -287,7 +287,7 @@
     function removeModuleFromGroup(moduleId) {
       var defer = $q.defer();
 
-      $http.delete(server_host + 'api/module/' + moduleId)
+      $http.delete(server_host + 'api/modules/' + moduleId)
           .success(defer.resolve)
           .error(defer.reject);
 

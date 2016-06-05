@@ -405,6 +405,7 @@
     };
 
     vm.removeModuleContentFromGroup = function () {
+      $mdSidenav('ckeditor').close();
       ProfileTeacherUtils.removeModuleFromGroup(vm.CKEditorContent.target)
           .then(function () {
             getTeacherModule();
