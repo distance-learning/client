@@ -22,9 +22,12 @@
       setupTaskForGroup: setupTaskForGroup,
       setupTaskForStudent: setupTaskForStudent,
       addModuleContent: addModuleContent,
+      updateModuleContent: updateModuleContent,
       getTaskForGroup: getTaskForGroup,
       getTaskForStudent: getTaskForStudent,
-      removeTask: removeTask
+      removeTask: removeTask,
+      getTeacherModule: getTeacherModule,
+      addModuleGroup: addModuleGroup
     };
 
     // TODO: deprecated?
@@ -200,11 +203,29 @@
     }
 
     function addModuleContent(data) {
+      console.log(data);
+      var defer = $q.defer();
+      var value = {
+        name: '',
+        content: data.content,
+        type: 'module'
+      };
+
+      //$http.post(server_host + 'api/modules', value)
+      //    .success(defer.resolve)
+      //    .error(defer.reject);
+
+      return defer.promise;
+    }
+
+    function updateModuleContent(data){
       // data.content = module content
       // data.target = id moduleGroup
       var defer = $q.defer();
 
-      // TODO: need API
+      //$http.post(server_host + 'api/modules', value)
+      //    .success(defer.resolve)
+      //    .error(defer.reject);
 
       return defer.promise;
     }
@@ -231,6 +252,26 @@
       var defer = $q.defer();
 
       // TODO: need API
+
+      return defer.promise;
+    }
+
+    function getTeacherModule() {
+      var defer = $q.defer();
+
+      $http.get(server_host + 'api/account/modules')
+          .success(defer.resolve)
+          .error(defer.reject);
+
+      return defer.promise;
+    }
+
+    function addModuleGroup(moduleName) {
+      var defer = $q.defer();
+
+      $http.post(server_host + 'api/modules/groups', { name: moduleName })
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }

@@ -242,6 +242,34 @@
       //    });
     }
 
+    function createModule() {
+      ProfileTeacherUtils.addModuleContent(vm.CKEditorContent)
+          .then(function (ok) {
+            vm.CKEditorContent = {
+              target: '',
+              content: ''
+            };
+
+            getTeacherModule();
+          }, function (err) {
+            $log.log('[ERROR] ProfileTeacherController.createModule().ProfileTeacherUtils.addModuleContent()', err);
+          });
+    }
+
+    function updateModule() {
+      ProfileTeacherUtils.updateModuleContent(vm.CKEditorContent)
+          .then(function (ok) {
+            vm.CKEditorContent = {
+              target: '',
+              content: ''
+            };
+
+            getTeacherModule();
+          }, function (err) {
+            $log.log('[ERROR] ProfileTeacherController.createModule().ProfileTeacherUtils.addModuleContent()', err);
+          });
+    }
+
     vm.onDropComplete = function (module, event, target) {
       module.target = target;
 
@@ -283,9 +311,20 @@
           return;
         }
         if (option.value == 'module') {
-          vm.CKEditorContent.content = 'Контент модуля';
-
-          return openModuleCKEditor();
+          var confirm = $mdDialog.prompt()
+              .title('Новий модуль')
+              .textContent('Введіть назву модуля')
+              .ok('Зберегти')
+              .cancel('Відмінити');
+          $mdDialog.show(confirm)
+              .then(function(moduleName) {
+                ProfileTeacherUtils.addModuleGroup(moduleName)
+                    .then(function () {
+                      getTeacherModule();
+                    }, function (err) {
+                      $log.log('[ERROR] ProfileTeacherController.showTeacherOptions().ProfileTeacherUtils.addModuleGroup()', err);
+                    });
+              });
         }
       });
     };
@@ -293,27 +332,11 @@
     vm.saveCKEditorContent = function () {
       $mdSidenav('ckeditor').close();
 
-
-
-
-      // remove here
-      vm.CKEditorContent = {
-        target: '',
-        content: ''
-      };
-      getTeacherModule();
-
-      //ProfileTeacherUtils.addModuleContent(vm.CKEditorContent)
-      //    .then(function (ok) {
-      //      vm.CKEditorContent = {
-      //        target: '',
-      //        content: ''
-      //      };
-      //
-      //      getTeacherModule();
-      //    }, function (err) {
-      //      $log.log('[ERROR] ProfileTeacherController.saveCKEditorContent().ProfileTeacherUtils.addModuleContent()', err);
-      //    });
+      if (vm.CKEditorContent.target == 'new') {
+        createModule(vm.CKEditorContent);
+      } else {
+        updateModule(vm.CKEditorContent);
+      }
     };
 
     vm.showModule = function (module) {
