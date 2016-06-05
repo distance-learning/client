@@ -33,7 +33,8 @@
     };
     vm.CKEditorContent = {
       target: '',
-      content: ''
+      content: '',
+      moduleInfo: {}
     };
     vm.treeControl = {
       data: [],
@@ -258,6 +259,7 @@
     }
 
     function updateModule() {
+      console.log(vm.CKEditorContent);
       ProfileTeacherUtils.updateModuleContent(vm.CKEditorContent)
           .then(function (ok) {
             vm.CKEditorContent = {
@@ -299,7 +301,6 @@
         controllerAs: 'teacherOptions',
         clickOutsideToClose: true
       }).then(function(option) {
-        console.log(option);
         if (option.value == 'test') { return goToCreateTest(); }
         if (option.value == 'file') {
           $mdDialog.show({
@@ -346,15 +347,40 @@
               createModule(vm.CKEditorContent);
             });
       } else {
+        console.log(vm.CKEditorContent);
         updateModule(vm.CKEditorContent);
       }
     };
 
     vm.showModule = function (module) {
-      vm.CKEditorContent.content = module.content;
-      vm.CKEditorContent.target = module.id;
+      $mdBottomSheet.show({
+        templateUrl: './profile/teacher/options/updateModule.html',
+        controller: 'TeacherOptions',
+        controllerAs: 'teacherOptions',
+        clickOutsideToClose: true
+      }).then(function(option) {
+        vm.CKEditorContent.target = module.id;
+        vm.CKEditorContent.content = module.content;
 
-      openModuleCKEditor();
+        if (option.value == 'content') {
+          vm.CKEditorContent.moduleInfo.name= module.name;
+
+          openModuleCKEditor();
+        }
+        if (option.value == 'title') {
+          var confirm = $mdDialog.prompt()
+              .title('Оновлення модуль')
+              .textContent('Введіть назву модуля')
+              .ok('Зберегти')
+              .cancel('Відмінити');
+          $mdDialog.show(confirm)
+              .then(function(moduleName) {
+                vm.CKEditorContent.moduleInfo.name = moduleName;
+
+                updateModule();
+              });
+        }
+      });
     };
 
     vm.showTask = function (target) {

@@ -6,7 +6,7 @@
       .controller('TeacherOptions', TeacherOptions);
 
   TeacherOptions.$inject = [
-      '$mdBottomSheet'
+    '$mdBottomSheet'
   ];
 
   function TeacherOptions($mdBottomSheet) {
@@ -29,8 +29,25 @@
       }
     ];
 
+    vm.items = [
+      {
+        name: 'Заголовок',
+        icon: '../assests/images/ic_title_black_24px.svg',
+        value: 'title'
+      },
+      {
+        name: 'Контент',
+        icon: '../assests/images/ic_font_download_black_24px.svg',
+        value: 'content'
+      }
+    ];
+
     vm.selectOption = function (index) {
       $mdBottomSheet.hide(vm.options[index]);
+    };
+
+    vm.listItemClick = function (index) {
+      $mdBottomSheet.hide(vm.items[index]);
     };
   }
 })();
