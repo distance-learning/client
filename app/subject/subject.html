@@ -45,7 +45,8 @@
                layout-magin layout-padding>
             <div class="pagination-page"
                  ng-repeat="page in subject.range(subject.total) track by $index"
-                 ng-click="subject.jumpToPage($index + 1)">
+                 ng-click="subject.jumpToPage($index + 1)"
+                 ng-if="!subject.isSearchSubject">
             </div>
           </div>
         </div>
@@ -71,10 +72,16 @@
           Створити предмет
         </md-tooltip>
       </md-button>
-      <md-button class="md-fab md-raised md-mini" aria-label="">
+      <md-button class="md-fab md-raised md-mini" aria-label=""
+                 ng-click="subject.searchSubject()">
         <md-icon md-svg-src="{{ subject.filterSubjectIconURL }}" aria-label=""></md-icon>
-        <md-tooltip md-direction="left">
+        <md-tooltip md-direction="left"
+                    ng-if="!subject.isSearchSubject">
           Фільтр | Пошук
+        </md-tooltip>
+        <md-tooltip md-direction="left"
+                    ng-if="subject.isSearchSubject">
+          Відмінити фільтр | пошук
         </md-tooltip>
       </md-button>
     </md-fab-actions>

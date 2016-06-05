@@ -18,6 +18,7 @@
     var vm = this;
     var countSubjectsInPage = 15;
     vm.isOpen = true;
+    vm.isSearchSubject = false;
     vm.managerSubjectIconURL = './assests/images/ic_more_vert_black_24px.svg';
     vm.editSubjectIconURL = './assests/images/ic_border_color_black_24px.svg';
     vm.removeSubjectIconURL = './assests/images/ic_delete_black_24px.svg';
@@ -42,15 +43,11 @@
             if (ok.role != 'admin') { return $location.path('/home'); }
 
             getSubjects(vm.params);
-
-            vm.loading = false;
           }, function (err) {
             $log.log('SubjectController.init().ProfileUtils.getUserInfo()', err);
 
             return $location.path('/home');
           });
-
-      vm.loading = false;
     }
 
     function getSubjects(params) {
@@ -175,6 +172,30 @@
       }
 
       return new Array(countPage);
+    };
+
+    vm.searchSubject = function () {
+      if (vm.isSearchSubject) {
+        vm.isSearchSubject = false;
+
+        return getSubjects(vm.params);
+      }
+      var confirm = $mdDialog.prompt()
+          .title('Пошук предмету')
+          .textContent('Введіть назву')
+          .ok('Зберегти')
+          .cancel('Відмінити');
+      $mdDialog.show(confirm)
+          .then(function(search) {
+            SubjectUtils.searchSubject(search)
+                .then(function (subjects) {
+                  vm.subjects = subjects;
+
+                  vm.isSearchSubject = true;
+                }, function (err) {
+                  $log.log('[ERRPR] UsersController.searchFaculty().FacultyListUtils.searchFaculty()', err);
+                });
+          });
     };
   }
 })();
