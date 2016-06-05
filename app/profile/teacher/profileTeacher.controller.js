@@ -21,6 +21,7 @@
     vm.groupIconURL = '../assests/images/ic_people_black_48px.svg';
     vm.studentIconURL = '../assests/images/ic_person_outline_black_24px.svg';
     vm.saveIconURL = './assests/images/ic_save_black_24px.svg';
+    vm.removeIconURL = './assests/images/ic_delete_black_24px.svg';
     vm.moduleInfoIconURL = './assests/images/ic_mode_edit_black_24px.svg';
     vm.addModuleInfoIconURL = './assests/images/ic_add_black_18px.svg';
     vm.teacher = {
@@ -427,6 +428,15 @@
       };
 
       openModuleCKEditor();
+    };
+
+    vm.removeModuleContentFromGroup = function () {
+      ProfileTeacherUtils.removeModuleFromGroup(vm.CKEditorContent.target)
+          .then(function () {
+            getTeacherModule();
+          }, function (err) {
+            $log.log('[ERROR] ProfileTeacherController.removeModuleContentFromGroup().ProfileTeacherUtils.rememoveModuleFromGroup()', err);
+          });
     };
   }
 })();

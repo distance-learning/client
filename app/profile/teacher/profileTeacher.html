@@ -97,7 +97,7 @@
                 <md-button class="md-icon-button"
                            ng-click="profileTeacher.showModule(item)">
                   <md-icon md-svg-icon="{{ profileTeacher.moduleInfoIconURL }}"></md-icon>
-                  <md-tooltip>Переглянути</md-tooltip>
+                  <md-tooltip>Редагувати</md-tooltip>
                 </md-button>
               </div>
             </div>
@@ -117,6 +117,12 @@
                    ng-click="profileTeacher.saveCKEditorContent()">
           <md-icon md-svg-icon="{{ profileTeacher.saveIconURL }}"></md-icon>
           <md-tooltip md-direction="top">Зберегти</md-tooltip>
+        </md-button>
+        <md-button class="md-icon-button"
+                   ng-click="profileTeacher.removeModuleContentFromGroup()"
+                   ng-if="profileTeacher.CKEditorContent.target != 'new'">
+          <md-icon md-svg-icon="{{ profileTeacher.removeIconURL }}"></md-icon>
+          <md-tooltip md-direction="top">Видалити</md-tooltip>
         </md-button>
       </div>
     </md-sidenav>

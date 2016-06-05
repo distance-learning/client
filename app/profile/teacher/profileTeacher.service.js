@@ -27,7 +27,8 @@
       getTaskForStudent: getTaskForStudent,
       removeTask: removeTask,
       getTeacherModule: getTeacherModule,
-      addModuleGroup: addModuleGroup
+      addModuleGroup: addModuleGroup,
+      removeModuleFromGroup: removeModuleFromGroup
     };
 
     // TODO: deprecated?
@@ -271,6 +272,16 @@
       var defer = $q.defer();
 
       $http.post(server_host + 'api/modules/groups', { name: moduleName })
+          .success(defer.resolve)
+          .error(defer.reject);
+
+      return defer.promise;
+    }
+
+    function removeModuleFromGroup(moduleId) {
+      var defer = $q.defer();
+
+      $http.delete(server_host + 'api/module/' + moduleId)
           .success(defer.resolve)
           .error(defer.reject);
 
