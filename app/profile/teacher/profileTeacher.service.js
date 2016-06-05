@@ -206,10 +206,11 @@
       console.log(data);
       var defer = $q.defer();
       var value = {
-        name: '',
+        name: data.moduleInfo.name,
         content: data.content,
-        type: 'module'
+        module_group_id: data.moduleInfo.module_group_id
       };
+      console.log(value);
 
       //$http.post(server_host + 'api/modules', value)
       //    .success(defer.resolve)

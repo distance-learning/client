@@ -22,6 +22,7 @@
     vm.studentIconURL = '../assests/images/ic_person_outline_black_24px.svg';
     vm.saveIconURL = './assests/images/ic_save_black_24px.svg';
     vm.moduleInfoIconURL = './assests/images/ic_mode_edit_black_24px.svg';
+    vm.addModuleInfoIconURL = './assests/images/ic_add_black_18px.svg';
     vm.teacher = {
         avatar: '../assests/images/user_tmp.png',
         description: 'Викладач гуманітарних наук'
@@ -333,7 +334,17 @@
       $mdSidenav('ckeditor').close();
 
       if (vm.CKEditorContent.target == 'new') {
-        createModule(vm.CKEditorContent);
+        var confirm = $mdDialog.prompt()
+            .title('Назва модуль')
+            .textContent('Введіть назву модуля')
+            .ok('Зберегти')
+            .cancel('Відмінити');
+        $mdDialog.show(confirm)
+            .then(function(moduleName) {
+              vm.CKEditorContent.moduleInfo.name = moduleName;
+
+              createModule(vm.CKEditorContent);
+            });
       } else {
         updateModule(vm.CKEditorContent);
       }
@@ -379,6 +390,17 @@
     vm.showTestResult = function () {
       var path = '/test/result/1f9d41bbab98d1434c925371bf664d3e35';
       $location.path(path);
+    };
+
+    vm.addModuleInGroup = function (module) {
+      vm.CKEditorContent.target = 'new';
+      vm.CKEditorContent.content = 'Контент';
+      vm.CKEditorContent.moduleInfo = {
+        name: '',
+        module_group_id: module.id
+      };
+
+      openModuleCKEditor();
     };
   }
 })();
