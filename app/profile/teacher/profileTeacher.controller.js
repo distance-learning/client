@@ -35,7 +35,9 @@
     vm.CKEditorContent = {
       target: '',
       content: '',
-      moduleInfo: {}
+      moduleInfo: {
+        name: ''
+      }
     };
     vm.treeControl = {
       data: [],
@@ -115,45 +117,15 @@
 
     function getTeacherModule() {
       vm.teacherModuleLoading = true;
-      vm.teacher.modules = [
-        {
-          id: 1,
-          name: 'Module 1',
-          items: [
-            { id: 11, name: 'Module 1 - 1', content: 'Module 1 - 1 content' },
-            { id: 12, name: 'Module 1 - 2', content: 'Module 1 - 2 content' },
-            { id: 13, name: 'Module 1 - 3', content: 'Module 1 - 3 content' }
-          ]
-        },
-        {
-          id: 2,
-          name: 'Module 2',
-          items: [
-            { id: 21, name: 'Module 2 - 1' },
-            { id: 22, name: 'Module 2 - 2' },
-            { id: 23, name: 'Module 2 - 3' }
-          ]
-        },
-        {
-          id: 3,
-          name: 'Module 3',
-          items: [
-            { id: 31, name: 'Module 3- 1' },
-            { id: 32, name: 'Module 3 - 2' },
-            { id: 33, name: 'Module 3 - 3' }
-          ]
-        }
-      ];
-      vm.teacherModuleLoading = false;
 
-      //ProfileTeacherUtils.getTeacherModule()
-      //    .then(function (module) {
-      //      vm.teacher.module = module;
-      //
-      //      vm.teacherModuleLoading = false;
-      //    }, function (err) {
-      //      $log.log('[ERROR] ProfileTeacherController.getTeacherModule().ProfileTeacherUtils.getTeacherModule()', err);
-      //    });
+      ProfileTeacherUtils.getTeacherModule()
+          .then(function (module) {
+            vm.teacher.modules = module;
+
+            vm.teacherModuleLoading = false;
+          }, function (err) {
+            $log.log('[ERROR] ProfileTeacherController.getTeacherModule().ProfileTeacherUtils.getTeacherModule()', err);
+          });
     }
 
     function getTasks(group) {
@@ -245,13 +217,17 @@
       //    });
     }
 
+    function clearCKEditor() {
+      vm.CKEditorContent.target = '';
+      vm.CKEditorContent.content = '';
+      vm.CKEditorContent.moduleInfo.name = '';
+    }
+
     function createModule() {
       ProfileTeacherUtils.addModuleContent(vm.CKEditorContent)
           .then(function (ok) {
-            vm.CKEditorContent = {
-              target: '',
-              content: ''
-            };
+            clearCKEditor();
+
 
             getTeacherModule();
           }, function (err) {
@@ -263,10 +239,7 @@
       console.log(vm.CKEditorContent);
       ProfileTeacherUtils.updateModuleContent(vm.CKEditorContent)
           .then(function (ok) {
-            vm.CKEditorContent = {
-              target: '',
-              content: ''
-            };
+            clearCKEditor();
 
             getTeacherModule();
           }, function (err) {
@@ -377,6 +350,7 @@
           $mdDialog.show(confirm)
               .then(function(moduleName) {
                 vm.CKEditorContent.moduleInfo.name = moduleName;
+                vm.CKEditorContent.moduleInfo.module_group_id = module.module_group_id;
 
                 updateModule();
               });

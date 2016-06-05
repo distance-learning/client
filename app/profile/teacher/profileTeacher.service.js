@@ -213,9 +213,9 @@
       };
       console.log(value);
 
-      //$http.post(server_host + 'api/modules', value)
-      //    .success(defer.resolve)
-      //    .error(defer.reject);
+      $http.post(server_host + 'api/modules', value)
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }
@@ -224,10 +224,15 @@
       // data.content = module content
       // data.target = id moduleGroup
       var defer = $q.defer();
+      var value = {
+        name: data.moduleInfo.name,
+        content: data.content,
+        module_group_id: data.moduleInfo.module_group_id
+      };
 
-      //$http.post(server_host + 'api/modules', value)
-      //    .success(defer.resolve)
-      //    .error(defer.reject);
+      $http.put(server_host + 'api/modules/' + data.target, value)
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }
