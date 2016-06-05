@@ -412,5 +412,14 @@
             $log.log('[ERROR] ProfileTeacherController.removeModuleContentFromGroup().ProfileTeacherUtils.rememoveModuleFromGroup()', err);
           });
     };
+
+    vm.updateModuleGroupName = function (newName, module) {
+      ProfileTeacherUtils.updateModuleGroupName({ module_group_id: module.id, name: newName })
+        .then(function () {
+            getTeacherModule();
+        }, function (err) {
+            $log.log('[ERROR] ProfileTeacherController.updateModuleGroupName().ProfileTeacherUtils.updateModuleGroupName()', err);
+          });
+    };
   }
 })();

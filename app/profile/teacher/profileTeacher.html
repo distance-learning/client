@@ -79,7 +79,12 @@
           <div ng-repeat="module in profileTeacher.teacher.modules track by $index"
                ng-if="!profileTeacher.teacherModuleLoading">
             <div layout layout-align="space-between center">
-              <h3 class="text-with-simple-style">{{ module.name }}</h3>
+              <h3 class="text-with-simple-style"
+                  inline-edit="module.name"
+                  inline-edit-callback="profileTeacher.updateModuleGroupName(newValue, module)"
+                  inline-edit-btn-edit=""
+                  inline-edit-on-blur="save"
+                  inline-edit-on-click></h3>
               <md-button class="md-icon-button"
                          ng-click="profileTeacher.addModuleInGroup(module)">
                 <md-icon md-svg-icon="{{ profileTeacher.addModuleInfoIconURL }}"></md-icon>
