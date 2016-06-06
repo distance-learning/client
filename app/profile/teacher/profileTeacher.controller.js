@@ -128,15 +128,6 @@
           });
     }
 
-    function getTasks(group) {
-      ProfileTeacherUtils.getTasks(group)
-          .then(function (tasks) {
-            vm.tasks = tasks;
-          }, function (err) {
-            $log.log('[ERROR] ProfileTeacherController.getTasks()', err);
-          });
-    }
-
     function setupTaskForGroup(data) {
       ProfileTeacherUtils.setupTaskForGroup(data)
           .then(function (ok) {
@@ -153,6 +144,7 @@
     function setupTaskForStudent(data) {
       ProfileTeacherUtils.setupTaskForStudent(data)
           .then(function (ok) {
+            console.log(ok);
             $mdToast.show(
                 $mdToast.simple()
                     .textContent('Завдання ' + data.data.name + ' для ' + data.target.name + 'збережено')

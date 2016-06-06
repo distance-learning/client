@@ -18,7 +18,6 @@
       getStudentTasks: getStudentTasks,
       getFaculties: getFaculties,
       getSubjectsWithGroups: getSubjectsWithGroups,
-      getTasks: getTasks,
       setupTaskForGroup: setupTaskForGroup,
       setupTaskForStudent: setupTaskForStudent,
       addModuleContent: addModuleContent,
@@ -167,29 +166,20 @@
       return defer.promise;
     }
 
-    function getTasks(group) {
-      var defer = $q.defer();
-      var tasks = [{
-        id: 1,
-        name: 'Tasks 1'
-      }, {
-        id: 2,
-        name: 'Tasks 2'
-      }, {
-        id: 3,
-        name: 'Tasks 3'
-      }];
-
-      defer.resolve(tasks);
-      return defer.promise;
-    }
-
     function setupTaskForGroup(data) {
       // data.target = group
       // data.data = task
       var defer = $q.defer();
+      var value = {
+        attachment_id: data.data.id,
+        attachment_type: 'module',
+        group_slug: data.target.slug,
+        deadline: data.deadline.getFullYear() + '-' + data.deadline.getMonth() + '-' + data.deadline.getDate()
+      };
 
-      // TODO: need API
+      $http.post(server_host + 'api/tasks/groups', value)
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }
@@ -202,13 +192,12 @@
         attachment_id: data.data.id,
         attachment_type: 'module',
         student_id: data.target.id,
-        deadline: data.deadline
+        deadline: data.deadline.getFullYear() + '-' + data.deadline.getMonth() + '-' + data.deadline.getDate()
       };
-      console.log(value);
 
-      //$http.post(server_host + 'api/tasks', value)
-      //    .success(defer.resolve)
-      //    .error(defer.reject);
+      $http.post(server_host + 'api/tasks', value)
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }
@@ -221,7 +210,6 @@
         content: data.content,
         module_group_id: data.moduleInfo.module_group_id
       };
-      console.log(value);
 
       $http.post(server_host + 'api/modules', value)
           .success(defer.resolve)
