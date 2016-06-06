@@ -26,7 +26,7 @@
       TestUtils.getTest(testId)
           .then(function (ok) {
             vm.test = ok;
-            vm.test.name = 'Назва тесту';
+            vm.test.name = vm.test.name ? vm.test.name : 'Назва тесту';
 
             vm.loading = false;
           }, function (err) {

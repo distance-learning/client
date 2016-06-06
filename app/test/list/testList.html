@@ -5,10 +5,22 @@
                  layout="column" layout-align="start center"
                  ng-if="!testList.loading">
     <h1>Список тестів</h1>
+
     <div class="admin-test-container">
-      <div ng-repeat="test in testList.tests track by $index"
-          ng-click="testList.goToTestPage(test)">
-        {{ $index + 1 }}. {{ test.name }}
+      <div class="text-without-style text-with-simple-style-hover outline-off cursor-pointer"
+           style="border-bottom: 1px solid rgb(233, 126, 89);"
+           ng-repeat="test in testList.tests.data track by $index"
+           ng-click="testList.goToTestPage(test)"
+           layout-margin layout-padding>
+        {{ testList.params.page * testList.params.count - testList.params.count + $index + 1}}. {{ test.name }}
+      </div>
+    </div>
+    <div class="pagination"
+         layout layout-align="center center"
+         layout-magin layout-padding>
+      <div class="pagination-page"
+           ng-repeat="page in testList.range(testList.tests.total) track by $index"
+           ng-click="testList.jumpToPage($index + 1)">
       </div>
     </div>
   </md-whiteframe>

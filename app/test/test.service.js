@@ -39,10 +39,10 @@
       return defer.promise;
     }
 
-    function getTests() {
+    function getTests(params) {
       var defer = $q.defer();
 
-      $http.get(server_host + 'api/tests')
+      $http.get(server_host + 'api/tests', { params: params })
           .success(function (ok, status, headers, config) {
             defer.resolve(ok);
           })
