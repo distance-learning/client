@@ -17,6 +17,8 @@
     vm.settingsIconURL = 'assests/images/ic_settings_black_24px.svg';
     vm.passwordIconURL = 'assests/images/ic_security_black_24px.svg';
     vm.changeInfoIconURL = 'assests/images/ic_assignment_ind_black_24px.svg';
+    vm.homeIconURL = 'assests/images/ic_home_black_24px.svg';
+    vm.facultyIconURL = 'assests/images/ic_account_balance_black_24px.svg';
 
     vm.toggle = function () {
       $mdSidenav('menu-client').toggle();
@@ -32,6 +34,14 @@
 
     vm.changeUSerInfo = function () {
       return $location.path('/profile/change-info');
+    };
+
+    vm.goToHome = function () {
+      $location.path('/home');
+    };
+
+    vm.goToFaculty = function () {
+      $location.path('/faculties');
     };
   }
 })();

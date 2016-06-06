@@ -2,13 +2,19 @@
      layout="row" layout-sm="column" layout-align="end center">
   <div class="menu-client-normal"
        layout="row" layout-align="end center"
-       layout-margin layout-padding
-       hide hide-sm show-gt-sm show-md show-gt-md show-lg show-gt-lg>
-    <div><a ng-href="/#/home">Головна</a></div>
-    <div><a ng-href="#">Предмети</a></div>
-    <div><a ng-href="/#/faculties">Факультети</a></div>
-    <div><a ng-href="#">Контакти</a></div>
-    <div ng-if="menuClient.isLogged()">
+       layout-margin layout-padding>
+    <md-button class="md-icon-button" aria-label=""
+               ng-click="menuClient.goToHome()">
+      <md-icon md-svg-src="{{ menuClient.homeIconURL }}" aria-label=""></md-icon>
+      <md-tooltip>Головна</md-tooltip>
+    </md-button>
+    <md-button class="md-icon-button" aria-label=""
+               ng-click="menuClient.goToFaculty()">
+      <md-icon md-svg-src="{{ menuClient.facultyIconURL }}" aria-label=""></md-icon>
+      <md-tooltip>Факультети</md-tooltip>
+    </md-button>
+    <div ng-if="menuClient.isLogged()"
+        style="border-left: 2px solid rgb(233, 126, 89);">
       <md-menu>
         <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="">
           <md-icon md-svg-src="{{ menuClient.settingsIconURL }}" aria-label=""></md-icon>
@@ -31,45 +37,4 @@
       </md-menu>
     </div>
   </div>
-  <div layout="row" layout-align="end center"
-       show-sm hide-gt-sm hide-md hide-gt-md hide-lg hide-gt-lg>
-    <div>
-      <md-button class="menu-client-sm-button" aria-label=""
-                 ng-click="menuClient.toggle()">
-        <md-icon md-svg-src="{{ menuClient.menuIconURL }}" aria-label=""></md-icon>
-      </md-button>
-    </div>
-  </div>
-  <md-sidenav md-component-id="menu-client" class="md-sidenav-left menu-client-list-container"
-              layout="column" layout-align="stretch center">
-    <div style="color: #000">
-      ICON
-    </div>
-    <div><a ng-href="/#/home">Головна</a></div>
-    <div><a ng-href="#">Предмети</a></div>
-    <div><a ng-href="/#/faculties">Факультети</a></div>
-    <div><a ng-href="#">Контакти</a></div>
-    <div ng-if="menuClient.isLogged()">
-      <md-menu>
-        <md-button ng-click="$mdOpenMenu($event)" aria-label="">
-          <md-icon md-svg-src="{{ menuClient.settingsIconURL }}" aria-label=""></md-icon>
-          Настройки
-        </md-button>
-        <md-menu-content>
-          <md-menu-item>
-            <md-button ng-click="menuClient.resetPassword()" aria-label="">
-              <md-icon md-svg-src="{{ menuClient.passwordIconURL }}" aria-label=""></md-icon>
-              Змінити пароль
-            </md-button>
-          </md-menu-item>
-          <md-menu-item>
-            <md-button ng-click="menuClient.changeUSerInfo()" aria-label="">
-              <md-icon md-svg-src="{{ menuClient.changeInfoIconURL }}" aria-label=""></md-icon>
-              Змінити інформацію про себе
-            </md-button>
-          </md-menu-item>
-        </md-menu-content>
-      </md-menu>
-    </div>
-  </md-sidenav>
 </div>
