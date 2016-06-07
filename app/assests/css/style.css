@@ -188,6 +188,10 @@ md-sidenav ul {
   color: rgb(233, 126, 89);
 }
 
+.text-with-simple-style-hover:hover {
+  opacity: 0.85;
+}
+
 .text-without-style {
   color: black;
 }

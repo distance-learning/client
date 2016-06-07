@@ -21,7 +21,8 @@
       updateQuestion: updateQuestion,
       updateTestInfo: updateTestInfo,
       completeTest: completeTest,
-      getTestResult: getTestResult
+      getTestResult: getTestResult,
+      getTestHistory: getTestHistory
     };
 
     function getTest(testId) {
@@ -147,6 +148,14 @@
     }
 
     function getTestResult(testCode) {
+      var defer = $q.defer();
+
+      // TODO: need API
+
+      return defer.promise;
+    }
+
+    function getTestHistory(student) {
       var defer = $q.defer();
 
       // TODO: need API

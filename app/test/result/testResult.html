@@ -30,9 +30,11 @@
            layout="column" layout-align="space-around center"
            layout-margin layout-padding
            layout-fill>
-        <div layout layout-align="space-between center"
+        <div class="text-with-simple-style-hover cursor-pointer outline-off"
+             layout layout-align="space-between center"
              ng-repeat="item in testResult.testResult.group.students | filter : testResult.searchUser track by $index"
              ng-class="testResult.getBackgroundColor(item.points)"
+             ng-click="testResult.showTestHistory(item)"
              layout-margin
              layout-fill>
           <span class="text-without-style">{{ item.surname }} {{ item.name }}</span>
@@ -42,4 +44,24 @@
       </div>
     </md-whiteframe>
   </div>
+  <md-sidenav class="md-sidenav-right"
+              md-component-id="testHistory"
+              layout="column" layout-align="space-between stretch">
+    <md-progress-linear md-mode="indeterminate"
+                        ng-if="testResult.loadingTargetTestResult"></md-progress-linear>
+    <div ng-if="!testResult.loadingTargetTestResult">
+      <h2 class="text-with-simple-style"
+          layout-margin>
+        Результати
+      </h2>
+
+      <div class="text-with-simple-style-hover cursor-pointer text-without-style "
+           layout layout-align="space-between center"
+           ng-class="{ 'A': item.answer, 'F': !item.answer }"
+           ng-repeat="item in testResult.testHistory track by $index"
+           layout-margin layout-padding>
+        {{ item.question.name }}
+      </div>
+    </div>
+  </md-sidenav>
 </div>

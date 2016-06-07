@@ -7,14 +7,33 @@
 
   TestResultController.$inject = [
     '$log', '$routeParams',
+    '$mdSidenav',
     'TestUtils'
   ];
 
   function TestResultController($log, $routeParams,
+                                $mdSidenav,
                                 TestUtils) {
     var vm = this;
     var testCode = $routeParams.testId;
-    console.log(testCode);
+    vm.testHistory = [
+      {
+        question: { name: 'qustion 1' },
+        answer: true
+      },
+      {
+        question: { name: 'qustion 1' },
+        answer: true
+      },
+      {
+        question: { name: 'qustion 1' },
+        answer: false
+      },
+      {
+        question: { name: 'qustion 1' },
+        answer: true
+      }
+    ];
     vm.loading = true;
     vm.testResult = {};
 
@@ -61,6 +80,20 @@
       if (75 <= point && point <= 81) return 'C';
       if (82 <= point && point <= 89) return 'B';
       if (90 <= point && point <= 100) return 'A';
+    };
+
+    vm.showTestHistory = function (student) {
+      $mdSidenav("testHistory").open();
+      //vm.loadingTargetTestResult = true;
+      //
+      //TestUtils.getTestHistory(student)
+      //    .then(function (testHistory){
+      //      vm.testHistory = testHistory;
+      //
+      //      vm.loadingTargetTestResult = false;
+      //    }, function (err) {
+      //      $log.log('[ERROR] TestResultController.showTestHistory().TestUtils.getTestHistory()', err);
+      //    });
     };
   }
 })();
