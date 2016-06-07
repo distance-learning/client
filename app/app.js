@@ -4,6 +4,7 @@
   angular
       .module('distanceLearning', [
         'ngMaterial',
+        'ngMessages',
         'ngRoute',
         'satellizer',
         'angularInlineEdit',
