@@ -134,8 +134,21 @@
     <md-sidenav class="md-sidenav-right"
                 md-component-id="targetTasks"
                 layout="column" layout-align="space-between stretch">
-      <div layout-padding>
+      <md-progress-linear md-mode="indeterminate"
+                          ng-if="profileTeacher.loadingtargetTask"></md-progress-linear>
+      <div ng-if="!profileTeacher.loadingtargetTask"
+           layout-padding>
         <h1 class="text-with-simple-style">{{ profileTeacher.targetTasks.name }}</h1>
+        <md-input-container layout-fill style="width: 280px;">
+          <label>Інтервал для перегляду завдань</label>
+          <md-select ng-model="profileTeacher.intervalForTask"
+                     ng-change="profileTeacher.showTaskForStudent(profileTeacher.targetTasks.target)">
+            <md-option ng-repeat="interval in profileTeacher.intervalsForTask track by $index"
+                       value="{{ interval.value }}">
+              {{ interval.title }}
+            </md-option>
+          </md-select>
+        </md-input-container>
 
         <div class="text-with-simple-style"
              ng-if="!profileTeacher.targetTasks.tasks.length">

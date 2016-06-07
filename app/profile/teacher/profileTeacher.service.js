@@ -243,10 +243,12 @@
       return defer.promise;
     }
 
-    function getTaskForStudent (student) {
+    function getTaskForStudent (student, interval) {
       var defer = $q.defer();
 
-      // TODO: need API
+      $http.get(server_host + 'api/users/' + student.slug + '/tasks')
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }

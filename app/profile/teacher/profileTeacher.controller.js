@@ -16,6 +16,21 @@
                                     ProfileUtils, ProfileTeacherUtils, LoginUtils, TestUtils) {
     var vm = this;
     vm.loading = true;
+    vm.intervalForTask = '1';
+    vm.intervalsForTask = [
+      {
+        title: '1 місяць',
+        value: '1'
+      },
+      {
+        title: '3 місяць',
+        value: '3'
+      },
+      {
+        title: '6 місяць',
+        value: '6'
+      }];
+    vm.loadingtargetTask = true;
     vm.currentSelectedDate = {};
     vm.subjectIconURL = '../assests/images/ic_school_black_24px.svg';
     vm.groupIconURL = '../assests/images/ic_people_black_48px.svg';
@@ -174,6 +189,7 @@
     function showTaskForGroup(target) {
       vm.targetTasks = {
         name: target.name,
+        target: target,
         type: "group",
         tasks: [
           {id: 1, name: 'tesk 1'},
@@ -183,25 +199,6 @@
       };
 
       //ProfileTeacherUtils.getTaskForGroup(target)
-      //    .then(function (tasks) {
-      //      vm.targetTasks.tasks = tasks;
-      //    }, function (err) {
-      //      $log.log('[ERROR] ProfileTeacherController.showTaskForGroup().ProfileTeacherUtils.getTaskForGroup()', err);
-      //    });
-    }
-
-    function showTaskForStudent(target) {
-      vm.targetTasks = {
-        name: target.name,
-        type: "student",
-        tasks: [
-          {id: 1, name: '12312ds 1'},
-          {id: 3, name: 'teadasdxcsk 2'},
-          {id: 4, name: 'tezxczxczx czsk 3'}
-        ]
-      };
-
-      //ProfileTeacherUtils.getTaskForStudent(target)
       //    .then(function (tasks) {
       //      vm.targetTasks.tasks = tasks;
       //    }, function (err) {
@@ -355,10 +352,34 @@
       if (target.type == 'group') { showTaskForGroup(target); }
       if (target.type == 'student') {
         if (target.surname) target.name = target.surname + '. ' + target.name[0];
-        showTaskForStudent(target);
+        vm.showTaskForStudent(target);
       }
 
       $mdSidenav('targetTasks').open();
+    };
+
+    vm.showTaskForStudent = function (target) {
+      vm.loadingtargetTask = true;
+      vm.targetTasks = {
+        name: target.name,
+        type: "student",
+        target: target,
+        tasks: [
+          {id: 1, name: '12312ds 1'},
+          {id: 3, name: 'teadasdxcsk 2'},
+          {id: 4, name: 'tezxczxczx czsk 3'}
+        ]
+      };
+
+      ProfileTeacherUtils.getTaskForStudent(target, vm.intervalsForTask)
+          .then(function (tasks) {
+            console.log(tasks);
+            vm.targetTasks.tasks = tasks;
+
+            vm.loadingtargetTask = false;
+          }, function (err) {
+            $log.log('[ERROR] ProfileTeacherController.showTaskForGroup().ProfileTeacherUtils.getTaskForGroup()', err);
+          });
     };
 
     vm.removeTaskFromTarget = function (task) {
