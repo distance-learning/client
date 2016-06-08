@@ -31,5 +31,16 @@
         'distanceLearning.course',
         'distanceLearning.subject'
       ])
-      .constant('server_host', 'http://distance-learning.herokuapp.com/');
+      .constant('server_host', 'http://distance-learning.herokuapp.com/')
+      .run(['$rootScope', '$mdToast', function ($rootScope, $mdToast) {
+        $rootScope.notification = function (message, time) {
+          if (!time) time = 3000;
+
+          $mdToast.show(
+              $mdToast.simple()
+                  .textContent(message)
+                  .hideDelay(time)
+          );
+        };
+      }]);
 })();

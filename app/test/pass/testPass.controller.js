@@ -7,12 +7,12 @@
 
   TestPassController.$inject = [
     '$log', '$location', '$routeParams', '$interval',
-    '$mdToast',
+    '$rootScope',
     'LoginUtils', 'TestUtils', 'ProfileUtils'
   ];
 
   function TestPassController($log, $location, $routeParams, $interval,
-                              $mdToast,
+                              $rootScope,
                               LoginUtils, TestUtils, ProfileUtils) {
     var vm = this;
     var testId = $routeParams.testId;
@@ -35,10 +35,10 @@
           name: 'Question 1',
           type: 'multiselect',
           answers: [
-            { id: 1, name: 'q1-a1' },
-            { id: 2, name: 'q1-a2' },
-            { id: 3, name: 'q1-a3' },
-            { id: 4, name: 'q1-a4' }
+            {id: 1, name: 'q1-a1'},
+            {id: 2, name: 'q1-a2'},
+            {id: 3, name: 'q1-a3'},
+            {id: 4, name: 'q1-a4'}
           ],
           time: 5
         },
@@ -47,10 +47,10 @@
           name: 'Question 2',
           type: 'single',
           answers: [
-            { id: 1, name: 'q2-a1' },
-            { id: 2, name: 'q2-a2' },
-            { id: 3, name: 'q2-a3' },
-            { id: 4, name: 'q2-a4' }
+            {id: 1, name: 'q2-a1'},
+            {id: 2, name: 'q2-a2'},
+            {id: 3, name: 'q2-a3'},
+            {id: 4, name: 'q2-a4'}
           ],
           time: 5
         },
@@ -59,10 +59,10 @@
           name: 'Question 3',
           type: 'multiselect',
           answers: [
-            { id: 1, name: 'q3-a1' },
-            { id: 2, name: 'q3-a2' },
-            { id: 3, name: 'q3-a3' },
-            { id: 4, name: 'q3-a4' }
+            {id: 1, name: 'q3-a1'},
+            {id: 2, name: 'q3-a2'},
+            {id: 3, name: 'q3-a3'},
+            {id: 4, name: 'q3-a4'}
           ],
           time: 5
         }
@@ -143,23 +143,19 @@
     function prepareQuetionTimer() {
       if (!vm.test.time) { return; }
 
-      for(var i in vm.test.questions) {
+      for (var i in vm.test.questions) {
         vm.test.questions[i].time = vm.test.time;
       }
     }
 
     function testComplete() {
-      console.log(vm.test);
       TestUtils.completeTest(vm.test)
           .then(function (ok) {
             stopTimer();
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent('Тест завершено')
-                    .hideDelay(3000)
-            ).then(function () {
-               $location.path('/home');
-             });
+
+            $rootScope.notification('Тест завершено');
+
+            $location.path('/home');
           }, function (err) {
             $log.log('[ERROR] TestPassController.testComplete().TestUtils.completeTest()', err);
           });

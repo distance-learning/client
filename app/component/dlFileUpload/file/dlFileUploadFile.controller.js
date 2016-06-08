@@ -6,14 +6,14 @@
       .controller('dlFileUploadFileController', dlFileUploadFileController);
 
   dlFileUploadFileController.$inject = [
-    '$log', '$window',
-    '$mdToast', '$mdDialog',
+    '$log', '$window', '$rootScope',
+    '$mdDialog',
     'FileUploader',
     'dlFileUploadUtils'
   ];
 
-  function dlFileUploadFileController($log, $window,
-                                      $mdToast, $mdDialog,
+  function dlFileUploadFileController($log, $window, $rootScope,
+                                      $mdDialog,
                                       FileUploader,
                                       dlFileUploadUtils) {
     var vm = this;
@@ -60,11 +60,7 @@
     };
 
     vm.clipboardSuccess = function () {
-      $mdToast.show(
-          $mdToast.simple()
-              .textContent('Посилання на файл збережено в буфер')
-              .hideDelay(3000)
-      );
+      $rootScope.notification('Посилання на файл збережено в буфер');
     };
 
     vm.jumpToPageFiles = function (page) {
@@ -92,18 +88,10 @@
 
     vm.uploader.onSuccessItem = function(fileItem, response, status, headers) {
       if (status != 200) {
-        return $mdToast.show(
-            $mdToast.simple()
-                .textContent('Помилка при завантажені файлу')
-                .hideDelay(3000)
-        );
+        return $rootScope.notification('Помилка при завантажені файлу');
       }
 
-      $mdToast.show(
-          $mdToast.simple()
-              .textContent('Файл ' + fileItem.filename + 'завантажено')
-              .hideDelay(3000)
-      );
+      $rootScope.notification('Файл ' + fileItem.filename + 'завантажено');
     };
 
     vm.downloadFile = function (fileURL) {

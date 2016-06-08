@@ -32,11 +32,9 @@
 
         FacultyListUtils.getFaculties(vm.params)
             .then(function (ok) {
-              console.log(ok.data);
               vm.faculties.data = ok.data;
               vm.faculties.total = ok.total;
               vm.selectedFaculty = vm.faculties.data[0];
-              console.log(vm.selectedFaculty);
 
               vm.loadingFaculty = false;
             }, function (error) {
@@ -45,8 +43,6 @@
       } else {
         FacultyHomeUtils.getRandomPreviewFaculties()
             .then(function (data) {
-              console.log(data);
-              console.log(vm.facultiesInfo);
               vm.facultiesInfo = data.data;
             }, function (error) {
               $log.log('[ERROR] FacultyController.FacultyHomeUtils.getRandomPreviewFaculties()', error);

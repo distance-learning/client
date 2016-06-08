@@ -137,7 +137,6 @@
 
       vm.question.type = countSelectedAnswer == 1 ? 'single' : 'multiselect';
       vm.question.time = (vm.question.time.getHours() * 60) + vm.question.time.getMinutes();
-      console.log(vm.question);
 
       //TestUtils.updateQuestion(vm.question)
       //    .then(function (ok) {
@@ -167,7 +166,6 @@
 
     vm.cancelQuestion = function () {
       var path = '/test/' + testId + '/edit';
-      console.log(path);
       $location.path(path);
     };
 
@@ -188,8 +186,6 @@
     };
 
     vm.removeAnswer = function () {
-      console.log(vm.CKEditorContent.indexAnswer);
-      console.log(vm.question.answers);
       for (var i in vm.question.answers) {
         if (vm.CKEditorContent.indexAnswer == vm.question.answers[i].id) {
           clearCKEditor();

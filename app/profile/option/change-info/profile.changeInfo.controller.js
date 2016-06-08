@@ -6,14 +6,12 @@
       .controller('ProfileChangeInfoController', ProfileChangeInfoController);
 
   ProfileChangeInfoController.$inject = [
-    '$location', '$log',
-    '$mdToast',
+    '$location', '$log', '$rootScope',
     'FileUploader',
     'ProfileUtils', 'LoginUtils', 'dlFileUploadUtils'
   ];
 
-  function ProfileChangeInfoController($location, $log,
-                                       $mdToast,
+  function ProfileChangeInfoController($location, $log, $rootScope,
                                        FileUploader,
                                        ProfileUtils, LoginUtils, dlFileUploadUtils) {
     var vm = this;
@@ -86,11 +84,8 @@
 
       ProfileUtils.changeInfo(value)
           .then(function (ok) {
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent('Information was change')
-                    .hideDelay(3000)
-            );
+            $rootScope.notification('Інформацію змінено');
+
             $location.path('/home');
           }, function (err) {
             $log.log('[ERROR] ProfileChangeInfoController.changeInformation().ProfileUtils.changeInfo()', err);

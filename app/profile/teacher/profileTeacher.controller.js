@@ -6,30 +6,20 @@
       .controller('ProfileTeacherController', ProfileTeacherController);
 
   ProfileTeacherController.$inject = [
-    '$log', '$location',
-    '$mdSidenav', '$mdDialog', '$mdToast', '$mdBottomSheet',
+    '$log', '$location', '$rootScope',
+    '$mdSidenav', '$mdDialog', '$mdBottomSheet',
     'ProfileUtils', 'ProfileTeacherUtils', 'LoginUtils', 'TestUtils'
   ];
 
-  function ProfileTeacherController($log, $location,
-                                    $mdSidenav, $mdDialog, $mdToast, $mdBottomSheet,
+  function ProfileTeacherController($log, $location, $rootScope,
+                                    $mdSidenav, $mdDialog, $mdBottomSheet,
                                     ProfileUtils, ProfileTeacherUtils, LoginUtils, TestUtils) {
     var vm = this;
     vm.loading = true;
-    vm.intervalsForTask = [
-      {
-        title: '1 місяць',
-        value: '1'
-      },
-      {
-        title: '3 місяць',
-        value: '3'
-      },
-      {
-        title: '6 місяць',
-        value: '6'
-      }];
-    vm.intervalForTask = vm.intervalsForTask[0].value;
+    vm.intervalForTask = {
+      from: new Date(),
+      to: new Date()
+    };
     vm.loadingtargetTask = true;
     vm.currentSelectedDate = {};
     vm.subjectIconURL = '../assests/images/ic_school_black_24px.svg';
@@ -113,7 +103,6 @@
         item.type = 'subject';
         item.children = data[i].groups;
 
-
         for(var j in item.children) {
           item.children[j].type = 'group';
           item.children[j].children = item.children[j].students;
@@ -146,11 +135,8 @@
     function setupTaskForGroup(data) {
       ProfileTeacherUtils.setupTaskForGroup(data)
           .then(function (ok) {
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent('Завдання ' + data.data.name + ' для ' + data.target.name + 'збережено')
-                    .hideDelay(3000)
-            );
+            var message = 'Завдання ' + data.data.name + ' для ' + data.target.name + 'збережено';
+            $rootScope.notification(message);
           }, function (err) {
             $log.log('[ERROR] ProfileTeacherController.setupTaskForGroup().ProfileTeacherUtils.setupTaskForGroup()', err);
           });
@@ -159,12 +145,8 @@
     function setupTaskForStudent(data) {
       ProfileTeacherUtils.setupTaskForStudent(data)
           .then(function (ok) {
-            console.log(ok);
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent('Завдання ' + data.data.name + ' для ' + data.target.name + 'збережено')
-                    .hideDelay(3000)
-            );
+            var message = 'Завдання ' + data.data.name + ' для ' + data.target.name + 'збережено';
+            $rootScope.notification(message);
           }, function (err) {
             $log.log('[ERROR] ProfileTeacherController.setupTaskForGroup().ProfileTeacherUtils.setupTaskForGroup()', err);
           });
@@ -175,7 +157,6 @@
 
       TestUtils.createTest()
           .then(function (ok) {
-            console.log(ok);
             $location.path('/test/' + ok.code + '/edit');
           }, function (err) {
             $log.log('[ERROR] ProfileTeacherController.goToCreateTest().TestUtils.createTest()', err);
@@ -184,26 +165,6 @@
 
     function openModuleCKEditor() {
       $mdSidenav('ckeditor').toggle();
-    }
-
-    function showTaskForGroup(target) {
-      vm.targetTasks = {
-        name: target.name,
-        target: target,
-        type: "group",
-        tasks: [
-          {id: 1, name: 'tesk 1'},
-          {id: 3, name: 'tesk 2'},
-          {id: 4, name: 'tesk 3'}
-        ]
-      };
-
-      //ProfileTeacherUtils.getTaskForGroup(target)
-      //    .then(function (tasks) {
-      //      vm.targetTasks.tasks = tasks;
-      //    }, function (err) {
-      //      $log.log('[ERROR] ProfileTeacherController.showTaskForGroup().ProfileTeacherUtils.getTaskForGroup()', err);
-      //    });
     }
 
     function clearCKEditor() {
@@ -217,7 +178,6 @@
           .then(function (ok) {
             clearCKEditor();
 
-
             getTeacherModule();
           }, function (err) {
             $log.log('[ERROR] ProfileTeacherController.createModule().ProfileTeacherUtils.addModuleContent()', err);
@@ -225,7 +185,6 @@
     }
 
     function updateModule() {
-      console.log(vm.CKEditorContent);
       ProfileTeacherUtils.updateModuleContent(vm.CKEditorContent)
           .then(function (ok) {
             clearCKEditor();
@@ -310,7 +269,6 @@
               createModule(vm.CKEditorContent);
             });
       } else {
-        console.log(vm.CKEditorContent);
         updateModule(vm.CKEditorContent);
       }
     };
@@ -348,14 +306,9 @@
     };
 
     vm.showTask = function (target) {
-      if (target.type == 'subject') { return; }
-      if (target.type == 'group') { showTaskForGroup(target); }
-      if (target.type == 'student') {
-        vm.intervalForTask = vm.intervalsForTask[0].value;
-
-        if (target.surname) target.name = target.surname + '. ' + target.name[0];
-        vm.showTaskForStudent(target);
-      }
+      if (target.type != 'student') { return; }
+      if (target.surname) target.name = target.surname + '. ' + target.name[0];
+      vm.showTaskForStudent(target);
 
       $mdSidenav('targetTasks').open();
     };
@@ -371,7 +324,6 @@
 
       ProfileTeacherUtils.getTaskForStudent(target, vm.intervalForTask)
           .then(function (tasks) {
-            console.log(tasks);
             vm.targetTasks.tasks = tasks;
 
             vm.loadingtargetTask = false;
@@ -384,18 +336,16 @@
       $mdDialog.show(
           $mdDialog.confirm()
               .title('Видалення')
-              .textContent('Видалення завдання [' + task.name)
+              .textContent('Видалення завдання [' + task.attachment.name + ']')
               .ok('Підтвердити')
               .cancel('Відмінити')
       ).then(function () {
-            console.log('remove ok');
-            vm.showTask(vm.targetTasks);
-            //ProfileTeacherUtils.removeTask({ task: task, target: vm.targetTasks })
-            //    .then(function (ok) {
-            //      vm.showTask(vm.targetTasks);
-            //    }, function (err) {
-            //      $log.log('[ERROR] ProfileTeacherController.removeTaskFromTarget(). ProfileTeacherUtils.removeTask()', err);
-            //    });
+            ProfileTeacherUtils.removeTask(task)
+                .then(function (ok) {
+                  vm.showTask(vm.targetTasks.target);
+                }, function (err) {
+                  $log.log('[ERROR] ProfileTeacherController.removeTaskFromTarget(). ProfileTeacherUtils.removeTask()', err);
+                });
        });
     };
 

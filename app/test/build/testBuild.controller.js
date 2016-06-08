@@ -53,8 +53,6 @@
 
       TestUtils.createQuestion(testId)
           .then(function (ok) {
-            console.log(ok);
-
             var path = '/test/' + testId + '/question/' + ok.code;
             $location.path(path);
 

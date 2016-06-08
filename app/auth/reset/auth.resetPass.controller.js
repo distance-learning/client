@@ -6,13 +6,11 @@
       .controller('ResetPassController', ResetPassController);
 
   ResetPassController.$inject = [
-    '$location', '$log',
-    '$mdToast',
+    '$location', '$log', '$rootScope',
     'ResetPassUtils'
   ];
 
-  function ResetPassController($location, $log,
-                               $mdToast,
+  function ResetPassController($location, $log, $rootScope,
                                ResetPassUtils) {
     var vm = this;
     vm.loading = true;
@@ -23,22 +21,13 @@
 
       ResetPassUtils.resetPassword(user)
           .then(function (ok) {
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent('На пошту [' + user.email + '] відправлено лист з підтвердженням зміни паролю')
-                    .hideDelay(3000)
-            ).then(function () {
-              vm.loadingResetPass = false;
+            $rootScope.notification('На пошту [' + user.email + '] відправлено лист з підтвердженням зміни паролю');
 
-              $location.path('/login');
-            });
+            $location.path('/login');
           }, function (err) {
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent(err)
-                    .hideDelay(3000)
-            );
             vm.loadingResetPass = false;
+
+            $rootScope.notification(err);
             $log.log('[ERROR] ResetPassController.resetPass().ResetPassUtils.resetPassword()', err);
           });
     };

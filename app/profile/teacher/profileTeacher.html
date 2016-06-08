@@ -76,7 +76,7 @@
         <div>
           <md-progress-linear md-mode="indeterminate"
                               ng-if="profileTeacher.teacherModuleLoading"></md-progress-linear>
-          <div ng-repeat="module in profileTeacher.teacher.modules track by $index"
+          <div ng-repeat="module in profileTeacher.teacher.modules.moduleGroups track by $index"
                ng-if="!profileTeacher.teacherModuleLoading">
             <div layout layout-align="space-between center">
               <h3 class="text-with-simple-style"
@@ -94,6 +94,7 @@
             <div layout-padding>
               <div class="md-1-line wrapper-item"
                    layout layout-align="space-between center"
+                   layout-padding
                    ng-repeat="item in module.modules">
                 <div class="md-list-item-text non-select cursor-pointer"
                      ng-drag="true" ng-drag-data="{ data: item, type: 'item' }" data-allow-transform="true">
@@ -104,6 +105,21 @@
                   <md-icon md-svg-icon="{{ profileTeacher.moduleInfoIconURL }}"></md-icon>
                   <md-tooltip>Редагувати</md-tooltip>
                 </md-button>
+              </div>
+            </div>
+          </div>
+          <div layout="column" layout-align="space-between start"
+               ng-if="!profileTeacher.teacherModuleLoading">
+            <h3 class="text-with-simple-style">Тести</h3>
+
+            <div class="md-1-line wrapper-item"
+                 layout layout-align="space-between start"
+                 layout-padding
+                 layout-fill
+                 ng-repeat="test in profileTeacher.teacher.modules.tests track by $index">
+              <div class="md-list-item-text non-select cursor-pointer"
+                   ng-drag="true" ng-drag-data="{ data: test, type: 'test' }" data-allow-transform="true">
+                {{ test.name }}
               </div>
             </div>
           </div>
@@ -139,16 +155,23 @@
       <div ng-if="!profileTeacher.loadingtargetTask"
            layout-padding>
         <h1 class="text-with-simple-style">{{ profileTeacher.targetTasks.name }}</h1>
-        <md-input-container layout-fill style="width: 280px;">
-          <label>Інтервал для перегляду завдань</label>
-          <md-select ng-model="profileTeacher.intervalForTask"
-                     ng-change="profileTeacher.showTaskForStudent(profileTeacher.targetTasks.target)">
-            <md-option ng-repeat="interval in profileTeacher.intervalsForTask track by $index"
-                       value="{{ interval.value }}">
-              {{ interval.title }}
-            </md-option>
-          </md-select>
-        </md-input-container>
+
+        <div layout="column" layout-align="space-between center">
+          <h3 class="text-with-simple-style">Інтервал</h3>
+
+          <div layout>
+            <h4 class="text-with-simple-style">Початок</h4>
+            <md-datepicker ng-model="profileTeacher.intervalForTask.from" md-placeholder=""
+                           md-max-date="profileTeacher.intervalForTask.to"
+                           ng-change="profileTeacher.showTaskForStudent(profileTeacher.targetTasks.target)"></md-datepicker>
+          </div>
+          <div layout>
+            <h4 class="text-with-simple-style">Кінець</h4>
+            <md-datepicker ng-model="profileTeacher.intervalForTask.to" md-placeholder=""
+                           md-min-date="profileTeacher.intervalForTask.from"
+                           ng-change="profileTeacher.showTaskForStudent(profileTeacher.targetTasks.target)"></md-datepicker>
+          </div>
+        </div>
 
         <div class="text-with-simple-style"
              ng-if="!profileTeacher.targetTasks.tasks.length">

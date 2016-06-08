@@ -101,7 +101,6 @@
     vm.editSubject = function (ev, subject) {
       SubjectUtils.getSubject(subject.id)
           .then(function (ok) {
-            console.log(ok);
             $mdDialog.show({
               controller: 'SubjectDialogController',
               controllerAs: 'subjectDialog',

@@ -6,11 +6,11 @@
       .controller('RegisterController', RegisterController);
 
   RegisterController.$inject = [
-    '$log', '$location',
+    '$log', '$location', '$rootScope',
     'RegisterUtils'
   ];
 
-  function RegisterController($log, $location,
+  function RegisterController($log, $location, $rootScope,
                               RegisterUtils) {
     var vm = this;
     vm.loading = true;
@@ -43,7 +43,15 @@
           .then(function () {
             $location.path('/home');
           }, function (err) {
-            $log.log('[ERROR] RegisterController.register().LoginUtils.register()', err);
+            $log.log('[ERROR] RegisterController.register().RegisterUtils.signUp()', err);
+            for (var i in err.data) {
+              if (angular.isArray(err.data[i])) {
+                for (var j in err.data[i]) {
+                  $rootScope.notification(err.data[i][j]);
+                }
+              } else
+                $rootScope.notification(err.data[i]);
+            }
 
             vm.loadingLogin = true;
           })

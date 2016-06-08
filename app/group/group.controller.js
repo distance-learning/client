@@ -6,13 +6,13 @@
       .controller('GroupController', GroupController);
 
   GroupController.$inject = [
-    '$location', '$log',
-    '$mdDialog', '$mdSidenav', '$mdToast',
+    '$location', '$log', '$rootScope',
+    '$mdDialog', '$mdSidenav',
     'LoginUtils', 'GroupUtils'
   ];
 
-  function GroupController($location, $log,
-                           $mdDialog, $mdSidenav, $mdToast,
+  function GroupController($location, $log, $rootScope,
+                           $mdDialog, $mdSidenav,
                            LoginUtils, GroupUtils) {
     var vm = this;
     vm.loading = true;
@@ -255,11 +255,7 @@
 
         GroupUtils.removeStudentFromGroup(data)
             .then(function (ok) {
-              $mdToast.show(
-                  $mdToast.simple()
-                      .textContent('Студента ' + data.student.surname + ' ' + data.student.name + 'видалено із групи' + data.group.name)
-                      .hideDelay(3000)
-              );
+              $rootScope.notification('Студента ' + data.student.surname + ' ' + data.student.name + 'видалено із групи' + data.group.name);
 
               showGroup(data.group);
               getStudents(vm.paramsStudents);

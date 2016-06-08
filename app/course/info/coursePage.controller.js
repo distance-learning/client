@@ -7,11 +7,13 @@
 
   CourseInfoController.$inject = [
     '$log', '$location', '$routeParams',
-    'CourseUtils', 'LoginUtils', 'FacultyListUtils', 'TeacherUtils', 'SubjectUtils', 'GroupUtils'
+    'CourseUtils', 'LoginUtils', 'FacultyListUtils',
+    'TeacherUtils', 'SubjectUtils', 'GroupUtils'
   ];
 
   function CourseInfoController($log, $location, $routeParams,
-                                CourseUtils, LoginUtils, FacultyListUtils, TeacherUtils, SubjectUtils, GroupUtils) {
+                                CourseUtils, LoginUtils, FacultyListUtils,
+                                TeacherUtils, SubjectUtils, GroupUtils) {
     var vm = this;
     vm.courseSlug = $routeParams.slug;
     vm.teachers = [];
@@ -107,7 +109,6 @@
       CourseUtils.getCourse(slug)
           .then(function (ok) {
             vm.course = ok;
-            console.log(vm.course);
 
             vm.loading = false;
           }, function (err) {

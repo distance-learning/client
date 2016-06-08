@@ -190,7 +190,7 @@
       var defer = $q.defer();
       var value = {
         attachment_id: data.data.id,
-        attachment_type: 'module',
+        attachment_type: 'test',
         student_id: data.target.id,
         deadline: data.deadline.getFullYear() + '-' + data.deadline.getMonth() + '-' + data.deadline.getDate()
       };
@@ -203,7 +203,6 @@
     }
 
     function addModuleContent(data) {
-      console.log(data);
       var defer = $q.defer();
       var value = {
         name: data.moduleInfo.name,
@@ -244,21 +243,23 @@
     }
 
     function getTaskForStudent(student, interval) {
+      var from_date = interval.from.getFullYear() + '-' + interval.from.getMonth() + '-' + interval.from.getDate();
+      var to_date = interval.to.getFullYear() + '-' + interval.to.getMonth() + '-' + interval.to.getDate();
       var defer = $q.defer();
 
-      $http.get(server_host + 'api/users/' + student.slug + '/tasks', { params: { interval: interval } })
+      $http.get(server_host + 'api/users/' + student.slug + '/tasks', { params: { from_date: from_date, to_date: to_date } })
           .success(defer.resolve)
           .error(defer.reject);
 
       return defer.promise;
     }
 
-    function removeTask(data) {
-      //data.task
-      //data.target = group | student
+    function removeTask(task) {
       var defer = $q.defer();
 
-      // TODO: need API
+      $http.delete(server_host + 'api/tasks/' + task.id)
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }

@@ -6,11 +6,13 @@
       .controller('FacultyListController', FacultyListController);
 
   FacultyListController.$inject = [
-    '$log', '$location', '$mdDialog',
+    '$log', '$location',
+    '$mdDialog',
     'FacultyListUtils'
   ];
 
-  function FacultyListController($log, $location, $mdDialog,
+  function FacultyListController($log, $location,
+                                 $mdDialog,
                                  FacultyListUtils) {
     var vm = this;
     vm.isOpen = true;
