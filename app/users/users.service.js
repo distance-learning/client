@@ -64,7 +64,7 @@
       var value = {
         name: user.name,
         surname: user.surname,
-        birthday: user.birthday,
+        birthday: user.birthday.getFullYear() + '-' + user.birthday.getMonth() + '-' + user.birthday.getDate(),
         phone: user.phone,
         email: user.email,
         role: user.role,

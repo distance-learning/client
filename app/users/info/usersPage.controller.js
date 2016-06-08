@@ -6,11 +6,11 @@
       .controller('UserInfoController', UserInfoController);
 
   UserInfoController.$inject = [
-    '$log', '$location', '$routeParams',
+    '$log', '$location', '$routeParams', '$rootScope',
     'UsersUtils', 'LoginUtils'
   ];
 
-  function UserInfoController($log, $location, $routeParams,
+  function UserInfoController($log, $location, $routeParams, $rootScope,
                               UsersUtils, LoginUtils) {
     var vm = this;
     var slugForCreate = 'create';
@@ -81,7 +81,17 @@
           .then(function () {
             $location.path('/admin/users');
           }, function (err) {
+            vm.loading = false;
             $log.log('[ERROR] UsersController.editUserSave().UsersUtils.changeUser()', err);
+
+            for (var i in err) {
+              if (angular.isArray(err[i])) {
+                for (var j in err[i]) {
+                  $rootScope.notification(err[i][j]);
+                }
+              } else
+                $rootScope.notification(err[i]);
+            }
           });
     }
 
