@@ -243,10 +243,10 @@
       return defer.promise;
     }
 
-    function getTaskForStudent (student, interval) {
+    function getTaskForStudent(student, interval) {
       var defer = $q.defer();
 
-      $http.get(server_host + 'api/users/' + student.slug + '/tasks')
+      $http.get(server_host + 'api/users/' + student.slug + '/tasks', { params: { interval: interval } })
           .success(defer.resolve)
           .error(defer.reject);
 

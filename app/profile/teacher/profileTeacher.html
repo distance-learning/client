@@ -157,7 +157,7 @@
         <div class="text-with-simple-style-hover text-without-style cursor-pointer outline-off"
              ng-repeat="task in profileTeacher.targetTasks.tasks track by $index"
              ng-click="profileTeacher.removeTaskFromTarget(task)">
-          {{ task.name }}
+          {{ task.attachment.name }}
         </div>
       </div>
       <div class="text-with-simple-style"

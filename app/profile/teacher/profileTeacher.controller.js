@@ -16,7 +16,6 @@
                                     ProfileUtils, ProfileTeacherUtils, LoginUtils, TestUtils) {
     var vm = this;
     vm.loading = true;
-    vm.intervalForTask = '1';
     vm.intervalsForTask = [
       {
         title: '1 місяць',
@@ -30,6 +29,7 @@
         title: '6 місяць',
         value: '6'
       }];
+    vm.intervalForTask = vm.intervalsForTask[0].value;
     vm.loadingtargetTask = true;
     vm.currentSelectedDate = {};
     vm.subjectIconURL = '../assests/images/ic_school_black_24px.svg';
@@ -351,6 +351,8 @@
       if (target.type == 'subject') { return; }
       if (target.type == 'group') { showTaskForGroup(target); }
       if (target.type == 'student') {
+        vm.intervalForTask = vm.intervalsForTask[0].value;
+
         if (target.surname) target.name = target.surname + '. ' + target.name[0];
         vm.showTaskForStudent(target);
       }
@@ -364,21 +366,17 @@
         name: target.name,
         type: "student",
         target: target,
-        tasks: [
-          {id: 1, name: '12312ds 1'},
-          {id: 3, name: 'teadasdxcsk 2'},
-          {id: 4, name: 'tezxczxczx czsk 3'}
-        ]
+        tasks: []
       };
 
-      ProfileTeacherUtils.getTaskForStudent(target, vm.intervalsForTask)
+      ProfileTeacherUtils.getTaskForStudent(target, vm.intervalForTask)
           .then(function (tasks) {
             console.log(tasks);
             vm.targetTasks.tasks = tasks;
 
             vm.loadingtargetTask = false;
           }, function (err) {
-            $log.log('[ERROR] ProfileTeacherController.showTaskForGroup().ProfileTeacherUtils.getTaskForGroup()', err);
+            $log.log('[ERROR] ProfileTeacherController.showTaskForGroup().ProfileTeacherUtils.getTaskForStudent()', err);
           });
     };
 
