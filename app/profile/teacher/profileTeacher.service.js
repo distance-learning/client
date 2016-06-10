@@ -28,7 +28,8 @@
       getTeacherModule: getTeacherModule,
       addModuleGroup: addModuleGroup,
       removeModuleFromGroup: removeModuleFromGroup,
-      updateModuleGroupName: updateModuleGroupName
+      updateModuleGroupName: updateModuleGroupName,
+      getStudentFiles: getStudentFiles
     };
 
     // TODO: deprecated?
@@ -190,9 +191,10 @@
       var defer = $q.defer();
       var value = {
         attachment_id: data.data.id,
-        attachment_type: 'test',
+        attachment_type: 'module',
         student_id: data.target.id,
-        deadline: data.deadline.getFullYear() + '-' + data.deadline.getMonth() + '-' + data.deadline.getDate()
+        deadline: data.deadline.getFullYear() + '-' + (data.deadline.getMonth() + 1) + '-' + data.deadline.getDate(),
+        subject_id: data.target.subject_id
       };
 
       $http.post(server_host + 'api/tasks', value)
@@ -218,6 +220,7 @@
     }
 
     function updateModuleContent(data){
+      console.log(data);
       // data.content = module content
       // data.target = id moduleGroup
       var defer = $q.defer();
@@ -243,8 +246,8 @@
     }
 
     function getTaskForStudent(student, interval) {
-      var from_date = interval.from.getFullYear() + '-' + interval.from.getMonth() + '-' + interval.from.getDate();
-      var to_date = interval.to.getFullYear() + '-' + interval.to.getMonth() + '-' + interval.to.getDate();
+      var from_date = interval.from.getFullYear() + '-' + (interval.from.getMonth() + 1) + '-' + interval.from.getDate();
+      var to_date = interval.to.getFullYear() + '-' + (interval.to.getMonth() + 1) + '-' + interval.to.getDate();
       var defer = $q.defer();
 
       $http.get(server_host + 'api/users/' + student.slug + '/tasks', { params: { from_date: from_date, to_date: to_date } })
@@ -300,6 +303,16 @@
       var defer = $q.defer();
 
       $http.put(server_host + 'api/modules/groups/' + data.module_group_id, { name: data.name })
+          .success(defer.resolve)
+          .error(defer.reject);
+
+      return defer.promise;
+    }
+
+    function getStudentFiles(eventId) {
+      var defer = $q.defer();
+
+      $http.get(server_host + 'api/tasks/' + eventId + '/files')
           .success(defer.resolve)
           .error(defer.reject);
 

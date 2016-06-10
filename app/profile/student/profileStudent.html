@@ -38,13 +38,10 @@
             </div>
             <div></div>
           </div>
-          <div class="subject-item" ng-class="{ clear: subject.action.length == 0 }"
-               flex
-               md-virtual-repeat="subject in profileStudent.subjects">
-          <span ng-if="subject.action.length != 0">
-            {{ subject.action.length }}
-          </span>
-            {{ subject.name }}
+          <div class="subject-item"
+               ng-repeat="item in profileStudent.subjects track by $index"
+               ng-click="profileStudent.getSubjectTask(item)">
+            {{ item.subject.name }}
           </div>
         </md-virtual-repeat-container>
         <calendar option="profileStudent.currentSelectedDate"></calendar>
@@ -54,56 +51,43 @@
         </md-button>
       </div>
       <div class="subject"
-           layout>
-        <div class="subject-container">
-          <div layout layout-align="space-around center"
-               layout-wrap
-               hide show-xs>
-            <div class="task-item"
-                 ng-repeat="task in profileStudent.currentSelectedDate.event track by $index">
-              <md-button class="md-icon-button" aria-label="">
-                <img ng-src="{{ profileStudent.taskIconURL }}" alt="" aria-label=""/>
-              </md-button>
-            </div>
+           layout="column" layout-align="space-between start"
+           layout-margin layout-padding
+           layout-fill>
+        <h2 class="text-with-simple-style"
+            ng-if="!profileStudent.userTasks.length && !profileStudent.userTasksSelected">
+          Виберіть предмет для перегляду завдань
+        </h2>
+
+        <h2 class="text-with-simple-style"
+            ng-if="!profileStudent.userTasks.length && profileStudent.userTasksSelected">
+          Список порожній
+        </h2>
+
+        <div style="border: 1px solid rgb(233, 126, 89);"
+             layout layout-align="space-between center"
+             ng-repeat="module in profileStudent.userTasks track by $index"
+             layout-fill>
+          <div class="outline-off cursor-pointer text-with-simple-style-hover text-without-style"
+               ng-click="profileStudent.showModuleContent(module)">
+            {{ module.attachment.name }}
           </div>
-          <div class="subject-header-info">
-            <div>
-              <span>Предмет</span>: {{ profileStudent.task.course }}
-            </div>
-            <div>
-              <span>Викладач</span>: {{ profileStudent.task.teacher }}
-            </div>
-          </div>
-          <div class="subject-content"
-               layout="column" layout-align="space-around center">
-            <div layout-margin layout-padding>
-              {{ profileStudent.task.describe }}
-            </div>
-            <div class="task-action-button"
-                 layout layout-align="space-around center"
-                 layout-xs="column" layout-align-xs="space-around center"
-                 layout-sm="column" layout-align-sm="space-around center"
-                 layout-margin layout-padding>
-              <md-button class="md-raised task-button" aria-label="">
-                Переглянути завдання
-              </md-button>
-              <md-button class="md-raised task-button" aria-label="">
-                Відправити завдання
-              </md-button>
-            </div>
-          </div>
-        </div>
-        <div class="task-list"
-             hide-xs>
-          <div class="task-item"
-               ng-repeat="task in profileStudent.currentSelectedDate.event track by $index">
-            <md-button class="md-icon-button" aria-label="">
-              <img ng-src="{{ profileStudent.taskIconURL }}" alt="" aria-label=""/>
-            </md-button>
-          </div>
+          <md-button class="md-icon-button" aria-label=""
+                     ng-click="profileStudent.uploadFile(module)">
+            <md-icon md-svg-icon="{{ profileStudent.fileUploadURLImage }}" aria-label=""></md-icon>
+            <md-tooltip md-direction="left">Завантадити файл</md-tooltip>
+          </md-button>
         </div>
       </div>
     </div>
+    <md-sidenav md-component-id="module-content"
+                class="md-sidenav-right ckeditor-style"
+                style="padding: 0"
+                layout="column" layout-align="center center"
+                layout-padding layout-fill>
+      <div style="overflow-y: auto"
+           ng-bind-html="profileStudent.selectedMduleContent"></div>
+    </md-sidenav>
     <footer></footer>
   </div>
 </div>

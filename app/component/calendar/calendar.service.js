@@ -117,7 +117,7 @@
         var value = {
           value: day,
           select: false,
-          event: []
+          events: []
         };
         if (i % 7 == 0) {
           counterWeeks++;
@@ -163,7 +163,7 @@
       for (var i in days) {
         for (var j in days[i]) {
           if (days[i][j].value == event.day) {
-            days[i][j].event.push(event.value);
+            days[i][j].events.push(event);
           }
         }
       }

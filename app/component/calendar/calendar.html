@@ -1,7 +1,7 @@
 <div class="calendar">
   <div layout="column">
     <div class="calendar-header"
-        layout layout-align="space-between center">
+         layout layout-align="space-between center">
       <md-button class="md-icon-button" aria-label=""
                  ng-click="calendar.setPreviousMonth()">
         <md-icon md-svg-icon="{{ calendar.leftURLImage }}" aria-label=""></md-icon>
@@ -21,18 +21,20 @@
       <tr ng-repeat="week in calendar.result">
         <td ng-repeat="day in week"
             ng-class="{ 'selectDay': day.select === true, 'noSelectDay': day.select != true,
-                        'event': day.event.length != 0 }"
+                        'event': day.events.length != 0 }"
             ng-click="calendar.selectDate(day)">
           {{ day.value }}
         </td>
       </tr>
     </table>
     <div class="event-container"
-        ng-if="calendar.selectedDay.length != 0">
+         ng-if="calendar.selectedDay.length != 0">
       <ui>
         <li class="eventItem"
             ng-repeat="event in calendar.selectedDay track by $index">
-          <span>{{ event }}</span>
+          <span ng-click="calendar.selectEvent(event)">
+            {{ event.value }}
+          </span>
         </li>
       </ui>
     </div>

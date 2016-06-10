@@ -87,11 +87,13 @@
     };
 
     vm.uploader.onSuccessItem = function(fileItem, response, status, headers) {
-      if (status != 200) {
-        return $rootScope.notification('Помилка при завантажені файлу');
-      }
+      if (status != 200) { return $rootScope.notification('Помилка при завантажені файлу'); }
 
+      $rootScope.$emit('file-upload', response);
       $rootScope.notification('Файл ' + fileItem.filename + 'завантажено');
+
+      getFiles();
+      vm.uploader.clearQueue();
     };
 
     vm.downloadFile = function (fileURL) {

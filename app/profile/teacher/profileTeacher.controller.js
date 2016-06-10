@@ -6,12 +6,12 @@
       .controller('ProfileTeacherController', ProfileTeacherController);
 
   ProfileTeacherController.$inject = [
-    '$log', '$location', '$rootScope',
+    '$log', '$location', '$rootScope', '$window',
     '$mdSidenav', '$mdDialog', '$mdBottomSheet',
     'ProfileUtils', 'ProfileTeacherUtils', 'LoginUtils', 'TestUtils'
   ];
 
-  function ProfileTeacherController($log, $location, $rootScope,
+  function ProfileTeacherController($log, $location, $rootScope, $window,
                                     $mdSidenav, $mdDialog, $mdBottomSheet,
                                     ProfileUtils, ProfileTeacherUtils, LoginUtils, TestUtils) {
     var vm = this;
@@ -21,7 +21,8 @@
       to: new Date()
     };
     vm.loadingtargetTask = true;
-    vm.currentSelectedDate = {};
+    vm.currentSelectedDate = [];
+    vm.studentFiles = [];
     vm.subjectIconURL = '../assests/images/ic_school_black_24px.svg';
     vm.groupIconURL = '../assests/images/ic_people_black_48px.svg';
     vm.studentIconURL = '../assests/images/ic_person_outline_black_24px.svg';
@@ -31,7 +32,7 @@
     vm.addModuleInfoIconURL = './assests/images/ic_add_black_18px.svg';
     vm.teacher = {
         avatar: '../assests/images/user_tmp.png',
-        description: 'Викладач гуманітарних наук'
+        description: 'Викладач наук'
     };
     vm.targetTasks = [];
     vm.CKEditorOptions = {
@@ -62,6 +63,30 @@
       }
     };
 
+    $rootScope.$on('dl-calendar-selectEvent', function (event, data) {
+      ProfileTeacherUtils.getStudentFiles(data.taskId)
+          .then(function (files) {
+            vm.studentFiles = files;
+
+            $mdSidenav('student-files').open();
+          }, function (err) {
+            $rootScope.notification(err);
+          });
+    });
+
+    $rootScope.$on('dl-calendar-selectDate', function (event, day) {
+      console.log('selectDate', day);
+    });
+
+    $rootScope.$on('dl-calendar-setNextMonth', function (event, data) {
+      getEvents({ month: data.month.value, year: data.year });
+    });
+
+
+    $rootScope.$on('dl-calendar-setPreviousMonth', function (event, data) {
+      getEvents({ month: data.month.value, year: data.year });
+    });
+
     init();
     function init() {
       vm.loading = true;
@@ -71,13 +96,26 @@
           .then(function (teacher) {
             vm.teacher = teacher;
             vm.teacher.avatar = './assests/images/user_tmp.png';
-            vm.teacher.description = 'Викладач гуманітарних наук';
+            vm.teacher.description = 'Викладач наук';
 
             getSubjectWithGroups();
             getTeacherModule();
+
+            var date = new Date();
+            getEvents({ month: date.getMonth(), year:date.getFullYear() });
           }, function (err) {
             $log.log('[ERROR] ProfileStudentController.LoginUtils.userProfile()', err);
             return $location.path('/home');
+          });
+    }
+
+    function getEvents(date) {
+      ProfileUtils.getEvents(date)
+          .then(function (events) {
+            vm.currentSelectedDate = events;
+            $rootScope.$broadcast('dl-calendar-setupEvents', vm.currentSelectedDate)
+          }, function (err) {
+            $rootScope.notification(err);
           });
     }
 
@@ -91,6 +129,8 @@
             vm.loading = false;
           }, function (err) {
             $log.log('[ERROR] ProfileTeacherController.getInfo().ProfileTeacherUtils.getGroups()', err);
+
+            $rootScope.notification(err);
           });
     }
 
@@ -108,6 +148,7 @@
           item.children[j].children = item.children[j].students;
 
           for(var z in item.children[j].children) {
+            item.children[j].children[z].subject_id = data[i].id;
             item.children[j].children[z].type = 'student';
             item.children[j].children[z].name = item.children[j].children[z].surname + '. ' + item.children[j].children[z].name[0];
           }
@@ -129,6 +170,8 @@
             vm.teacherModuleLoading = false;
           }, function (err) {
             $log.log('[ERROR] ProfileTeacherController.getTeacherModule().ProfileTeacherUtils.getTeacherModule()', err);
+
+            $rootScope.notification(err);
           });
     }
 
@@ -139,6 +182,8 @@
             $rootScope.notification(message);
           }, function (err) {
             $log.log('[ERROR] ProfileTeacherController.setupTaskForGroup().ProfileTeacherUtils.setupTaskForGroup()', err);
+
+            $rootScope.notification(err);
           });
     }
 
@@ -149,6 +194,8 @@
             $rootScope.notification(message);
           }, function (err) {
             $log.log('[ERROR] ProfileTeacherController.setupTaskForGroup().ProfileTeacherUtils.setupTaskForGroup()', err);
+
+            $rootScope.notification(err);
           });
     }
 
@@ -160,6 +207,8 @@
             $location.path('/test/' + ok.code + '/edit');
           }, function (err) {
             $log.log('[ERROR] ProfileTeacherController.goToCreateTest().TestUtils.createTest()', err);
+
+            $rootScope.notification(err);
           });
     }
 
@@ -181,6 +230,8 @@
             getTeacherModule();
           }, function (err) {
             $log.log('[ERROR] ProfileTeacherController.createModule().ProfileTeacherUtils.addModuleContent()', err);
+
+            $rootScope.notification(err);
           });
     }
 
@@ -192,6 +243,8 @@
             getTeacherModule();
           }, function (err) {
             $log.log('[ERROR] ProfileTeacherController.createModule().ProfileTeacherUtils.addModuleContent()', err);
+
+            $rootScope.notification(err);
           });
     }
 
@@ -247,6 +300,8 @@
                       getTeacherModule();
                     }, function (err) {
                       $log.log('[ERROR] ProfileTeacherController.showTeacherOptions().ProfileTeacherUtils.addModuleGroup()', err);
+
+                      $rootScope.notification(err);
                     });
               });
         }
@@ -282,6 +337,7 @@
       }).then(function(option) {
         vm.CKEditorContent.target = module.id;
         vm.CKEditorContent.content = module.content;
+        vm.CKEditorContent.moduleInfo.module_group_id = module.module_group_id;
 
         if (option.value == 'content') {
           vm.CKEditorContent.moduleInfo.name= module.name;
@@ -297,7 +353,6 @@
           $mdDialog.show(confirm)
               .then(function(moduleName) {
                 vm.CKEditorContent.moduleInfo.name = moduleName;
-                vm.CKEditorContent.moduleInfo.module_group_id = module.module_group_id;
 
                 updateModule();
               });
@@ -329,6 +384,8 @@
             vm.loadingtargetTask = false;
           }, function (err) {
             $log.log('[ERROR] ProfileTeacherController.showTaskForGroup().ProfileTeacherUtils.getTaskForStudent()', err);
+
+            $rootScope.notification(err);
           });
     };
 
@@ -345,6 +402,8 @@
                   vm.showTask(vm.targetTasks.target);
                 }, function (err) {
                   $log.log('[ERROR] ProfileTeacherController.removeTaskFromTarget(). ProfileTeacherUtils.removeTask()', err);
+
+                  $rootScope.notification(err);
                 });
        });
     };
@@ -372,6 +431,8 @@
             getTeacherModule();
           }, function (err) {
             $log.log('[ERROR] ProfileTeacherController.removeModuleContentFromGroup().ProfileTeacherUtils.rememoveModuleFromGroup()', err);
+
+            $rootScope.notification(err);
           });
     };
 
@@ -381,7 +442,13 @@
             getTeacherModule();
         }, function (err) {
             $log.log('[ERROR] ProfileTeacherController.updateModuleGroupName().ProfileTeacherUtils.updateModuleGroupName()', err);
+
+            $rootScope.notification(err);
           });
+    };
+
+    vm.downloadFile = function (fileURL) {
+      $window.open(fileURL, '_blank');
     };
   }
 })();

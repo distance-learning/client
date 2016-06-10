@@ -16,7 +16,8 @@
       getUserInfo: getUserInfo,
       userResetPassword: userResetPassword,
       sendConfirmation: sendConfirmation,
-      changeInfo: changeInfo
+      changeInfo: changeInfo,
+      getEvents: getEvents
     };
 
     function getUserInfo() {
@@ -72,6 +73,16 @@
           .error(function (err, status, headers, config) {
             defer.reject(err);
           });
+
+      return defer.promise;
+    }
+
+    function getEvents(value) {
+      var defer = $q.defer();
+
+      $http.get(server_host + 'api/events', { params: { month: value.month + 1, year: value.year } })
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }

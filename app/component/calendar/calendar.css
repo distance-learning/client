@@ -6,6 +6,15 @@
   border-spacing: 15px;
 }
 
+.calendar table td {
+  cursor: pointer;
+  outline: none;
+}
+
+.calendar table td:hover {
+  color: rgb(233, 126, 89);
+}
+
 .calendar th span {
   font-size: 12px;
   font-family: "Arial";
@@ -52,8 +61,18 @@
   padding: 10px;
 }
 
+.event-container .eventItem {
+  outline: none;
+}
+
 .event-container .eventItem span {
   font-size: 15px;
   font-family: "Arial";
   color: rgb(84, 85, 85);
+  outline: none;
+}
+
+.event-container .eventItem span:hover {
+  color: rgb(233, 126, 89);
+  cursor: pointer;
 }

@@ -6,59 +6,45 @@
       .factory('ProfileStudentUtils', ProfileStudentUtils);
 
   ProfileStudentUtils.$inject = [
-    '$q', '$http'
+    '$q', '$http',
+    'server_host'
   ];
 
-  function ProfileStudentUtils($q, $http) {
+  function ProfileStudentUtils($q, $http,
+                               server_host) {
     var service = {
-      getSubjects: getSubjects
+      getSubjects: getSubjects,
+      getUserTask: getUserTask,
+      responseFileForTask: responseFileForTask
     };
 
     function getSubjects() {
       var defer = $q.defer();
-      var subjects = [
-        {
-          name: 'Правознавство',
-          action: [
-            {
-              student: 'Vasa'
-            },
-            {
-              student: 'Ivan'
-            },
-            {
-              student: 'Vasa'
-            },
-            {
-              student: 'Vasa'
-            },
-            {
-              student: 'Vasa'
-            },
-            {
-              student: 'Vasa'
-            }
-          ]
-        },
-        {
-          name: 'Історія України',
-          action: []
-        },
-        {
-          name: 'Англійська мова',
-          action: [
-            {
-              student: 'Vasa'
-            }
-          ]
-        },
-        {
-          name: 'Економіка',
-          action: []
-        }
-      ];
 
-      defer.resolve(subjects);
+      $http.get(server_host + 'api/account/courses')
+          .success(defer.resolve)
+          .error(defer.reject);
+
+      return defer.promise;
+    }
+
+    function getUserTask(subjectId) {
+      var defer = $q.defer();
+
+      $http.get(server_host + 'api/account/subjects/' + subjectId + '/tasks')
+          .success(defer.resolve)
+          .error(defer.reject);
+
+      return defer.promise;
+    }
+
+    function responseFileForTask(data) {
+      var defer = $q.defer();
+
+      $http.put(server_host + 'api/tasks/' + data.task.id + '/files/' + data.file.id)
+          .success(defer.resolve)
+          .error(defer.reject);
+
       return defer.promise;
     }
 

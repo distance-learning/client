@@ -6,15 +6,22 @@
       .controller('ProfileStudentController', ProfileStudentController);
 
   ProfileStudentController.$inject = [
-    '$log', '$location',
+    '$log', '$location', '$rootScope',
+    '$mdSidenav', '$mdDialog',
     'ProfileUtils', 'ProfileStudentUtils', 'LoginUtils'
   ];
 
-  function ProfileStudentController($log, $location,
+  function ProfileStudentController($log, $location, $rootScope,
+                                    $mdSidenav, $mdDialog,
                                     ProfileUtils, ProfileStudentUtils, LoginUtils) {
     var vm = this;
     vm.loading = true;
-    vm.currentSelectedDate = {};
+    vm.userTasksSelected = false;
+    vm.fileUploadURLImage = '../assests/images/ic_attach_file_black_24px.svg';
+    vm.currentSelectedDate = [];
+    vm.uploadForTask = {};
+    vm.userTasks = [];
+    vm.subjects = [];
     vm.user = {};
     vm.task = {
       subject: 'Правознавство',
@@ -22,6 +29,34 @@
       teacher: 'Іванов Іван Іванович'
     };
     vm.taskIconURL = './assests/images/task.png';
+
+    $rootScope.$on('dl-calendar-selectEvent', function (event, data) {
+      vm.selectedMduleContent = data.content;
+
+      $mdSidenav('module-content').open();
+    });
+
+    $rootScope.$on('dl-calendar-selectDate', function (event, day) {
+      console.log('selectDate', day);
+    });
+
+    $rootScope.$on('dl-calendar-setNextMonth', function (event, data) {
+      getEvents({ month: data.month.value, year: data.year });
+    });
+
+    $rootScope.$on('dl-calendar-setPreviousMonth', function (event, data) {
+      getEvents({ month: data.month.value, year: data.year });
+    });
+
+    $rootScope.$on('file-upload', function (event, file) {
+      console.log(file);
+      ProfileStudentUtils.responseFileForTask({ file: file, task: vm.uploadForTask })
+          .then(function (ok) {
+            $rootScope.notification('Файл додано');
+          }, function (err) {
+            $rootScope.notification(err);
+          });
+    });
 
     init();
     function init() {
@@ -33,23 +68,66 @@
             vm.user = ok;
             vm.user.avatar = './assests/images/user_tmp.png';
 
-            vm.loading = false;
+            var date = new Date();
+            getEvents({ month: date.getMonth(), year:date.getFullYear() });
+            ProfileStudentUtils.getSubjects()
+                .then(function (subjects) {
+                  vm.subjects = subjects;
+
+                  vm.loading = false;
+                }, function (err) {
+                  $log.log('[ERROR] ProfileStudentController.ProfileStudentUtils.getUser() ', err);
+                });
           }, function (err) {
             $log.log('[ERROR] ProfileStudentController.LoginUtils.userProfile()', err);
+
             return $location.path('/home');
           });
+    }
 
-      ProfileStudentUtils.getSubjects()
-          .then(function (ok) {
-            vm.subjects = ok;
+    function getEvents(date) {
+      ProfileUtils.getEvents(date)
+          .then(function (events) {
+            vm.currentSelectedDate = events;
+
+            $rootScope.$broadcast('dl-calendar-setupEvents', vm.currentSelectedDate);
           }, function (err) {
-            $log.log('[ERROR] ProfileStudentController.ProfileStudentUtils.getUser() ', err);
+            $rootScope.notification(err);
           });
     }
 
     vm.goToCompleteTest = function () {
       var path = 'test/123';
       $location.path(path);
+    };
+
+    vm.getSubjectTask = function (subject) {
+      vm.userTasksSelected = true;
+
+      ProfileStudentUtils.getUserTask(subject.subject.id)
+          .then(function (tasks) {
+            vm.userTasks = tasks;
+          }, function (err) {
+            $log.log('[ERROR] ProfileStudentController.getSubjectTask().ProfileStudentUtils.getUserTask()', err);
+
+            $rootScope.notification(err);
+          })
+    };
+
+    vm.showModuleContent = function (module) {
+      vm.selectedMduleContent = module.attachment.content;
+
+      $mdSidenav('module-content').open();
+    };
+
+    vm.uploadFile = function (task) {
+      vm.uploadForTask = task;
+      $mdDialog.show({
+        controller: 'dlFileUploadFileController',
+        controllerAs: 'dlFileUploadFile',
+        templateUrl: './component/dlFileUpload/file/dlFileUploadFile.html',
+        clickOutsideToClose: false
+      });
     };
   }
 })();

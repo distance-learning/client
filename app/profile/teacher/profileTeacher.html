@@ -59,7 +59,7 @@
             {{ node.name }}
           </span>
         </treecontrol>
-        <calendar></calendar>
+        <calendar option="profileTeacher.currentSelectedDate"></calendar>
         <md-button class="md-raised teacher-create-test-button"
                    ng-click="profileTeacher.showTeacherOptions()">
           Опція викладача
@@ -186,6 +186,21 @@
       <div class="text-with-simple-style"
            layout-padding>
         Натисніть на задачу для видалення
+      </div>
+    </md-sidenav>
+    <md-sidenav class="md-sidenav-right"
+                md-component-id="student-files"
+                layout="column" layout-align="start start">
+      <h2 class="text-with-simple-style"
+          layout-padding>
+        Список файлів
+      </h2>
+
+      <div class="outline-off cursor-pointer text-with-simple-style-hover text-without-style"
+           ng-repeat="file in profileTeacher.studentFiles track by $index"
+           ng-click="profileTeacher.downloadFile(file.path)"
+           layout-margin layout-padding>
+        [ {{ file.updated_at }} ] <span class="text-with-simple-style">{{ file.filename }}</span>
       </div>
     </md-sidenav>
     <footer></footer>
