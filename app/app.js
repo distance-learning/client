@@ -33,6 +33,13 @@
       ])
       .constant('server_host', 'http://distance-learning.herokuapp.com/')
       .run(['$rootScope', '$mdToast', function ($rootScope, $mdToast) {
+
+        $rootScope.timestampToDate = function (timestamp) {
+          var date = new Date(timestamp * 1000);
+          var dateObject = date.getFullYear() + '/' + ('0' + (date.getMonth() + 1)).slice(-2) + '/' + ('0' + date.getDate()).slice(-2);
+          return dateObject;
+        };
+
         $rootScope.notification = function (message, time) {
           if (!time) time = 3000;
 

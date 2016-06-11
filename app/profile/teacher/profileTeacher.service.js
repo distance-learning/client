@@ -191,7 +191,7 @@
       var defer = $q.defer();
       var value = {
         attachment_id: data.data.id,
-        attachment_type: 'module',
+        attachment_type: data.type,
         student_id: data.target.id,
         deadline: data.deadline.getFullYear() + '-' + (data.deadline.getMonth() + 1) + '-' + data.deadline.getDate(),
         subject_id: data.target.subject_id

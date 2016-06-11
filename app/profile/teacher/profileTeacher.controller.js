@@ -64,14 +64,20 @@
     };
 
     $rootScope.$on('dl-calendar-selectEvent', function (event, data) {
-      ProfileTeacherUtils.getStudentFiles(data.taskId)
-          .then(function (files) {
-            vm.studentFiles = files;
+      if (data.type == 'module') {
+        ProfileTeacherUtils.getStudentFiles(data.taskId)
+            .then(function (files) {
+              vm.studentFiles = files;
 
-            $mdSidenav('student-files').open();
-          }, function (err) {
-            $rootScope.notification(err);
-          });
+              $mdSidenav('student-files').open();
+            }, function (err) {
+              $rootScope.notification(err);
+            });
+      }
+      if (data.type == 'test') {
+        console.log('test');
+      }
+
     });
 
     $rootScope.$on('dl-calendar-selectDate', function (event, day) {

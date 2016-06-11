@@ -37,9 +37,17 @@
           id: vm.option[i].id,
           taskId: vm.option[i].attachment.id,
           day: new Date(vm.option[i].deadline).getDate(),
-          value: vm.option[i].attachment.attachment.name,
-          content: vm.option[i].attachment.attachment.content
+          value: vm.option[i].attachment.attachment.name
         };
+        if (vm.option[i].attachment.attachment_type == 'module') {
+          day.type = 'module';
+          day.content = vm.option[i].attachment.attachment.content;
+        }
+        if (vm.option[i].attachment.attachment_type == 'test') {
+          day.type = 'test';
+          day.testCode = vm.option[i].attachment.attachment.code;
+        }
+
         if (vm.option[i].recipient) {
           day.value = '[' + vm.option[i].recipient.surname + ' ' + vm.option[i].recipient.name[0] + '] ' + day.value;
         }

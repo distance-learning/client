@@ -54,19 +54,21 @@
            layout="column" layout-align="space-between start"
            layout-margin layout-padding
            layout-fill>
+        <md-progress-linear md-mode="indeterminate"
+                            ng-if="profileStudent.loadingTaskSubject"></md-progress-linear>
         <h2 class="text-with-simple-style"
-            ng-if="!profileStudent.userTasks.length && !profileStudent.userTasksSelected">
-          Виберіть предмет для перегляду завдань
+            ng-if="profileStudent.userTasks.length == 0 && !profileStudent.loadingTaskSubject">
+          Список порожній
         </h2>
-
         <h2 class="text-with-simple-style"
-            ng-if="!profileStudent.userTasks.length && profileStudent.userTasksSelected">
+            ng-if="profileStudent.nothingToShow">
           Список порожній
         </h2>
 
         <div style="border: 1px solid rgb(233, 126, 89);"
              layout layout-align="space-between center"
              ng-repeat="module in profileStudent.userTasks track by $index"
+             ng-if="!profileStudent.loadingTaskSubject"
              layout-fill>
           <div class="outline-off cursor-pointer text-with-simple-style-hover text-without-style"
                ng-click="profileStudent.showModuleContent(module)">

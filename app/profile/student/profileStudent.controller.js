@@ -16,7 +16,9 @@
                                     ProfileUtils, ProfileStudentUtils, LoginUtils) {
     var vm = this;
     vm.loading = true;
-    vm.userTasksSelected = false;
+    vm.userSubjectSelected = false;
+    vm.loadingTaskSubject = true;
+    vm.nothingToShow = false;
     vm.fileUploadURLImage = '../assests/images/ic_attach_file_black_24px.svg';
     vm.currentSelectedDate = [];
     vm.uploadForTask = {};
@@ -31,9 +33,14 @@
     vm.taskIconURL = './assests/images/task.png';
 
     $rootScope.$on('dl-calendar-selectEvent', function (event, data) {
-      vm.selectedMduleContent = data.content;
+      if (data.type == 'module') {
+        vm.selectedMduleContent = data.content;
 
-      $mdSidenav('module-content').open();
+        $mdSidenav('module-content').open();
+      }
+      if (data.type == 'test') {
+        console.log('test');
+      }
     });
 
     $rootScope.$on('dl-calendar-selectDate', function (event, day) {
@@ -74,6 +81,9 @@
                 .then(function (subjects) {
                   vm.subjects = subjects;
 
+                  if (vm.subjects.length) vm.getSubjectTask(vm.subjects[0]);
+                  else vm.nothingToShow = true;
+
                   vm.loading = false;
                 }, function (err) {
                   $log.log('[ERROR] ProfileStudentController.ProfileStudentUtils.getUser() ', err);
@@ -102,11 +112,14 @@
     };
 
     vm.getSubjectTask = function (subject) {
-      vm.userTasksSelected = true;
+      vm.loadingTaskSubject = true;
+      vm.userSubjectSelected = true;
 
       ProfileStudentUtils.getUserTask(subject.subject.id)
           .then(function (tasks) {
             vm.userTasks = tasks;
+
+            vm.loadingTaskSubject = false;
           }, function (err) {
             $log.log('[ERROR] ProfileStudentController.getSubjectTask().ProfileStudentUtils.getUserTask()', err);
 
@@ -115,9 +128,18 @@
     };
 
     vm.showModuleContent = function (module) {
-      vm.selectedMduleContent = module.attachment.content;
+      if (module.attachment_type == 'module') {
+        vm.selectedMduleContent = module.attachment.content;
 
-      $mdSidenav('module-content').open();
+        $mdSidenav('module-content').open();
+      }
+      if (module.attachment_type == 'test') {
+        console.log('test', module);
+        var path = 'test/' + module.attachment.code;
+        console.log(path);
+
+        //$location.path(path);
+      }
     };
 
     vm.uploadFile = function (task) {
