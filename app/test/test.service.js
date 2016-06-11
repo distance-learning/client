@@ -100,10 +100,10 @@
       return defer.promise;
     }
 
-    function updateQuestion(options) {
+    function updateQuestion(question) {
       var defer = $q.defer();
 
-      $http.put(server_host + 'api/tests/' + options.testId + '/questions/' + options.id, { question: options })
+      $http.put(server_host + 'api/tests/' + question.testId + '/questions/' + question.id, { question: question })
           .success(function (ok, status, headers, config) {
             defer.resolve(ok);
           })

@@ -19,16 +19,25 @@
               inline-edit-on-blur="save"
               inline-edit-on-click>
           </h1>
+
           <div layout="column"
+               layout-fill
                layout-padding>
-            <md-input-container>
-              <label>Час виконання</label>
-              <md-select ng-model="testBuild.test.time">
-                <md-option ng-repeat="time in testBuild.times" value="{{ time }}">
-                  {{ time }}
-                </md-option>
-              </md-select>
-            </md-input-container>
+            <div layout layout-align="space-between center"
+                 layout-xs="column" layout-align-xs="start start"
+                 layout-fill>
+              <md-input-container>
+                <label>Час виконання</label>
+                <input type="time" ng-model="testBuild.test.time" step="1"/>
+              </md-input-container>
+              <md-input-container>
+                <label>Кількість запитать при проходженні тесту</label>
+                <input type="number" ng-model="testBuild.test.count_questions"/>
+              </md-input-container>
+            </div>
+            <md-checkbox ng-model="testBuild.test.allow_export" aria-label="">
+              Можливість єкспортувати тест студентові
+            </md-checkbox>
             <div class="md-title">
               <span> Кількість запитань: {{ testBuild.test.questions.length }} </span>
               <md-button class="md-icon-button" aria-label=""
@@ -45,11 +54,15 @@
             <div class="test-question-item"
                  ng-repeat="question in testBuild.test.questions track by $index"
                  ng-click="testBuild.updateQuestion(question)">
-              {{ $index + 1 }}. {{ question.name }}
+              {{ $index + 1 }}. <span ng-bind-html="question.short_name"></span>
             </div>
           </div>
         </div>
       </div>
+      <md-button aria-label=""
+                 ng-click="testBuild.updateTestInfo()">
+        Зберегти тест
+      </md-button>
     </div>
     <footer></footer>
   </div>

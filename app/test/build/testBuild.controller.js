@@ -6,15 +6,14 @@
       .controller('TestBuildController', TestBuildController);
 
   TestBuildController.$inject = [
-    '$log', '$location', '$routeParams',
+    '$log', '$location', '$routeParams', '$rootScope',
     'LoginUtils', 'TestUtils'
   ];
 
-  function TestBuildController($log, $location, $routeParams,
+  function TestBuildController($log, $location, $routeParams, $rootScope,
                                LoginUtils, TestUtils) {
     var vm = this;
     vm.loading = true;
-    vm.times = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
     vm.newQuestionIconURL = './assests/images/ic_add_black_18px.svg';
     var testId = $routeParams.testId;
 
@@ -28,23 +27,35 @@
             vm.test = ok;
             vm.test.name = vm.test.name ? vm.test.name : 'Назва тесту';
 
+            var nowDate = new Date();
+            nowDate.setHours(0, 0, 0, 0);
+            nowDate.setMinutes(vm.test.time / 60);
+            nowDate.setSeconds(vm.test.time % 60);
+            vm.test.time = nowDate;
+
             vm.loading = false;
           }, function (err) {
             $log.log('[ERROR] TestBuildController.init().TestUtils.getTest()', err);
+            $rootScope.notification(err);
           });
     }
 
     vm.editTestTitle = function (newTitle) {
-      vm.loading = true;
       if (!newTitle) { return vm.test.name = 'Назва тесту' }
 
       vm.test.name = newTitle;
+    };
+
+    vm.updateTestInfo = function () {
+      vm.loading = true;
+      vm.test.time = (vm.test.time.getMinutes() * 60) + vm.test.time.getSeconds();
 
       TestUtils.updateTestInfo(vm.test)
           .then(function (ok) {
-            vm.loading = false;
+            init();
           }, function (err) {
             $log.log('[ERROR] TestBuildController.editTestTitle().TestUtils.updateTestInfo()', err);
+            $rootScope.notification(err);
           });
     };
 
@@ -59,6 +70,7 @@
             vm.loading = false;
           }, function (err) {
             $log.log('[ERROR] TestBuildController.addQuestion(). TestUtils.createQuestion()', err);
+            $rootScope.notification(err);
           });
     };
 

@@ -38,7 +38,7 @@
     vm.question = {
       id: questionId,
       testId: testId,
-      is_skipped: false,
+      is_skip: false,
       is_active: true,
       name: '<p>Запитання</p>',
       type: 'single',
@@ -46,7 +46,7 @@
         {
           id: countAnswers,
           body: '<p>Відповідь</p>',
-          iscorrectly: false
+          is_correct: false
         }
       ]
     };
@@ -66,15 +66,24 @@
             };
             TestUtils.getQuestion(options)
                 .then(function (ok) {
+                  console.log(vm.question);
                   vm.question = ok;
                   vm.question.id = questionId;
+                  vm.question.score = parseFloat(vm.question.score);
                   vm.question.testId = testId;
+
+                  var nowDate = new Date();
+                  nowDate.setHours(0, 0, 0, 0);
+                  nowDate.setMinutes(vm.question.time / 60);
+                  nowDate.setSeconds(vm.question.time % 60);
+                  vm.question.time = nowDate;
+
                   if (!ok.name) { vm.question.name = '<p>Запитання</p>'; }
                   if (ok.answers.length === 0) {
                     vm.question.answers.push({
                       id: 0,
                       body: 'Відповідь',
-                      iscorrectly: false
+                      is_correct: false
                     });
                   }
 
@@ -136,17 +145,17 @@
       }
 
       vm.question.type = countSelectedAnswer == 1 ? 'single' : 'multiselect';
-      vm.question.time = (vm.question.time.getHours() * 60) + vm.question.time.getMinutes();
+      vm.question.time = (vm.question.time.getMinutes() * 60) + vm.question.time.getSeconds();
 
-      //TestUtils.updateQuestion(vm.question)
-      //    .then(function (ok) {
-      //      var path = '/test/' + testId + '/edit';
-      //      $location.path(path);
-      //
-      //      vm.loading = false;
-      //    }, function (err) {
-      //      $log.log('[ERROR] TestBuildQuestionController.createQuestion().TestUtils.updateQuestion()', err);
-      //    });
+      TestUtils.updateQuestion(vm.question)
+          .then(function (ok) {
+            var path = '/test/' + testId + '/edit';
+            $location.path(path);
+
+            vm.loading = false;
+          }, function (err) {
+            $log.log('[ERROR] TestBuildQuestionController.createQuestion().TestUtils.updateQuestion()', err);
+          });
     };
 
     vm.addAnswer = function () {
@@ -154,7 +163,7 @@
       var answer = {
         id: countAnswers,
         body: '<p>Відповідь</p>',
-        iscorrectly: false
+        is_correct: false
       };
 
       vm.question.answers.push(answer);
