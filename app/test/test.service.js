@@ -14,6 +14,7 @@
                      server_host) {
     var service = {
       getTest: getTest,
+      getTestPass: getTestPass,
       getTests: getTests,
       createTest: createTest,
       createQuestion: createQuestion,
@@ -36,6 +37,17 @@
             debugger;
             defer.reject(err);
           });
+
+
+      return defer.promise;
+    }
+
+    function getTestPass(testId) {
+      var defer = $q.defer();
+
+      $http.get(server_host + 'api/tests/' + testId + '/passing')
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }
@@ -130,20 +142,12 @@
       return defer.promise;
     }
 
-    function completeTest(test) {
+    function completeTest(answers) {
+      console.log(answers);
       var defer = $q.defer();
 
-      // TODO: API
-      //$http.post(server_host + '/api/URL', test)
-      //    .success(function (ok, status, headers, config) {
-      //      defer.resolve(ok);
-      //    })
-      //    .error(function (err, status, headers, config) {
-      //      debugger;
-      //      defer.reject(err);
-      //    });
+      // TODO: API need api
 
-      defer.resolve();
       return defer.promise;
     }
 

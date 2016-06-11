@@ -39,7 +39,8 @@
         $mdSidenav('module-content').open();
       }
       if (data.type == 'test') {
-        console.log('test');
+        var path = 'test/' + data.testCode;
+        $location.path(path);
       }
     });
 
@@ -134,11 +135,8 @@
         $mdSidenav('module-content').open();
       }
       if (module.attachment_type == 'test') {
-        console.log('test', module);
         var path = 'test/' + module.attachment.code;
-        console.log(path);
-
-        //$location.path(path);
+        $location.path(path);
       }
     };
 

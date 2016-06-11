@@ -1,15 +1,16 @@
 <div>
   <md-progress-linear md-mode="indeterminate"
                       ng-if="testPass.loading"></md-progress-linear>
-  <div class="test-pass">
+  <div class="test-pass"
+       ng-if="!testPass.loading">
     <div class="test-pass-header"
          layout layout-align="space-between center"
          layout-xs="column">
       <div layout layout-align="center center"
            layout-margin>
         <round-progress
-            max="testPass.test.questions.length"
-            current="testPass.test.countAnswered"
+            max="testPass.questionCount"
+            current="testPass.answers.length"
             color="rgb(233, 126, 89)"
             bgcolor="#eaeaea"
             radius="15"
@@ -30,8 +31,8 @@
            layout-margin>
         <div layout-margin>Час</div>
         <round-progress
-            max="testPass.test.questions[testPass.test.currentQuestionIndex].time"
-            current="testPass.questionTimer"
+            max="testPass.UIQuestion.time"
+            current="testPass.tickerSecond"
             color="rgb(233, 126, 89)"
             bgcolor="#eaeaea"
             radius="15"
@@ -53,7 +54,8 @@
           Відповісти
         </md-button>
         <md-button class="md-raised test-pass-button"
-                   ng-click="testPass.skipQuestion()">
+                   ng-click="testPass.skipQuestion()"
+                   ng-disabled="testPass.isSkipQuestion()">
           Пропустити
         </md-button>
       </div>
@@ -61,31 +63,27 @@
            layout layout-align="space-between center"
            layout-xs="column"
            layout-margin>
-        <h3>
-          {{ testPass.test.questions[testPass.test.currentQuestionIndex].name }}
-        </h3>
-        <img ng-src="{{ testPass.test.questions[testPass.test.currentQuestionIndex].img }}" alt=""
-             ng-if="testPass.test.questions[testPass.test.currentQuestionIndex].img"/>
+        <div ng-bind-html="testPass.UIQuestion.name"></div>
       </div>
       <div class="question-content"
            layout="column" layout-align="space-around start"
            layout-margin>
 
         <!--single-->
-        <md-radio-group ng-model="testPass.test.questions[testPass.test.currentQuestionIndex].answerId"
-                        ng-if="testPass.test.questions[testPass.test.currentQuestionIndex].type == testPass.type.single">
-          <md-radio-button ng-value="answer.id" class="md-primary"
-                           ng-repeat="answer in testPass.test.questions[testPass.test.currentQuestionIndex].answers track by $index">
-            {{ answer.name }}
+        <md-radio-group ng-model="testPass.UIQuestion.answerId" aria-label="Відповідь"
+                        ng-if="testPass.UIQuestion.type == testPass.type.single">
+          <md-radio-button ng-value="answer.id" class="md-primary" aria-label="Відповідь"
+                           ng-repeat="answer in testPass.UIQuestion.answers track by $index">
+            <span ng-bind-html="answer.body"></span>
           </md-radio-button>
         </md-radio-group>
 
         <!--multiselect-->
-        <md-checkbox ng-model="testPass.test.questions[testPass.test.currentQuestionIndex].answers[$index].selected"
-                     aria-label=""
-                     ng-repeat="answer in testPass.test.questions[testPass.test.currentQuestionIndex].answers track by $index"
-                     ng-if="testPass.test.questions[testPass.test.currentQuestionIndex].type == testPass.type.multiSelect">
-          {{ answer.name }}
+        <md-checkbox ng-model="testPass.UIQuestion.answers[$index].isSelect"
+                     aria-label="Відповідь"
+                     ng-repeat="answer in testPass.UIQuestion.answers track by $index"
+                     ng-if="testPass.UIQuestion.type == testPass.type.multiSelect">
+          <span ng-bind-html="answer.body"></span>
         </md-checkbox>
       </div>
     </div>

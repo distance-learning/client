@@ -139,7 +139,7 @@
 
       var countSelectedAnswer = 0;
       for (var i in vm.question.answers) {
-        if (vm.question.answers[i].iscorrectly) {
+        if (vm.question.answers[i].is_correct) {
           countSelectedAnswer++;
         }
       }
