@@ -59,4 +59,5 @@ gulp.task('build:copyCss', function () {
       .pipe(reload({stream: true}));
 });
 
+gulp.task('build', gulpsync.sync(['build:cleanFolder', 'build:copyApp']));
 gulp.task('serve', gulpsync.sync(['build:cleanFolder', 'build:copyApp', 'scripts', 'html', 'css', 'browserSync', 'watch']));
