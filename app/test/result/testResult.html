@@ -5,10 +5,41 @@
        layout layout-align="center center">
     <md-whiteframe class="md-whiteframe-1dp"
                    layout="column" layout-align="center center">
-      <h1 class="text-with-simple-style">{{ testResult.testResult.name }}</h1>
+      <div layout layout-align="space-between center"
+           layout-margin layout-padding
+           layout-fill>
+        <md-input-container layout-fill>
+          <label>Тест</label>
+          <md-select ng-model="testResult.searchInfo.id"
+                     layout-fill>
+            <md-option ng-repeat="test in testResult.tests" value="{{ test.id }}">
+              {{ test.name }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <md-button class="md-icon-button"
+                   ng-click="testResult.searchTestResult()">
+          <md-icon md-svg-icon="{{ testResult.searchFileIconURL }}"></md-icon>
+          <md-tooltip>Пошук</md-tooltip>
+        </md-button>
+      </div>
 
-      <div class="text-with-simple-style md-title">{{ testResult.testResult.group.name }}</div>
-      <div class="text-with-simple-style md-subhead">{{ testResult.testResult.endDate | date: 'd.MM.yyyy' }}</div>
+      <div layout layout-align="start start"
+           layout-xs="column" layout-align-xs="start start"
+           layout-margin layout-padding
+           layout-fill>
+        <div layout="column">
+          <h4 class="text-without-style">Початок інтервалу</h4>
+          <md-datepicker ng-model="testResult.searchInfo.from_date" md-placeholder=""
+                         md-max-date="testResult.searchInfo.to_date"></md-datepicker>
+        </div>
+        <div layout="column">
+          <h4 class="text-without-style">Кінець інтервалу</h4>
+          <md-datepicker ng-model="testResult.searchInfo.to_date" md-placeholder=""
+                         md-min-date="testResult.searchInfo.from_date"></md-datepicker>
+        </div>
+      </div>
+
       <div>
         <md-input-container class="dl-input test-result-search-user-input"
                             layout-fill>
@@ -17,13 +48,13 @@
         </md-input-container>
         <div class="point-info"
              layout>
-          <div class="text-without-style F"> 1-34 </div>
-          <div class="text-without-style FX"> 35-59 </div>
-          <div class="text-without-style E"> 60-66 </div>
-          <div class="text-without-style D"> 67-74 </div>
-          <div class="text-without-style C"> 75-81 </div>
-          <div class="text-without-style B"> 82-89 </div>
-          <div class="text-without-style A"> 90-100 </div>
+          <div class="text-without-style F"> 1-34</div>
+          <div class="text-without-style FX"> 35-59</div>
+          <div class="text-without-style E"> 60-66</div>
+          <div class="text-without-style D"> 67-74</div>
+          <div class="text-without-style C"> 75-81</div>
+          <div class="text-without-style B"> 82-89</div>
+          <div class="text-without-style A"> 90-100</div>
         </div>
       </div>
       <div class="test-result-wrapper"
@@ -32,14 +63,14 @@
            layout-fill>
         <div class="text-with-simple-style-hover cursor-pointer outline-off"
              layout layout-align="space-between center"
-             ng-repeat="item in testResult.testResult.group.students | filter : testResult.searchUser track by $index"
-             ng-class="testResult.getBackgroundColor(item.points)"
-             ng-click="testResult.showTestHistory(item)"
+             ng-repeat="item in testResult.testHistory | filter : testResult.searchUser track by $index"
+             ng-class="testResult.getBackgroundColor(item)"
+             ng-click="testResult.showStudentTestHistory(item)"
              layout-margin
              layout-fill>
-          <span class="text-without-style">{{ item.surname }} {{ item.name }}</span>
-          <span class="text-without-style">{{ item.correctAnswered }}</span>
-          <span class="text-without-style">{{ item.points }}</span>
+          <span class="text-without-style"> [{{ item.student.group.name }}] {{ item.student.surname }} {{ item.student.name }}</span>
+          <span class="text-without-style">{{ item.score }} / {{ item.score_total }}</span>
+          <span class="text-without-style">{{ item.created_at }}</span>
         </div>
       </div>
     </md-whiteframe>
@@ -57,10 +88,10 @@
 
       <div class="text-with-simple-style-hover cursor-pointer text-without-style "
            layout layout-align="space-between center"
-           ng-class="{ 'A': item.answer, 'F': !item.answer }"
-           ng-repeat="item in testResult.testHistory track by $index"
+           ng-class="{ 'A': item.is_correct, 'F': !item.is_correct }"
+           ng-repeat="item in testResult.testStudentHistoryInfo.user_answers track by $index"
            layout-margin layout-padding>
-        {{ item.question.name }}
+        {{ item.question.short_name }}
       </div>
     </div>
   </md-sidenav>

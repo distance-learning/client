@@ -428,7 +428,7 @@
     };
 
     vm.showTestResult = function () {
-      var path = '/test/result/1f9d41bbab98d1434c925371bf664d3e35';
+      var path = '/test/result/history';
       $location.path(path);
     };
 
@@ -469,5 +469,10 @@
     vm.downloadFile = function (fileURL) {
       $window.open(fileURL, '_blank');
     };
+
+    vm.goToEditTest = function (test) {
+      var path = '/test/' + test.code + '/edit';
+      $location.path(path);
+    }
   }
 })();

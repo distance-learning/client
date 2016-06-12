@@ -87,7 +87,7 @@
         .when('/test/:testId', {
           template: '<test-pass></test-pass>'
         })
-        .when('/test/result/:testId', {
+        .when('/test/result/history', {
           template: '<test-result></test-result>'
         })
         .when('/test/:testId/question/:questionId', {

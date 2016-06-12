@@ -23,7 +23,9 @@
       updateTestInfo: updateTestInfo,
       completeTest: completeTest,
       getTestResult: getTestResult,
-      getTestHistory: getTestHistory
+      getTestHistory: getTestHistory,
+      getTestForShowHistory: getTestForShowHistory,
+      getTestHistoryByInterval: getTestHistoryByInterval
     };
 
     function getTest(testId) {
@@ -115,7 +117,7 @@
     function updateQuestion(question) {
       var defer = $q.defer();
 
-      $http.put(server_host + 'api/tests/' + question.testId + '/questions/' + question.id, { question: question })
+      $http.put(server_host + 'api/tests/' + question.testId + '/questions/' + question.id, question)
           .success(function (ok, status, headers, config) {
             defer.resolve(ok);
           })
@@ -165,6 +167,31 @@
       var defer = $q.defer();
 
       // TODO: need API
+
+      return defer.promise;
+    }
+
+    function getTestForShowHistory() {
+      var defer = $q.defer();
+
+      $http.get(server_host + 'api/account/tests')
+          .success(defer.resolve)
+          .error(defer.reject);
+
+      return defer.promise;
+    }
+
+    function getTestHistoryByInterval(data) {
+      var defer = $q.defer();
+      var params = {
+        test_id: data.id,
+        from_date: data.from_date.getFullYear() + '-' + (data.from_date.getMonth() + 1) + '-' + data.from_date.getDate(),
+        to_date: data.to_date.getFullYear() + '-' + (data.to_date.getMonth() + 1) + '-' + data.to_date.getDate()
+      };
+
+      $http.get(server_host + '/api/tests/scores', { params: params } )
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }

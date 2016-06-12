@@ -6,73 +6,48 @@
       .controller('TestResultController', TestResultController);
 
   TestResultController.$inject = [
-    '$log', '$routeParams',
+    '$log', '$rootScope',
     '$mdSidenav',
     'TestUtils'
   ];
 
-  function TestResultController($log, $routeParams,
+  function TestResultController($log, $rootScope,
                                 $mdSidenav,
                                 TestUtils) {
     var vm = this;
-    var testCode = $routeParams.testId;
-    vm.testHistory = [
-      {
-        question: { name: 'qustion 1' },
-        answer: true
-      },
-      {
-        question: { name: 'qustion 1' },
-        answer: true
-      },
-      {
-        question: { name: 'qustion 1' },
-        answer: false
-      },
-      {
-        question: { name: 'qustion 1' },
-        answer: true
-      }
-    ];
+    vm.tests = [];
+    vm.searchFileIconURL = '../assests/images/ic_search_black_24px.svg';
+    vm.testHistory = [];
+    vm.testStudentHistoryInfo = [];
     vm.loading = true;
     vm.testResult = {};
+    vm.searchInfo = {
+      to_date: new Date(),
+      from_date: new Date()
+    };
 
-    getTestResult(testCode);
-    function getTestResult(testCode) {
+    init();
+    function init() {
       vm.loading = true;
-      if (testCode == '1f9d41bbab98d1434c925371bf664d3e35') {
-        vm.testResult = {
-          id: 1,
-          code: '1f9d41bbab98d1434c925371bf664d3e35',
-          name: 'Test name',
-          totalQuestion: 20,
-          endDate: new Date(),
-          group: {
-            name: 'Group name',
-            students: [
-              { id: 1, surname: 'User surname 1', name: 'user name 1', correctAnswered: 5, points: 25 },
-              { id: 2, surname: 'User surname 2', name: 'user name 2', correctAnswered: 10, points: 50 },
-              { id: 3, surname: 'User surname 3', name: 'user name 3', correctAnswered: 15, points: 75 },
-              { id: 4, surname: 'User surname 4', name: 'user name 4', correctAnswered: 20, points: 100 }
-            ]
-          }
-        };
 
-        vm.loading = false;
-        return;
-      }
+      getHistoryTest();
+    }
 
-      TestUtils.getTestResult()
-          .then(function (testResult) {
-            vm.testResult = testResult;
+    function getHistoryTest() {
+      vm.loading = true;
+      TestUtils.getTestForShowHistory()
+          .then(function (tests) {
+            vm.tests = tests;
 
             vm.loading = false;
           }, function (err) {
-            $log.log('[ERROR] TestResultController.getTestResult().TestUtils.getTestResult()', err);
-          })
+            $rootScope.notification(err);
+          });
     }
 
-    vm.getBackgroundColor = function (point) {
+    vm.getBackgroundColor = function (student) {
+      var point = student.score * 100 / student.score_total;
+
       if (1 <= point && point <= 34) return 'F';
       if (35 <= point && point <= 59) return 'FX';
       if (60 <= point && point <= 66) return 'E';
@@ -82,18 +57,19 @@
       if (90 <= point && point <= 100) return 'A';
     };
 
-    vm.showTestHistory = function (student) {
+    vm.showStudentTestHistory = function (student) {
+      vm.testStudentHistoryInfo = student;
+
       $mdSidenav("testHistory").open();
-      //vm.loadingTargetTestResult = true;
-      //
-      //TestUtils.getTestHistory(student)
-      //    .then(function (testHistory){
-      //      vm.testHistory = testHistory;
-      //
-      //      vm.loadingTargetTestResult = false;
-      //    }, function (err) {
-      //      $log.log('[ERROR] TestResultController.showTestHistory().TestUtils.getTestHistory()', err);
-      //    });
+    };
+
+    vm.searchTestResult = function () {
+      TestUtils.getTestHistoryByInterval(vm.searchInfo)
+          .then(function (ok) {
+            vm.testHistory = ok;
+          }, function (err) {
+            $rootScope.notification(err);
+          });
     };
   }
 })();

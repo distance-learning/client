@@ -112,14 +112,21 @@
                ng-if="!profileTeacher.teacherModuleLoading">
             <h3 class="text-with-simple-style">Тести</h3>
 
-            <div class="md-1-line wrapper-item"
-                 layout layout-align="space-between start"
-                 layout-padding
-                 layout-fill
-                 ng-repeat="test in profileTeacher.teacher.modules.tests track by $index">
-              <div class="md-list-item-text non-select cursor-pointer"
-                   ng-drag="true" ng-drag-data="{ data: test, type: 'test' }" data-allow-transform="true">
-                {{ test.name }}
+            <div layout-fill>
+              <div class="md-1-line wrapper-item"
+                   layout layout-align="space-between center"
+                   layout-fill
+                   ng-repeat="test in profileTeacher.teacher.modules.tests track by $index">
+                <div class="md-list-item-text non-select cursor-pointer"
+                     layout-padding
+                     ng-drag="true" ng-drag-data="{ data: test, type: 'test' }" data-allow-transform="true">
+                  {{ test.name }}
+                </div>
+                <md-button class="md-icon-button"
+                           ng-click="profileTeacher.goToEditTest(test)">
+                  <md-icon md-svg-icon="{{ profileTeacher.moduleInfoIconURL }}"></md-icon>
+                  <md-tooltip>Редагувати тест</md-tooltip>
+                </md-button>
               </div>
             </div>
           </div>
