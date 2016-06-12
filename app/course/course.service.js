@@ -18,7 +18,8 @@
       getCourses: getCourses,
       getCourse: getCourse,
       updateCourse: updateCourse,
-      removeCourse: removeCourse
+      removeCourse: removeCourse,
+      searchCourse: searchCourse
     };
 
     function createCourse(course) {
@@ -76,6 +77,16 @@
       var defer = $q.defer();
 
       $http.delete(server_host + 'api/admin/courses/' + course.id)
+          .success(defer.resolve)
+          .error(defer.reject);
+
+      return defer.promise;
+    }
+
+    function searchCourse(search) {
+      var defer = $q.defer();
+
+      $http.get(server_host + 'api/admin/courses/search', { params: { search: search }})
           .success(defer.resolve)
           .error(defer.reject);
 

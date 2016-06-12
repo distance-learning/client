@@ -18,6 +18,7 @@
     var vm = this;
     var countCoursesInPage = 15;
     vm.isOpen = true;
+    vm.isSearchCourse = false;
     vm.managerCourseIconURL = './assests/images/ic_more_vert_black_24px.svg';
     vm.editCourseIconURL = './assests/images/ic_border_color_black_24px.svg';
     vm.removeCourseIconURL = './assests/images/ic_delete_black_24px.svg';
@@ -106,6 +107,30 @@
       }
 
       return new Array(countPage);
+    };
+
+    vm.searchCourse = function () {
+      if (vm.isSearchCourse) {
+        vm.isSearchCourse = false;
+
+        return getCourses(vm.params);
+      }
+      var confirm = $mdDialog.prompt()
+          .title('Пошук курсу')
+          .textContent('Введіть назву')
+          .ok('Зберегти')
+          .cancel('Відмінити');
+      $mdDialog.show(confirm)
+          .then(function(search) {
+            CourseUtils.searchCourse(search)
+                .then(function (courses) {
+                  vm.courses = courses;
+
+                  vm.isSearchCourse = true;
+                }, function (err) {
+                  $log.log('[ERRPR] UsersController.searchFaculty().FacultyListUtils.searchFaculty()', err);
+                });
+          });
     };
   }
 })();
