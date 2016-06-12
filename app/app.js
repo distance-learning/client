@@ -15,6 +15,7 @@
         'ngSanitize',
         'angular-clipboard',
         'treeControl',
+        'toastr',
         'distanceLearning.auth',
         'distanceLearning.home',
         'distanceLearning.menu',

@@ -5,11 +5,13 @@
       .module('distanceLearning')
       .config(configURL)
       .config(configAuth)
-      .config(configCalendar);
+      .config(configCalendar)
+      .config(toastrConfig);
 
   configURL.$inject = ['$routeProvider'];
   configAuth.$inject = ['$authProvider'];
   configCalendar.$inject = ['$mdDateLocaleProvider'];
+  toastrConfig.$inject = ['toastrConfig'];
 
   function configURL($routeProvider) {
     $routeProvider
@@ -110,4 +112,18 @@
   function configCalendar($mdDateLocaleProvider) {
     $mdDateLocaleProvider.firstDayOfWeek = 1;
   }
+
+  function toastrConfig(toastrConfig) {
+    angular.extend(toastrConfig, {
+      autoDismiss: false,
+      containerId: 'toast-container',
+      progressBar: true,
+      newestOnTop: true,
+      positionClass: 'toast-bottom-left',
+      preventDuplicates: false,
+      preventOpenDuplicates: false,
+      target: 'body'
+    })
+  }
 })();
+

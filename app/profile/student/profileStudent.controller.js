@@ -7,12 +7,12 @@
 
   ProfileStudentController.$inject = [
     '$log', '$location', '$rootScope', '$window',
-    '$mdSidenav', '$mdDialog',
+    '$mdSidenav', '$mdDialog', 'toastr',
     'ProfileUtils', 'ProfileStudentUtils', 'LoginUtils'
   ];
 
   function ProfileStudentController($log, $location, $rootScope, $window,
-                                    $mdSidenav, $mdDialog,
+                                    $mdSidenav, $mdDialog, toastr,
                                     ProfileUtils, ProfileStudentUtils, LoginUtils) {
     var vm = this;
     vm.loading = true;
@@ -101,16 +101,24 @@
           .then(function (events) {
             vm.currentSelectedDate = events;
 
+            getNotification();
+
             $rootScope.$broadcast('dl-calendar-setupEvents', vm.currentSelectedDate);
           }, function (err) {
             $rootScope.notification(err);
           });
     }
 
-    vm.goToCompleteTest = function () {
-      var path = 'test/123';
-      $location.path(path);
-    };
+    function getNotification() {
+      ProfileUtils.getNotification()
+          .then(function (notification) {
+            for(var i in notification) {
+              toastr.success('[' + notification[i].deadline.split(" ")[0] + ']' + notification[i].attachment.attachment.name, 'Нагадування');
+            }
+          }, function (err) {
+            $rootScope.notification(err);
+          });
+    }
 
     vm.getSubjectTask = function (subject) {
       vm.loadingTaskSubject = true;

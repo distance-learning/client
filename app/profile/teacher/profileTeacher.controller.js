@@ -7,12 +7,12 @@
 
   ProfileTeacherController.$inject = [
     '$log', '$location', '$rootScope', '$window',
-    '$mdSidenav', '$mdDialog', '$mdBottomSheet',
+    '$mdSidenav', '$mdDialog', '$mdBottomSheet', 'toastr',
     'ProfileUtils', 'ProfileTeacherUtils', 'LoginUtils', 'TestUtils'
   ];
 
   function ProfileTeacherController($log, $location, $rootScope, $window,
-                                    $mdSidenav, $mdDialog, $mdBottomSheet,
+                                    $mdSidenav, $mdDialog, $mdBottomSheet, toastr,
                                     ProfileUtils, ProfileTeacherUtils, LoginUtils, TestUtils) {
     var vm = this;
     vm.loading = true;
@@ -119,6 +119,8 @@
       ProfileUtils.getEvents(date)
           .then(function (events) {
             vm.currentSelectedDate = events;
+
+            getNotification();
             $rootScope.$broadcast('dl-calendar-setupEvents', vm.currentSelectedDate)
           }, function (err) {
             $rootScope.notification(err);
@@ -250,6 +252,17 @@
           }, function (err) {
             $log.log('[ERROR] ProfileTeacherController.createModule().ProfileTeacherUtils.addModuleContent()', err);
 
+            $rootScope.notification(err);
+          });
+    }
+
+    function getNotification() {
+      ProfileUtils.getNotification()
+          .then(function (notification) {
+            for(var i in notification) {
+              toastr.success('[' + notification[i].deadline.split(" ")[0] + ']' + notification[i].attachment.attachment.name, 'Нагадування');
+            }
+          }, function (err) {
             $rootScope.notification(err);
           });
     }
