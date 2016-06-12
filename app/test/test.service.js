@@ -142,11 +142,13 @@
       return defer.promise;
     }
 
-    function completeTest(answers) {
+    function completeTest(answers, testCode) {
       console.log(answers);
       var defer = $q.defer();
 
-      // TODO: API need api
+      $http.post(server_host + '/api/tests/' + testCode + '/check', { questions: answers })
+          .success(defer.resolve)
+          .error(defer.reject);
 
       return defer.promise;
     }

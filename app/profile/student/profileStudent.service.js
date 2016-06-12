@@ -15,7 +15,8 @@
     var service = {
       getSubjects: getSubjects,
       getUserTask: getUserTask,
-      responseFileForTask: responseFileForTask
+      responseFileForTask: responseFileForTask,
+      downloadFile: downloadFile
     };
 
     function getSubjects() {
@@ -42,6 +43,16 @@
       var defer = $q.defer();
 
       $http.put(server_host + 'api/tasks/' + data.task.id + '/files/' + data.file.id)
+          .success(defer.resolve)
+          .error(defer.reject);
+
+      return defer.promise;
+    }
+
+    function downloadFile(testCode) {
+      var defer = $q.defer();
+
+      $http.get(server_host + '/api/tests/' +  testCode + '/export')
           .success(defer.resolve)
           .error(defer.reject);
 

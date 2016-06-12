@@ -141,13 +141,25 @@
     };
 
     vm.uploadFile = function (task) {
-      vm.uploadForTask = task;
-      $mdDialog.show({
-        controller: 'dlFileUploadFileController',
-        controllerAs: 'dlFileUploadFile',
-        templateUrl: './component/dlFileUpload/file/dlFileUploadFile.html',
-        clickOutsideToClose: false
-      });
+      if (task.attachment_type == 'module') {
+        vm.uploadForTask = task;
+        $mdDialog.show({
+          controller: 'dlFileUploadFileController',
+          controllerAs: 'dlFileUploadFile',
+          templateUrl: './component/dlFileUpload/file/dlFileUploadFile.html',
+          clickOutsideToClose: false
+        });
+      }
+      if (task.attachment_type == 'test') {
+        ProfileStudentUtils.downloadFile(task.attachment.code)
+            .then(function (file) {
+              console.log(file);
+
+              //$window.open(fileURL, '_blank');
+            }, function (err) {
+              $rootScope.notification(err);
+            })
+      }
     };
   }
 })();

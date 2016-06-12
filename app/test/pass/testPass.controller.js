@@ -41,6 +41,13 @@
     };
     vm.answers = [];
 
+    $rootScope.$on('$locationChangeStart', function (event, newUrl, oldUrl) {
+      if (angular.isDefined(vm.ticker)) {
+        $interval.cancel(vm.ticker);
+        vm.ticker = undefined;
+      }
+    });
+
     init();
     function init() {
       vm.loading = true;
@@ -150,9 +157,9 @@
         vm.ticker = undefined;
       }
 
-      TestUtils.completeTest(vm.answers)
+      TestUtils.completeTest(vm.answers, testId)
           .then(function (ok) {
-            $rootScope.notification('Тест завершено');
+            $rootScope.notification('Тест завершено! [' + ok.score + '/' + ok.score_total + ']');
 
             $location.path('/home');
           }, function (err) {
