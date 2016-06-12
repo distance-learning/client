@@ -44,7 +44,7 @@
         phone: user.phone,
         email: user.email,
         role: user.role,
-        description: '',
+        description: user.description,
         password: user.password
       };
 

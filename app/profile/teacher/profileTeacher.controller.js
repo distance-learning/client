@@ -102,7 +102,6 @@
           .then(function (teacher) {
             vm.teacher = teacher;
             vm.teacher.avatar = './assests/images/user_tmp.png';
-            vm.teacher.description = 'Викладач наук';
 
             getSubjectWithGroups();
             getTeacherModule();
