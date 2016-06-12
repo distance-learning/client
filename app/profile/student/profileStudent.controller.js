@@ -6,12 +6,12 @@
       .controller('ProfileStudentController', ProfileStudentController);
 
   ProfileStudentController.$inject = [
-    '$log', '$location', '$rootScope',
+    '$log', '$location', '$rootScope', '$window',
     '$mdSidenav', '$mdDialog',
     'ProfileUtils', 'ProfileStudentUtils', 'LoginUtils'
   ];
 
-  function ProfileStudentController($log, $location, $rootScope,
+  function ProfileStudentController($log, $location, $rootScope, $window,
                                     $mdSidenav, $mdDialog,
                                     ProfileUtils, ProfileStudentUtils, LoginUtils) {
     var vm = this;
@@ -153,9 +153,7 @@
       if (task.attachment_type == 'test') {
         ProfileStudentUtils.downloadFile(task.attachment.code)
             .then(function (file) {
-              console.log(file);
-
-              //$window.open(fileURL, '_blank');
+              $window.open(file.path, '_blank');
             }, function (err) {
               $rootScope.notification(err);
             })
