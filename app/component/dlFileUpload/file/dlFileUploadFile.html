@@ -73,11 +73,18 @@
                                                     on-copied="dlFileUploadFile.clipboardSuccess()"
                                                     on-error="dlFileUploadFile.clipboardFail(err)">{{ file.filename }}</span>
                 </span>
-                <md-button class="md-icon-button"
-                           ng-click="dlFileUploadFile.downloadFile(file.path)">
-                  <md-icon md-svg-icon="{{ dlFileUploadFile.downloadFileIconURL }}"></md-icon>
-                  <md-tooltip>Завантажити</md-tooltip>
-                </md-button>
+                <div layout>
+                  <md-button class="md-icon-button"
+                             ng-click="dlFileUploadFile.downloadFile(file.path)">
+                    <md-icon md-svg-icon="{{ dlFileUploadFile.downloadFileIconURL }}"></md-icon>
+                    <md-tooltip>Завантажити</md-tooltip>
+                  </md-button>
+                  <md-button class="md-icon-button"
+                             ng-click="dlFileUploadFile.removeFile(file)">
+                    <md-icon md-svg-icon="{{ dlFileUploadFile.removeFileIconURL }}"></md-icon>
+                    <md-tooltip>Видалити</md-tooltip>
+                  </md-button>
+                </div>
               </div>
               <div class="pagination"
                    layout layout-align="center center"

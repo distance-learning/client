@@ -20,7 +20,8 @@
       getUploadURL: getUploadURL,
       getUploadImageProfileURL: getUploadImageProfileURL,
       getUploadImageFacultyURL: getUploadImageFacultyURL,
-      getUploadHeader: getUploadHeader
+      getUploadHeader: getUploadHeader,
+      removeFile: removeFile
     };
 
     function getImages() {
@@ -57,6 +58,16 @@
 
     function getUploadHeader() {
       return 'Bearer ' + $auth.getToken()
+    }
+
+    function removeFile(file) {
+      var defer = $q.defer();
+
+      $http.delete(server_host + 'api/files/' + file.id)
+          .success(defer.resolve)
+          .error(defer.reject);
+
+      return defer.promise;
     }
 
     return service;

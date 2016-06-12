@@ -22,6 +22,7 @@
     vm.cancelUploadIconURL = './assests/images/ic_remove_circle_black_18px.svg';
     vm.templateFileIconURL = './assests/images/ic_data_usage_black_24px.svg';
     vm.downloadFileIconURL = './assests/images/ic_cloud_download_black_24px.svg';
+    vm.removeFileIconURL = './assests/images/ic_remove_circle_black_18px.svg';
     vm.files = {
       data: [ ],
       total: 10
@@ -98,6 +99,15 @@
 
     vm.downloadFile = function (fileURL) {
       $window.open(fileURL, '_blank');
+    };
+
+    vm.removeFile = function (file) {
+      dlFileUploadUtils.removeFile(file)
+          .then(function () {
+            getFiles();
+          }, function (err) {
+            $rootScope.notification(err);
+          });
     };
   }
 })();
