@@ -31,7 +31,8 @@
          layout-xs="column" layout-align-xs="center center"
          layout-sm="column" layout-align-sm="center center">
       <div layout="column">
-        <md-virtual-repeat-container id="subject-container">
+        <md-virtual-repeat-container id="subject-container"
+                                     ng-if="!profileStudent.isArray()">
           <div id="header">
             <div>
               Предмети:
@@ -50,14 +51,12 @@
            layout="column" layout-align="space-between start"
            layout-margin layout-padding
            layout-fill>
-        <md-progress-linear md-mode="indeterminate"
-                            ng-if="profileStudent.loadingTaskSubject"></md-progress-linear>
+        <div ng-if="!profileStudent.isArray()">
+          <md-progress-linear md-mode="indeterminate"
+                              ng-if="profileStudent.loadingTaskSubject"></md-progress-linear>
+        </div>
         <h2 class="text-with-simple-style"
-            ng-if="profileStudent.userTasks.length == 0 && !profileStudent.loadingTaskSubject">
-          Список порожній
-        </h2>
-        <h2 class="text-with-simple-style"
-            ng-if="profileStudent.nothingToShow">
+            ng-if="profileStudent.userTasks.length == 0 && !profileStudent.loadingTaskSubject || profileStudent.nothingToShow">
           Список порожній
         </h2>
 
