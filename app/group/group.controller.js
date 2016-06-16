@@ -45,15 +45,6 @@
       GroupUtils.getFacultyInfo(vm.paramsStudents)
           .then(function (ok) {
             vm.faculties = ok;
-            vm.directions = vm.faculties[0].directions ? vm.faculties[0].directions : [];
-            vm.group.faculty = vm.faculties[0] ? vm.faculties[0] : {};
-            vm.group.faculty_id = vm.faculties[0] ? vm.faculties[0].id : undefined;
-            vm.group.direction = vm.faculties[0].directions[0] ? vm.faculties[0].directions[0] : {};
-            vm.group.direction_id = vm.faculties[0].directions[0] ? vm.faculties[0].directions[0].id : undefined;
-
-            vm.paramsGroups.faculty = vm.faculties[0] ? vm.faculties[0] : {};
-            vm.paramsGroups.direction = vm.faculties[0].directions[0] ? vm.faculties[0].directions[0] : {};
-            getGroups(vm.paramsGroups);
 
             GroupUtils.getStudents()
                 .then(function (ok) {
@@ -66,6 +57,20 @@
                 }, function (err) {
                   $log.log('[ERROR] GroupController.init().GroupUtils.getFacultyInfo().GroupUtils.getStudents()', err);
                 });
+
+            if (!vm.faculties.length) { return vm.loading = false; }
+
+            vm.directions = vm.faculties[0].directions ? vm.faculties[0].directions : [];
+            vm.group.faculty = vm.faculties[0] ? vm.faculties[0] : {};
+            vm.group.faculty_id = vm.faculties[0] ? vm.faculties[0].id : undefined;
+            vm.group.direction = vm.faculties[0].directions[0] ? vm.faculties[0].directions[0] : {};
+            vm.group.direction_id = vm.faculties[0].directions[0] ? vm.faculties[0].directions[0].id : undefined;
+
+            vm.paramsGroups.faculty = vm.faculties[0] ? vm.faculties[0] : {};
+            vm.paramsGroups.direction = vm.faculties[0].directions[0] ? vm.faculties[0].directions[0] : {};
+            getGroups(vm.paramsGroups);
+
+
 
             vm.loading = false;
           }, function (err) {
