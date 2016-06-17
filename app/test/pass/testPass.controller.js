@@ -131,6 +131,11 @@
 
 
     function checkTime() {
+      if (vm.test.time != 0 && vm.tickerSecond >= vm.test.time * 1000) {
+        stopTimer();
+
+        completeTest();
+      }
       if (vm.UIQuestion.time != vm.tickerSecond) { return; }
 
       stopTimer();
@@ -146,7 +151,8 @@
     }
 
     function stopTimer() {
-      console.log('stopTimer', 123);
+      if (vm.test.time != 0) { return; }
+
       vm.tickerSecond = 0;
       console.log('tickerSecond', vm.tickerSecond);
     }
@@ -188,5 +194,13 @@
     vm.isSkipQuestion = function () {
       return !vm.UIQuestion.is_skip;
     };
+
+    vm.getTotalTime = function () {
+      if (vm.test.time == 0) {
+        return vm.UIQuestion.time;
+      }
+
+      return vm.test.time* 1000;
+    }
   }
 })();
