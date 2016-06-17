@@ -63,6 +63,7 @@
 
 .event-container .eventItem {
   outline: none;
+  max-width: 150px;
 }
 
 .event-container .eventItem span {
