@@ -32,7 +32,7 @@
          layout-sm="column" layout-align-sm="center center">
       <div layout="column">
         <md-virtual-repeat-container id="subject-container"
-                                     ng-if="!profileStudent.isArray()">
+                                     ng-if="profileStudent.subjects.length">
           <div id="header">
             <div>
               Предмети:
@@ -51,7 +51,7 @@
            layout="column" layout-align="space-between start"
            layout-margin layout-padding
            layout-fill>
-        <div ng-if="!profileStudent.isArray()">
+        <div ng-if="profileStudent.subjects.length">
           <md-progress-linear md-mode="indeterminate"
                               ng-if="profileStudent.loadingTaskSubject"></md-progress-linear>
         </div>

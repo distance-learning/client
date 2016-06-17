@@ -82,7 +82,7 @@
                 .then(function (subjects) {
                   vm.subjects = subjects;
 
-                  if (!angular.isArray(vm.subjects)) vm.getSubjectTask(vm.subjects[0]);
+                  if (vm.subjects.length != 0) vm.getSubjectTask(vm.subjects[0]);
                   else vm.nothingToShow = true;
 
                   vm.loading = false;
@@ -95,10 +95,6 @@
             return $location.path('/home');
           });
     }
-
-    vm.isArray = function () {
-      return angular.isArray(vm.subjects);
-    };
 
     function getEvents(date) {
       ProfileUtils.getEvents(date)
