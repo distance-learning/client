@@ -6,11 +6,11 @@
       .controller('HomeController', HomeController);
 
   HomeController.$inject = [
-    '$location', '$log',
+    '$location', '$log', '$rootScope',
     'LoginUtils', 'ProfileUtils'
   ];
 
-  function HomeController($location, $log,
+  function HomeController($location, $log, $rootScope,
                           LoginUtils, ProfileUtils) {
     var vm = this;
     vm.loadingUserInfo = true;
@@ -61,5 +61,9 @@
     vm.logout = function () {
       LoginUtils.logout();
     };
+
+    $rootScope.$on('go-to-profile', function () {
+      vm.goToProfile();
+    });
   }
 })();

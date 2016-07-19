@@ -6,11 +6,11 @@
       .controller('MenuClientController', MenuClientController);
 
   MenuClientController.$inject = [
-    '$mdSidenav', '$location',
+    '$mdSidenav', '$location', '$rootScope',
     'LoginUtils'
   ];
 
-  function MenuClientController($mdSidenav, $location,
+  function MenuClientController($mdSidenav, $location, $rootScope,
                                 LoginUtils) {
     var vm = this;
     vm.menuIconURL = 'assests/images/ic_apps_black_18px.svg';
@@ -42,6 +42,10 @@
 
     vm.goToFaculty = function () {
       $location.path('/faculties');
+    };
+    
+    vm.goToProfile = function () {
+      $rootScope.$emit('go-to-profile');
     };
   }
 })();

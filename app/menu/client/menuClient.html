@@ -14,7 +14,13 @@
       <md-tooltip>Факультети</md-tooltip>
     </md-button>
     <div ng-if="menuClient.isLogged()"
-        style="border-left: 2px solid rgb(233, 126, 89);">
+         style="border-left: 2px solid rgb(233, 126, 89);">
+      <md-button class="md-icon-button" aria-label=""
+                 ng-click="menuClient.goToProfile()">
+        <img src="./assests/images/ic_account_circle_black_24dp_1x.png" alt=""
+             ng-click="menuClient.goToProfile()">
+        <md-tooltip>Особистий кабінет</md-tooltip>
+      </md-button>
       <md-menu>
         <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="">
           <md-icon md-svg-src="{{ menuClient.settingsIconURL }}" aria-label=""></md-icon>
